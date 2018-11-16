@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+
+<!-- Mirrored from getbootstrapadmin.com/remark/base/pages/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Nov 2018 04:19:12 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+
+  <title>{{ config('app.name', 'SIMIDA') }}</title>
+
+  <link rel="apple-touch-icon" href="{{asset('/assets/img/logo/apple-touch-icon.png')}}">
+  <link rel="shortcut icon" href="{{asset('/assets/img/logo/favicon.ico')}}">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min599c.css')}}">
+  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap-extend.min599c.css')}}">
+  <link rel="stylesheet" href="{{asset('/assets/css/site.min599c.css')}}">
+
+  <!-- Skin tools (demo site only) -->
+  <link rel="stylesheet" href="{{asset('/assets/css/skintools.min599c.css?v4.0.2')}}">
+  <script src="{{asset('/assets/js/Plugin/skintools.min599c.js?v4.0.2')}}"></script>
+
+  <!-- Plugins -->
+  <link rel="stylesheet" href="{{asset('/assets/vendor/asscrollable/asScrollable.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="{{asset('/assets/vendor/switchery/switchery.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="{{asset('/assets/vendor/intro-js/introjs.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="{{asset('/assets/vendor/slidepanel/slidePanel.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="{{asset('/assets/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2')}}">
+
+  <!-- Plugins For This Page -->
+  <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2')}}">
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="{{asset('/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="{{asset('/assets/fonts/brand-icons/brand-icons.min599c.css?v4.0.2')}}">
+  <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
+  
+  <!-- Scripts -->
+  <script src="{{asset('/assets/vendor/breakpoints/breakpoints.min599c.js?v4.0.2')}}"></script>
+  <script>
+    Breakpoints();
+  </script>
+</head>
+<body class="animsition">
+<header>
+<!--Start: Navbar-->
+<nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-expand-md" role="navigation">
+    
+    <!--Navbar SM Layer-->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="hamburger-bar"></span>
+        </button>
+        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
+            <i class="icon wb-more-horizontal" aria-hidden="true"></i>
+        </button>
+        <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
+            <img class="navbar-brand-logo" src="assets/img/logo/Pondok.png" title="Remark">
+            <span class="navbar-brand-text hidden-xs-down"> SIMIDA  </span>
+        </div>
+        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
+            <span class="sr-only">Toggle Search</span>
+            <i class="icon wb-search" aria-hidden="true"></i>
+        </button>
+    </div>
+    <!--/Navbar SM Layer-->
+    
+    <div class="navbar-container container-fluid">
+        <!-- Navbar Collapse -->
+        <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+            <!-- Navbar Toolbar -->
+            <ul class="nav navbar-toolbar">
+                <li class="nav-item hidden-float">
+                    <a class="nav-link icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search" role="button">
+                        <span class="sr-only">Toggle Search</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown dropdown-fw dropdown-mega">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="fade" role="button">Mega <i class="icon wb-chevron-down-mini" aria-hidden="true"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <div class="mega-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>UI Kit</h5>
+                                    <ul class="blocks-2">
+                                        <li class="mega-menu m-0">
+                                            <ul class="list-icons">
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../advanced/animation.html">Animation</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/buttons.html">Buttons</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/colors.html">Colors</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/dropdowns.html">Dropdowns</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/icons.html">Icons</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../advanced/lightbox.html">Lightbox</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="mega-menu m-0">
+                                            <ul class="list-icons">
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/modals.html">Modals</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/panel-structure.html">Panels</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../structure/overlay.html">Overlay</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/tooltip-popover.html">Tooltips</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../advanced/scrollable.html">Scrollable</a>
+                                                </li>
+                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
+                                                    <a href="../uikit/typography.html">Typography</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Media
+                      <span class="badge badge-pill badge-success">4</span>
+                    </h5>
+                                    <ul class="blocks-3">
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-1-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-2-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-3-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-4-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-5-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thumbnail m-0" href="javascript:void(0)">
+                                                <img class="w-full" src="../../global/photos/view-6-150x100.jpg" alt="..." />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="mb-0">Accordion</h5>
+                                    <!-- Accordion -->
+                                    <div class="panel-group panel-group-simple" id="siteMegaAccordion" aria-multiselectable="true" role="tablist">
+                                        <div class="panel">
+                                            <div class="panel-heading" id="siteMegaAccordionHeadingOne" role="tab">
+                                                <a class="panel-title" data-toggle="collapse" href="#siteMegaCollapseOne" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseOne">
+                              Collapsible Group Item #1
+                            </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="siteMegaCollapseOne" aria-labelledby="siteMegaAccordionHeadingOne" role="tabpanel">
+                                                <div class="panel-body">
+                                                    De moveat laudatur vestra parum doloribus labitur sentire partes, eripuit praesenti congressus ostendit alienae, voluptati ornateque accusamus clamat reperietur convicia albucius.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-heading" id="siteMegaAccordionHeadingTwo" role="tab">
+                                                <a class="panel-title collapsed" data-toggle="collapse" href="#siteMegaCollapseTwo" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseTwo">
+                              Collapsible Group Item #2
+                            </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="siteMegaCollapseTwo" aria-labelledby="siteMegaAccordionHeadingTwo" role="tabpanel">
+                                                <div class="panel-body">
+                                                    Praestabiliorem. Pellat excruciant legantur ullum leniter vacare foris voluptate loco ignavi, credo videretur multoque choro fatemur mortis animus adoptionem, bello statuat expediunt naturales.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel">
+                                            <div class="panel-heading" id="siteMegaAccordionHeadingThree" role="tab">
+                                                <a class="panel-title collapsed" data-toggle="collapse" href="#siteMegaCollapseThree" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseThree">
+                              Collapsible Group Item #3
+                            </a>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="siteMegaCollapseThree" aria-labelledby="siteMegaAccordionHeadingThree" role="tabpanel">
+                                                <div class="panel-body">
+                                                    Horum, antiquitate perciperet d conspectum locus obruamus animumque perspici probabis suscipere. Desiderat magnum, contenta poena desiderant concederetur menandri damna disputandum corporum.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Accordion -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- End Navbar Toolbar -->
+
+            <!-- Navbar Toolbar Right -->
+            <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
+                        <span class="avatar avatar-online">
+                <img src="assets/img/user/DP6.jpg" alt="...">
+                <i></i>
+              </span>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+                        <div class="dropdown-divider" role="presentation"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
+                        <i class="icon wb-bell" aria-hidden="true"></i>
+                        <span class="badge badge-pill badge-danger up"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
+                        <div class="dropdown-menu-header">
+                            <h5>NOTIFICATIONS</h5>
+                            <!-- <span class="badge badge-round badge-danger">New 5</span> -->
+                        </div>
+
+                        <div class="list-group">
+                            <div data-role="container">
+                                <div data-role="content">
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                        <div class="media">
+                                            <div class="pr-10">
+                                                <i class="icon wb-order bg-red-600 white icon-circle" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">A new order has been placed</h6>
+                                                <time class="media-meta" datetime="2018-06-12T20:50:48+08:00">5 hours ago</time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                        <div class="media">
+                                            <div class="pr-10">
+                                                <i class="icon wb-user bg-green-600 white icon-circle" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Completed the task</h6>
+                                                <time class="media-meta" datetime="2018-06-11T18:29:20+08:00">2 days ago</time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                        <div class="media">
+                                            <div class="pr-10">
+                                                <i class="icon wb-settings bg-red-600 white icon-circle" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Settings updated</h6>
+                                                <time class="media-meta" datetime="2018-06-11T14:05:00+08:00">2 days ago</time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                        <div class="media">
+                                            <div class="pr-10">
+                                                <i class="icon wb-calendar bg-blue-600 white icon-circle" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Event started</h6>
+                                                <time class="media-meta" datetime="2018-06-10T13:50:18+08:00">3 days ago</time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                        <div class="media">
+                                            <div class="pr-10">
+                                                <i class="icon wb-chat bg-orange-600 white icon-circle" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">Message received</h6>
+                                                <time class="media-meta" datetime="2018-06-10T12:34:48+08:00">3 days ago</time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-footer">
+                            <a class="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
+                                <i class="icon wb-settings" aria-hidden="true"></i>
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                    All notifications
+                  </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- End Navbar Toolbar Right -->
+        </div>
+        <!-- End Navbar Collapse -->
+
+        <!-- Site Navbar Seach -->
+        <div class="collapse navbar-search-overlap" id="site-navbar-search">
+            <form role="search">
+                <div class="form-group">
+                    <div class="input-search">
+                        <i class="input-search-icon wb-search" aria-hidden="true"></i>
+                        <input type="text" class="form-control" name="site-search" placeholder="Search...">
+                        <button type="button" class="input-search-close icon wb-close" data-target="#site-navbar-search" data-toggle="collapse" aria-label="Close"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- End Site Navbar Seach -->
+    </div>
+</nav>
+<!-- End: Navbar -->
+<!--Start: Side Navbar-->
+<div class="site-menubar">
+    <div class="site-menubar-body">
+        <div>
+            <div>
+                <ul class="site-menu" data-plugin="menu">
+                    <li class="site-menu-category">General</li>
+                    <li class="site-menu-item">
+                        <a href="dasboard.html">
+                            <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
+                            <span class="site-menu-title">Dashboard</span>
+                            <div class="site-menu-badge">
+                                <span class="badge badge-pill badge-success">3</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon wb-share" aria-hidden="true"></i>
+                            <span class="site-menu-title">Sekretariat</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Master Santri</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Master Kelas</span></a>
+                            </li>
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <span class="site-menu-title">Master Santri</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Asrama</span>
+                                        </a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Kobong</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Data Guru</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Data Dewan Kyai</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Perpindahan Asrama Santri</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Daftar Santri Aktif</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon wb-clipboard" aria-hidden="true"></i>
+                            <span class="site-menu-title">Pendidikan</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Periode</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Mata Pelajaran</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Absensi Kelas</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Perubahan semester</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
+                            </li>
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <span class="site-menu-title">Report</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Report Nilai Siswa Terendah</span>
+                                        </a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Report Absensi Siswa</span>
+                                        </a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Report Nilai Siswa</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon wb-graph-up" aria-hidden="true"></i>
+                            <span class="site-menu-title">Keuangan</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Syariah</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Pengeluaran</span></a>
+                            </li>
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="site-menu-item has-sub">
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon wb-lock" aria-hidden="true"></i>
+                            <span class="site-menu-title">Keamanan</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item">
+                                <a href="#!"><span class="site-menu-title">Entri Izin Santri</span></a>
+                            </li>
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <span class="site-menu-title">Report</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Entri</span>
+                                        </a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="#!">
+                                            <span class="site-menu-title">Pemberitahuan</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="site-menubar-section">
+                    <h5>Santri<span class="float-right">77%</span></h5>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar active" style="width: 80%;" role="progressbar"></div>
+                    </div>
+                    <h5>Santri Wati<span class="float-right">33%</span></h5>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-warning" style="width: 43%;" role="progressbar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-menubar-footer">
+        <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Settings">
+            <span class="icon wb-settings" aria-hidden="true"></span>
+        </a>
+        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
+            <span class="icon wb-eye-close" aria-hidden="true"></span>
+        </a>
+        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" role="menuitem" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+            <span class="icon wb-power" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+<!--END: Side Navbar-->
+</header>
+<!-- Page -->
+<main class="page">
+<div class="page-content">
+    @yield('content')
+</div><!--/.page-content-->
+</main><!--/.page-->
+<!-- End Page -->
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="site-footer-legal">© 2018 {{ config('app.name', 'SIMIDA') }}</div>
+    <div class="site-footer-right">
+      Crafted with <i class="red-600 wb wb-heart"></i> by <a href="https://birutekno.com" target="_blank" title="Team Web Developer Create with Love. ~ExteraDex~Zimmy~">Birutekno.inc</a>
+    </div>
+  </footer>
+</body>
+<!-- Core  -->
+<script src="{{asset('/assets/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/jquery/jquery.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/popper-js/umd/popper.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/bootstrap/bootstrap.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/animsition/animsition.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2')}}"></script>
+<script src="{{asset('/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2')}}"></script>
+    <!-- page -->
+    <script src="{{asset('/assets/js/Site.min599c.js?v4.0.2')}}"></script>
+  <!-- Plugins For This Page -->
+  <script src="{{asset('/assets/vendor/bootstrap-table/bootstrap-table.min599c.js?v4.0.2')}}"></script>
+  <script src="{{asset('/assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.min599c.js?v4.0.2')}}"></script>
+<script>
+
+! function(global, factory) {
+    if ("function" == typeof define && define.amd) define("/tables/bootstrap", ["jquery", "Site"], factory);
+    else if ("undefined" != typeof exports) factory(require("jquery"), require("Site"));
+    else {
+        var mod = {
+            exports: {}
+        };
+        factory(global.jQuery, global.Site), global.tablesBootstrap = mod.exports
+    }
+}(this, function(_jquery, _Site) {
+    "use strict";
+    var _jquery2 = babelHelpers.interopRequireDefault(_jquery),
+        Site = babelHelpers.interopRequireWildcard(_Site);
+    (0, _jquery2.default)(document).ready(function($) {
+            Site.run()
+        }),
+        function() {
+            var bt_data = [{
+                Tid: "1",
+                First: "Jill",
+                Last: "Smith",
+                Score: "50"
+            }, {
+                Tid: "2",
+                First: "Eve",
+                Last: "Jackson",
+                Score: "94"
+            }, {
+                Tid: "3",
+                First: "John",
+                Last: "Doe",
+                Score: "80"
+            }, {
+                Tid: "4",
+                First: "Adam",
+                Last: "Johnson",
+                Score: "67"
+            }, {
+                Tid: "5",
+                First: "Fish",
+                Last: "Johnson",
+                Score: "100"
+            }, {
+                Tid: "6",
+                First: "CC",
+                Last: "Joson",
+                Score: "77"
+            }, {
+                Tid: "7",
+                First: "UDIN",
+                Last: "Yoson",
+                Score: "87"
+            }];
+            (0, _jquery2.default)("#exampleTableFromData").bootstrapTable({
+                data: bt_data,
+                height: "250"
+            })
+        }(), (0, _jquery2.default)("#exampleTableColumns").bootstrapTable({
+            url: "../assets/data/bootstrap_table_test.json",
+            height: "400",
+            iconSize: "outline",
+            showColumns: !0,
+            icons: {
+                refresh: "wb-refresh",
+                toggle: "wb-order",
+                columns: "wb-list-bulleted"
+            }
+        }),
+        function($el, cells, rows) {
+            var i, j, row, columns = [],
+                data = [];
+            for (i = 0; i < cells; i++) columns.push({
+                field: "field" + i,
+                title: "Cell" + i
+            });
+            for (i = 0; i < rows; i++) {
+                for (row = {}, j = 0; j < cells; j++) row["field" + j] = "Row-" + i + "-" + j;
+                data.push(row)
+            }
+            $el.bootstrapTable("destroy").bootstrapTable({
+                columns: columns,
+                data: data,
+                iconSize: "outline",
+                icons: {
+                    columns: "wb-list-bulleted"
+                }
+            })
+        }((0, _jquery2.default)("#exampleTableLargeColumns"), 50, 50), (0, _jquery2.default)("#exampleTableToolbar").bootstrapTable({
+            url: "../assets/data/bootstrap_table_test2.json",
+            search: !0,
+            showRefresh: !0,
+            showToggle: !0,
+            showColumns: !0,
+            toolbar: "#exampleToolbar",
+            iconSize: "outline",
+            icons: {
+                refresh: "wb-refresh",
+                toggle: "wb-order",
+                columns: "wb-list-bulleted"
+            }
+        }),
+        function() {
+            (0, _jquery2.default)("#exampleTableEvents").bootstrapTable({
+                url: "../assets/data/bootstrap_table_test.json",
+                search: !0,
+                pagination: !0,
+                showRefresh: !0,
+                showToggle: !0,
+                showColumns: !0,
+                iconSize: "outline",
+                toolbar: "#exampleTableEventsToolbar",
+                icons: {
+                    refresh: "wb-refresh",
+                    toggle: "wb-order",
+                    columns: "wb-list-bulleted"
+                }
+            });
+            var $result = (0, _jquery2.default)("#examplebtTableEventsResult");
+            (0, _jquery2.default)("#exampleTableEvents").on("all.bs.table", function(e, name, args) {}).on("click-row.bs.table", function(e, row, $element) {
+                $result.text("Event: click-row.bs.table")
+            }).on("dbl-click-row.bs.table", function(e, row, $element) {
+                $result.text("Event: dbl-click-row.bs.table")
+            }).on("sort.bs.table", function(e, name, order) {
+                $result.text("Event: sort.bs.table")
+            }).on("check.bs.table", function(e, row) {
+                $result.text("Event: check.bs.table")
+            }).on("uncheck.bs.table", function(e, row) {
+                $result.text("Event: uncheck.bs.table")
+            }).on("check-all.bs.table", function(e) {
+                $result.text("Event: check-all.bs.table")
+            }).on("uncheck-all.bs.table", function(e) {
+                $result.text("Event: uncheck-all.bs.table")
+            }).on("load-success.bs.table", function(e, data) {
+                $result.text("Event: load-success.bs.table")
+            }).on("load-error.bs.table", function(e, status) {
+                $result.text("Event: load-error.bs.table")
+            }).on("column-switch.bs.table", function(e, field, checked) {
+                $result.text("Event: column-switch.bs.table")
+            }).on("page-change.bs.table", function(e, size, number) {
+                $result.text("Event: page-change.bs.table")
+            }).on("search.bs.table", function(e, text) {
+                $result.text("Event: search.bs.table")
+            })
+        }()
+});    
+</script>
+</html>

@@ -1,0 +1,36 @@
+DASHBOARD
+ASIDE NAVBAR :
+		SEKRETARIAT
+			- Master Santri
+			- Master Kelas
+			- Master Asrama
+				- Asrama
+				- Kobong
+			- Data Guru
+			- Data Dewan Kyai
+			- Perpindahan Asrama Santri
+			- Daftar Santri Aktif
+		Pendidikan
+			- Periode
+			- Mata Pelajaran
+			- Penempatan Kelas 
+			- Absensi Kelas
+			- Perubahan semester
+			- Kenaikan Kelas
+			- Report
+				- Report Nilai Siswa Terendah
+				- Report Absensi Siswa
+				- Report Nilai Siswa
+		Keuangan 
+			- Syariah
+			- Pengeluaran
+			- Utang & Piutang
+		Keamanan
+			- Entri Izin Santri
+			- Report
+				- Entri
+				- Pemberitahuan
+			
+			
+			 
+			
