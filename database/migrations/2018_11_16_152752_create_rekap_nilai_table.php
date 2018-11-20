@@ -13,12 +13,14 @@ class CreateRekapNilaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('rekap_nilai', function (Blueprint $table) {
+        Schema::create('nilai', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('santri_id');
             $table->string('nilai_akhlak');
-            $table->increments('id');
-            $table->increments('id');
+            $table->string('nilai_ujian');
+            $table->string('rata_rata');
+            $table->string('periode_id');
+            $table->string('semester_id');
             $table->timestamps();
         });
     }

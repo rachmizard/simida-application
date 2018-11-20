@@ -13,11 +13,11 @@ class CreatePemasukanTable extends Migration
      */
     public function up()
     {
-        Schema::create('syariah', function (Blueprint $table) {
+        Schema::create('pemasukan', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('tgl_pemasukan');
             $table->string('jenis_pemasukan');
-            $table->bigInteger('nis');
+            $table->bigInteger('santri_id');
             $table->string('nama_donatur');
             $table->timestamps();
         });

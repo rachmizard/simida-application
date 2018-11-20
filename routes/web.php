@@ -31,8 +31,23 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 	Route::prefix('sekretariat')->group(function(){
 		Route::name('sekretariat.')->group(function(){
 			Route::get('/home', 'HomeController@sekretariatHome')->name('home');
+			// Pendaftaran
+				// Get Location API
+					Route::get('provinces', 'Location\LocationController@province')->name('province');
+					Route::get('province/regencies/{provinceId}', 'Location\LocationController@regency')->name('regency');
+					Route::get('province/regency/districts/{regencyId}', 'Location\LocationController@district')->name('district');
+					Route::get('province/regency/district/villages/{districtId}', 'Location\LocationController@village')->name('village');
+				// End Get Location API
+			Route::get('/pendaftaran', 'SantriController@pendaftaran')->name('pendaftaran');
+			// End Pendaftaran
+			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
+			// End Santri
+			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
+			// End Kelas
+			Route::get('/kelas/tambah', 'KelasController@tambah_kelas')->name('tambah_kelas');
+			Route::get('/asrama', 'AsramaController@index')->name('asrama');
 		});
 	});
 });
