@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Santri;
+use App\DewanKyai;
 use Illuminate\Http\Request;
 
-class SantriController extends Controller
+class DewanKyaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        return view('sekretariat.santri.santri');   
+        //
     }
 
     /**
@@ -22,12 +22,6 @@ class SantriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function pendaftaran()
-    {
-        return view('sekretariat.santri.pendaftaran');
-    }
-
     public function create()
     {
         //
@@ -47,10 +41,10 @@ class SantriController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Santri  $santri
+     * @param  \App\DewanKyai  $dewanKyai
      * @return \Illuminate\Http\Response
      */
-    public function show(Santri $santri)
+    public function show(DewanKyai $dewanKyai)
     {
         //
     }
@@ -58,10 +52,10 @@ class SantriController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Santri  $santri
+     * @param  \App\DewanKyai  $dewanKyai
      * @return \Illuminate\Http\Response
      */
-    public function edit(Santri $santri)
+    public function edit(DewanKyai $dewanKyai)
     {
         //
     }
@@ -70,10 +64,10 @@ class SantriController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Santri  $santri
+     * @param  \App\DewanKyai  $dewanKyai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Santri $santri)
+    public function update(Request $request, DewanKyai $dewanKyai)
     {
         //
     }
@@ -81,10 +75,10 @@ class SantriController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Santri  $santri
+     * @param  \App\DewanKyai  $dewanKyai
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Santri $santri)
+    public function destroy(DewanKyai $dewanKyai)
     {
         //
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKobongTable extends Migration
+class CreateSemesterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateKobongTable extends Migration
      */
     public function up()
     {
-        Schema::create('kobong', function (Blueprint $table) {
+        Schema::create('semester', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('asrama_id');
-            $table->string('nama_kobong');
-            $table->string('roisam_kobong');    
+            $table->string('tingkat_semester');
+            $table->integer('periode_id');
+            $table->enum('status', ['aktif', 'tidak_aktif']);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateKobongTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kobong');
+        Schema::dropIfExists('semester');
     }
 }

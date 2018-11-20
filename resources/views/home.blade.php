@@ -1,6 +1,7 @@
 @extends('layouts.master-layouts')
 
 @section('content')
+
 <!--Start: Three Card
 ==============-->
 <div class="row">
@@ -11,7 +12,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/Dual.png" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/Dual.png" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
@@ -29,7 +30,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/VectorPutra.png" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/VectorPutra.png" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
@@ -47,7 +48,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/VectorPutri.png" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/VectorPutri.png" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
@@ -72,7 +73,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
@@ -90,7 +91,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/Monobuilding2.svg" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/Monobuilding2.svg" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
@@ -108,7 +109,7 @@
                     <div class="card-block p-30">
                         <div class="row">
                            <div class="col-6">
-                                <img src="assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
+                                <img src="/assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
                             </div><!--/.col-->
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
