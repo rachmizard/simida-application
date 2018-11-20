@@ -2,19 +2,26 @@ DASHBOARD
 ASIDE NAVBAR :
 		SEKRETARIAT
 			- Master Santri
+				- Data Santri V
+				- Pendaftaran V = LINK
 			- Master Kelas
+				- Data Kelas V
+				- Tambah Kelas V = LINK
 			- Master Asrama
-				- Asrama
+				- Data Asrama V
+				- Tambah Asrama V = LINK
 				- Kobong
 			- Data Guru
+				- Guru V = LINK
+				- Tambah Guru V = LINK
 			- Data Dewan Kyai
 			- Perpindahan Asrama Santri
 			- Daftar Santri Aktif
 		Pendidikan
 			- Periode
-			- Mata Pelajaran
+			- Mata Pelajaran V = LINK
 			- Penempatan Kelas 
-			- Absensi Kelas
+			- Absensi Kelas V = LINK
 			- Perubahan semester
 			- Kenaikan Kelas
 			- Report
@@ -22,15 +29,21 @@ ASIDE NAVBAR :
 				- Report Absensi Siswa
 				- Report Nilai Siswa
 		Keuangan 
-			- Syariah
-			- Pengeluaran
+			- Syariah V = LINK
+			- Pengeluaran V = LINK
 			- Utang & Piutang
 		Keamanan
-			- Entri Izin Santri
+			- Entri Izin Santri V = LINK
 			- Report
 				- Entri
 				- Pemberitahuan
 			
-			
+
+Ahlak terendah
+No| Foto| nama| akreditasi|nilai|
+1| foto| udin| D  |30
+
+Santri izin
+nama|tanggal| tujuan alasan| Durasi| Status
 			 
 			

@@ -29,21 +29,21 @@ class HomeController extends Controller
 
     public function sekretariatHome(Request $request)
     {
-        return 'Sekretariat Here';
+        return view('home-sekretariat');
     }
 
     public function pendidikanHome(Request $request)
     {
-        return 'Pendidikan Here';
+        return view('home-pendidikan');
     }
 
     public function keuanganHome(Request $request)
     {
-        return 'Keuangan Here';
+        return view('home-keuangan');
     }
 
     public function keamananHome(Request $request)
     {
-        return 'Keamanan Here';
+        return view('home-keamanan');
     }
 }
