@@ -9,46 +9,39 @@
   <meta name="description" content="bootstrap admin template">
   <meta name="author" content="">
 
-  <title>Login | {{ config('app.name', 'Sistem Informasi Miftahul Huda') }}</title>
+  <title>Login | Simida</title>
 
-  <link rel="apple-touch-icon" href="{{asset('/assets/img/logo/apple-touch-icon.png')}}">
-  <link rel="shortcut icon" href="{{asset('/assets/img/logo/favicon.ico')}}">
+  <link rel="apple-touch-icon" href="assets/img/logo/apple-touch-icon.png">
+  <link rel="shortcut icon" href="assets/img/logo/favicon.ico">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap-extend.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/css/site.min599c.css')}}">
+  <link rel="stylesheet" href="assets/css/bootstrap.min599c.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-extend.min599c.css">
+  <link rel="stylesheet" href="assets/css/site.min599c.css">
 
-  <!-- Plugins -->
-  <link rel="stylesheet" href="{{asset('/assets/vendor/asscrollable/asScrollable.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/switchery/switchery.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/intro-js/introjs.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/slidepanel/slidePanel.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/flag-icon-css/flag-icon.min599c.css')}}">
-
-  <!-- Page -->
-  <link rel="stylesheet" href="{{asset('/assets/css/pages/login-v2.min599c.css')}}">
+   <!-- Plugins -->
+  <link rel="stylesheet" href="assets/vendor/animsition/animsition.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="assets/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="assets/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="assets/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="assets/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="assets/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
 
   <!-- Fonts -->
-  <link rel="stylesheet" href="{{asset('/assets/fonts/web-icons/web-icons.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/fonts/brand-icons/brand-icons.min599c.css')}}">
+  <link rel="stylesheet" href="assets/fonts/web-icons/web-icons.min599c.css">
+  <link rel="stylesheet" href="assets/fonts/brand-icons/brand-icons.min599c.css">
   <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
 
-
-  <!--[if lt IE 9]>
-    <script src="../../global/vendor/html5shiv/html5shiv.min.js?v4.0.2"></script>
-    <![endif]-->
-
-  <!--[if lt IE 10]>
-    <script src="../../global/vendor/media-match/media.match.min.js?v4.0.2"></script>
-    <script src="../../global/vendor/respond/respond.min.js?v4.0.2"></script>
-    <![endif]-->
-
   <!-- Scripts -->
-  <script src="{{asset('/assets/vendor/breakpoints/breakpoints.min599c.js')}}"></script>
+  <script src="assets/vendor/breakpoints/breakpoints.min599c.js"></script>
   <script>
     Breakpoints();
   </script>
+  
+  <link rel="stylesheet" href="assets/css/pages/login-v2.min599c.css">
+  <!-- Plugins For This Page -->
+  <link rel="stylesheet" href="assets/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
+  
 </head>
 <body class="animsition page-login-v2 layout-full page-dark">
   <!--[if lt IE 8]>
@@ -62,22 +55,32 @@
   <!-- Page -->
   <div class="page" data-animsition-in="fade-in" data-animsition-out="fade-out">
     <div class="page-content">
-      <div class="page-brand-info">
+    <div class="page-brand-info">
         <div class="brand">
-          <img class="brand-img" src="assets/img/logo/logo@2x.png" alt="...">
-          <h2 class="brand-text font-size-40">Simida</h2>
+            <img class="brand-img" src="assets/img/logo/logo@2x.png" alt="...">
+            <h2 class="brand-text font-size-40">Simida</h2>
         </div>
-        <p class="font-size-20">Pesantren Miftahul-Huda Manonjaya Tasikmalaya bentuk penerus bangsa berakhlakul karimah imtaq cerdas terampil dan jiwa usaha.</p>
-      </div>
+        <!--/.brand-->
+        <div class="brand-contex">
+            <p class="font-size-20">Sistem Informasi dan Manajemen pendidikan di pesantren atau madrasah dari mulai Ibtidaiyah, Tsanawiyah sampai Ma'had Aly</p>
+        </div>
+        <!--/.brand-contex-->
+        <div class="brand-logo">
+            <img class="brand-img2" src="assets/img/logo/Pondok.png" alt="...">
+            <p class="brand-text" style="font-size: 14px;font-weight: 400;">Pesantren Miftahul Huda</p>
+        </div><!--/.brand-logo-->
+    </div>
 
       <div class="page-login-main animation-slide-right animation-duration-1">
         <div class="brand hidden-md-up"> <!--  -->
           <h3 class="brand-text font-size-40">Simida</h3>
         </div>
         <h3 class="font-size-24">Sign In</h3>
-        <p>Silahkan masukan Username & Password untuk melanjutkan.</p>
+        <p>Silahkan masukan Account Anda untuk melanjutkan.</p>
 
-        <form method="post" action="{{ route('login') }}">
+        
+
+        <form method="post" action="{{ route('login') }}"  id="formLogin">
             {{ csrf_field() }}
           <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
             <label class="sr-only" for="username">Username</label>
@@ -107,13 +110,14 @@
                 Forgot Your Password?
             </a>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button id="validateButton1" type="submit" class="btn btn-primary btn-block">Sign in</button>
         </form>
 
-        <!-- <p>No account? <a href="register-v2.html">Sign Up</a></p> -->
+<!--        <p>No account? <a href="register-v2.html">Sign Up</a></p>-->
 
         <footer class="page-copyright">
-          <p>© 2018 Simida</p>
+          <p>------------------------</p>
+          <p>© 2018 Simida | powered by <a href="https://birutekno.com" target="_blank">birutekno.inc</a></p>
 <!--
           <div class="social">
             <a class="btn btn-icon btn-round social-twitter mx-5" href="javascript:void(0)">
@@ -134,28 +138,35 @@
   </div>
   <!-- End Page -->
 
-
-  <!-- Core  -->
-  <script src="{{asset('/assets/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/jquery/jquery.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/popper-js/umd/popper.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/bootstrap/bootstrap.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/animsition/animsition.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2')}}"></script>
-
-  <!-- Plugins -->
-  <script src="{{asset('/assets/vendor/switchery/switchery.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/intro-js/intro.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/screenfull/screenfull599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/slidepanel/jquery-slidePanel.min599c.js?v4.0.2')}}"></script>
-
-  <!-- Plugins For This Page -->
-  <script src="{{asset('/assets/vendor/jquery-placeholder/jquery.placeholder599c.js?v4.0.2')}}"></script>
 </body>
+<!-- Core  -->
+<script src="assets/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+<script src="assets/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/animsition/animsition.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2"></script>
+<script src="assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2"></script>
+<script src="assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script> 
+  <!-- Scripts -->
+  <script src="assets/js/component.min599c.js?v4.0.2"></script>
+  <script src="assets/js/plugin.min599c.js?v4.0.2"></script>
+  <script src="assets/js/base.min599c.js?v4.0.2"></script>
+  <script src="assets/js/config.min599c.js?v4.0.2"></script>
 
-
-<!-- Mirrored from getbootstrapadmin.com/remark/base/pages/login-v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Nov 2018 04:19:04 GMT -->
+  <script src="assets/js/section/menubar.min599c.js?v4.0.2"></script>
+  <script src="assets/js/section/gridMenu.min599c.js?v4.0.2"></script>
+  <script src="assets/js/section/sidebar.min599c.js?v4.0.2"></script>
+  <script src="assets/js/section/pageAside.min599c.js?v4.0.2"></script>
+  <script src="assets/js/plugin/menu.min599c.js?v4.0.2"></script>
+  <!-- Page -->
+  <script src="assets/js/site.min599c.js?v4.0.2"></script>
+  <script src="assets/js/code-editor.min599c.js"></script>
+  <!-- Plugins For This Page -->
+  <script src="assets/vendor/jquery-placeholder/jquery.placeholder599c.js?v4.0.2"></script>
+  <script src="assets/vendor/formvalidation/formValidation.min599c.js?v4.0.2"></script>
+  <script src="assets/vendor/formvalidation/framework/bootstrap4.min599c.js?v4.0.2"></script>
+  <script src="assets/js/validation.min599c.js?v4.0.2"></script>
 </html>
+

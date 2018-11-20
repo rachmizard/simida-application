@@ -11,38 +11,39 @@
 
   <title>{{ config('app.name', 'SIMIDA') }}</title>
 
-  <link rel="apple-touch-icon" href="{{asset('/assets/img/logo/apple-touch-icon.png')}}">
-  <link rel="shortcut icon" href="{{asset('/assets/img/logo/favicon.ico')}}">
+  <link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/assets/img/logo/favicon.ico">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/css/bootstrap-extend.min599c.css')}}">
-  <link rel="stylesheet" href="{{asset('/assets/css/site.min599c.css')}}">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min599c.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap-extend.min599c.css">
+  <link rel="stylesheet" href="/assets/css/site.min599c.css">
 
   <!-- Skin tools (demo site only) -->
-  <link rel="stylesheet" href="{{asset('/assets/css/skintools.min599c.css?v4.0.2')}}">
-  <script src="{{asset('/assets/js/Plugin/skintools.min599c.js?v4.0.2')}}"></script>
+  <link rel="stylesheet" href="/assets/css/skintools.min599c.css?v4.0.2">
+  <script src="/assets/js/plugin/skintools.min599c.js?v4.0.2"></script>
 
   <!-- Plugins -->
-  <link rel="stylesheet" href="{{asset('/assets/vendor/asscrollable/asScrollable.min599c.css?v4.0.2')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/switchery/switchery.min599c.css?v4.0.2')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/intro-js/introjs.min599c.css?v4.0.2')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/slidepanel/slidePanel.min599c.css?v4.0.2')}}">
-  <link rel="stylesheet" href="{{asset('/assets/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="/assets/vendor/animsition/animsition.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/vendor/asscrollable/asScrollable.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/vendor/switchery/switchery.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/vendor/intro-js/introjs.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/vendor/slidepanel/slidePanel.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/vendor/flag-icon-css/flag-icon.min599c.css?v4.0.2">
 
-  <!-- Plugins For This Page -->
-  <link rel="stylesheet" href="{{asset('/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2')}}">
-  
   <!-- Fonts -->
-  <link rel="stylesheet" href="{{asset('/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2')}}">
-  <link rel="stylesheet" href="{{asset('/assets/fonts/brand-icons/brand-icons.min599c.css?v4.0.2')}}">
+  <link rel="stylesheet" href="/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2">
+  <link rel="stylesheet" href="/assets/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
   <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
   
   <!-- Scripts -->
-  <script src="{{asset('/assets/vendor/breakpoints/breakpoints.min599c.js?v4.0.2')}}"></script>
+  <script src="/assets/vendor/breakpoints/breakpoints.min599c.js?v4.0.2"></script>
   <script>
     Breakpoints();
   </script>
+  
+  <!-- Plugins For This Page -->
+  <link rel="stylesheet" href="/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2">
 </head>
 <body class="animsition">
 <header>
@@ -59,8 +60,8 @@
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
         </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-            <img class="navbar-brand-logo" src="assets/img/logo/Pondok.png" title="Remark">
-            <span class="navbar-brand-text hidden-xs-down"> SIMIDA  </span>
+            <img class="navbar-brand-logo" src="/assets/img/logo/Pondok.png" title="Remark">
+            <span class="navbar-brand-text hidden-xs-down"> Simida</span>
         </div>
         <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
             <span class="sr-only">Toggle Search</span>
@@ -74,6 +75,14 @@
         <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
             <!-- Navbar Toolbar -->
             <ul class="nav navbar-toolbar">
+                <li class="nav-item hidden-float" id="toggleMenubar">
+                    <a class="nav-link" data-toggle="menubar" href="#" role="button">
+                        <i class="icon hamburger hamburger-arrow-left">
+                            <span class="sr-only">Toggle menubar</span>
+                            <span class="hamburger-bar"></span>
+                        </i>
+                    </a>
+                </li>
                 <li class="nav-item hidden-float">
                     <a class="nav-link icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search" role="button">
                         <span class="sr-only">Toggle Search</span>
@@ -85,50 +94,45 @@
                         <div class="mega-content">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <h5>UI Kit</h5>
+                                    <h5>Pintas Master Data</h5>
                                     <ul class="blocks-2">
                                         <li class="mega-menu m-0">
                                             <ul class="list-icons">
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../advanced/animation.html">Animation</a>
+                                                    <a href="%5Bform%5Dabsensi.html">Absensi</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/buttons.html">Buttons</a>
+                                                    <a href="%5Bform%5Dguru.html">Guru</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/colors.html">Colors</a>
+                                                    <a href="%5Bform%5Dkelas.html">Kelas</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/dropdowns.html">Dropdowns</a>
+                                                    <a href="%5Bform%5Dkemanaan.html">Keamaan</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/icons.html">Icons</a>
+                                                    <a href="%5Bform%5Dkobong.html">Kobong</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../advanced/lightbox.html">Lightbox</a>
+                                                    <a href="%5Bform%5Dmapel.html">Mapel</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li class="mega-menu m-0">
                                             <ul class="list-icons">
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/modals.html">Modals</a>
+                                                    <a href="%5Bform%5Dnilai.html">Nilai</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/panel-structure.html">Panels</a>
+                                                    <a href="%5Bform%5Dpemasukan.html">Pemasukan</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../structure/overlay.html">Overlay</a>
+                                                    <a href="%5Bform%5Dpengeluaran.html">Pengeluaran</a>
                                                 </li>
                                                 <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/tooltip-popover.html">Tooltips</a>
+                                                    <a href="%5Bform%5Dseketaris.html">Seketaris</a>
                                                 </li>
-                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../advanced/scrollable.html">Scrollable</a>
-                                                </li>
-                                                <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                    <a href="../uikit/typography.html">Typography</a>
-                                                </li>
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -140,32 +144,32 @@
                                     <ul class="blocks-3">
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-1-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-1-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-2-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-2-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-3-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-3-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-4-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-4-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-5-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-5-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                         <li>
                                             <a class="thumbnail m-0" href="javascript:void(0)">
-                                                <img class="w-full" src="../../global/photos/view-6-150x100.jpg" alt="..." />
+                                                <img class="w-full" src="/assets/img/photos/view-6-150x100.jpg" alt="..." />
                                             </a>
                                         </li>
                                     </ul>
@@ -226,16 +230,18 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
                         <span class="avatar avatar-online">
-                <img src="assets/img/user/DP6.jpg" alt="...">
-                <i></i>
-              </span>
+                                <img src="/assets/img/user/DP6.jpg" alt="...">
+                                <i></i>
+                        </span>
                     </a>
                     <div class="dropdown-menu" role="menu">
                         <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+                        <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-payment" aria-hidden="true"></i> Billing</a>
+                        <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>
                         <div class="dropdown-divider" role="presentation"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
@@ -244,12 +250,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
                         <i class="icon wb-bell" aria-hidden="true"></i>
-                        <span class="badge badge-pill badge-danger up"></span>
+                        <span class="badge badge-pill badge-danger up">5</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
                         <div class="dropdown-menu-header">
                             <h5>NOTIFICATIONS</h5>
-                            <!-- <span class="badge badge-round badge-danger">New 5</span> -->
+                            <span class="badge badge-round badge-danger">New 5</span>
                         </div>
 
                         <div class="list-group">
@@ -360,6 +366,7 @@
                             </div>
                         </a>
                     </li>
+                    @if(auth()->user()->role == 'sekretariat' || auth()->user()->role == 'murobbi')
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon wb-share" aria-hidden="true"></i>
@@ -367,32 +374,49 @@
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
-                            <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Master Santri</span></a>
-                            </li>
-                            <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Master Kelas</span></a>
-                            </li>
-                            <li class="site-menu-item has-sub">
-                                <a href="javascript:void(0)">
-                                    <span class="site-menu-title">Master Santri</span>
-                                    <span class="site-menu-arrow"></span>
-                                </a>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Master Santri</span></a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Asrama</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Data Santri</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Kobong</span>
-                                        </a>
+                                        <a href="%5Bform%5Dseketaris.html"><span class="site-menu-title">Pendaftaran</span></a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Data Guru</span></a>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Master Kelas</span></a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!"><span class="site-menu-title">Data Kelas</span></a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="%5Bform%5Dkelas.html"><span class="site-menu-title">Tambah Kelas</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Master Asrama</span></a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!"><span class="site-menu-title">Data Asrama</span></a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="%5Bform%5Dkobong.html"><span class="site-menu-title">Tambah Asrama</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Data Guru</span></a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="#!"><span class="site-menu-title">Data Guru</span></a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="%5Bform%5Dguru.html"><span class="site-menu-title">Tambah Guru</span></a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="site-menu-item">
                                 <a href="#!"><span class="site-menu-title">Data Dewan Kyai</span></a>
@@ -405,6 +429,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(auth()->user()->role == 'pendidikan' || auth()->user()->role == 'murobbi')
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon wb-clipboard" aria-hidden="true"></i>
@@ -416,13 +442,13 @@
                                 <a href="#!"><span class="site-menu-title">Periode</span></a>
                             </li>
                             <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Mata Pelajaran</span></a>
+                                <a href="%5Bform%5Dmapel.html"><span class="site-menu-title">Mata Pelajaran</span></a>
                             </li>
                             <li class="site-menu-item">
                                 <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
                             </li>
                             <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Absensi Kelas</span></a>
+                                <a href="%5Bform%5Dabsensi.html"><span class="site-menu-title">Absensi Kelas</span></a>
                             </li>
                             <li class="site-menu-item">
                                 <a href="#!"><span class="site-menu-title">Perubahan semester</span></a>
@@ -430,31 +456,24 @@
                             <li class="site-menu-item">
                                 <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                             </li>
-                            <li class="site-menu-item has-sub">
-                                <a href="javascript:void(0)">
-                                    <span class="site-menu-title">Report</span>
-                                    <span class="site-menu-arrow"></span>
-                                </a>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Report Nilai Siswa Terendah</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Report Nilai Siswa Terendah</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Report Absensi Siswa</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Report Absensi Siswa</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Report Nilai Siswa</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(auth()->user()->role == 'keuangan' || auth()->user()->role == 'murobbi')
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon wb-graph-up" aria-hidden="true"></i>
@@ -463,16 +482,18 @@
                         </a>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Syariah</span></a>
+                                <a href="%5Bform%5Dpemasukan.html"><span class="site-menu-title">Syariah</span></a>
                             </li>
                             <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Pengeluaran</span></a>
+                                <a href="%5Bform%5Dpengeluaran.html"><span class="site-menu-title">Pengeluaran</span></a>
                             </li>
                             <li class="site-menu-item">
                                 <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(auth()->user()->role == 'keamanan' || auth()->user()->rle == 'murobbi')
                     <li class="site-menu-item has-sub">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon wb-lock" aria-hidden="true"></i>
@@ -481,28 +502,22 @@
                         </a>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item">
-                                <a href="#!"><span class="site-menu-title">Entri Izin Santri</span></a>
+                                <a href="%5Bform%5Dkemanaan.html"><span class="site-menu-title">Entri Izin Santri</span></a>
                             </li>
-                            <li class="site-menu-item has-sub">
-                                <a href="javascript:void(0)">
-                                    <span class="site-menu-title">Report</span>
-                                    <span class="site-menu-arrow"></span>
-                                </a>
+                            <li class="site-menu-item has-su">
+                                <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Entri</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Entri</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!">
-                                            <span class="site-menu-title">Pemberitahuan</span>
-                                        </a>
+                                        <a href="#!"><span class="site-menu-title">Pemberitahuan</span></a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+                    @endif
                 </ul>
 
                 <div class="site-menubar-section">
@@ -526,8 +541,9 @@
         <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
             <span class="icon wb-eye-close" aria-hidden="true"></span>
         </a>
-        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" role="menuitem" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
             <span class="icon wb-power" aria-hidden="true"></span>
         </a>
     </div>
@@ -537,33 +553,410 @@
 <!-- Page -->
 <main class="page">
 <div class="page-content">
-    @yield('content')
+<!--Start: Three Card
+==============-->
+<div class="row">
+    <div class="col-xxl-3">
+        <div class="row h-full" data-plugin="matchHeight">
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/Dual.png" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Total Santri</div>
+                                    <div class="counter-number font-size-40 mt-10">5.531</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/VectorPutra.png" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Santri Putra</div>
+                                    <div class="counter-number font-size-40 mt-10">3.321</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/VectorPutri.png" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Santri Putri</div>
+                                    <div class="counter-number font-size-40 mt-10">2.210</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-xxl-3">
+        <div class="row h-full" data-plugin="matchHeight">
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Ibtida</div>
+                                    <div class="counter-number font-size-40 mt-10">200</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/Monobuilding2.svg" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Tsanawi</div>
+                                    <div class="counter-number font-size-40 mt-10">901</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-lg-4 col-sm-4">
+                <div class="card card-shadow card-completed-options">
+                    <div class="card-block p-30">
+                        <div class="row">
+                           <div class="col-6">
+                                <img src="/assets/img/avatar/Monobuilding1.svg" alt="" style="max-height: 80px;">
+                            </div><!--/.col-->
+                            <div class="col-6">
+                                <div class="counter text-left blue-grey-700">
+                                    <div class="counter-label mt-10">Mah'ad Aly</div>
+                                    <div class="counter-number font-size-40 mt-10">2</div>
+                                </div>
+                            </div><!--/.col-->
+                            
+                        </div><!--/.row-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+<!--End: Three Card
+==============-->
+
+<!--Start: Table Nilai-->
+<div class="panel">
+    <div class="panel-body">
+        <div class="row row-lg">
+            <div class="col-md-6">
+                <!-- Example Table For Url -->
+                <div class="example-wrap m-sm-0">
+                    <h4 class="example-title">Akademik terendah</h4>
+                    <p>-Description-</p>
+                    <div class="example">
+                        <table data-toggle="table" data-height="300" data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="no">No</th>
+                                    <th data-field="name">Name</th>
+                                    <th data-field="akreditasi">Akreditasi</th>
+                                    <th data-field="nilai">Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Table For Url -->
+            </div>
+
+            <div class="col-md-6">
+                <!-- Example Table From Data -->
+                <div class="example-wrap">
+                    <h4 class="example-title">Akhlaq terendah</h4>
+                    <p>-Description-</p>
+                    <div class="example">
+                        <table data-toggle="table" data-height="300" data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="no">No</th>
+                                    <th data-field="name">Name</th>
+                                    <th data-field="akreditasi">Akreditasi</th>
+                                    <th data-field="nilai">Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Samsul</td>
+                                    <td>D</td>
+                                    <td>50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Table From Data -->
+            </div>
+        </div>
+    </div>
+</div><!-- End Panel -->
+<!--End: Table Nilai-->
+
+<!--Start: Table Data-->
+<div class="panel">
+    <div class="panel-body">
+        <div class="row row-lg">
+            <div class="col-md-5">
+                <!-- Example Table For Url -->
+                <div class="example-wrap m-sm-0">
+                    <h4 class="example-title">Santri izin</h4>
+                    <p>-Description-</p>
+                    <div class="example">
+                        <table data-toggle="table" data-height="290" data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="name">Nama</th>
+                                    <th data-field="tanggal">Tanggal</th>
+                                    <th data-field="tujuan">Tujuan</th>
+                                    <th data-field="durasi">Durasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ilham</td>
+                                    <td>10 Maret 2018</td>
+                                    <td>Rumah Sakit</td>
+                                    <td>1 Hari</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End Example Table For Url -->
+            </div>
+
+            <div class="col-md-7">
+                <!-- Example Table From Data -->
+                <div class="example-wrap">
+                    <h4 class="example-title">Akhlaq terendah</h4>
+                    <p>-Description-</p>
+                    <div class="example">
+                        <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group">
+                            <button type="button" class="btn btn-outline btn-default">
+                                <i class="icon wb-plus" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline btn-default">
+                                <i class="icon wb-heart" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline btn-default">
+                                <i class="icon wb-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <table id="exampleTableToolbar" data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th>Total Pendapatan</th>
+                                    <th>Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Syairah</td>
+                                    <td class="content-Rp">500.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Infaq</td>
+                                    <td class="content-Rp">32.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Donatur</td>
+                                    <td class="content-Rp">900.000.000</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Grand Total</th>
+                                    <th class="content-Rp">1.700.000.000</th>
+                                </tr>
+                                <tr>
+                                    <td>Piutang Syairah</td>
+                                    <td class="content-Rp">20.000.000</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!--/.example-->
+                </div>
+                <!-- End Example Table From Data -->
+            </div>
+        </div>
+    </div>
+</div><!-- End Panel -->
+<!--End: Table Data-->
 </div><!--/.page-content-->
 </main><!--/.page-->
 <!-- End Page -->
 <!-- Footer -->
 <footer class="site-footer">
-    <div class="site-footer-legal">© 2018 {{ config('app.name', 'SIMIDA') }}</div>
+    <div class="site-footer-legal">© 2018 Simida</div>
     <div class="site-footer-right">
       Crafted with <i class="red-600 wb wb-heart"></i> by <a href="https://birutekno.com" target="_blank" title="Team Web Developer Create with Love. ~ExteraDex~Zimmy~">Birutekno.inc</a>
     </div>
   </footer>
 </body>
 <!-- Core  -->
-<script src="{{asset('/assets/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/jquery/jquery.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/popper-js/umd/popper.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/bootstrap/bootstrap.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/animsition/animsition.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2')}}"></script>
-<script src="{{asset('/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2')}}"></script>
-    <!-- page -->
-    <script src="{{asset('/assets/js/Site.min599c.js?v4.0.2')}}"></script>
+<script src="/assets/vendor/babel-external-helpers/babel-external-helpers599c.js?v4.0.2"></script>
+<script src="/assets/vendor/jquery/jquery.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/popper-js/umd/popper.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/bootstrap/bootstrap.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/animsition/animsition.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2"></script>
+<script src="/assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2"></script>
+<script src="/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script> 
+  <!-- Scripts -->
+  <script src="/assets/js/component.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/plugin.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/base.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/config.min599c.js?v4.0.2"></script>
+
+  <script src="/assets/js/section/menubar.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/section/gridMenu.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/section/sidebar.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/section/pageAside.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/plugin/menu.min599c.js?v4.0.2"></script>
+  <!-- Page -->
+  <script src="/assets/js/site.min599c.js?v4.0.2"></script>
+  <script src="/assets/js/code-editor.min599c.js"></script>
   <!-- Plugins For This Page -->
-  <script src="{{asset('/assets/vendor/bootstrap-table/bootstrap-table.min599c.js?v4.0.2')}}"></script>
-  <script src="{{asset('/assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.min599c.js?v4.0.2')}}"></script>
+  <script src="/assets/vendor/bootstrap-table/bootstrap-table.min599c.js?v4.0.2"></script>
+  <script src="/assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.min599c.js?v4.0.2"></script>
 <script>
 
 ! function(global, factory) {

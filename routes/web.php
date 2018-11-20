@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('is_murobbi');
+// Route::get('/home', 'HomeController@index')->name('home')->middleware('is_murobbi');
 
 Route::middleware(['auth', 'is_murobbi'])->group(function(){
 	Route::prefix('admin')->group(function(){
@@ -31,6 +31,8 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 	Route::prefix('sekretariat')->group(function(){
 		Route::name('sekretariat.')->group(function(){
 			Route::get('/home', 'HomeController@sekretariatHome')->name('home');
+			Route::get('/santri', 'SantriController@index')->name('santri');
+			Route::get('/kelas', 'KelasController@index')->name('kelas');
 		});
 	});
 });
