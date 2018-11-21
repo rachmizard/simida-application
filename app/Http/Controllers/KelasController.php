@@ -24,7 +24,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        return view('sekretariat.kelas.tambah');
     }
 
     /**

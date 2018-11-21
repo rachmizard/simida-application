@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Password minimal 6 karakter.',
-    'reset' => 'Password berhasil di reset!',
-    'sent' => 'Kita telah mengirimkan password ke emailmu!',
-    'token' => 'Token tidak diketahui.',
-    'user' => "Kita tidak menemukan email dalam user tersebut.",
+    'password' => 'Kata sandi harus minimal enam karakter dan cocok dengan konfirmasi.',
+    'reset'    => 'Kata sandi Anda sudah di atur ulang!',
+    'sent'     => 'Kami sudah mengirim email yang berisi tautan untuk mengatur ulang kata sandi Anda!',
+    'token'    => 'Kata sandi token pengaturan ulang tidak sah.',
+    'user'     => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
 
 ];

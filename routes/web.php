@@ -46,8 +46,9 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// End Santri
 			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
+			Route::post('/kelas/store', 'KelasController@store')->name('store');
 			// End Kelas
-			Route::get('/kelas/tambah', 'KelasController@tambah_kelas')->name('kelas.tambah_kelas');
+			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 			// Asrama
 			Route::get('/asrama', 'AsramaController@index')->name('asrama');
 			Route::get('/asrama/tambah', 'AsramaController@create')->name('asrama.create');

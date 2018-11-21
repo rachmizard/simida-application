@@ -1101,6 +1101,7 @@ window.Vue = __webpack_require__(36);
 
 Vue.component('example-component', __webpack_require__(39));
 Vue.component('form-asrama-component', __webpack_require__(42));
+Vue.component('form-kelas-component', __webpack_require__(60));
 
 /**
 * Vue Router
@@ -46861,6 +46862,407 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(9)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Kelas/FormKelasComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e4eb226a", Component.options)
+  } else {
+    hotAPI.reload("data-v-e4eb226a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+    data: function data() {
+        return {
+            errors: [],
+            kelas: {
+                nama_kelas: '',
+                tingkat: '',
+                nama_guru: '',
+                badal_guru: ''
+            },
+            message: '',
+            messageError: ''
+        };
+    },
+
+
+    methods: {
+        store: function store(e) {
+            var app = this;
+            var kelas = app.kelas;
+            axios.post(e.target.action, kelas).then(function (respon) {
+                app.errors = [];
+                app.kelas.nama_kelas = '';
+                app.kelas.tingkat = '';
+                app.kelas.nama_guru = '';
+                app.kelas.badal_guru = '';
+                app.message = respon.data.response.message;
+
+                setTimout(function () {
+                    app.message = false;
+                    app.messageError = false;
+                }, 5000);
+            }).catch(function (error) {
+                app.errors = error.response.data.errors;
+                app.message = false;
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "panel-body container-fluid",
+      staticStyle: { "background-color": "#fdfdfd" }
+    },
+    [
+      _c("div", { staticClass: "row row-lg" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c(
+            "form",
+            {
+              attrs: { autocomplete: "off", action: "sekretariat/kelas/store" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.store($event)
+                }
+              }
+            },
+            [_vm._m(0)]
+          )
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c(
+        "div",
+        {
+          staticClass: "form-group col-md-6 col-sm-12",
+          staticStyle: { "padding-right": "15px" }
+        },
+        [
+          _c("h4", { staticClass: "example-title" }, [_vm._v("Data Kelas")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "example" }, [
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicFirstName" }
+                  },
+                  [_vm._v("Kelas")]
+                ),
+                _vm._v(" "),
+                _c("select", { staticClass: "form-control selectTo" }, [
+                  _c("optgroup", { attrs: { label: "Kelas" } }, [
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")])
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { disabled: "", selected: "" } })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicFirstName" }
+                  },
+                  [_vm._v("Tingkat")]
+                ),
+                _vm._v(" "),
+                _c("select", { staticClass: "form-control selectTo" }, [
+                  _c("optgroup", { attrs: { label: "Tingkat 1" } }, [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("1A")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("1B")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("1C")])
+                  ]),
+                  _vm._v(" "),
+                  _c("optgroup", { attrs: { label: "Tingkat 2" } }, [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("2A")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("2B")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("2C")])
+                  ]),
+                  _vm._v(" "),
+                  _c("optgroup", { attrs: { label: "Tingkat 3" } }, [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("3A")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("3B")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("3C")])
+                  ]),
+                  _vm._v(" "),
+                  _c("optgroup", { attrs: { label: "Tingkat 4" } }, [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("4A")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("4B")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "" } }, [_vm._v("4C")])
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { disabled: "", selected: "" } })
+                ])
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "form-group col-md-6 col-sm-12",
+          staticStyle: { "padding-left": "15px" }
+        },
+        [
+          _c("h4", { staticClass: "example-title" }, [_vm._v("Data Guru")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "example" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-control-label", attrs: { for: "" } },
+                [_vm._v("Nama Guru")]
+              ),
+              _vm._v(" "),
+              _c("select", { staticClass: "form-control selectTo" }, [
+                _c("optgroup", { attrs: { label: "Guru" } }, [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("Samsul Alrifin")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { disabled: "", selected: "" } })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-control-label", attrs: { for: "" } },
+                [_vm._v("Badal")]
+              ),
+              _vm._v(" "),
+              _c("select", { staticClass: "form-control selectTo" }, [
+                _c("optgroup", { attrs: { label: "Guru" } }, [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("Samsul Alrifin")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { disabled: "", selected: "" } })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                [_vm._v("Submit ")]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e4eb226a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
