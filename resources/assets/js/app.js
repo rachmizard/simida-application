@@ -16,7 +16,34 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('form-asrama-component', require('./components/Sekretariat/Asrama/FormAsramaComponent.vue'));
 
+/**
+* Vue Router
+*
+* @link http://router.vuejs.org/en/installation.html
+*/
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+// define routes for users
+const routes = [
+// {
+//   path: '/',
+//   name: 'userIndex',
+//   component: require('./components/user/index.vue')
+// },
+// {
+//   path: '/create',
+//   name: 'userCreate',
+//   component: require('./components/user/create.vue') 
+// },
+// {
+//   path: '/view/:id',
+//   name: 'userView',
+//   component: require('./components/user/view.vue')
+// }
+]
+const router = new VueRouter({ routes });
 const app = new Vue({
-    el: '#app'
-});
+  router
+}).$mount('#app');

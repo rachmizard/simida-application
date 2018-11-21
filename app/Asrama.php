@@ -12,4 +12,9 @@ class Asrama extends Model
     protected $fillable = [
         'kategori_asrama', 'nama_asrama', 'roisam_asrama',
     ];
+
+    public function namaAsrama()
+    {
+    	return $this->belongsTo(DataNamaAsrama::class, 'nama_asrama', 'id');
+    }
 }

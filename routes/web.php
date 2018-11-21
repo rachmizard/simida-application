@@ -39,6 +39,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 					Route::get('province/regency/district/villages/{districtId}', 'Location\LocationController@village')->name('village');
 				// End Get Location API
 			Route::get('/pendaftaran', 'SantriController@pendaftaran')->name('pendaftaran');
+			Route::post('/pendaftaran/store', 'SantriController@store')->name('store');
 			// End Pendaftaran
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
@@ -46,8 +47,17 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
 			// End Kelas
-			Route::get('/kelas/tambah', 'KelasController@tambah_kelas')->name('tambah_kelas');
+			Route::get('/kelas/tambah', 'KelasController@tambah_kelas')->name('kelas.tambah_kelas');
+			// Asrama
 			Route::get('/asrama', 'AsramaController@index')->name('asrama');
+			Route::get('/asrama/tambah', 'AsramaController@create')->name('asrama.create');
+			Route::get('/asrama/getAsrama/{kategori}', 'AsramaController@getAsramaKategori')->name('asrama.getAsramaKategori');
+			Route::get('/asrama/get/allKategori', 'AsramaController@getAsramaAllKategori')->name('asrama.getAsramaAllKategori');
+			Route::get('/asrama/get/putra', 'AsramaController@getAsramaPutra')->name('asrama.getAsramaPutra');
+			Route::get('/asrama/get/putri', 'AsramaController@getAsramaPutri')->name('asrama.getAsramaPutri');
+			Route::post('/asrama/storeNamaAsrama', 'AsramaController@storeNamaAsrama')->name('asrama.storeNamaAsrama');
+			Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
+			// End Asrama
 		});
 	});
 });
