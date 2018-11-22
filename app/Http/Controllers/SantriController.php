@@ -18,7 +18,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        return view('sekretariat.santri.santri', 'asramaPutra');   
+        return view('sekretariat.santri.santri');   
     }
 
     /**

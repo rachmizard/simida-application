@@ -89,10 +89,10 @@
                             </div><!--/.form-group
                             =========================-->
                             <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
-                            <h4 class="example-title">Roisam Asrama</h4>
+                            <h4 class="example-title">Rais'Am</h4>
                             <div class="example">
                                 <div class="form-group">
-                                   <label class="form-control-label" for="inputBasicFirstName">Roisam Asrama</label>
+                                   <label class="form-control-label" for="inputBasicFirstName">Rais'Am Asrama</label>
                                    <input v-model="asrama.roisam_asrama" type="text" class="form-control" placeholder="First Name" autocomplete="off" />
                                         <span v-if="errors.roisam_asrama" class="label label-danger">{{ errors.roisam_asrama[0] }}</span>
                                 </div>

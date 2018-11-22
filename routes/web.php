@@ -46,7 +46,8 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// End Santri
 			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
-			Route::post('/kelas/store', 'KelasController@store')->name('store');
+			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
+			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
 			// End Kelas
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 			// Asrama
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/asrama/get/putri', 'AsramaController@getAsramaPutri')->name('asrama.getAsramaPutri');
 			Route::post('/asrama/storeNamaAsrama', 'AsramaController@storeNamaAsrama')->name('asrama.storeNamaAsrama');
 			Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
+			Route::get('/asrama/{id}', 'AsramaController@show')->name('asrama.show');
 			// End Asrama
 		});
 	});
