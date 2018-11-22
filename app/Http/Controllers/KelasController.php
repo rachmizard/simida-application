@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Kelas;
 use Illuminate\Http\Request;
 use App\Http\Resources\KelasResource;
+use Yajra\Datatables\Datatables;
 
 class KelasController extends Controller
 {
@@ -16,6 +17,19 @@ class KelasController extends Controller
     public function index()
     {
         return view('sekretariat.kelas.kelas');
+    }
+
+    public function getKelasDatatables()
+    {
+        $karyawans = Kelas::all();
+        return Datatables::of(KelasResource::collection(Kelas::all()))
+                ->addColumn('action', function($karyawans){
+                    return '<button data-target="#editModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-warning">Edit</button>
+                            <button data-target="#hapusModal" data-toggle="modal" data-url="'. route('sekretariat.kelas.destroy', $karyawans['id']) .'" class="btn btn-sm btn-danger">Hapus</button>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     /**
@@ -98,7 +112,8 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        return new KelasResource(Kelas::find($id));
+        $kelas = new KelasResource(Kelas::find($id));
+        return response()->json($kelas);
     }
 
     /**
