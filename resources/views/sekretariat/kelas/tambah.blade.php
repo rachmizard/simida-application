@@ -8,7 +8,7 @@
         <li class="breadcrumb-item"><a href="javascript:void(0)">Forms</a></li>
         <li class="breadcrumb-item active">Kelas</li>
     </ol>
-    <div class="page-header-actions">
+    <!-- <div class="page-header-actions">
         <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Edit">
             <i class="icon wb-pencil" aria-hidden="true"></i>
         </button>
@@ -18,7 +18,7 @@
         <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Setting">
             <i class="icon wb-settings" aria-hidden="true"></i>
         </button>
-    </div>
+    </div> -->
 </div>
 
 <form-kelas-component></form-kelas-component>

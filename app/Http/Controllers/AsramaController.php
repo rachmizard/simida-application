@@ -108,9 +108,10 @@ class AsramaController extends Controller
      * @param  \App\Asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function show(Asrama $asrama)
+    public function show($id)
     {
-        //
+        $asrama = Asrama::whereId($id)->get();
+        return response()->json(['data' => $asrama]);
     }
 
     /**
@@ -131,9 +132,19 @@ class AsramaController extends Controller
      * @param  \App\Asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asrama $asrama)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $asrama = Asrama::find($id)->update($request->all());
+            $data['messageError'] = false;
+            $data['message'] = 'Berhasil menambahkan Asrama!';
+            $data['type'] = 'success';
+        } catch (Exception $e) {
+            $data['messageError'] = 'Terjadi kesalahan!';
+            $data['message'] = true;
+            $data['type'] = 'error';
+        }
+        return response()->json(['response' => $data]);
     }
 
     /**
@@ -142,8 +153,18 @@ class AsramaController extends Controller
      * @param  \App\Asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asrama $asrama)
+    public function destroy($id)
     {
-        //
+        try {
+            $asrama = Asrama::find($id)->delete();
+            $data['messageError'] = false;
+            $data['message'] = 'Berhasil menghapus Asrama!';
+            $data['type'] = 'success';
+        } catch (Exception $e) {
+            $data['messageError'] = 'Terjadi kesalahan!';
+            $data['message'] = true;
+            $data['type'] = 'error';
+        }
+        return response()->json(['response' => $data]);
     }
 }

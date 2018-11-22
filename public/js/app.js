@@ -1100,8 +1100,13 @@ window.Vue = __webpack_require__(36);
  */
 
 Vue.component('example-component', __webpack_require__(39));
+
+// ASRAMA
 Vue.component('form-asrama-component', __webpack_require__(42));
+
+// KELAS
 Vue.component('form-kelas-component', __webpack_require__(60));
+Vue.component('list-kelas-component', __webpack_require__(63));
 
 /**
 * Vue Router
@@ -44071,7 +44076,7 @@ var render = function() {
                       },
                       [
                         _c("h4", { staticClass: "example-title" }, [
-                          _vm._v("Roisam Asrama")
+                          _vm._v("Rais'Am")
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "example" }, [
@@ -44082,7 +44087,7 @@ var render = function() {
                                 staticClass: "form-control-label",
                                 attrs: { for: "inputBasicFirstName" }
                               },
-                              [_vm._v("Roisam Asrama")]
+                              [_vm._v("Rais'Am Asrama")]
                             ),
                             _vm._v(" "),
                             _c("input", {
@@ -47024,6 +47029,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47036,11 +47065,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             kelas: {
                 nama_kelas: '',
                 tingkat: '',
-                nama_guru: '',
-                badal_guru: ''
+                lokal: '',
+                tingkat_id: '',
+                jk: '',
+                guru_id: '',
+                badal_id: ''
             },
             message: '',
-            messageError: ''
+            messageError: '',
+            messageWarning: ''
         };
     },
 
@@ -47048,22 +47081,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         store: function store(e) {
             var app = this;
-            var kelas = app.kelas;
-            axios.post(e.target.action, kelas).then(function (respon) {
+            var kelasQue = app.kelas;
+            axios.post(e.target.action, kelasQue).then(function (respon) {
                 app.errors = [];
                 app.kelas.nama_kelas = '';
                 app.kelas.tingkat = '';
-                app.kelas.nama_guru = '';
-                app.kelas.badal_guru = '';
+                app.kelas.lokal = '';
+                app.kelas.tingkat_id = '';
+                app.kelas.jk = '';
+                app.kelas.guru_id = '';
+                app.kelas.badal_id = '';
                 app.message = respon.data.response.message;
+                app.messageError = respon.data.response.messageError;
+                app.messageWarning = respon.data.response.messageWarning;
 
-                setTimout(function () {
+                setTimeout(function () {
                     app.message = false;
                     app.messageError = false;
+                    app.messageWarning = false;
                 }, 5000);
             }).catch(function (error) {
                 app.errors = error.response.data.errors;
+                app.messageError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
                 app.message = false;
+                app.messageWarning = false;
             });
         }
     }
@@ -47087,10 +47128,72 @@ var render = function() {
     [
       _c("div", { staticClass: "row row-lg" }, [
         _c("div", { staticClass: "col-md-12" }, [
+          _vm.message
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alert dark alert-icon alert-success alert-dismissible",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "icon wb-check",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v(" " + _vm._s(_vm.message) + ", lihat hasil "),
+                  _c("a", { attrs: { href: "/sekretariat/kelas" } }, [
+                    _vm._v("Beralih ke halaman list Kelas.")
+                  ])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.messageWarning
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alert dark alert-icon alert-warning alert-dismissible",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\r\n                  " +
+                      _vm._s(_vm.messageWarning) +
+                      "\r\n            "
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.messageError
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alert dark alert-icon alert-danger alert-dismissible",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\r\n                  " +
+                      _vm._s(_vm.messageError) +
+                      "\r\n            "
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "form",
             {
-              attrs: { autocomplete: "off", action: "sekretariat/kelas/store" },
+              attrs: {
+                autocomplete: "off",
+                action: "/sekretariat/kelas/store"
+              },
               on: {
                 submit: function($event) {
                   $event.preventDefault()
@@ -47098,7 +47201,566 @@ var render = function() {
                 }
               }
             },
-            [_vm._m(0)]
+            [
+              _c("div", { staticClass: "form-row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group col-md-6 col-sm-12",
+                    staticStyle: { "padding-right": "15px" }
+                  },
+                  [
+                    _c("h4", { staticClass: "example-title" }, [
+                      _vm._v("Data Kelas")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "example" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Nama Kelas")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.kelas.nama_kelas,
+                                expression: "kelas.nama_kelas"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Nama Kelas baru..",
+                              autocomplete: "off"
+                            },
+                            domProps: { value: _vm.kelas.nama_kelas },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.kelas,
+                                  "nama_kelas",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.nama_kelas
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.nama_kelas[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Kelas")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.kelas.tingkat,
+                                  expression: "kelas.tingkat"
+                                }
+                              ],
+                              staticClass: "form-control select2",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.kelas,
+                                    "tingkat",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Kelas")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("1")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("2")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "3" } }, [
+                                _vm._v("3")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "4" } }, [
+                                _vm._v("4")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "5" } }, [
+                                _vm._v("5")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.tingkat
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.tingkat[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Lokal")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.kelas.lokal,
+                                  expression: "kelas.lokal"
+                                }
+                              ],
+                              staticClass: "form-control select2",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.kelas,
+                                    "lokal",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Lokal")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "A" } }, [
+                                _vm._v("A")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "B" } }, [
+                                _vm._v("B")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "C" } }, [
+                                _vm._v("C")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "D" } }, [
+                                _vm._v("D")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "E" } }, [
+                                _vm._v("E")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "F" } }, [
+                                _vm._v("F")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.lokal
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.lokal[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Tingkat")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.kelas.tingkat_id,
+                                  expression: "kelas.tingkat_id"
+                                }
+                              ],
+                              staticClass: "form-control select2",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.kelas,
+                                    "tingkat_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Tingkat Kelas")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("Ibtida")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("Tsanawi")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "3" } }, [
+                                _vm._v("Ma'had Aly")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.tingkat_id
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.tingkat_id[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-12" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Jenis Kelamin")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.kelas.jk,
+                                  expression: "kelas.jk"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.kelas,
+                                    "jk",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Jenis Kelamin Untuk Kelas")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Putra" } }, [
+                                _vm._v("Putra")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Putri" } }, [
+                                _vm._v("Putri")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.jk
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.jk[0]))]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group col-md-6 col-sm-12",
+                    staticStyle: { "padding-left": "15px" }
+                  },
+                  [
+                    _c("h4", { staticClass: "example-title" }, [
+                      _vm._v("Data Guru")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "example" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-control-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Nama Guru")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.kelas.guru_id,
+                                expression: "kelas.guru_id"
+                              }
+                            ],
+                            staticClass: "form-control select2",
+                            attrs: { placeholder: "Nama Guru" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.kelas,
+                                  "guru_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { disabled: "", selected: "", value: "" }
+                              },
+                              [_vm._v("Pilih Guru")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Usman Khatam")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("Jeffry Washington")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.guru_id
+                          ? _c("span", { staticClass: "label label-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.guru_id[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-control-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Badal (Pengganti)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.kelas.badal_id,
+                                expression: "kelas.badal_id"
+                              }
+                            ],
+                            staticClass: "form-control select2",
+                            attrs: { placeholder: "Nama Guru" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.kelas,
+                                  "badal_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { disabled: "", selected: "", value: "" }
+                              },
+                              [_vm._v("Pilih Guru")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Usman Khatam")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("Jeffry Washington")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.badal_id
+                          ? _c("span", { staticClass: "label label-danger" }, [
+                              _vm._v(_vm._s(_vm.errors.badal_id[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ])
+                  ]
+                )
+              ])
+            ]
           )
         ])
       ])
@@ -47110,147 +47772,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-row" }, [
       _c(
-        "div",
-        {
-          staticClass: "form-group col-md-6 col-sm-12",
-          staticStyle: { "padding-right": "15px" }
-        },
-        [
-          _c("h4", { staticClass: "example-title" }, [_vm._v("Data Kelas")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "example" }, [
-            _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicFirstName" }
-                  },
-                  [_vm._v("Kelas")]
-                ),
-                _vm._v(" "),
-                _c("select", { staticClass: "form-control selectTo" }, [
-                  _c("optgroup", { attrs: { label: "Kelas" } }, [
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")])
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { disabled: "", selected: "" } })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicFirstName" }
-                  },
-                  [_vm._v("Tingkat")]
-                ),
-                _vm._v(" "),
-                _c("select", { staticClass: "form-control selectTo" }, [
-                  _c("optgroup", { attrs: { label: "Tingkat 1" } }, [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("1A")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("1B")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("1C")])
-                  ]),
-                  _vm._v(" "),
-                  _c("optgroup", { attrs: { label: "Tingkat 2" } }, [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("2A")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("2B")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("2C")])
-                  ]),
-                  _vm._v(" "),
-                  _c("optgroup", { attrs: { label: "Tingkat 3" } }, [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("3A")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("3B")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("3C")])
-                  ]),
-                  _vm._v(" "),
-                  _c("optgroup", { attrs: { label: "Tingkat 4" } }, [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("4A")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("4B")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "" } }, [_vm._v("4C")])
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { disabled: "", selected: "" } })
-                ])
-              ])
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "form-group col-md-6 col-sm-12",
-          staticStyle: { "padding-left": "15px" }
-        },
-        [
-          _c("h4", { staticClass: "example-title" }, [_vm._v("Data Guru")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "example" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "form-control-label", attrs: { for: "" } },
-                [_vm._v("Nama Guru")]
-              ),
-              _vm._v(" "),
-              _c("select", { staticClass: "form-control selectTo" }, [
-                _c("optgroup", { attrs: { label: "Guru" } }, [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Samsul Alrifin")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { disabled: "", selected: "" } })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "form-control-label", attrs: { for: "" } },
-                [_vm._v("Badal")]
-              ),
-              _vm._v(" "),
-              _c("select", { staticClass: "form-control selectTo" }, [
-                _c("optgroup", { attrs: { label: "Guru" } }, [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Samsul Alrifin")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { disabled: "", selected: "" } })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-row" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Submit ")]
-              )
-            ])
-          ])
-        ]
+        "button",
+        { staticClass: "btn btn-primary col-md-12", attrs: { type: "submit" } },
+        [_vm._v("Tambah Kelas ")]
       )
     ])
   }
@@ -47261,6 +47804,1149 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-e4eb226a", module.exports)
+  }
+}
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(9)
+/* script */
+var __vue_script__ = __webpack_require__(64)
+/* template */
+var __vue_template__ = __webpack_require__(65)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Kelas/ListKelasComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1f3cdfb6", Component.options)
+  } else {
+    hotAPI.reload("data-v-1f3cdfb6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+$(document).ready(function () {
+	$('#exampleTableTools').DataTable();
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {},
+	data: function data() {
+		return {};
+	}
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel" }, [
+      _c("header", { staticClass: "panel-heading" }, [
+        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Tools")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-hover dataTable table-striped w-full",
+            attrs: { id: "exampleTableTools" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Position")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Office")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Age")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Start date")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Salary")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tfoot", [
+              _c("tr", [
+                _c("th", [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Position")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Office")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Age")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Start date")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Salary")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("Kate")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("5516 Adolfo Rode")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Littelhaven")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("26")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/06/13")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$635,852")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Torrey")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("3658 Richie Street")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("West Sedrickstad")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/09/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$243,577")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Jolin")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("39 Hirthe Squares")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Ryleetown")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("17")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/09/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$784,802")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Wilhelmine")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("054 O'Hara Union")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Dibbertfurt")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("35")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/06/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$254,987")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Hubeen")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("8884 Jamel Pines")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Howemouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("51")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/05/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$584,032")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Gerhold")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("098 Noel Way")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Santinoland")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("19")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/12/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$145,088")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Chester")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("14095 Kling Gateway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Andresmouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("21")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/09/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$177,404")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Melany")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("1100 Steve Pines")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Immanuelfort")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/06/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$162,453")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Thea")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("26114 Narciso Lodge")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("East Opal")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("64")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/11/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$581,736")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Kreiger")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("111 Hershel Stream")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Hermannborough")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("36")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/11/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$921,021")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Shanel")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("7579 Santa Forest")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Jordaneville")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("14")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/04/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$818,20")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Mueller")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("083 Kshlerin Forest")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Clintmouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("18")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/10/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$571,46")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Clementina")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("5957 Hagenes Falls")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Anaishaven")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("45")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/11/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$684,588")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Johanna")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("4301 Trever Radial")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Lake Augustineton")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("67")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/12/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$608,507")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Elliottr")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("8417 Orion Parkway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Streichside")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("34")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/08/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$447,592")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Yasmine")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("67284 Kreiger Freeway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Stoltenbergside")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("18")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/12/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$358,369")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("AdaHoppe")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("69842 Peyton Viaduct")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("South Geovannyburgh")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("36")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/05/13")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$211,76")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Sammie")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("46406 Powlowski Common")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Cristmouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("51")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/03/29")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$345,739")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Terrance")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("1568 Richmond Bypass")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Schillerfort")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("46")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/10/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$634,073")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("August")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("731 Stiedemann Crossing")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Rolfsonborough")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("36")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/11/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$203,952")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Mckenna")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("63204 Hegmann Keys")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("New Isobelview")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/08/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$702,091")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Adrianna")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("75151 Kshlerin Square")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("North Elwynfurt")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("25")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/02/26")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$481,980")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Heath")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("6778 Howe Route")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Antwanbury")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("32")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/08/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$569,723")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Alisa")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("64838 D'Amore Cove")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Port Lempi")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("25")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/04/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$226,459")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Treva")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("308 Octavia Roads")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("East Eunaton")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("37")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/12/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$746,921")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Nicolas")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("760 Hickle Causeway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Lake Nickolasshire")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("69")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/05/13")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$293,786")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Gerhard")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("893 Mara Parkway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Elmermouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("32")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/11/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$856,275")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Monica")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("0039 Heath Plain")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("West Bentonhaven")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("46")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/05/13")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$821,600")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Lacey")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("995 Lang Springs")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Cordellburgh")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("41")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/11/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$990,291")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Bret")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("282 Susana Heights")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Kaneport")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("47")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/05/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$445,494")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Jennie")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("755 Greyson Key")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("East Jazmyne")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("52")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/03/29")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$530,408")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Emerson")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("784 Adriel Radial")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("New Jerroldland")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("4")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/02/26")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$805,823")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Herta")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("7491 Bednar Gardens")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Port Lucianoton")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("23")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/10/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$352,269")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Deckow")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("6440 Moen Loop")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Jenningsbury")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("23")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/07/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$219,573")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Davin")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("50922 Kiara Square")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Port Edmund")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("37")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/11/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$241,432")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Johnathan")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("1998 Webster Fords")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("East Vern")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("50")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/09/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$290,875")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Gunnar")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("92873 Barney Club")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Beierview")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("82")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/03/29")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$569,778")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Raina")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("828 Cathy Streets")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("West Uriahville")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("26")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/09/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$186,229")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Marjorie")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("314 Aurore Canyon")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Port Jaquelineburgh")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("3")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/06/28")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$547,752")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Citlalli")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("139 Ebert Freeway")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Lake Esperanzamouth")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("78")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/01/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$892,012")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Ruben")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("02868 Cronin Tunnel")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Rossieville")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("87")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/09/12")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$520,483")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Jakubowski")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("80391 Maxwell Parks")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("South Travon")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("26")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2014/03/29")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$272,005")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Josephine")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("36238 Satterfield Avenue")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("New Alexanderhaven")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("51")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2017/01/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$189,18")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Ceasar")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2795 Clement Ridges")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Beckerhaven")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("78")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("2013/11/27")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("$958,117")])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1f3cdfb6", module.exports)
   }
 }
 

@@ -16,8 +16,13 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+// ASRAMA
 Vue.component('form-asrama-component', require('./components/Sekretariat/Asrama/FormAsramaComponent.vue'));
+
+// KELAS
 Vue.component('form-kelas-component', require('./components/Sekretariat/Kelas/FormKelasComponent.vue'));
+Vue.component('list-kelas-component', require('./components/Sekretariat/Kelas/ListKelasComponent.vue'))
 
 /**
 * Vue Router

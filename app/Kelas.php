@@ -16,7 +16,7 @@ class Kelas extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_kelas', 'tingkat_id', 'guru_id', 'badal_id'
+        'nama_kelas', 'tingkat_id', 'tingkat', 'lokal', 'jk', 'guru_id', 'badal_id'
     ];
 
     /**
@@ -32,6 +32,11 @@ class Kelas extends Model
     public function guru()
     {
     	return $this->belongsTo(Guru::class, 'guru_id', 'id');
+    }
+
+    public function badal()
+    {
+        return $this->belongsTo(Guru::class, 'badal_id', 'id');
     }
 
 }

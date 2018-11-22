@@ -37,6 +37,13 @@
   <!-- Plugins This page-->
   <link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min599c.css">
   <link rel="stylesheet" href="/assets/vendor/select2/select2.min599c.css?v4.0.2">
+    <!-- Datatable -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.2/css/autoFill.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.4/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.0/css/colReorder.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.5/css/fixedColumns.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.bootstrap4.min.css">
 
   <!-- Fonts -->
   <link rel="stylesheet" href="/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2">
@@ -632,6 +639,21 @@
         $('.selectTo').select2();
     });
     </script>
+      <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/autofill/2.3.2/js/dataTables.autoFill.min.js"></script>
+    <script src="https://cdn.datatables.net/autofill/2.3.2/js/autoFill.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/3.2.5/js/dataTables.fixedColumns.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.4/js/dataTables.fixedHeader.min.js"></script>
+
 <script>
 
 ! function(global, factory) {
