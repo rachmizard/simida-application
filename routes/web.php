@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 
+Route::get('event', function(){
+	event(new App\Events\DrawTable());
+});
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home')->middleware('is_murobbi');
@@ -41,15 +45,23 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/pendaftaran', 'SantriController@pendaftaran')->name('pendaftaran');
 			Route::post('/pendaftaran/store', 'SantriController@store')->name('store');
 			// End Pendaftaran
+
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
 			// End Santri
+
 			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
+			Route::get('/kelas/getKelasDatatables', 'KelasController@getKelasDatatables')->name('kelas.getKelasDatatables');
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
-			// End Kelas
+			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
+			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
+			Route::get('/kelas/{id}/destroy', 'KelasController@destroy')->name('kelas.destroy');
+
+			// End Kelas
+
 			// Asrama
 			Route::get('/asrama', 'AsramaController@index')->name('asrama');
 			Route::get('/asrama/tambah', 'AsramaController@create')->name('asrama.create');
