@@ -27,8 +27,10 @@ class KelasController extends Controller
         $karyawans = Kelas::all();
         return Datatables::of(KelasResource::collection(Kelas::all()))
                 ->addColumn('action', function($karyawans){
-                    return '<button data-target="#editModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-warning">Edit</button>
-                            <button data-target="#deleteModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-danger">Hapus</button>
+                    return '<button data-target="#editModal" data-toggle="modal" data-content="Edit"
+                    data-trigger="hover" data-original-title="Hover to trigger"
+                    tabindex="0" title="" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                            <button data-target="#deleteModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
                             ';
                 })
                 ->rawColumns(['action'])

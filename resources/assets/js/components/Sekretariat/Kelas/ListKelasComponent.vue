@@ -13,12 +13,12 @@
               <h4 class="modal-title" id="title-data"></h4>
             </div>
             <div class="modal-body" style="margin-bottom: 50px;">
-                <h3>Anda yakin ingin menghapus data tersebut?</h3>
+                <h5>Anda yakin ingin menghapus data tersebut?</h5>
             </div>
               <div class="modal-footer">
                 <div class="btn-group">
                   <button class="btn btn-md btn-info" data-dismiss="modal">Tidak</button>
-                  <button class="btn btn-md btn-danger" id="deleteBtn"><i class="fa fa-upload"></i> Ya</button>
+                  <button class="btn btn-md btn-danger" id="deleteBtn"><i class="fa fa-upload"></i><i class="icon wb-trash"></i> Ya</button>
                 </div>
               </div>
           </div><!-- /.modal-content -->
@@ -83,9 +83,9 @@
 
         $('#deleteModal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('id');
-            $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
-              $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
-            }); 
+            // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+            //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+            // }); 
           $("#deleteBtn").on('click', function(){
               axios.delete('/sekretariat/kelas/'+ id +'/destroy').then(function(resp){
                 $('#deleteModal').modal('hide')

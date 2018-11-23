@@ -55315,9 +55315,9 @@ $(function () {
 
   $('#deleteModal').on('show.bs.modal', function (e) {
     var id = $(e.relatedTarget).data('id');
-    $.get('/sekretariat/kelas/' + id + '/destroy', function (data) {
-      $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/' + id + '/destroy');
-    });
+    // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+    //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+    // }); 
     $("#deleteBtn").on('click', function () {
       axios.delete('/sekretariat/kelas/' + id + '/destroy').then(function (resp) {
         $('#deleteModal').modal('hide');
@@ -55429,7 +55429,7 @@ var staticRenderFns = [
                     staticStyle: { "margin-bottom": "50px" }
                   },
                   [
-                    _c("h3", [
+                    _c("h5", [
                       _vm._v("Anda yakin ingin menghapus data tersebut?")
                     ])
                   ]
@@ -55452,7 +55452,11 @@ var staticRenderFns = [
                         staticClass: "btn btn-md btn-danger",
                         attrs: { id: "deleteBtn" }
                       },
-                      [_c("i", { staticClass: "fa fa-upload" }), _vm._v(" Ya")]
+                      [
+                        _c("i", { staticClass: "fa fa-upload" }),
+                        _c("i", { staticClass: "icon wb-trash" }),
+                        _vm._v(" Ya")
+                      ]
                     )
                   ])
                 ])
