@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Kelas;
+use App\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Resources\KelasResource;
 use Yajra\Datatables\Datatables;
+use App\Events\DrawTable;
 
 class KelasController extends Controller
 {
@@ -16,7 +18,8 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('sekretariat.kelas.kelas');
+        $tingkat = Tingkat::all();
+        return view('sekretariat.kelas.kelas', compact('tingkat'));
     }
 
     public function getKelasDatatables()
@@ -25,7 +28,7 @@ class KelasController extends Controller
         return Datatables::of(KelasResource::collection(Kelas::all()))
                 ->addColumn('action', function($karyawans){
                     return '<button data-target="#editModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-warning">Edit</button>
-                            <button data-target="#hapusModal" data-toggle="modal" data-url="'. route('sekretariat.kelas.destroy', $karyawans['id']) .'" class="btn btn-sm btn-danger">Hapus</button>
+                            <button data-target="#deleteModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-danger">Hapus</button>
                             ';
                 })
                 ->rawColumns(['action'])
@@ -66,7 +69,6 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_kelas' => 'required', 
             'tingkat_id' => 'required', 
             'tingkat' => 'required', 
             'lokal' => 'required' , 
@@ -83,13 +85,30 @@ class KelasController extends Controller
                     'lokal' => request('lokal'),
                     'jk' => request('jk')
                 ])->count();
-            if ($validator > 1) {
+            if ($validator > 0) {
                 $data['messageWarning'] = 'Data kelas sudah tersedia!';
                 $data['messageError'] = false;
                 $data['message'] = false;
                 $data['type'] = 'error';
             }else{
-                $newKelas = Kelas::create($request->all());   
+                $newKelas = new Kelas();   
+                $newKelas->nama_kelas = $request->tingkat.$request->lokal.' '.$request->tingkat_id. ' '.$request->jk;
+                
+                // INSERT
+                $newKelas->tingkat = $request->tingkat;
+                $newKelas->lokal = $request->lokal;
+                $newKelas->tingkat_id = $request->tingkat_id;
+                $newKelas->jk = $request->jk;
+                $newKelas->guru_id = $request->guru_id;
+                $newKelas->badal_id = $request->badal_id;
+                $newKelas->save();
+
+                // UPDATE
+                $updateKelas = Kelas::find($newKelas->id);
+                $updateKelas->nama_kelas = $request->tingkat.$request->lokal.' '.$newKelas['tingkatKelas']['nama_tingkatan']. ' '.$request->jk;
+                $updateKelas->update();
+                event(new DrawTable());
+
                 $data['messageWarning'] = false;
                 $data['messageError'] = false;
                 $data['message'] = 'Berhasil menambahkan Kelas!';
@@ -140,7 +159,9 @@ class KelasController extends Controller
         $data['messageWarning'] = false;
         $data['messageError'] = false;
         $data['message'] = 'Berhasil mengedit Kelas!';
-        return response()->json(['response' => $data]);
+        // return response()->json(['response' => $data]);
+        event(new DrawTable());
+        return redirect()->back();
     }
 
     /**

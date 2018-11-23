@@ -12,4 +12,9 @@ class Tingkat extends Model
     protected $fillable = [
         'nama_tingkatan',
     ];
+
+    public function kelas()
+    {
+    	return $this->hasMany(Kelas::class, 'id');
+    }
 }

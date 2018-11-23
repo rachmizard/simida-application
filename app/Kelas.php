@@ -24,7 +24,7 @@ class Kelas extends Model
      *
      */
 
-    public function tingkat()
+    public function tingkatKelas()
     {
     	return $this->belongsTo(Tingkat::class, 'tingkat_id', 'id');
     }

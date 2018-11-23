@@ -56,11 +56,16 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
 			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
+			Route::put('/kelas/{id}/update', 'KelasController@update')->name('kelas.update');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
-			Route::get('/kelas/{id}/destroy', 'KelasController@destroy')->name('kelas.destroy');
-
+			Route::delete('/kelas/{id}/destroy', 'KelasController@destroy')->name('kelas.destroy');
 			// End Kelas
+
+			// Tingkatan
+			Route::get('/tingkatan/getJSON', 'TingkatController@getJSON')->name('tingkat.getJSON');
+			Route::post('/tingkatan/store', 'TingkatController@store')->name('tingkat.store');
+			// End TIngkatan
 
 			// Asrama
 			Route::get('/asrama', 'AsramaController@index')->name('asrama');
