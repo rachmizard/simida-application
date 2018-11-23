@@ -32,6 +32,6 @@ class DrawTable implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('draw-table');
+        return new Channel('draw-table');
     }
 }

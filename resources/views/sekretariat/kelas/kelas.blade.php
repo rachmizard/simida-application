@@ -22,15 +22,16 @@
 	<list-kelas-component></list-kelas-component>
 
     <!-- MODAL -->
-
       <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="nama_kelas"></h4>
+              <h4 class="modal-title" id="title-data"></h4>
             </div>
-              <form action="karyawan/import" method="post" enctype="multipart/form-data" id="submitUpload">
+              <form method="POST" enctype="multipart/form-data" id="submitEditKelas">
+                <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                <input type="hidden" value="PUT" name="_method">
                 <div class="modal-body" style="margin-bottom: 50px;">
 
                 <div class="form-row">
@@ -49,10 +50,10 @@
                                 </select>
                             </div> -->
                             <div class="form-row">
-                                <!-- <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label class="form-control-label" for="inputBasicFirstName">Nama Kelas</label>
-                                   <input type="text" id="nama_kelas" class="form-control" placeholder="Nama Kelas baru.." autocomplete="off" />
-                                </div> -->
+                                   <input type="text" disabled id="nama_kelas" class="form-control" placeholder="Nama Kelas baru.." autocomplete="off" />
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
                                     <select id="tingkat" name="tingkat" class="form-control select2" placeholder="">
@@ -77,9 +78,9 @@
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
                                     <select id="tingkat_id" name="tingkat_id" class="form-control select2" placeholder="">
-                                        <option value="1">Ibtida</option>
-                                        <option value="2">Tsanawi</option>
-                                        <option value="3">Ma'had Aly</option>
+                                        @foreach($tingkat as $in)
+                                        <option value="{{ $in->id }}">{{ $in->nama_tingkatan }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12">

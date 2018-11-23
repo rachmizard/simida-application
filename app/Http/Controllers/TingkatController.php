@@ -22,6 +22,13 @@ class TingkatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getJSON()
+    {
+        $tingkat = Tingkat::all();
+        return response()->json(['data' => $tingkat]);
+    }
+
     public function create()
     {
         //
@@ -35,7 +42,19 @@ class TingkatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $tingkat = Tingkat::create($request->all());   
+            $data['messageWarningTingkatan'] = false;
+            $data['messageErrorTingkatan'] = false;
+            $data['messageTingkatan'] = 'Berhasil menambahkan Tingkat!';
+            $data['type'] = 'success';  
+        } catch (Exception $e) {
+                $data['messageWarningTingkatan'] = false;
+                $data['messageErrorTingkatan'] = 'Terjadi Kesalahan!';
+                $data['messageTingkatan'] = false;
+                $data['type'] = 'success';  
+        }
+        return response()->json(['response' => $data]);
     }
 
     /**

@@ -54196,17 +54196,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Component mounted.');
+        this.retrieveTingkat();
     },
     data: function data() {
         return {
             errors: [],
             kelas: {
-                nama_kelas: '',
                 tingkat: '',
                 lokal: '',
                 tingkat_id: '',
@@ -54214,9 +54250,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 guru_id: '',
                 badal_id: ''
             },
+            tingkatan: {
+                nama_tingkatan: ''
+            },
+            listTingkat: [],
             message: '',
             messageError: '',
-            messageWarning: ''
+            messageWarning: '',
+            messageTingkatan: '',
+            messageErrorTingkatan: '',
+            messageWarningTingkatan: ''
         };
     },
 
@@ -54227,7 +54270,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var kelasQue = app.kelas;
             axios.post(e.target.action, kelasQue).then(function (respon) {
                 app.errors = [];
-                app.kelas.nama_kelas = '';
                 app.kelas.tingkat = '';
                 app.kelas.lokal = '';
                 app.kelas.tingkat_id = '';
@@ -54237,7 +54279,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 app.message = respon.data.response.message;
                 app.messageError = respon.data.response.messageError;
                 app.messageWarning = respon.data.response.messageWarning;
-
                 setTimeout(function () {
                     app.message = false;
                     app.messageError = false;
@@ -54248,6 +54289,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 app.messageError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
                 app.message = false;
                 app.messageWarning = false;
+            });
+        },
+
+        retrieveTingkat: function retrieveTingkat() {
+            var app = this;
+            axios.get('/sekretariat/tingkatan/getJSON').then(function (response) {
+                app.listTingkat = response.data;
+            });
+        },
+
+
+        storeTingkatan: function storeTingkatan(act) {
+            var _this = this;
+
+            var tingkatan = this.tingkatan;
+            axios.post(act.target.action, tingkatan).then(function (resp) {
+                _this.messageTingkatan = resp.data.response.messageTingkatan;
+                _this.messageErrorTingkatan = resp.data.response.messageErrorTingkatan;
+                _this.messageWarningTingkatan = resp.data.response.messageWarningTingkatan;
+                _this.tingkatan.nama_tingkatan = '';
+                _this.retrieveTingkat();
             });
         }
     }
@@ -54262,655 +54324,826 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "panel-body container-fluid",
-      staticStyle: { "background-color": "#fdfdfd" }
-    },
-    [
-      _c("div", { staticClass: "row row-lg" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _vm.message
-            ? _c(
-                "div",
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "panel" }, [
+      _c(
+        "div",
+        {
+          staticClass: "panel-body container-fluid",
+          staticStyle: { "background-color": "#fdfdfd" }
+        },
+        [
+          _c("div", { staticClass: "row row-lg" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _vm.messageTingkatan
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-success alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "icon wb-check",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.messageTingkatan) +
+                          " data ditambahkan ke form tingkat"
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageWarningTingkatan
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-warning alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageWarningTingkatan) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageErrorTingkatan
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-danger alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageErrorTingkatan) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "form",
                 {
-                  staticClass:
-                    "alert dark alert-icon alert-success alert-dismissible",
-                  attrs: { role: "alert" }
+                  attrs: {
+                    autocomplete: "off",
+                    action: "/sekretariat/tingkatan/store"
+                  },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.storeTingkatan($event)
+                    }
+                  }
                 },
                 [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "icon wb-check",
-                    attrs: { "aria-hidden": "true" }
-                  }),
-                  _vm._v(" " + _vm._s(_vm.message) + ", lihat hasil "),
-                  _c("a", { attrs: { href: "/sekretariat/kelas" } }, [
-                    _vm._v("Beralih ke halaman list Kelas.")
+                  _c("div", { staticClass: "form-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-12 col-sm-12",
+                        staticStyle: { "padding-right": "15px" }
+                      },
+                      [
+                        _c("h4", { staticClass: "example-title" }, [
+                          _vm._v("Tambah Tingkat Kelas")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "example" }, [
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "form-group col-md-6" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Nama Tingkat")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.tingkatan.nama_tingkatan,
+                                    expression: "tingkatan.nama_tingkatan"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Nama Tingkat Kelas Baru..",
+                                  autocomplete: "off"
+                                },
+                                domProps: {
+                                  value: _vm.tingkatan.nama_tingkatan
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.tingkatan,
+                                      "nama_tingkatan",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm.errors.nama_tingkatan
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.errors.nama_tingkatan[0])
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ])
+                      ]
+                    )
                   ])
                 ]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.messageWarning
-            ? _c(
-                "div",
-                {
-                  staticClass:
-                    "alert dark alert-icon alert-warning alert-dismissible",
-                  attrs: { role: "alert" }
-                },
-                [
-                  _vm._v(
-                    "\r\n                  " +
-                      _vm._s(_vm.messageWarning) +
-                      "\r\n            "
-                  )
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.messageError
-            ? _c(
-                "div",
-                {
-                  staticClass:
-                    "alert dark alert-icon alert-danger alert-dismissible",
-                  attrs: { role: "alert" }
-                },
-                [
-                  _vm._v(
-                    "\r\n                  " +
-                      _vm._s(_vm.messageError) +
-                      "\r\n            "
-                  )
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              attrs: {
-                autocomplete: "off",
-                action: "/sekretariat/kelas/store"
-              },
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.store($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "form-row" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group col-md-6 col-sm-12",
-                    staticStyle: { "padding-right": "15px" }
-                  },
-                  [
-                    _c("h4", { staticClass: "example-title" }, [
-                      _vm._v("Data Kelas")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "example" }, [
-                      _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-control-label",
-                              attrs: { for: "inputBasicFirstName" }
-                            },
-                            [_vm._v("Nama Kelas")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.kelas.nama_kelas,
-                                expression: "kelas.nama_kelas"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Nama Kelas baru..",
-                              autocomplete: "off"
-                            },
-                            domProps: { value: _vm.kelas.nama_kelas },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.kelas,
-                                  "nama_kelas",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.nama_kelas
-                            ? _c(
-                                "span",
-                                { staticClass: "label label-danger" },
-                                [_vm._v(_vm._s(_vm.errors.nama_kelas[0]))]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-control-label",
-                              attrs: { for: "inputBasicFirstName" }
-                            },
-                            [_vm._v("Kelas")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.kelas.tingkat,
-                                  expression: "kelas.tingkat"
-                                }
-                              ],
-                              staticClass: "form-control select2",
-                              attrs: { placeholder: "" },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.kelas,
-                                    "tingkat",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: {
-                                    selected: "",
-                                    value: "",
-                                    disabled: ""
-                                  }
-                                },
-                                [_vm._v("Pilih Kelas")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "1" } }, [
-                                _vm._v("1")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "2" } }, [
-                                _vm._v("2")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "3" } }, [
-                                _vm._v("3")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "4" } }, [
-                                _vm._v("4")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "5" } }, [
-                                _vm._v("5")
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.errors.tingkat
-                            ? _c(
-                                "span",
-                                { staticClass: "label label-danger" },
-                                [_vm._v(_vm._s(_vm.errors.tingkat[0]))]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-control-label",
-                              attrs: { for: "inputBasicFirstName" }
-                            },
-                            [_vm._v("Lokal")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.kelas.lokal,
-                                  expression: "kelas.lokal"
-                                }
-                              ],
-                              staticClass: "form-control select2",
-                              attrs: { placeholder: "" },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.kelas,
-                                    "lokal",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: {
-                                    selected: "",
-                                    value: "",
-                                    disabled: ""
-                                  }
-                                },
-                                [_vm._v("Pilih Lokal")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "A" } }, [
-                                _vm._v("A")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "B" } }, [
-                                _vm._v("B")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "C" } }, [
-                                _vm._v("C")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "D" } }, [
-                                _vm._v("D")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "E" } }, [
-                                _vm._v("E")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "F" } }, [
-                                _vm._v("F")
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.errors.lokal
-                            ? _c(
-                                "span",
-                                { staticClass: "label label-danger" },
-                                [_vm._v(_vm._s(_vm.errors.lokal[0]))]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-control-label",
-                              attrs: { for: "inputBasicFirstName" }
-                            },
-                            [_vm._v("Tingkat")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.kelas.tingkat_id,
-                                  expression: "kelas.tingkat_id"
-                                }
-                              ],
-                              staticClass: "form-control select2",
-                              attrs: { placeholder: "" },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.kelas,
-                                    "tingkat_id",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: {
-                                    selected: "",
-                                    value: "",
-                                    disabled: ""
-                                  }
-                                },
-                                [_vm._v("Pilih Tingkat Kelas")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "1" } }, [
-                                _vm._v("Ibtida")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "2" } }, [
-                                _vm._v("Tsanawi")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "3" } }, [
-                                _vm._v("Ma'had Aly")
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.errors.tingkat_id
-                            ? _c(
-                                "span",
-                                { staticClass: "label label-danger" },
-                                [_vm._v(_vm._s(_vm.errors.tingkat_id[0]))]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-12" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "form-control-label",
-                              attrs: { for: "inputBasicFirstName" }
-                            },
-                            [_vm._v("Jenis Kelamin")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.kelas.jk,
-                                  expression: "kelas.jk"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { placeholder: "" },
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.kelas,
-                                    "jk",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: {
-                                    selected: "",
-                                    value: "",
-                                    disabled: ""
-                                  }
-                                },
-                                [_vm._v("Pilih Jenis Kelamin Untuk Kelas")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "Putra" } }, [
-                                _vm._v("Putra")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "Putri" } }, [
-                                _vm._v("Putri")
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm.errors.jk
-                            ? _c(
-                                "span",
-                                { staticClass: "label label-danger" },
-                                [_vm._v(_vm._s(_vm.errors.jk[0]))]
-                              )
-                            : _vm._e()
-                        ])
+            ])
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel" }, [
+      _c(
+        "div",
+        {
+          staticClass: "panel-body container-fluid",
+          staticStyle: { "background-color": "#fdfdfd" }
+        },
+        [
+          _c("div", { staticClass: "row row-lg" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _vm.message
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-success alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "icon wb-check",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v(" " + _vm._s(_vm.message) + ", lihat hasil "),
+                      _c("a", { attrs: { href: "/sekretariat/kelas" } }, [
+                        _vm._v("Beralih ke halaman list Kelas.")
                       ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group col-md-6 col-sm-12",
-                    staticStyle: { "padding-left": "15px" }
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageWarning
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-warning alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageWarning) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageError
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-danger alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageError) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: {
+                    autocomplete: "off",
+                    action: "/sekretariat/kelas/store"
                   },
-                  [
-                    _c("h4", { staticClass: "example-title" }, [
-                      _vm._v("Data Guru")
-                    ]),
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.store($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-6 col-sm-12",
+                        staticStyle: { "padding-right": "15px" }
+                      },
+                      [
+                        _c("h4", { staticClass: "example-title" }, [
+                          _vm._v("Data Kelas")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "example" }, [
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "form-group col-md-6" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Kelas")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.kelas.tingkat,
+                                      expression: "kelas.tingkat"
+                                    }
+                                  ],
+                                  staticClass: "form-control select2",
+                                  attrs: { placeholder: "" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.kelas,
+                                        "tingkat",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        selected: "",
+                                        value: "",
+                                        disabled: ""
+                                      }
+                                    },
+                                    [_vm._v("Pilih Kelas")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "1" } }, [
+                                    _vm._v("1")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "2" } }, [
+                                    _vm._v("2")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "3" } }, [
+                                    _vm._v("3")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "4" } }, [
+                                    _vm._v("4")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "5" } }, [
+                                    _vm._v("5")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.errors.tingkat
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(_vm.errors.tingkat[0]))]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group col-md-6" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Lokal")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.kelas.lokal,
+                                      expression: "kelas.lokal"
+                                    }
+                                  ],
+                                  staticClass: "form-control select2",
+                                  attrs: { placeholder: "" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.kelas,
+                                        "lokal",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        selected: "",
+                                        value: "",
+                                        disabled: ""
+                                      }
+                                    },
+                                    [_vm._v("Pilih Lokal")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "A" } }, [
+                                    _vm._v("A")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "B" } }, [
+                                    _vm._v("B")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "C" } }, [
+                                    _vm._v("C")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "D" } }, [
+                                    _vm._v("D")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "E" } }, [
+                                    _vm._v("E")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "F" } }, [
+                                    _vm._v("F")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.errors.lokal
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(_vm.errors.lokal[0]))]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group col-md-6" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Tingkat")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.kelas.tingkat_id,
+                                      expression: "kelas.tingkat_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control select2",
+                                  attrs: { placeholder: "" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.kelas,
+                                        "tingkat_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        selected: "",
+                                        value: "",
+                                        disabled: ""
+                                      }
+                                    },
+                                    [_vm._v("Pilih Tingkat Kelas")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.listTingkat.data, function(list) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: list.id } },
+                                      [_vm._v(_vm._s(list.nama_tingkatan))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _vm.errors.tingkat_id
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(_vm.errors.tingkat_id[0]))]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group col-md-12" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Jenis Kelamin")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.kelas.jk,
+                                      expression: "kelas.jk"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { placeholder: "" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.kelas,
+                                        "jk",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        selected: "",
+                                        value: "",
+                                        disabled: ""
+                                      }
+                                    },
+                                    [_vm._v("Pilih Jenis Kelamin Untuk Kelas")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "Putra" } }, [
+                                    _vm._v("Putra")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "Putri" } }, [
+                                    _vm._v("Putri")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.errors.jk
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(_vm.errors.jk[0]))]
+                                  )
+                                : _vm._e()
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "example" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "form-control-label",
-                            attrs: { for: "" }
-                          },
-                          [_vm._v("Nama Guru")]
-                        ),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-6 col-sm-12",
+                        staticStyle: { "padding-left": "15px" }
+                      },
+                      [
+                        _c("h4", { staticClass: "example-title" }, [
+                          _vm._v("Data Guru")
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.kelas.guru_id,
-                                expression: "kelas.guru_id"
-                              }
-                            ],
-                            staticClass: "form-control select2",
-                            attrs: { placeholder: "Nama Guru" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.kelas,
-                                  "guru_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
+                        _c("div", { staticClass: "example" }, [
+                          _c("div", { staticClass: "form-group" }, [
                             _c(
-                              "option",
+                              "label",
                               {
-                                attrs: { disabled: "", selected: "", value: "" }
+                                staticClass: "form-control-label",
+                                attrs: { for: "" }
                               },
-                              [_vm._v("Pilih Guru")]
+                              [_vm._v("Nama Guru")]
                             ),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "1" } }, [
-                              _vm._v("Usman Khatam")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "2" } }, [
-                              _vm._v("Jeffry Washington")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.errors.guru_id
-                          ? _c("span", { staticClass: "label label-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.guru_id[0]))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "form-control-label",
-                            attrs: { for: "" }
-                          },
-                          [_vm._v("Badal (Pengganti)")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.kelas.badal_id,
-                                expression: "kelas.badal_id"
-                              }
-                            ],
-                            staticClass: "form-control select2",
-                            attrs: { placeholder: "Nama Guru" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.kelas,
-                                  "badal_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
                             _c(
-                              "option",
+                              "select",
                               {
-                                attrs: { disabled: "", selected: "", value: "" }
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.kelas.guru_id,
+                                    expression: "kelas.guru_id"
+                                  }
+                                ],
+                                staticClass: "form-control select2",
+                                attrs: { placeholder: "Nama Guru" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.kelas,
+                                      "guru_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
                               },
-                              [_vm._v("Pilih Guru")]
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: {
+                                      disabled: "",
+                                      selected: "",
+                                      value: ""
+                                    }
+                                  },
+                                  [_vm._v("Pilih Guru")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "1" } }, [
+                                  _vm._v("Usman Khatam")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "2" } }, [
+                                  _vm._v("Jeffry Washington")
+                                ])
+                              ]
                             ),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "1" } }, [
-                              _vm._v("Usman Khatam")
-                            ]),
+                            _vm.errors.guru_id
+                              ? _c(
+                                  "span",
+                                  { staticClass: "label label-danger" },
+                                  [_vm._v(_vm._s(_vm.errors.guru_id[0]))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "" }
+                              },
+                              [_vm._v("Badal (Pengganti)")]
+                            ),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "2" } }, [
-                              _vm._v("Jeffry Washington")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.errors.badal_id
-                          ? _c("span", { staticClass: "label label-danger" }, [
-                              _vm._v(_vm._s(_vm.errors.badal_id[0]))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ])
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
-      ])
-    ]
-  )
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.kelas.badal_id,
+                                    expression: "kelas.badal_id"
+                                  }
+                                ],
+                                staticClass: "form-control select2",
+                                attrs: { placeholder: "Nama Guru" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.kelas,
+                                      "badal_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: {
+                                      disabled: "",
+                                      selected: "",
+                                      value: ""
+                                    }
+                                  },
+                                  [_vm._v("Pilih Guru")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "1" } }, [
+                                  _vm._v("Usman Khatam")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "2" } }, [
+                                  _vm._v("Jeffry Washington")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.badal_id
+                              ? _c(
+                                  "span",
+                                  { staticClass: "label label-danger" },
+                                  [_vm._v(_vm._s(_vm.errors.badal_id[0]))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(3)
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary col-md-6", attrs: { type: "submit" } },
+        [_vm._v("Tambah Tingkat ")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -55040,6 +55273,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55051,21 +55308,42 @@ $(function () {
     ajax: "/sekretariat/kelas/getKelasDatatables",
     columns: [{ data: 'id', name: 'id' }, { data: 'nama_kelas', name: 'nama_kelas' }, { data: 'tingkat', name: 'tingkat' }, { data: 'guru_id', name: 'guru_id' }, { data: 'badal_id', name: 'badal_id' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
   });
-  table.draw();
+  // Trigger auto refresh
+  Echo.channel('draw-table').listen('DrawTable', function (e) {
+    table.draw();
+  });
+
+  $('#deleteModal').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    $.get('/sekretariat/kelas/' + id + '/destroy', function (data) {
+      $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/' + id + '/destroy');
+    });
+    $("#deleteBtn").on('click', function () {
+      axios.delete('/sekretariat/kelas/' + id + '/destroy').then(function (resp) {
+        $('#deleteModal').modal('hide');
+        table.draw();
+      }).then(function () {
+        window.location.reload();
+      });
+    });
+  });
 });
 
 $(document).ready(function () {
   $('#editModal').on('show.bs.modal', function (e) {
     var id = $(e.relatedTarget).data('id');
     $.get('/sekretariat/kelas/' + id + '/show', function (data) {
-      $("#tingkat").attr('value', data.tingkat);
-      $("#nama_kelas").attr('value', data.nama_kelas);
+      $("#title-data").html(data.nama_kelas);
+      $("#tingkat").val(data.tingkat);
+      $("#nama_kelas").val(data.nama_kelas);
       $("#tingkat_id").attr('value', data.tingkat_id);
-      $("#lokal").attr('value', data.lokal);
-      $("#guru_id").attr('value', data.guru_id);
-      $("#badal_id").attr('value', data.badal_id);
+      $("#lokal").val(data.lokal);
+      $("#guru_id").val(data.guru_id);
+      $("#badal_id").val(data.badal_id);
       console.log(data);
     });
+
+    $('#submitEditKelas').attr('action', '/sekretariat/kelas/' + id + '/update');
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55108,6 +55386,82 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "deleteModal", tabindex: "-1", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", {
+                    staticClass: "modal-title",
+                    attrs: { id: "title-data" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal-body",
+                    staticStyle: { "margin-bottom": "50px" }
+                  },
+                  [
+                    _c("h3", [
+                      _vm._v("Anda yakin ingin menghapus data tersebut?")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-info",
+                        attrs: { "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-danger",
+                        attrs: { id: "deleteBtn" }
+                      },
+                      [_c("i", { staticClass: "fa fa-upload" }), _vm._v(" Ya")]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("header", { staticClass: "panel-heading" }, [
         _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Data Kelas")])
       ]),
