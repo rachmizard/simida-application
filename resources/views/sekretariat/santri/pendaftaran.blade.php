@@ -60,12 +60,25 @@
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">NIK / No.KTP</label>
                                 <input type="text" class="form-control" id="nik" name="nik" placeholder="" autocomplete="off" />
+                                @if($errors->has('nik'))
+                                  <span class="label label-danger">
+                                      {{ $errors->first('nik') }}
+                                  </span>
+                                @endif
                             </div>
-                            @if($errors->has('nik'))
-                              <span class="label label-danger">
-                                  {{ $errors->first('nik') }}
-                              </span>
-                            @endif
+                          <div class="form-group col-md-6">
+                             <label class="form-control-label" for="inputBasicFirstName">Jenis Kelamin</label>
+                             <select name="jenis_kelamin" class="form-control">
+                                  <option disabled selected>Pilih Jenis Kelamin</option>
+                                  <option value="L">Laki-Laki</option>
+                                  <option value="P">Perempuan</option>
+                              </select>
+                              @if($errors->has('jenis_kelamin'))
+                                <span class="label label-danger">
+                                    {{ $errors->first('jenis_kelamin') }}
+                                </span>
+                              @endif
+                          </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -238,9 +251,9 @@
 	                           <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
 	                           <select name="tingkat_id" class="form-control">
 	                                <option disabled selected>Tingkat</option>
-	                                <option value="Ibtidayah">Ibtidayah</option>
-	                                <option value="Tsanawiyah">Tsanawiyah</option>
-	                                <option value="Ma'had Aly">Ma'had Aly</option>
+                                  @foreach($tingkats as $tingkat)
+                                    <option value="{{ $tingkat->id }}">{{ $tingkat->nama_tingkatan }}</option>
+                                  @endforeach
 	                            </select>
 	                            @if($errors->has('tingkat_id'))
 	                              <span class="label label-danger">
@@ -254,26 +267,13 @@
                                 <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
                                 <select name="kelas_id" class="form-control selectTo">
                                     <option disabled selected>Kelas</option>
-                                    <optgroup label="Kelas 1">
-                                        <option value="">1A</option>
-                                        <option value="">1B</option>
-                                        <option value="">1C</option>
-                                    </optgroup>
-                                    <optgroup label="Kelas 2">
-                                        <option value="">2A</option>
-                                        <option value="">2B</option>
-                                        <option value="">2C</option>
-                                    </optgroup>
-                                    <optgroup label="Kelas 3">
-                                        <option value="">3A</option>
-                                        <option value="">3B</option>
-                                        <option value="">3C</option>
-                                    </optgroup>
-                                    <optgroup label="Kelas 4">
-                                        <option value="">4A</option>
-                                        <option value="">4B</option>
-                                        <option value="">4C</option>
-                                    </optgroup>
+                                    @foreach($tingkats as $tingkat)
+                                      <optgroup label="{{ $tingkat->nama_tingkatan }}">
+                                        @foreach(App\Kelas::whereTingkatId($tingkat->id)->get() as $in)
+                                          <option value="{{ $in->id }}">{{ $in->nama_kelas }}</option>
+                                        @endforeach
+                                      </optgroup>
+                                    @endforeach
                                 </select>
 	                            @if($errors->has('kelas_id'))
 	                              <span class="label label-danger">

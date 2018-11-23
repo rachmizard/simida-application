@@ -11474,6 +11474,7 @@ Vue.component('example-component', __webpack_require__(41));
 
 // ASRAMA
 Vue.component('form-asrama-component', __webpack_require__(44));
+Vue.component('list-asrama-component', __webpack_require__(65));
 
 // KELAS
 Vue.component('form-kelas-component', __webpack_require__(47));
@@ -58161,6 +58162,339 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(66)
+/* template */
+var __vue_template__ = __webpack_require__(67)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Asrama/ListAsramaComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-31d358da", Component.options)
+  } else {
+    hotAPI.reload("data-v-31d358da", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+$(function () {
+  var table = $('#asramaTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "/sekretariat/asrama/getAsramaDataTables",
+    columns: [{ data: 'id', name: 'id' }, { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' }, { data: 'roisam_asrama', name: 'roisam_asrama' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+  });
+  // Trigger auto refresh
+  Echo.channel('draw-table').listen('DrawTable', function (e) {
+    table.draw();
+  });
+
+  $('#deleteModalAsrama').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+    //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+    // }); 
+    $("#deleteBtnAsrama").on('click', function () {
+      axios.post('/sekretariat/asrama/' + id + '/destroy').then(function (resp) {
+        $('#deleteModalAsrama').modal('hide');
+        table.draw();
+      }).then(function () {
+        window.location.reload();
+      });
+    });
+  });
+});
+
+$(document).ready(function () {
+  $('#editModalAsrama').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    $.get('/sekretariat/asrama/' + id + '/show', function (data) {
+      $("#nama_asrama").val(data.nama_asrama);
+      $("#kategori_asrama").val(data.kategori_asrama);
+      $("#roisam_asrama").attr('value', data.roisam_asrama);
+    });
+
+    $('#submitEditAsrama').attr('action', '/sekretariat/asrama/' + id + '/update');
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      kelas: []
+    };
+  },
+  mounted: function mounted() {
+    this.listsKelas();
+    $(document).ready(function () {
+      $('#exampleTableTools').DataTable();
+    });
+  },
+
+
+  methods: {
+    listsKelas: function listsKelas() {
+      var app = this;
+      axios.get('/sekretariat/kelas/JSON').then(function (response) {
+        app.kelas = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "deleteModalAsrama", tabindex: "-1", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", {
+                    staticClass: "modal-title",
+                    attrs: { id: "title-data" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal-body",
+                    staticStyle: { "margin-bottom": "50px" }
+                  },
+                  [
+                    _c("h5", [
+                      _vm._v("Anda yakin ingin menghapus data tersebut?")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-info",
+                        attrs: { "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-danger",
+                        attrs: { id: "deleteBtnAsrama" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-upload" }),
+                        _c("i", { staticClass: "icon wb-trash" }),
+                        _vm._v(" Ya")
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("header", { staticClass: "panel-heading" }, [
+        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Data Asrama")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-hover dataTable table-striped w-full",
+            attrs: { id: "asramaTable" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", [_vm._v("ID Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nama Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Rai'sam Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Aksi")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tfoot", [
+              _c("tr", [
+                _c("th", [_vm._v("ID Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nama Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Rai'sam Asrama")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Aksi")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-31d358da", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

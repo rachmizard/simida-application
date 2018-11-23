@@ -17,4 +17,9 @@ class Asrama extends Model
     {
     	return $this->belongsTo(DataNamaAsrama::class, 'nama_asrama', 'id');
     }
+
+    public function kobong()
+    {
+        return $this->hasMany(Kobong::class, 'id');
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Santri;
+use App\Kelas;
+use App\Tingkat;
 use App\Location\Province;
 use App\Location\Regency;
 use App\Location\District;
@@ -32,7 +34,8 @@ class SantriController extends Controller
 
         $asramaPutra = DataNamaAsrama::whereKategori('Putra')->get();
         $asramaPutri = DataNamaAsrama::whereKategori('Putri')->get();
-        return view('sekretariat.santri.pendaftaran', compact('asramaPutra', 'asramaPutri'));
+        $tingkats = Tingkat::orderBy('nama_tingkatan')->get();
+        return view('sekretariat.santri.pendaftaran', compact('asramaPutra', 'asramaPutri', 'tingkats'));
     }
 
     public function create()

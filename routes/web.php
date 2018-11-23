@@ -70,13 +70,16 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// Asrama
 			Route::get('/asrama', 'AsramaController@index')->name('asrama');
 			Route::get('/asrama/tambah', 'AsramaController@create')->name('asrama.create');
+			Route::get('/asrama/getAsramaDataTables', 'AsramaController@getAsramaDataTables')->name('asrama.getAsramaDataTables');
 			Route::get('/asrama/getAsrama/{kategori}', 'AsramaController@getAsramaKategori')->name('asrama.getAsramaKategori');
 			Route::get('/asrama/get/allKategori', 'AsramaController@getAsramaAllKategori')->name('asrama.getAsramaAllKategori');
 			Route::get('/asrama/get/putra', 'AsramaController@getAsramaPutra')->name('asrama.getAsramaPutra');
 			Route::get('/asrama/get/putri', 'AsramaController@getAsramaPutri')->name('asrama.getAsramaPutri');
 			Route::post('/asrama/storeNamaAsrama', 'AsramaController@storeNamaAsrama')->name('asrama.storeNamaAsrama');
 			Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
-			Route::get('/asrama/{id}', 'AsramaController@show')->name('asrama.show');
+			Route::get('/asrama/{id}/show', 'AsramaController@show')->name('asrama.show');
+			Route::put('/asrama/{id}/update', 'AsramaController@update')->name('asrama.update');
+			Route::post('/asrama/{id}/destroy', 'AsramaController@destroy')->name('asrama.destroy');
 			// End Asrama
 		});
 	});

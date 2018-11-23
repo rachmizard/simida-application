@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Asrama;
 use App\DataNamaAsrama;
+use App\Events\DrawTable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Http\Resources\AsramaResource;
 
 class AsramaController extends Controller
@@ -17,7 +19,25 @@ class AsramaController extends Controller
      */
     public function index()
     {
-        return view('sekretariat.asrama.asrama');
+        $asramaPutra = Asrama::whereKategoriAsrama('putra')->get();
+        $asramaPutri = Asrama::whereKategoriAsrama('putri')->get();
+        $asramas = DataNamaAsrama::orderBy('id', 'ASC')->get();
+        return view('sekretariat.asrama.asrama', compact('asramaPutra', 'asramaPutri', 'asramas'));
+    }
+
+    public function getAsramaDataTables()
+    {
+        $asramas = Asrama::with('namaAsrama')->get();
+        return Datatables::of($asramas)
+                ->addColumn('action', function($asramas){
+                    return '<button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
+                    data-trigger="hover" data-original-title="Hover to trigger"
+                    tabindex="0" title="" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                            <button data-target="#deleteModalAsrama" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     /**
@@ -98,6 +118,7 @@ class AsramaController extends Controller
             $data['messageError'] = false;
             $data['message'] = 'Berhasil menambahkan Asrama!';
             $data['type'] = 'success';
+            event(new DrawTable());
         }
         return response()->json(['response' => $data]);
     }
@@ -110,8 +131,9 @@ class AsramaController extends Controller
      */
     public function show($id)
     {
-        $asrama = Asrama::whereId($id)->get();
-        return response()->json(['data' => $asrama]);
+        // $asrama = Asrama::whereId($id)->get();
+        // return response()->json(['data' => $asrama]);
+        return Asrama::find($id);
     }
 
     /**
@@ -144,7 +166,8 @@ class AsramaController extends Controller
             $data['message'] = true;
             $data['type'] = 'error';
         }
-        return response()->json(['response' => $data]);
+        // return response()->json(['response' => $data]);
+        return back();
     }
 
     /**
