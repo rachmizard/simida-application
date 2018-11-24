@@ -33,16 +33,23 @@ class AsramaController extends Controller
         return Datatables::of($asramas)
                 ->addColumn('action', function($asramas){
                     return '
-                    <button data-target="#tambahModalKobong" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
-                    <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
-                    data-trigger="hover" data-original-title="Hover to trigger"
-                    tabindex="0" title="" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                        <div class="text-center">
+
+                            <button data-target="#tambahKobong" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
+
+                            <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
+                            data-trigger="hover" data-original-title="Hover to trigger"
+                            tabindex="0" title="" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+
                             <button data-target="#deleteModalAsrama" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+
+                        </div>
+
                             ';
                 })
                 ->addColumn('kobong', function($asramas){
                     $countKobong = Kobong::whereAsramaId($asramas['id'])->count();
-                        return '<a href="'. route('sekretariat.asrama.kobong', $asramas['id']) .'" class="btn btn-sm btn-info">'. $countKobong .' Lihat Kobong</a>';
+                        return '<a href="'. route('sekretariat.asrama.kobong', $asramas['id']) .'" class="btn btn-sm btn-info">'. $countKobong .'</a>';
                 })
                 ->rawColumns(['action', 'kobong'])
                 ->make(true);
@@ -96,8 +103,8 @@ class AsramaController extends Controller
                     return '
                     <button data-target="#editModalAsramaKobong" data-toggle="modal" data-content="Edit"
                     data-trigger="hover" data-original-title="Hover to trigger"
-                    tabindex="0" title="" data-id="'. $asramaKobong['asrama_id']['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
-                            <button data-target="#deleteModalKobongAsrama" data-toggle="modal" data-id="'. $asramaKobong['asrama_id']['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                    tabindex="0" title="" data-id="'. $asramaKobong['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                            <button data-target="#deleteModalKobongAsrama" data-toggle="modal" data-id="'. $asramaKobong['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
                             ';
                 })
                 ->rawColumns(['action'])
