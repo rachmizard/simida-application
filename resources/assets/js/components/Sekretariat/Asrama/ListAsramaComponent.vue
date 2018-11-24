@@ -29,18 +29,20 @@
           <table class="table table-hover dataTable table-striped w-full" id="asramaTable">
             <thead>
               <tr>
-                <th>ID Asrama</th>
-                <th>Nama Asrama</th>
-                <th>Rai'sam Asrama</th>
-                <th>Aksi</th>
+                <th width="20%">ID Asrama</th>
+                <th width="20%">Nama Asrama</th>
+                <th width="20%">Rai'sam Asrama</th>
+                <th width="20%">Kobong</th>
+                <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th>ID Asrama</th>
-                <th>Nama Asrama</th>
-                <th>Rai'sam Asrama</th>
-                <th>Aksi</th>
+                <th width="20%">ID Asrama</th>
+                <th width="20%">Nama Asrama</th>
+                <th width="20%">Rai'sam Asrama</th>
+                <th width="20%">Kobong</th>
+                <th width="20%">Aksi</th>
               </tr>
             </tfoot>
             <tbody>
@@ -63,6 +65,7 @@
                   { data: 'id', name: 'id' },
                   { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' },
                   { data: 'roisam_asrama', name: 'roisam_asrama' },
+                  { data: 'kobong', name: 'kobong', orderable: false },
                   { data: 'action', name: 'action', orderable: false, searchable: false },
               ]
           }); 

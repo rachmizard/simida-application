@@ -302,6 +302,18 @@
                             @endif
                         </div>
                         <div class="form-group">
+                            <label class="form-control-label" for="inputBasicFirstName">Foto Santri</label>
+                          <div class="input-group input-group-file" data-plugin="inputGroupFile">
+                            <input type="text" class="form-control" readonly="">
+                            <span class="input-group-btn">
+                              <span class="btn btn-success btn-file">
+                                <i class="icon wb-upload" aria-hidden="true"></i>
+                                <input type="file" name="foto" multiple="">
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Selesai</button>
                         </div>
                     </div>
