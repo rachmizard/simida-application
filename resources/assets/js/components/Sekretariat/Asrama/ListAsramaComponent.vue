@@ -68,7 +68,7 @@
           <h3 class="panel-title">Table Data Asrama</h3>
           <div class="form-group col-md-6" style="margin-left: 15px;">
             <label for="">Filter Kategori Asrama</label>
-            <select name="" id="" class="form-control">
+            <select name="kategori_asrama" id="kategori_asrama" class="form-control">
               <option value="putra">Putra</option>
               <option value="putri">Putri</option>
             </select>
@@ -109,15 +109,27 @@
          var table = $('#asramaTable').DataTable({
               processing: true,
               serverSide: true,
-              ajax: "/sekretariat/asrama/getAsramaDataTables",
+              ajax: {
+                url: "/sekretariat/asrama/getAsramaDataTables",
+                data:function(e){
+                  e.kategori_asrama = $('select[name="kategori_asrama"]').val();
+                }
+              },
               columns: [
                   { data: 'id', name: 'id' },
-                  { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' },
+                  { data: 'ngaran.nama', name: 'ngaran.nama', orderable: false },
                   { data: 'roisam_asrama', name: 'roisam_asrama' },
                   { data: 'kobong', name: 'kobong', orderable: false },
                   { data: 'action', name: 'action', orderable: false, searchable: false },
               ]
           }); 
+
+         // Auto reload when getting result 
+        $('#kategori_asrama').on('change', function(e) {
+            table.draw();
+            e.preventDefault();
+        });
+
         // Trigger auto refresh
         Echo.channel('draw-table')
         .listen('DrawTable', (e) => {
@@ -129,8 +141,7 @@
             // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
             //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
             // }); 
-          $("#deleteBtnAsrama").click(function(event){
-              event.preventDefault();
+          $("#deleteBtnAsrama").on('click', function(){
               axios.post('/sekretariat/asrama/'+ id +'/destroy').then(function(resp){
                 $('#deleteModalAsrama').modal('hide')
                 table.draw()
@@ -157,8 +168,8 @@
         $('#tambahKobong').on('show.bs.modal', function(e){
             var id = $(e.relatedTarget).data('id');
             $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/'+ id +'/storeByAsramaId');
-            $('#btntambahKobong').click(function(event){
-              event.preventDefault();
+            $('#btntambahKobong').click(function(u){
+              u.preventDefault();
               axios({
                 method: 'post',
                 url: '/sekretariat/kobong/'+ id +'/storeByAsramaId',
@@ -167,7 +178,7 @@
                   nama_kobong: $('input[name="nama_kobong"]').val(),
                   roisam_kobong: $('input[name="roisam_kobong"]').val()
                 }
-              }).then(function(response){
+              }).then(response => {
                   table.draw();
                   // $('#tambahKobong').modal('hide');
                   $('input[name="nama_kobong"]').val('');

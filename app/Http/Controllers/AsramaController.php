@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Resources\AsramaResource;
 use App\Http\Resources\AsramaKobongResource;
+use DB;
 
 class AsramaController extends Controller
 {
@@ -27,30 +28,37 @@ class AsramaController extends Controller
         return view('sekretariat.asrama.asrama', compact('asramaPutra', 'asramaPutri', 'asramas'));
     }
 
-    public function getAsramaDataTables()
+    public function getAsramaDataTables(Request $request, Datatables $datatables)
     {
-        $asramas = Asrama::with('namaAsrama')->get();
-        return Datatables::of($asramas)
+        // $asramas = Asrama::leftJoin('data_nama_asrama', 'asrama.nama_asrama', '=', 'data_nama_asrama.id')
+        //     ->select(['asrama.id', 'data_nama_asrama.nama', 'asrama.kategori_asrama', 'asrama.roisam_asrama', 'asrama.created_at', 'asrama.updated_at']);
+        $asramas = Asrama::with('ngaran')->select(['id', 'kategori_asrama', 'nama_asrama', 'roisam_asrama', 'created_at', 'updated_at']);
+        return $datatables->eloquent($asramas)
                 ->addColumn('action', function($asramas){
                     return '
                         <div class="text-center">
 
-                            <button data-target="#tambahKobong" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
+                            <button data-target="#tambahKobong" data-toggle="modal" data-id="'. $asramas->id .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
 
                             <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
                             data-trigger="hover" data-original-title="Hover to trigger"
-                            tabindex="0" title="" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                            tabindex="0" title="" data-id="'. $asramas->id .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
 
-                            <button data-target="#deleteModalAsrama" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                            <button data-target="#deleteModalAsrama" data-toggle="modal" data-id="'. $asramas->id .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
 
                         </div>
 
                             ';
                 })
                 ->addColumn('kobong', function($asramas){
-                    $countKobong = Kobong::whereAsramaId($asramas['id'])->count();
-                        return '<a href="'. route('sekretariat.asrama.kobong', $asramas['id']) .'" class="btn btn-sm btn-info">'. $countKobong .'</a>';
+                    $countKobong = Kobong::whereAsramaId($asramas->id)->count();
+                        return '<a href="'. route('sekretariat.asrama.kobong', $asramas->id) .'" class="btn btn-sm btn-info">'. $countKobong .'</a>';
                 })
+                  ->filter(function($query) use ($request){
+                    if (request()->get('kategori_asrama')) {
+                      return $query->where('kategori_asrama', request()->get('kategori_asrama'))->get();
+                    }
+                  }, true)
                 ->rawColumns(['action', 'kobong'])
                 ->make(true);
     }
@@ -125,7 +133,7 @@ class AsramaController extends Controller
         ]);
 
         $namaAsrama = new DataNamaAsrama();
-        $namaAsrama->nama_asrama = request('nama_asrama_baru');
+        $namaAsrama->nama = request('nama_asrama_baru');
         $namaAsrama->kategori = request('kategori');
         $namaAsrama->save();
         $data['messageError'] = false;

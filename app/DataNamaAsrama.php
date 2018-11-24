@@ -10,6 +10,11 @@ class DataNamaAsrama extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_asrama', 'kategori'
+    'nama', 'kategori'
     ];
+
+    public function ngaran()
+    {
+    	return $this->hasMany('App\DataNamaAsrama', 'id');
+    }
 }

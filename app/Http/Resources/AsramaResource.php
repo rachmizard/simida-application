@@ -18,7 +18,7 @@ class AsramaResource extends Resource
         // return parent::toArray($request);
         return [
             'asrama_id' => $this->id,
-            'nama_asrama' => $this->nama_asrama, // relationship nanti;
+            'nama_asrama' => $this->nama, // relationship nanti;
             'kategori' => $this->kategori, // relationship nanti;
         ];
     }
