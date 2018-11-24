@@ -78,9 +78,22 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::post('/asrama/storeNamaAsrama', 'AsramaController@storeNamaAsrama')->name('asrama.storeNamaAsrama');
 			Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
 			Route::get('/asrama/{id}/show', 'AsramaController@show')->name('asrama.show');
+			Route::get('/asrama/{id}/kobong', 'AsramaController@kobong')->name('asrama.kobong');
+			Route::get('/asrama/{id}/kobongJSON', 'AsramaController@kobongJSON')->name('asrama.kobongJSON');
 			Route::put('/asrama/{id}/update', 'AsramaController@update')->name('asrama.update');
 			Route::post('/asrama/{id}/destroy', 'AsramaController@destroy')->name('asrama.destroy');
 			// End Asrama
+
+			// KOBONG
+			// Route::get('/kobong/', 'KobongController@index')->name('kobong');
+			// Route::get('/kobong/getKobongDataTables', 'KobongController@getKobongDataTables')->name('kobong.getKobongDataTables');
+			Route::get('/kobong/getJSON', 'KobongController@getJSON')->name('kobong.getJSON');
+			Route::post('/kobong/storeJSON', 'KobongController@storeJSON')->name('kobong.storeJSON');
+			Route::get('/kobong/{id}/show', 'KobongController@show')->name('kobong.show');
+			Route::get('/kobong/{id}/showJSON', 'KobongController@showJSON')->name('kobong.showJSON');
+			Route::put('/kobong/{id}/update', 'KobongController@update')->name('kobong.update');
+			Route::post('/kobong/{id}/destroy', 'KobongController@destroy')->name('kobong.destroy');
+			// END KOBONG
 		});
 	});
 });

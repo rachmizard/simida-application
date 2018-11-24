@@ -11475,6 +11475,7 @@ Vue.component('example-component', __webpack_require__(41));
 // ASRAMA
 Vue.component('form-asrama-component', __webpack_require__(44));
 Vue.component('list-asrama-component', __webpack_require__(65));
+Vue.component('list-kobong-asrama-component', __webpack_require__(71));
 
 // KELAS
 Vue.component('form-kelas-component', __webpack_require__(47));
@@ -58280,6 +58281,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -58289,7 +58292,7 @@ $(function () {
     processing: true,
     serverSide: true,
     ajax: "/sekretariat/asrama/getAsramaDataTables",
-    columns: [{ data: 'id', name: 'id' }, { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' }, { data: 'roisam_asrama', name: 'roisam_asrama' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+    columns: [{ data: 'id', name: 'id' }, { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' }, { data: 'roisam_asrama', name: 'roisam_asrama' }, { data: 'kobong', name: 'kobong', orderable: false }, { data: 'action', name: 'action', orderable: false, searchable: false }]
   });
   // Trigger auto refresh
   Echo.channel('draw-table').listen('DrawTable', function (e) {
@@ -58458,25 +58461,33 @@ var staticRenderFns = [
           [
             _c("thead", [
               _c("tr", [
-                _c("th", [_vm._v("ID Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("ID Asrama")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Nama Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Rai'sam Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [
+                  _vm._v("Rai'sam Asrama")
+                ]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Aksi")])
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Kobong")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Aksi")])
               ])
             ]),
             _vm._v(" "),
             _c("tfoot", [
               _c("tr", [
-                _c("th", [_vm._v("ID Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("ID Asrama")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Nama Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Rai'sam Asrama")]),
+                _c("th", { attrs: { width: "20%" } }, [
+                  _vm._v("Rai'sam Asrama")
+                ]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Aksi")])
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Kobong")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Aksi")])
               ])
             ]),
             _vm._v(" "),
@@ -58495,6 +58506,39 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-31d358da", module.exports)
   }
 }
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Asrama/ListAsramaKobongComponent.vue"
+
+module.exports = Component.exports
+
 
 /***/ })
 /******/ ]);

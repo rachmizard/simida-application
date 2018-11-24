@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Asrama;
+use App\Kobong;
 use App\DataNamaAsrama;
 use App\Events\DrawTable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Resources\AsramaResource;
+use App\Http\Resources\AsramaKobongResource;
 
 class AsramaController extends Controller
 {
@@ -30,13 +32,19 @@ class AsramaController extends Controller
         $asramas = Asrama::with('namaAsrama')->get();
         return Datatables::of($asramas)
                 ->addColumn('action', function($asramas){
-                    return '<button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
+                    return '
+                    <button data-target="#tambahModalKobong" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
+                    <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
                     data-trigger="hover" data-original-title="Hover to trigger"
                     tabindex="0" title="" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
                             <button data-target="#deleteModalAsrama" data-toggle="modal" data-id="'. $asramas['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
                             ';
                 })
-                ->rawColumns(['action'])
+                ->addColumn('kobong', function($asramas){
+                    $countKobong = Kobong::whereAsramaId($asramas['id'])->count();
+                        return '<a href="'. route('sekretariat.asrama.kobong', $asramas['id']) .'" class="btn btn-sm btn-info">'. $countKobong .' Lihat Kobong</a>';
+                })
+                ->rawColumns(['action', 'kobong'])
                 ->make(true);
     }
 
@@ -72,6 +80,28 @@ class AsramaController extends Controller
     {
         $asrama = AsramaResource::collection(DataNamaAsrama::orderBy('kategori', 'ASC')->whereKategori('Putri')->get());
         return response()->json(['data' => $asrama]);
+    }
+
+    public function kobong($id)
+    {
+        $kobong_asrama = Asrama::find($id);
+        return view('sekretariat.asrama.kobong-asrama', compact('kobong_asrama'));
+    }
+
+    public function kobongJSON($id)
+    {
+        $asramaKobong = AsramaKobongResource::collection(Kobong::whereAsramaId($id)->get());
+        return Datatables::of($asramaKobong)
+                ->addColumn('action', function($asramaKobong){
+                    return '
+                    <button data-target="#editModalAsramaKobong" data-toggle="modal" data-content="Edit"
+                    data-trigger="hover" data-original-title="Hover to trigger"
+                    tabindex="0" title="" data-id="'. $asramaKobong['asrama_id']['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
+                            <button data-target="#deleteModalKobongAsrama" data-toggle="modal" data-id="'. $asramaKobong['asrama_id']['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                            ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     /**

@@ -20,10 +20,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 // ASRAMA
 Vue.component('form-asrama-component', require('./components/Sekretariat/Asrama/FormAsramaComponent.vue'));
 Vue.component('list-asrama-component', require('./components/Sekretariat/Asrama/ListAsramaComponent.vue'));
+Vue.component('list-kobong-asrama-component', require('./components/Sekretariat/Asrama/ListAsramaKobongComponent.vue'));
 
 // KELAS
 Vue.component('form-kelas-component', require('./components/Sekretariat/Kelas/FormKelasComponent.vue'));
 Vue.component('list-kelas-component', require('./components/Sekretariat/Kelas/ListKelasComponent.vue'))
+
+
 
 /**
 * Vue Router
