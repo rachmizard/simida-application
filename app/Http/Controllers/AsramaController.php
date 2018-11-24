@@ -38,8 +38,7 @@ class AsramaController extends Controller
                     return '
                         <div class="text-center">
 
-                            <button data-target="#tambahKobong" data-toggle="modal" data-id="'. $asramas->id .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></button>
-
+                            <a href="'. route('sekretariat.asrama.kobong', $asramas->id) .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></a>
                             <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
                             data-trigger="hover" data-original-title="Hover to trigger"
                             tabindex="0" title="" data-id="'. $asramas->id .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
@@ -100,7 +99,10 @@ class AsramaController extends Controller
     public function kobong($id)
     {
         $kobong_asrama = Asrama::find($id);
-        return view('sekretariat.asrama.kobong-asrama', compact('kobong_asrama'));
+        return view('sekretariat.asrama.kobong-asrama', compact('kobong_asrama'))->with([
+            'title' => 'Data Kobong di Asrama',
+            'name' => $kobong_asrama->ngaran->nama
+        ]);
     }
 
     public function kobongJSON($id)

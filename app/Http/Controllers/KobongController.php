@@ -92,8 +92,8 @@ class KobongController extends Controller
         $data['messageErrorKobong'] = false;
         $data['messageWarningKobong'] = false;
         $data['type'] = 'success';
-        return response()->json(['response' => $data]);
-        // return back();   
+        // return response()->json(['response' => $data]);
+        return back();   
     }
 
     /**
@@ -149,8 +149,8 @@ class KobongController extends Controller
             $data['messageWarningKobong'] = false;
             $data['type'] = 'error';
         }
-        return response()->json(['response' => $data]);
-        // return back();
+        // return response()->json(['response' => $data]);
+        return back();
 
     }
 
