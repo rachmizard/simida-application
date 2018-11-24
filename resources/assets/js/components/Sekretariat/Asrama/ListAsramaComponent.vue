@@ -1,6 +1,48 @@
 <template>
 	 <!-- Panel Table Tools -->
       <div class="panel" id="app">
+
+<!-- MODAL -->
+<div id="tambahKobong" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="title-data">Tambah Kobong di</h4>
+      </div>
+        <div class="modal-body" style="margin-bottom: 50px;"><div class="form-row">
+            <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
+              <h4 class="example-title" id="kobong-asrama-title">Kobong</h4>
+              <div class="example">
+                  <div class="form-group">
+                     <label class="form-control-label" for="inputBasicFirstName">Nama Kobong</label>
+                     <input type="text" name="nama_kobong" class="form-control" placeholder="First Name" autocomplete="off" />
+                  </div>
+              </div><!--/Example-->
+            </div><!--/.form-group
+            =========================-->
+            <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
+              <h4 class="example-title">Rais'Am</h4>
+              <div class="example">
+                  <div class="form-group">
+                     <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kobong</label>
+                     <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kobong" autocomplete="off" />
+                  </div>
+              </div>
+            </div><!--/.form-group
+            ======================-->
+         </div><!--/.form-row-->
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group">
+            <button class="btn btn-md btn-default" data-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary" id="btntambahKobong"><i class="icon wb-plus"></i> Tambah Kobong</button>
+          </div>
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- END MODAL -->
     <!-- MODAL -->
       <div id="deleteModalAsrama" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -24,25 +66,32 @@
     <!-- END MODAL -->
         <header class="panel-heading">
           <h3 class="panel-title">Table Data Asrama</h3>
+          <div class="form-group col-md-6" style="margin-left: 15px;">
+            <label for="">Filter Kategori Asrama</label>
+            <select name="" id="" class="form-control">
+              <option value="putra">Putra</option>
+              <option value="putri">Putri</option>
+            </select>
+          </div>
         </header>
         <div class="panel-body">
           <table class="table table-hover dataTable table-striped w-full" id="asramaTable">
             <thead>
               <tr>
-                <th width="20%">ID Asrama</th>
+                <th width="5%">ID Asrama</th>
                 <th width="20%">Nama Asrama</th>
                 <th width="20%">Rai'sam Asrama</th>
-                <th width="20%">Kobong</th>
-                <th width="20%">Aksi</th>
+                <th width="10%">Jumlah Kobong</th>
+                <th width="20%" class="text-center">Aksi</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th width="20%">ID Asrama</th>
+                <th width="5%">ID Asrama</th>
                 <th width="20%">Nama Asrama</th>
                 <th width="20%">Rai'sam Asrama</th>
-                <th width="20%">Kobong</th>
-                <th width="20%">Aksi</th>
+                <th width="10%">Jumlah Kobong</th>
+                <th width="20%" class="text-center">Aksi</th>
               </tr>
             </tfoot>
             <tbody>
@@ -80,7 +129,8 @@
             // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
             //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
             // }); 
-          $("#deleteBtnAsrama").on('click', function(){
+          $("#deleteBtnAsrama").click(function(event){
+              event.preventDefault();
               axios.post('/sekretariat/asrama/'+ id +'/destroy').then(function(resp){
                 $('#deleteModalAsrama').modal('hide')
                 table.draw()
@@ -89,9 +139,8 @@
               })
           });
         });
-  });
 
-   $(document).ready(function(){
+
         $('#editModalAsrama').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $.get('/sekretariat/asrama/'+ id +'/show', function( data ) {
@@ -102,7 +151,32 @@
 
               $('#submitEditAsrama').attr('action', '/sekretariat/asrama/'+ id +'/update');
         });
-      });
+
+
+
+        $('#tambahKobong').on('show.bs.modal', function(e){
+            var id = $(e.relatedTarget).data('id');
+            $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/'+ id +'/storeByAsramaId');
+            $('#btntambahKobong').click(function(event){
+              event.preventDefault();
+              axios({
+                method: 'post',
+                url: '/sekretariat/kobong/'+ id +'/storeByAsramaId',
+                data: {
+                  asrama_id: id,
+                  nama_kobong: $('input[name="nama_kobong"]').val(),
+                  roisam_kobong: $('input[name="roisam_kobong"]').val()
+                }
+              }).then(function(response){
+                  table.draw();
+                  // $('#tambahKobong').modal('hide');
+                  $('input[name="nama_kobong"]').val('');
+                  $('input[name="roisam_kobong"]').val('');
+              });
+            });
+
+        });
+  });
 	export default {
 		data(){
 			return {

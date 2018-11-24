@@ -76,6 +76,26 @@ class KobongController extends Controller
         return back();
     }
 
+    public function storeByAsramaId(Request $request, $id)
+    {
+     
+        $this->validate($request, [
+            'nama_kobong' => 'required',
+            'roisam_kobong' => 'required',
+        ]);
+        $kobong = new Kobong();
+        $kobong->asrama_id = $id;
+        $kobong->nama_kobong = $request->nama_kobong;
+        $kobong->roisam_kobong = $request->roisam_kobong;
+        $kobong->save();
+        $data['messageKobong'] = 'Berhasil menambahkan kobong!';
+        $data['messageErrorKobong'] = false;
+        $data['messageWarningKobong'] = false;
+        $data['type'] = 'success';
+        return response()->json(['response' => $data]);
+        // return back();   
+    }
+
     /**
      * Display the specified resource.
      *
@@ -129,8 +149,8 @@ class KobongController extends Controller
             $data['messageWarningKobong'] = false;
             $data['type'] = 'error';
         }
-        // return response()->json(['response' => $data]);
-        return back();
+        return response()->json(['response' => $data]);
+        // return back();
 
     }
 

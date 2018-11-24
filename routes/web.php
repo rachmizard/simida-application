@@ -89,6 +89,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// Route::get('/kobong/getKobongDataTables', 'KobongController@getKobongDataTables')->name('kobong.getKobongDataTables');
 			Route::get('/kobong/getJSON', 'KobongController@getJSON')->name('kobong.getJSON');
 			Route::post('/kobong/storeJSON', 'KobongController@storeJSON')->name('kobong.storeJSON');
+			Route::post('/kobong/{id}/storeByAsramaId', 'KobongController@storeByAsramaId')->name('kobong.storeByAsramaId');
 			Route::get('/kobong/{id}/show', 'KobongController@show')->name('kobong.show');
 			Route::get('/kobong/{id}/showJSON', 'KobongController@showJSON')->name('kobong.showJSON');
 			Route::put('/kobong/{id}/update', 'KobongController@update')->name('kobong.update');
