@@ -96,7 +96,7 @@
 					                                <label class="form-control-label" for="inputBasicFirstName">Nama Asrama</label>
 					                                <select name="asrama_id" id="nama_asrama" class="form-control" style="width: 100%;">
 				                                    @foreach($asramas as $in)
-				                                        <option value="{{ $in->id }}">{{ $in->nama_asrama }}
+				                                        <option value="{{ $in->id }}">{{ $in->nama }}
 				                                        </option>
 				                                    @endforeach
 					                                </select>

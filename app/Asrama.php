@@ -13,7 +13,7 @@ class Asrama extends Model
         'kategori_asrama', 'nama_asrama', 'roisam_asrama',
     ];
 
-    public function namaAsrama()
+    public function ngaran()
     {
     	return $this->belongsTo(DataNamaAsrama::class, 'nama_asrama', 'id');
     }

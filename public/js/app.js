@@ -54192,9 +54192,21 @@ $(function () {
   var table = $('#asramaTable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: "/sekretariat/asrama/getAsramaDataTables",
-    columns: [{ data: 'id', name: 'id' }, { data: 'nama_asrama.nama_asrama', name: 'nama_asrama.nama_asrama' }, { data: 'roisam_asrama', name: 'roisam_asrama' }, { data: 'kobong', name: 'kobong', orderable: false }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+    ajax: {
+      url: "/sekretariat/asrama/getAsramaDataTables",
+      data: function data(e) {
+        e.kategori_asrama = $('select[name="kategori_asrama"]').val();
+      }
+    },
+    columns: [{ data: 'id', name: 'id' }, { data: 'ngaran.nama', name: 'ngaran.nama', orderable: false }, { data: 'roisam_asrama', name: 'roisam_asrama' }, { data: 'kobong', name: 'kobong', orderable: false }, { data: 'action', name: 'action', orderable: false, searchable: false }]
   });
+
+  // Auto reload when getting result 
+  $('#kategori_asrama').on('change', function (e) {
+    table.draw();
+    e.preventDefault();
+  });
+
   // Trigger auto refresh
   Echo.channel('draw-table').listen('DrawTable', function (e) {
     table.draw();
@@ -54205,8 +54217,7 @@ $(function () {
     // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
     //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
     // }); 
-    $("#deleteBtnAsrama").click(function (event) {
-      event.preventDefault();
+    $("#deleteBtnAsrama").on('click', function () {
       axios.post('/sekretariat/asrama/' + id + '/destroy').then(function (resp) {
         $('#deleteModalAsrama').modal('hide');
         table.draw();
@@ -54230,8 +54241,8 @@ $(function () {
   $('#tambahKobong').on('show.bs.modal', function (e) {
     var id = $(e.relatedTarget).data('id');
     $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/' + id + '/storeByAsramaId');
-    $('#btntambahKobong').click(function (event) {
-      event.preventDefault();
+    $('#btntambahKobong').click(function (u) {
+      u.preventDefault();
       axios({
         method: 'post',
         url: '/sekretariat/kobong/' + id + '/storeByAsramaId',
@@ -54540,7 +54551,10 @@ var staticRenderFns = [
             _vm._v(" "),
             _c(
               "select",
-              { staticClass: "form-control", attrs: { name: "", id: "" } },
+              {
+                staticClass: "form-control",
+                attrs: { name: "kategori_asrama", id: "kategori_asrama" }
+              },
               [
                 _c("option", { attrs: { value: "putra" } }, [_vm._v("Putra")]),
                 _vm._v(" "),
