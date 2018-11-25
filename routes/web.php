@@ -100,13 +100,21 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/guru', 'GuruController@index')->name('guru');
 			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
 			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
-			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
 			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
 			Route::put('/guru/{id}/update', 'GuruController@update')->name('guru.update');
 			Route::delete('/guru/{id}/destroy', 'GuruController@destroy')->name('guru.destroy');
-
 			// END GURU
+
+			// DEWAN KYAI
+			Route::get('/dewankyai', 'DewanKyaiController@index')->name('dewankyai');
+			Route::get('/dewankyai/getDewanKyaiDataTables', 'DewanKyaiController@getDewanKyaiDataTables')->name('dewankyai.getDewanKyaiDataTables');
+			Route::get('/dewankyai/tambah', 'DewanKyaiController@create')->name('dewankyai.create');
+			Route::get('/dewankyai/{id}/show', 'DewanKyaiController@show')->name('dewankyai.show');
+			Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
+			Route::put('/dewankyai/{id}/update', 'DewanKyaiController@update')->name('dewankyai.update');
+			Route::delete('/dewankyai/{id}/destroy', 'DewanKyaiController@destroy')->name('dewankyai.destroy');
+			// END DEWAN KYAI
 		});
 	});
 });

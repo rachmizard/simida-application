@@ -463,7 +463,7 @@
                                         </ul>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Data Dewan Kyai</span></a>
+                                        <a href="{{ route('sekretariat.dewankyai') }}"><span class="site-menu-title">Data Dewan Kyai</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Perpindahan Asrama Santri</span></a>

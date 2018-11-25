@@ -30,6 +30,7 @@ Vue.component('list-kelas-component', require('./components/Sekretariat/Kelas/Li
 Vue.component('form-guru-component', require('./components/Sekretariat/Guru/FormGuruComponent.vue'));
 Vue.component('list-guru-component', require('./components/Sekretariat/Guru/ListGuruComponent.vue'))
 
+// DEWAN KYAI
 
 
 /**
@@ -41,21 +42,26 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
 const routes = [
-{
-  path: '/edit/guru/:id',
-  name: 'editGuruForm',
-  component: require('./components/Sekretariat/Guru/FormEditGuruComponent.vue')
-},
-{
-  path: '/hapus/guru/:id',
-  name: 'hapusGuru',
-  component: require('./components/Sekretariat/Guru/DeleteGuruComponent.vue') 
-},
-// {
-//   path: '/view/:id',
-//   name: 'userView',
-//   component: require('./components/user/view.vue')
-// }
+		// GURU
+		{
+		  path: '/edit/guru/:id',
+		  name: 'editGuruForm',
+		  component: require('./components/Sekretariat/Guru/FormEditGuruComponent.vue')
+		},
+		{
+		  path: '/hapus/guru/:id',
+		  name: 'hapusGuru',
+		  component: require('./components/Sekretariat/Guru/DeleteGuruComponent.vue') 
+		},
+		// END GURU
+
+		// DEWAN KYAI
+		{
+		  path: '/list_dewankyai',
+		  name: 'listDewanKyai',
+		  component: require('./components/Sekretariat/DewanKyai/ListDewanKyaiComponent.vue') 
+		},
+		// END DEWAN KYAI
 ]
 const router = new VueRouter({ routes });
 const app = new Vue({

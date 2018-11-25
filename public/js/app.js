@@ -11485,6 +11485,9 @@ Vue.component('list-kelas-component', __webpack_require__(54));
 Vue.component('form-guru-component', __webpack_require__(71));
 Vue.component('list-guru-component', __webpack_require__(72));
 
+// DEWAN KYAI
+
+
 /**
 * Vue Router
 *
@@ -11493,18 +11496,28 @@ Vue.component('list-guru-component', __webpack_require__(72));
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 // define routes for users
-var routes = [{
-  path: '/edit/guru/:id',
-  name: 'editGuruForm',
-  component: __webpack_require__(77)
+var routes = [
+// GURU
+{
+		path: '/edit/guru/:id',
+		name: 'editGuruForm',
+		component: __webpack_require__(77)
 }, {
-  path: '/hapus/guru/:id',
-  name: 'hapusGuru',
-  component: __webpack_require__(80)
+		path: '/hapus/guru/:id',
+		name: 'hapusGuru',
+		component: __webpack_require__(80)
+},
+// END GURU
+
+// DEWAN KYAI
+{
+		path: '/list_dewankyai',
+		name: 'listDewanKyai',
+		component: __webpack_require__(83)
 }];
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
 var app = new Vue({
-  router: router
+		router: router
 }).$mount('#app');
 
 /***/ }),
@@ -60278,6 +60291,158 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-110bd6e6", module.exports)
+  }
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(84)
+/* template */
+var __vue_template__ = __webpack_require__(85)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/DewanKyai/ListDewanKyaiComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5c5742bb", Component.options)
+  } else {
+    hotAPI.reload("data-v-5c5742bb", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+      _c("header", { staticClass: "panel-heading" }, [
+        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Dewan Kyai")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-hover table-bordered dataTable table-striped w-full",
+            attrs: { id: "dewankyaiTable" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c(
+                  "th",
+                  { staticClass: "bg-info text-white", attrs: { width: "5%" } },
+                  [_vm._v("Nama Dewan Kyai")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "20%" }
+                  },
+                  [_vm._v("Foto")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "20%" }
+                  },
+                  [_vm._v("Aksi")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5c5742bb", module.exports)
   }
 }
 
