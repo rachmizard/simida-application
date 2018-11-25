@@ -17,4 +17,9 @@ class Tingkat extends Model
     {
     	return $this->hasMany(Kelas::class, 'id');
     }
+
+    public function guru()
+    {
+        return $this->hasMany(Guru::class, 'id');
+    }
 }

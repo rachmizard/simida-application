@@ -95,6 +95,18 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::put('/kobong/{id}/update', 'KobongController@update')->name('kobong.update');
 			Route::post('/kobong/{id}/destroy', 'KobongController@destroy')->name('kobong.destroy');
 			// END KOBONG
+
+			// GURU
+			Route::get('/guru', 'GuruController@index')->name('guru');
+			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
+			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
+			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
+			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
+			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
+			Route::put('/guru/{id}/update', 'GuruController@update')->name('guru.update');
+			Route::delete('/guru/{id}/destroy', 'GuruController@destroy')->name('guru.destroy');
+
+			// END GURU
 		});
 	});
 });

@@ -26,6 +26,10 @@ Vue.component('list-kobong-asrama-component', require('./components/Sekretariat/
 Vue.component('form-kelas-component', require('./components/Sekretariat/Kelas/FormKelasComponent.vue'));
 Vue.component('list-kelas-component', require('./components/Sekretariat/Kelas/ListKelasComponent.vue'))
 
+// GURU
+Vue.component('form-guru-component', require('./components/Sekretariat/Guru/FormGuruComponent.vue'));
+Vue.component('list-guru-component', require('./components/Sekretariat/Guru/ListGuruComponent.vue'))
+
 
 
 /**
@@ -37,16 +41,16 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
 const routes = [
-// {
-//   path: '/',
-//   name: 'userIndex',
-//   component: require('./components/user/index.vue')
-// },
-// {
-//   path: '/create',
-//   name: 'userCreate',
-//   component: require('./components/user/create.vue') 
-// },
+{
+  path: '/edit/guru/:id',
+  name: 'editGuruForm',
+  component: require('./components/Sekretariat/Guru/FormEditGuruComponent.vue')
+},
+{
+  path: '/hapus/guru/:id',
+  name: 'hapusGuru',
+  component: require('./components/Sekretariat/Guru/DeleteGuruComponent.vue') 
+},
 // {
 //   path: '/view/:id',
 //   name: 'userView',
