@@ -11481,6 +11481,10 @@ Vue.component('list-kobong-asrama-component', __webpack_require__(50));
 Vue.component('form-kelas-component', __webpack_require__(51));
 Vue.component('list-kelas-component', __webpack_require__(54));
 
+// GURU
+Vue.component('form-guru-component', __webpack_require__(71));
+Vue.component('list-guru-component', __webpack_require__(72));
+
 /**
 * Vue Router
 *
@@ -11489,23 +11493,15 @@ Vue.component('list-kelas-component', __webpack_require__(54));
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 // define routes for users
-var routes = [
-  // {
-  //   path: '/',
-  //   name: 'userIndex',
-  //   component: require('./components/user/index.vue')
-  // },
-  // {
-  //   path: '/create',
-  //   name: 'userCreate',
-  //   component: require('./components/user/create.vue') 
-  // },
-  // {
-  //   path: '/view/:id',
-  //   name: 'userView',
-  //   component: require('./components/user/view.vue')
-  // }
-];
+var routes = [{
+  path: '/edit/guru/:id',
+  name: 'editGuruForm',
+  component: __webpack_require__(77)
+}, {
+  path: '/hapus/guru/:id',
+  name: 'hapusGuru',
+  component: __webpack_require__(80)
+}];
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
 var app = new Vue({
   router: router
@@ -58603,6 +58599,1683 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(75)
+/* template */
+var __vue_template__ = __webpack_require__(76)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Guru/FormGuruComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-66317c2d", Component.options)
+  } else {
+    hotAPI.reload("data-v-66317c2d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Guru/ListGuruComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-71a3c793", Component.options)
+  } else {
+    hotAPI.reload("data-v-71a3c793", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+$(function () {
+  var table = $('#guruTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "/sekretariat/guru/getGuruDataTables"
+      // data:function(e){
+      //   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
+      // }
+    },
+    columns: [{ data: 'id', name: 'id' }, { data: 'nama_guru', name: 'nama_guru', orderable: true }, { data: 'tingkat.nama_tingkatan', name: 'tingkat_id' }, { data: 'kelas', name: 'kelas' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+  });
+
+  // Auto reload when getting result 
+  $('#filter_tingkat').on('change', function (e) {
+    table.draw();
+    e.preventDefault();
+  });
+
+  // Trigger auto refresh
+  Echo.channel('draw-table').listen('DrawTable', function (e) {
+    table.draw();
+  });
+
+  $('#deleteModalAsrama').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+    //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+    // }); 
+    $("#deleteBtnAsrama").on('click', function () {
+      axios.post('/sekretariat/asrama/' + id + '/destroy').then(function (resp) {
+        $('#deleteModalAsrama').modal('hide');
+        table.draw();
+      }).then(function () {
+        window.location.reload();
+      });
+    });
+  });
+
+  $('#editModalAsrama').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    $.get('/sekretariat/asrama/' + id + '/show', function (data) {
+      $("#nama_asrama").val(data.nama_asrama);
+      $("#filter_tingkat").val(data.filter_tingkat);
+      $("#roisam_asrama").attr('value', data.roisam_asrama);
+    });
+
+    $('#submitEditAsrama').attr('action', '/sekretariat/asrama/' + id + '/update');
+  });
+
+  $('#tambahModalKobongAsrama').on('show.bs.modal', function (e) {
+    var id = $(e.relatedTarget).data('id');
+    $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/' + id + '/storeByAsramaId');
+    // $('#btntambahKobong').click(function(u){
+    //   u.preventDefault();
+    //   axios({
+    //     method: 'post',
+    //     url: '/sekretariat/kobong/'+ id +'/storeByAsramaId',
+    //     data: {
+    //       asrama_id: id,
+    //       nama_kobong: $('input[name="nama_kobong"]').val(),
+    //       roisam_kobong: $('input[name="roisam_kobong"]').val()
+    //     }
+    //   }).then(response => {
+    //       table.draw();
+    //       // $('#tambahKobong').modal('hide');
+    //       $('input[name="nama_kobong"]').val('');
+    //       $('input[name="roisam_kobong"]').val('');
+    //   });
+    // });
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "deleteModalGuru", tabindex: "-1", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", {
+                    staticClass: "modal-title",
+                    attrs: { id: "title-data" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal-body",
+                    staticStyle: { "margin-bottom": "50px" }
+                  },
+                  [
+                    _c("h5", [
+                      _vm._v("Anda yakin ingin menghapus data tersebut?")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-info",
+                        attrs: { "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-danger",
+                        attrs: { id: "deleteBtnAsrama" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-upload" }),
+                        _c("i", { staticClass: "icon wb-trash" }),
+                        _vm._v(" Ya")
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("header", { staticClass: "panel-heading" }, [
+        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Guru")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "form-group col-md-6",
+            staticStyle: { "margin-left": "15px" }
+          },
+          [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Filter Guru Berdasarkan Tingkat Kelas")
+            ]),
+            _vm._v(" "),
+            _c("select", {
+              staticClass: "form-control",
+              attrs: { name: "filter_tingkat", id: "filter_tingkat" }
+            })
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-hover table-bordered dataTable table-striped w-full",
+            attrs: { id: "guruTable" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c(
+                  "th",
+                  { staticClass: "bg-info text-white", attrs: { width: "5%" } },
+                  [_vm._v("NIP Guru")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "20%" }
+                  },
+                  [_vm._v("Nama Guru")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "20%" }
+                  },
+                  [_vm._v("Tingkat Kelas")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "10%" }
+                  },
+                  [_vm._v("Wali Kelas")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "bg-info text-white",
+                    attrs: { width: "20%" }
+                  },
+                  [_vm._v("Aksi")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-71a3c793", module.exports)
+  }
+}
+
+/***/ }),
+/* 75 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		this.listTingkatan();
+		this.kelas();
+	},
+	data: function data() {
+		return {
+			errors: [],
+			listTingkat: [],
+			listKelas: [],
+			guru: {
+				tingkat_id: '',
+				nama_guru: '',
+				kelas_id: ''
+			},
+			messageGuru: '',
+			messageGuruWarning: '',
+			messageGuruError: ''
+		};
+	},
+
+
+	methods: {
+		listTingkatan: function listTingkatan() {
+			var app = this;
+			axios.get('/sekretariat/tingkatan/getJSON').then(function (response) {
+				app.listTingkat = response.data;
+			});
+		},
+		kelas: function kelas() {
+			var app = this;
+			axios.get('/sekretariat/kelas/JSON').then(function (response) {
+				app.listKelas = response.data;
+			});
+		},
+
+
+		store: function store(e) {
+			var app = this;
+			var body = this.guru;
+			axios.post(e.target.action, body).then(function (response) {
+				app.errors = [];
+				app.messageGuru = response.data.response.message;
+				app.messageGuruWarning = response.data.response.messageWarning;
+				app.messageGuruError = response.data.response.messageError;
+				app.guru.tingkat_id = '';
+				app.guru.nama_guru = '';
+				app.gurukelas_id = '';
+			}).catch(function (error) {
+				app.errors = error.response.data.errors;
+				app.messageGuruError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
+				app.messageGuruWarning = false;
+				app.messageGuru = false;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "panel" }, [
+      _c(
+        "div",
+        {
+          staticClass: "panel-body container-fluid",
+          staticStyle: { "background-color": "#fdfdfd" }
+        },
+        [
+          _c("div", { staticClass: "row row-lg" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _vm.messageGuru
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-success alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "icon wb-check",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v(" " + _vm._s(_vm.messageGuru) + ", lihat hasil "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-warning",
+                          attrs: { href: "/sekretariat/guru" }
+                        },
+                        [_vm._v("Beralih ke halaman list Kelas.")]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageGuruWarning
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-warning alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageGuruWarning) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.messageGuruError
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alert dark alert-icon alert-danger alert-dismissible",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                          " +
+                          _vm._s(_vm.messageGuruError) +
+                          "\r\n                    "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: {
+                    autocomplete: "off",
+                    action: "/sekretariat/guru/store"
+                  },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.store($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-6 col-sm-12",
+                        staticStyle: { "padding-right": "15px" }
+                      },
+                      [
+                        _c("h4", { staticClass: "example-title" }, [
+                          _vm._v("Data Guru")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "example" }, [
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "form-group col-md-12" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-control-label",
+                                  attrs: { for: "inputBasicFirstName" }
+                                },
+                                [_vm._v("Nama Guru")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.guru.nama_guru,
+                                    expression: "guru.nama_guru"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: "Nama Guru..."
+                                },
+                                domProps: { value: _vm.guru.nama_guru },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.guru,
+                                      "nama_guru",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm.errors.nama_guru
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(_vm._s(_vm.errors.nama_guru[0]))]
+                                  )
+                                : _vm._e()
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-6 col-sm-12",
+                        staticStyle: { "padding-left": "15px" }
+                      },
+                      [
+                        _c("h4", { staticClass: "example-title" }, [
+                          _vm._v("Data Lanjutan")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "example" }, [
+                          _c("div", { staticClass: "form-group col-md-12" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "inputBasicFirstName" }
+                              },
+                              [_vm._v("Tingkat")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.guru.tingkat_id,
+                                    expression: "guru.tingkat_id"
+                                  }
+                                ],
+                                staticClass: "form-control select2",
+                                attrs: { placeholder: "" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.guru,
+                                      "tingkat_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: {
+                                      selected: "",
+                                      value: "",
+                                      disabled: ""
+                                    }
+                                  },
+                                  [_vm._v("Pilih Tingkat Guru")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.listTingkat.data, function(list) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: list.id } },
+                                    [_vm._v(_vm._s(list.nama_tingkatan))]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.tingkat_id
+                              ? _c(
+                                  "span",
+                                  { staticClass: "label label-danger" },
+                                  [_vm._v(_vm._s(_vm.errors.tingkat_id[0]))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group col-md-12" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "inputBasicFirstName" }
+                              },
+                              [_vm._v("Wali Kelas")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.guru.kelas_id,
+                                    expression: "guru.kelas_id"
+                                  }
+                                ],
+                                staticClass: "form-control select2",
+                                attrs: { placeholder: "" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.guru,
+                                      "kelas_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: {
+                                      selected: "",
+                                      value: "",
+                                      disabled: ""
+                                    }
+                                  },
+                                  [_vm._v("Pilih Kelas")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.listKelas.data, function(kelas) {
+                                  return _c(
+                                    "option",
+                                    { domProps: { value: kelas.id } },
+                                    [_vm._v(_vm._s(kelas.nama_kelas))]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.kelas_id
+                              ? _c(
+                                  "span",
+                                  { staticClass: "label label-danger" },
+                                  [_vm._v(_vm._s(_vm.errors.kelas_id[0]))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary col-md-12", attrs: { type: "submit" } },
+        [_vm._v("Tambah Kelas ")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66317c2d", module.exports)
+  }
+}
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(78)
+/* template */
+var __vue_template__ = __webpack_require__(79)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Guru/FormEditGuruComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-154616c3", Component.options)
+  } else {
+    hotAPI.reload("data-v-154616c3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		this.listTingkatan();
+		this.kelas();
+		this.getGuruID();
+	},
+	data: function data() {
+		return {
+			errors: [],
+			listTingkat: [],
+			listKelas: [],
+			guru: {
+				tingkat_id: '',
+				nama_guru: '',
+				kelas_id: ''
+			},
+			messageGuru: '',
+			messageGuruWarning: '',
+			messageGuruError: ''
+		};
+	},
+
+
+	methods: {
+		getGuruID: function getGuruID() {
+			var app = this;
+			var id = app.$route.params.id;
+			axios.get('/sekretariat/guru/' + id + '/show').then(function (response) {
+				app.guru.tingkat_id = response.data.tingkat_id;
+				app.guru.nama_guru = response.data.nama_guru;
+				app.guru.kelas_id = response.data.kelas_id;
+			});
+		},
+		listTingkatan: function listTingkatan() {
+			var app = this;
+			axios.get('/sekretariat/tingkatan/getJSON').then(function (response) {
+				app.listTingkat = response.data;
+			});
+		},
+		kelas: function kelas() {
+			var app = this;
+			axios.get('/sekretariat/kelas/JSON').then(function (response) {
+				app.listKelas = response.data;
+			});
+		},
+
+
+		store: function store(e) {
+			var app = this;
+			var body = this.guru;
+			var id = app.$route.params.id;
+			axios.put('/sekretariat/guru/' + id + '/update', body).then(function (response) {
+				app.errors = [];
+				app.messageGuru = response.data.response.message;
+				app.messageGuruWarning = response.data.response.messageWarning;
+				app.messageGuruError = response.data.response.messageError;
+				app.$router.push('/');
+			}).catch(function (error) {
+				app.errors = error.response.data.errors;
+				app.messageGuruError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
+				app.messageGuruWarning = false;
+				app.messageGuru = false;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel" }, [
+    _c(
+      "div",
+      {
+        staticClass: "panel-body container-fluid",
+        staticStyle: { "background-color": "#fdfdfd" }
+      },
+      [
+        _c("div", { staticClass: "row row-lg" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _vm.messageGuru
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alert dark alert-icon alert-success alert-dismissible",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "icon wb-check",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" " + _vm._s(_vm.messageGuru) + ", lihat hasil "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-warning",
+                        attrs: { href: "/sekretariat/guru" }
+                      },
+                      [_vm._v("Beralih ke halaman list Kelas.")]
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.messageGuruWarning
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alert dark alert-icon alert-warning alert-dismissible",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                      " +
+                        _vm._s(_vm.messageGuruWarning) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.messageGuruError
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alert dark alert-icon alert-danger alert-dismissible",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                      " +
+                        _vm._s(_vm.messageGuruError) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.store($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-row" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group col-md-6 col-sm-12",
+                      staticStyle: { "padding-right": "15px" }
+                    },
+                    [
+                      _c("h4", { staticClass: "example-title" }, [
+                        _vm._v("Data Guru")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "example" }, [
+                        _c("div", { staticClass: "form-row" }, [
+                          _c("div", { staticClass: "form-group col-md-12" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "inputBasicFirstName" }
+                              },
+                              [_vm._v("Nama Guru")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.guru.nama_guru,
+                                  expression: "guru.nama_guru"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Nama Guru..."
+                              },
+                              domProps: { value: _vm.guru.nama_guru },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.guru,
+                                    "nama_guru",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.nama_guru
+                              ? _c(
+                                  "span",
+                                  { staticClass: "label label-danger" },
+                                  [_vm._v(_vm._s(_vm.errors.nama_guru[0]))]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group col-md-6 col-sm-12",
+                      staticStyle: { "padding-left": "15px" }
+                    },
+                    [
+                      _c("h4", { staticClass: "example-title" }, [
+                        _vm._v("Data Lanjutan")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "example" }, [
+                        _c("div", { staticClass: "form-group col-md-12" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Tingkat")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.guru.tingkat_id,
+                                  expression: "guru.tingkat_id"
+                                }
+                              ],
+                              staticClass: "form-control select2",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.guru,
+                                    "tingkat_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Tingkat Guru")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.listTingkat.data, function(list) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: list.id } },
+                                  [_vm._v(_vm._s(list.nama_tingkatan))]
+                                )
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.tingkat_id
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.tingkat_id[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-12" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "form-control-label",
+                              attrs: { for: "inputBasicFirstName" }
+                            },
+                            [_vm._v("Wali Kelas")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.guru.kelas_id,
+                                  expression: "guru.kelas_id"
+                                }
+                              ],
+                              staticClass: "form-control select2",
+                              attrs: { placeholder: "" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.guru,
+                                    "kelas_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    selected: "",
+                                    value: "",
+                                    disabled: ""
+                                  }
+                                },
+                                [_vm._v("Pilih Kelas")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.listKelas.data, function(kelas) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: kelas.id } },
+                                  [_vm._v(_vm._s(kelas.nama_kelas))]
+                                )
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.kelas_id
+                            ? _c(
+                                "span",
+                                { staticClass: "label label-danger" },
+                                [_vm._v(_vm._s(_vm.errors.kelas_id[0]))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-row" },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary col-md-6",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Edit Kelas")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-warning col-md-6",
+                                attrs: { to: { path: "/" } }
+                              },
+                              [_vm._v("Batal")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-154616c3", module.exports)
+  }
+}
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(81)
+/* template */
+var __vue_template__ = __webpack_require__(82)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Guru/DeleteGuruComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-110bd6e6", Component.options)
+  } else {
+    hotAPI.reload("data-v-110bd6e6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		var app = this;
+		var id = app.$route.params.id;
+		axios.get('/sekretariat/guru/' + id + '/show').then(function (response) {
+			app.guru.nama_guru = response.data.nama_guru;
+		});
+	},
+	data: function data() {
+		return {
+			guru: {
+				nama_guru: ''
+			}
+		};
+	},
+
+
+	methods: {
+		deleteAction: function deleteAction() {
+			var app = this;
+			var id = app.$route.params.id;
+			axios.delete('/sekretariat/guru/' + id + '/destroy').then(function (response) {
+				app.$router.push('/');
+			});
+		},
+		abortDelete: function abortDelete() {
+			var app = this;
+			app.$router.push('/');
+		}
+	}
+
+});
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel" }, [
+    _c("div", { staticClass: "panel-body" }, [
+      _c("h4", [
+        _vm._v(
+          "Anda yakin menghapus " +
+            _vm._s(_vm.guru.nama_guru) +
+            " dari data Guru?"
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "btn btn-group" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-danger",
+            on: {
+              click: function($event) {
+                _vm.deleteAction()
+              }
+            }
+          },
+          [_c("i", { staticClass: "icon wb-trash" }), _vm._v(" Ya")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-default",
+            on: {
+              click: function($event) {
+                _vm.abortDelete()
+              }
+            }
+          },
+          [_vm._v("Tidak")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-110bd6e6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

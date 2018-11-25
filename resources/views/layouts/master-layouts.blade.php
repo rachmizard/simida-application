@@ -67,6 +67,26 @@
   
   <!-- Plugins For This Page -->
   <link rel="stylesheet" href="/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2">
+
+  <!-- Custome Vue Transition CSS -->
+
+<!-- CUSTOM SLIDE TRANSITION CSS -->
+  <style>
+    /* Enter and leave animations can use different */
+    /* durations and timing functions.              */
+    .slide-fade-enter-active {
+      transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+      transform: translateX(10px);
+      opacity: 0;
+    }
+  </style>
+
 </head>
 <body class="animsition">
     <div id="app">
@@ -435,10 +455,10 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Data Guru</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Data Guru</span></a>
+                                                <a href="{{ route('sekretariat.guru') }}"><span class="site-menu-title">Data Guru</span></a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="%5Bform%5Dguru.html"><span class="site-menu-title">Tambah Guru</span></a>
+                                                <a href="{{ route('sekretariat.guru.create') }}"><span class="site-menu-title">Tambah Guru</span></a>
                                             </li>
                                         </ul>
                                     </li>
