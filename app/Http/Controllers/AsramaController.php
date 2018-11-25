@@ -38,7 +38,7 @@ class AsramaController extends Controller
                     return '
                         <div class="text-center">
 
-                            <a href="'. route('sekretariat.asrama.kobong', $asramas->id) .'" class="btn btn-sm btn-success"><i class="icon wb-plus-circle"></i></a>
+                            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahModalKobongAsrama"  title="Tambah Kobong" data-id="'. $asramas->id .'"><i class="icon wb-plus"></i></button>
                             <button data-target="#editModalAsrama" data-toggle="modal" data-content="Edit"
                             data-trigger="hover" data-original-title="Hover to trigger"
                             tabindex="0" title="" data-id="'. $asramas->id .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>

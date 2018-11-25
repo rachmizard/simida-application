@@ -54142,48 +54142,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -54238,26 +54196,26 @@ $(function () {
     $('#submitEditAsrama').attr('action', '/sekretariat/asrama/' + id + '/update');
   });
 
-  $('#tambahKobong').on('show.bs.modal', function (e) {
+  $('#tambahModalKobongAsrama').on('show.bs.modal', function (e) {
     var id = $(e.relatedTarget).data('id');
     $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/' + id + '/storeByAsramaId');
-    $('#btntambahKobong').click(function (u) {
-      u.preventDefault();
-      axios({
-        method: 'post',
-        url: '/sekretariat/kobong/' + id + '/storeByAsramaId',
-        data: {
-          asrama_id: id,
-          nama_kobong: $('input[name="nama_kobong"]').val(),
-          roisam_kobong: $('input[name="roisam_kobong"]').val()
-        }
-      }).then(function (response) {
-        table.draw();
-        // $('#tambahKobong').modal('hide');
-        $('input[name="nama_kobong"]').val('');
-        $('input[name="roisam_kobong"]').val('');
-      });
-    });
+    // $('#btntambahKobong').click(function(u){
+    //   u.preventDefault();
+    //   axios({
+    //     method: 'post',
+    //     url: '/sekretariat/kobong/'+ id +'/storeByAsramaId',
+    //     data: {
+    //       asrama_id: id,
+    //       nama_kobong: $('input[name="nama_kobong"]').val(),
+    //       roisam_kobong: $('input[name="roisam_kobong"]').val()
+    //     }
+    //   }).then(response => {
+    //       table.draw();
+    //       // $('#tambahKobong').modal('hide');
+    //       $('input[name="nama_kobong"]').val('');
+    //       $('input[name="roisam_kobong"]').val('');
+    //   });
+    // });
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54300,161 +54258,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: { id: "tambahKobong", tabindex: "-1", role: "dialog" }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-label": "Close"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _vm._v("×")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "h4",
-                    { staticClass: "modal-title", attrs: { id: "title-data" } },
-                    [_vm._v("Tambah Kobong di")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "modal-body",
-                    staticStyle: { "margin-bottom": "50px" }
-                  },
-                  [
-                    _c("div", { staticClass: "form-row" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "form-group col-md-6 col-sm-12",
-                          staticStyle: { "padding-right": "15px" }
-                        },
-                        [
-                          _c(
-                            "h4",
-                            {
-                              staticClass: "example-title",
-                              attrs: { id: "kobong-asrama-title" }
-                            },
-                            [_vm._v("Kobong")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "example" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "form-control-label",
-                                  attrs: { for: "inputBasicFirstName" }
-                                },
-                                [_vm._v("Nama Kobong")]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "nama_kobong",
-                                  placeholder: "First Name",
-                                  autocomplete: "off"
-                                }
-                              })
-                            ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "form-group col-md-6 col-sm-12",
-                          staticStyle: { "padding-left": "15px" }
-                        },
-                        [
-                          _c("h4", { staticClass: "example-title" }, [
-                            _vm._v("Rais'Am")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "example" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "form-control-label",
-                                  attrs: { for: "inputBasicFirstName" }
-                                },
-                                [_vm._v("Rais'Am Kobong")]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "roisam_kobong",
-                                  placeholder: "Rais'Am Kobong",
-                                  autocomplete: "off"
-                                }
-                              })
-                            ])
-                          ])
-                        ]
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c("div", { staticClass: "btn-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-md btn-default",
-                        attrs: { "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Tutup")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button", id: "btntambahKobong" }
-                      },
-                      [
-                        _c("i", { staticClass: "icon wb-plus" }),
-                        _vm._v(" Tambah Kobong")
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
       _c(
         "div",
         {

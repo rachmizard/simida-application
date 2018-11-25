@@ -132,4 +132,51 @@
       </div><!-- /.modal -->
     <!-- END MODAL -->
 
+
+<!-- MODAL -->
+      <div id="tambahModalKobongAsrama" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="title-data">Tambah Kobong</h4>
+            </div>
+              <form method="POST" enctype="multipart/form-data" id="submitTambahAsramaKobong">
+                <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                <input type="hidden" value="POST" name="_method">
+                <div class="modal-body" style="margin-bottom: 50px;"><div class="form-row">
+                    <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
+                      <h4 class="example-title" id="kobong-asrama-title">Kobong</h4>
+                      <div class="example">
+                          <div class="form-group">
+                             <label class="form-control-label" for="inputBasicFirstName">Nama Kobong</label>
+                             <input type="text" name="nama_kobong" class="form-control" placeholder="First Name" autocomplete="off" />
+                          </div>
+                      </div><!--/Example-->
+                    </div><!--/.form-group
+                    =========================-->
+                    <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
+                      <h4 class="example-title">Rais'Am</h4>
+                      <div class="example">
+                          <div class="form-group">
+                             <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kobong</label>
+                             <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kobong" autocomplete="off" />
+                          </div>
+                      </div>
+                    </div><!--/.form-group
+                    ======================-->
+                 </div><!--/.form-row-->
+                </div>
+                <div class="modal-footer">
+                  <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" id="btntambahKobong"><i class="icon wb-plus"></i> Tambah Kobong</button>
+                    <button class="btn btn-md btn-default" data-dismiss="modal">Tutup</button>
+                  </div>
+                </div>
+              </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+<!-- END MODAL -->
+
 @endsection
