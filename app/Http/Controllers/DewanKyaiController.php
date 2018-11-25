@@ -14,7 +14,7 @@ class DewanKyaiController extends Controller
      */
     public function index()
     {
-        //
+        return view('sekretariat.dewan_kyai.dewankyai');
     }
 
     /**
@@ -35,7 +35,15 @@ class DewanKyaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama_dewan_kyai' = 'required'
+        ]);
+
+        $dewanKyai = new DewanKyai();
+        $dewanKyai->nama_dewan_kyai = $request->nama_dewan_kyai;
+        if ($request->foto) {
+            
+        }
     }
 
     /**
