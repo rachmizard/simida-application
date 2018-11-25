@@ -59144,17 +59144,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var body = this.guru;
 			axios.post(e.target.action, body).then(function (response) {
 				app.errors = [];
-				app.messageGuru = response.data.response.message;
-				app.messageGuruWarning = response.data.response.messageWarning;
-				app.messageGuruError = response.data.response.messageError;
 				app.guru.tingkat_id = '';
 				app.guru.nama_guru = '';
 				app.gurukelas_id = '';
+				setTimeout(function () {
+					app.messageGuru = response.data.response.message;
+					app.messageGuruWarning = response.data.response.messageWarning;
+					app.messageGuruError = response.data.response.messageError;
+				}, 6500);
 			}).catch(function (error) {
 				app.errors = error.response.data.errors;
-				app.messageGuruError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
-				app.messageGuruWarning = false;
-				app.messageGuru = false;
+				setTimeout(function () {
+					app.messageGuruError = 'Data belum lengkap, atau terjadi kesalahan teknis!';
+					app.messageGuruWarning = false;
+					app.messageGuru = false;
+				}, 6500);
 			});
 		}
 	}
