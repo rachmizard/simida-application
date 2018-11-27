@@ -13,7 +13,7 @@ class DataNamaAsrama extends Model
     'nama', 'kategori'
     ];
 
-    public function ngaran()
+    public function asrama()
     {
     	return $this->hasMany('App\DataNamaAsrama', 'id');
     }

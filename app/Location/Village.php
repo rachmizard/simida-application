@@ -8,6 +8,7 @@ class Village extends Model
 {
 	// protected $table = ['villages'];
     protected $table = 'villages';	
+    protected $primaryKey = 'id';
     protected $fillable = ['id', 'district_id', 'name'];
 
     public function district()

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class AsramaKobongResource extends Resource
+class VillageResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class AsramaKobongResource extends Resource
     {
         // return parent::toArray($request);
         return [
-            'id' => $this->id,
-            'asrama_id' => $this->asrama->ngaran,
-            'nama_kobong' => $this->nama_kobong,
-            'roisam_kobong' => $this->roisam_kobong
+            'id_village' => $this->id,
+            'district_id' => $this->district_id,
+            'village_name' => $this->name
         ];
     }
 }
