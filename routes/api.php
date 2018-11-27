@@ -19,6 +19,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
 
+Route::put('/dewankyai/{id}/update', 'DewanKyaiController@update')->name('dewankyai.update');
+
+Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
+
+Route::get('file_exists', function(){
+    if (file_exists(public_path('storage/dewan_pic/1543310566.jpg'))) {
+        unlink(public_path('storage/dewan_pic/Capture.png'));
+        dd('File is exists.');
+    }else{
+        dd('File is not exists.');
+    }
+});
+
 Route::post('debug', function(Request $request){
 				$newKelas = new App\Kelas();   
                 $newKelas->nama_kelas = $request->tingkat.$request->lokal.' '.$request->tingkat_id. ' '.$request->jk;

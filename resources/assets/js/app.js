@@ -61,6 +61,24 @@ const routes = [
 		  name: 'listDewanKyai',
 		  component: require('./components/Sekretariat/DewanKyai/ListDewanKyaiComponent.vue') 
 		},
+
+		{
+		  path: '/tambah_dewankyai',
+		  name: 'tambahDewanKyai',
+		  component: require('./components/Sekretariat/DewanKyai/FormDewanKyaiComponent.vue') 
+		},
+
+		{
+		  path: '/dewankyai/edit/:id',
+		  name: 'editDewanKyai',
+		  component: require('./components/Sekretariat/DewanKyai/FormEditDewanKyaiComponent.vue') 
+		},
+
+		{
+		  path: '/dewankyai/hapus/:id',
+		  name: 'hapusDewanKyai',
+		  component: require('./components/Sekretariat/DewanKyai/DeleteDewanKyaiComponent.vue') 
+		}
 		// END DEWAN KYAI
 ]
 const router = new VueRouter({ routes });
