@@ -26,7 +26,7 @@
     <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
         <div class="row row-lg">
             <div class="col-md-12">
-                <form autocomplete="off" method="POST" action="{{ route('sekretariat.store') }}">
+                <form autocomplete="off" method="POST" action="{{ route('sekretariat.store') }}" enctype="multipart/form-data">
                 	{{ csrf_field() }}
                 <div class="form-row">
                     <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
@@ -59,7 +59,7 @@
                             </div> -->
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">NIK / No.KTP</label>
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder="" autocomplete="off" />
+                                <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" />
                                 @if($errors->has('nik'))
                                   <span class="label label-danger">
                                       {{ $errors->first('nik') }}
@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="">Nomor Telepon Aktif</label>
-                            <input type="text" class="form-control" id="inputBasicFirstName" name="no_telp" placeholder="" autocomplete="off" />
+                            <input type="text" class="form-control" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" />
                             @if($errors->has('no_telp'))
                               <span class="label label-danger">
                                   {{ $errors->first('no_telp') }}
@@ -159,9 +159,18 @@
                                   </span>
                                 @endif
                             </div>
+                        <div class="form-group col-md-12">
+                           <label class="form-control-label" for="inputBasicFirstName">Kode Pos</label>
+                           <input type="text" name="kode_pos" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" autocomplete="off" />
+                                @if($errors->has('kode_pos'))
+                                  <span class="label label-danger">
+                                      {{ $errors->first('kode_pos') }}
+                                  </span>
+                                @endif
+                        </div>
 		                    <div class="form-group col-md-12">
 		                       <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
-		                       <input type="text" name="alamat" class="form-control" id="inputBasicFirstName" name="inputFirstName" placeholder="First Name" autocomplete="off" />
+		                       <input type="text" name="alamat" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" autocomplete="off" />
                                 @if($errors->has('alamat'))
                                   <span class="label label-danger">
                                       {{ $errors->first('alamat') }}
@@ -192,7 +201,7 @@
                         </div>
                         <div class="form-group">
                            <label class="form-control-label" for="inputBasicFirstName">Pesantren Sebelumnya</label>
-                           <input type="text" name="pesantren_sebelumnya" class="form-control" id="inputBasicFirstName" name="inputFirstName" placeholder="First Name" autocomplete="off" />
+                           <input type="text" name="pesantren_sebelumnya" class="form-control" id="inputBasicFirstName" name="inputFirstName" placeholder="Nama Pesantren Sebelumnya..." autocomplete="off" />
                             @if($errors->has('pesantren_sebelumnya'))
                               <span class="label label-danger">
                                   {{ $errors->first('pesantren_sebelumnya') }}
@@ -204,10 +213,9 @@
 	                           <label class="form-control-label" for="inputBasicFirstName">Dewan Yang Menerima</label>
 	                           <select name="dewan_id" class="form-control">
 	                                <option disabled selected>Nama Dewan Kyai</option>
-	                                <option value="1">KH. Irfan Ahmad Rifai</option>
-	                                <option value="2">KH. Irfan Ahmad Rifai</option>
-	                                <option value="3">KH. Irfan Ahmad Rifai</option>
-	                                <option value="4">KH. Irfan Ahmad Rifai</option>
+                                  @foreach($dewankyai as $in)
+                                    <option value="{{ $in->nama_dewan_kyai }}">{{ $in->nama_dewan_kyai }}</option>
+                                  @endforeach
 	                            </select>
                             @if($errors->has('dewan_id'))
                               <span class="label label-danger">
@@ -232,12 +240,12 @@
                                     <option disabled selected>Asrama</option>
                                     <optgroup label="Putra">
                                     @foreach($asramaPutra as $in)
-                                        <option value="{{ $in->id }}">{{ $in->nama_asrama }}</option>
+                                        <option value="{{ $in->id }}">{{ $in->ngaran['nama'] }}</option>
                                     @endforeach
                                     </optgroup>
                                     <optgroup label="Putri">
                                     @foreach($asramaPutri as $in)
-                                        <option value="{{ $in->id }}">{{ $in->nama_asrama }}</option>
+                                        <option value="{{ $in->id }}">{{ $in->ngaran['nama'] }}</option>
                                     @endforeach
                                     </optgroup>
                                 </select>
@@ -283,18 +291,14 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Kobong</label>
-                                <select name="kobong_id" class="form-control">
+                                <select name="kobong_id" class="form-control selectTo">
                                     <option disabled selected>Kobong</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                            <label class="form-control-label" for="inputBasicFirstName">Himpunan</label>
-                           <input type="text" class="form-control" id="inputBasicFirstName" name="himpunan" placeholder="First Name" autocomplete="off" />
+                           <input type="text" class="form-control" id="inputBasicFirstName" name="himpunan" placeholder="Himpunan" autocomplete="off" />
                             @if($errors->has('himpunan'))
                               <span class="label label-danger">
                                   {{ $errors->first('himpunan') }}
@@ -308,7 +312,7 @@
                             <span class="input-group-btn">
                               <span class="btn btn-success btn-file">
                                 <i class="icon wb-upload" aria-hidden="true"></i>
-                                <input type="file" name="foto" multiple="">
+                                <input type="file" name="foto">
                               </span>
                             </span>
                           </div>
@@ -405,7 +409,7 @@
 		                	}
 		                });
 	                }else{
-						$('select[name="kecamatan"]').empty();
+						        $('select[name="kecamatan"]').empty();
 	                }
 	            });
 
@@ -427,7 +431,7 @@
 		                	}
 		                });
 	                }else{
-						$('select[name="kelurahan"]').empty();
+						          $('select[name="kelurahan"]').empty();
 	                }
 	            });
             }else{
@@ -436,6 +440,26 @@
                 $('select[name="kelurahan"]').empty();
             }
         });
+
+        $('select[name="asrama_id"]').on('change', function(){
+            var asrama_id = $(this).val();
+                  if (asrama_id) {
+                    $.ajax({
+                      url: 'asrama/'+ asrama_id +'/kobongJSON',
+                      type: "GET",
+                      dataType: "json",
+                      success:function(dataKobong){
+
+                            $('select[name="kobong_id"]').empty();
+                            $.each(dataKobong.data, function(key, value) {
+                                $('select[name="kobong_id"]').append('<option value="'+ value.id +'">'+ value.asrama_id.nama +' - ' + value.nama_kobong +'</option>');
+                            }); 
+                      }
+                    });
+                  }else{
+                      $('select[name="kobong_id"]').empty();
+                  }
+        })
     });
 </script>
 @endpush

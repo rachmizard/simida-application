@@ -33,6 +33,13 @@ class KobongController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function getJSON()
+    {
+        $kobongs = Kobong::with('asrama')->get();
+        return response()->json(['data' => $kobongs]);
+    }
+
     public function storeJSON(Request $request)
     {
         $this->validate($request, [

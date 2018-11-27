@@ -39,8 +39,8 @@
                     },
                     columns: [
                         { data: 'id', name: 'id' },
-                        { data: 'nama_dewan_kyai', name: 'nama_dewan_kyai', orderable: false },
-                        { data: 'foto', name: 'foto' },
+                        { data: 'nama_dewan_kyai', name: 'nama_dewan_kyai'},
+                        { data: 'foto', name: 'foto', orderable: false  },
                         { data: 'action', name: 'action', orderable: false, searchable: false },
                     ]
                 }); 
