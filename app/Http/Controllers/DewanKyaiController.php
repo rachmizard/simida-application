@@ -127,21 +127,21 @@ class DewanKyaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'nama_dewan_kyai' => 'required',
-        //     'foto' => 'mimes:jpeg,jpg,png | max:5000',
-        // ]);
+        $this->validate($request, [
+            'nama_dewan_kyai' => 'required',
+            'foto' => 'mimes:jpeg,jpg,png | max:5000',
+        ]);
 
         try {
             $dewanKyai = DewanKyai::findOrFail($id);
-            $dewanKyai->nama_dewan_kyai = 'just test';
-            $uploadFile = $request->file('image');
+            $dewanKyai->nama_dewan_kyai = $request->nama_dewan_kyai;
+            $uploadFile = $request->image;
             if ($uploadFile == null) {
                 $imageName = $dewanKyai->foto;
             }else{
                 // Delete File
-                if (file_exists(public_path('/storage/dewan_pic/'. $dewanKyai->foto))) {
-                    unlink(public_path('/storage/dewan_pic/'.$dewanKyai->foto));
+                if (file_exists(public_path('storage/dewan_pic/'. $dewanKyai->foto))) {
+                    unlink(public_path('storage/dewan_pic/'.$dewanKyai->foto));
                 }
                 // Set image name and moving the file
                 $imageName = time().'.'.$uploadFile->getClientOriginalExtension();
