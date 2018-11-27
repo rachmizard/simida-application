@@ -17,7 +17,7 @@
                     <div v-if="messageError" class="alert dark alert-icon alert-danger alert-dismissible" role="alert">
                           {{ messageError }}
                     </div>
-                    <form @submit="store" enctype="multipart/form-data">
+                    <form @submit="storeData" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
                         <h4 class="example-title"><i class="icon wb-edit"></i> Form Edit Dewan Kyai</h4>
@@ -91,34 +91,7 @@
 		},
 
 		methods: {
-			store(e){
-                e.preventDefault();
-                let currentObj = this;
- 
-                const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                }
- 
-                let formData = new FormData();
-                var id = currentObj.$route.params.id;
-                formData.append('nama_dewan_kyai', currentObj.nama_dewan_kyai);
-                formData.append('image', currentObj.image);
- 
-                axios.put('/sekretariat/dewankyai/'+ id +'/update', formData, config)
-                .then(function (response) {
-                    currentObj.errors =[];
-                    currentObj.message = response.data.response.message;
-                    currentObj.nama_dewan_kyai = '';
-                    currentObj.foto = '';
-                    currentObj.$router.push('list_dewankyai');
-                })
-                .catch(function (error) {
-                    currentObj.errors = error.response.data.errors;
-                    currentObj.messageError = response.data.response.messageError;
-                    currentObj.messageWarning = response.data.response.messageWarning;
-                    currentObj.message = response.data.response.message;
-                });
-			},
+
 
 			onImageChange(e){
                 console.log(e.target.files[0]);
@@ -138,6 +111,35 @@
                 };
                 reader.readAsDataURL(file);
             },
+			storeData(e){
+                e.preventDefault();
+                let currentObj = this;
+ 
+                const config = {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                }
+ 
+                let formData = new FormData();
+                var id = currentObj.$route.params.id;
+                formData.append('nama_dewan_kyai', currentObj.nama_dewan_kyai);
+                formData.append('image', currentObj.image);
+ 
+                axios.post('/sekretariat/dewankyai/'+ id +'/update', formData, config)
+                .then(function (response) {
+                	currentObj.getDewanKyaiID();
+                    currentObj.errors =[];
+                    currentObj.message = response.data.response.message;
+                    // currentObj.nama_dewan_kyai = '';
+                    // currentObj.foto = '';
+                    currentObj.$router.push('/list_dewankyai');
+                })
+                .catch(function (error) {
+                    currentObj.errors = error.response.data.errors;
+                    currentObj.messageError = response.data.response.messageError;
+                    currentObj.messageWarning = response.data.response.messageWarning;
+                    currentObj.message = response.data.response.message;
+                });
+			},
 
             getDewanKyaiID(){
             	let app = this;

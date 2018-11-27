@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/asrama/store', 'AsramaController@store')->name('asrama.store');
 
-Route::put('/dewankyai/{id}/update', 'DewanKyaiController@update')->name('dewankyai.update');
+Route::post('/dewankyai/{id}/update', 'DewanKyaiController@update')->name('dewankyai.update');
 
 Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
 

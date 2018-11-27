@@ -61088,32 +61088,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        store: function store(e) {
-            e.preventDefault();
-            var currentObj = this;
-
-            var config = {
-                headers: { 'content-type': 'multipart/form-data' }
-            };
-
-            var formData = new FormData();
-            var id = currentObj.$route.params.id;
-            formData.append('nama_dewan_kyai', currentObj.nama_dewan_kyai);
-            formData.append('image', currentObj.image);
-
-            axios.put('/sekretariat/dewankyai/' + id + '/update', formData, config).then(function (response) {
-                currentObj.errors = [];
-                currentObj.message = response.data.response.message;
-                currentObj.nama_dewan_kyai = '';
-                currentObj.foto = '';
-                currentObj.$router.push('list_dewankyai');
-            }).catch(function (error) {
-                currentObj.errors = error.response.data.errors;
-                currentObj.messageError = response.data.response.messageError;
-                currentObj.messageWarning = response.data.response.messageWarning;
-                currentObj.message = response.data.response.message;
-            });
-        },
         onImageChange: function onImageChange(e) {
             console.log(e.target.files[0]);
             this.image = e.target.files[0];
@@ -61128,6 +61102,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 vm.image_preview = e.target.result;
             };
             reader.readAsDataURL(file);
+        },
+        storeData: function storeData(e) {
+            e.preventDefault();
+            var currentObj = this;
+
+            var config = {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            };
+
+            var formData = new FormData();
+            var id = currentObj.$route.params.id;
+            formData.append('nama_dewan_kyai', currentObj.nama_dewan_kyai);
+            formData.append('image', currentObj.image);
+
+            axios.post('/sekretariat/dewankyai/' + id + '/update', formData, config).then(function (response) {
+                currentObj.getDewanKyaiID();
+                currentObj.errors = [];
+                currentObj.message = response.data.response.message;
+                // currentObj.nama_dewan_kyai = '';
+                // currentObj.foto = '';
+                currentObj.$router.push('/list_dewankyai');
+            }).catch(function (error) {
+                currentObj.errors = error.response.data.errors;
+                currentObj.messageError = response.data.response.messageError;
+                currentObj.messageWarning = response.data.response.messageWarning;
+                currentObj.message = response.data.response.message;
+            });
         },
         getDewanKyaiID: function getDewanKyaiID() {
             var app = this;
@@ -61220,7 +61221,7 @@ var render = function() {
                 "form",
                 {
                   attrs: { enctype: "multipart/form-data" },
-                  on: { submit: _vm.store }
+                  on: { submit: _vm.storeData }
                 },
                 [
                   _c("div", { staticClass: "form-row" }, [
