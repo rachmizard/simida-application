@@ -18,8 +18,8 @@
             <i class="icon wb-settings" aria-hidden="true"></i>
         </button>
     </div> -->
+</div>
     <transition name="slide-fade">
         <router-view></router-view>
     </transition>
-</div>
 @endsection

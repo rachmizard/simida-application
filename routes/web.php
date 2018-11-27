@@ -109,6 +109,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// DEWAN KYAI
 			Route::get('/dewankyai', 'DewanKyaiController@index')->name('dewankyai');
 			Route::get('/dewankyai/getDewanKyaiDataTables', 'DewanKyaiController@getDewanKyaiDataTables')->name('dewankyai.getDewanKyaiDataTables');
+			Route::get('/dewankyai/getDewanKyaiJSON', 'DewanKyaiController@getDewanKyaiJSON')->name('dewankyai.getDewanKyaiJSON');
 			Route::get('/dewankyai/tambah', 'DewanKyaiController@create')->name('dewankyai.create');
 			Route::get('/dewankyai/{id}/show', 'DewanKyaiController@show')->name('dewankyai.show');
 			Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
