@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Sekretariat</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Master Santri</a></li>
-        <li class="breadcrumb-item active"><a href="javascript:void(0)">Pendaftaran</a></li>
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Santri {{ $idSantri->nama_santri  }}</a></li>
     </ol>
     <!-- <div class="page-header-actions">
         <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Edit">
@@ -26,7 +26,7 @@
     <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
         <div class="row row-lg">
             <div class="col-md-12">
-                <form autocomplete="off" method="POST" action="{{ route('sekretariat.store') }}" enctype="multipart/form-data">
+                <form autocomplete="off" method="POST" action="{{ route('sekretariat.santri.update', $idSantri) }}" enctype="multipart/form-data">
                 	{{ csrf_field() }}
                 <div class="form-row">
                     <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
@@ -35,7 +35,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicFirstName">Nama</label>
-                                <input type="text" class="form-control" id="inputBasicFirstName" name="nama_santri" placeholder="Nama Santri" autocomplete="off" />
+                                <input type="text" value="{{ $idSantri->nama_santri }}" class="form-control" id="inputBasicFirstName" name="nama_santri" placeholder="Nama Santri" autocomplete="off" />
                                 @if($errors->has('nama_santri'))
                                   <span class="label label-danger">
                                       {{ $errors->first('nama_santri') }}
@@ -44,7 +44,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Tanggal Lahir</label>
-                                <input type="text" class="form-control datelahir" name="tgl_lahir" placeholder="DD/MM/YYYY" autocomplete="off" />
+                                <input type="text" value="{{ Carbon\Carbon::parse($idSantri->tgl_lahir)->format('Y-m-d') }}" class="form-control datepicker" name="tgl_lahir" placeholder="YYYY/MM/DD" autocomplete="off" />
                                 @if($errors->has('tgl_lahir'))
                                   <span class="label label-danger">
                                       {{ $errors->first('tgl_lahir') }}
@@ -59,7 +59,7 @@
                             </div> -->
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">NIK / No.KTP</label>
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" />
+                                <input type="text" value="{{ $idSantri->nik }}" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" />
                                 @if($errors->has('nik'))
                                   <span class="label label-danger">
                                       {{ $errors->first('nik') }}
@@ -68,10 +68,10 @@
                             </div>
                           <div class="form-group col-md-6">
                              <label class="form-control-label" for="inputBasicFirstName">Jenis Kelamin</label>
-                             <select name="jenis_kelamin" class="form-control">
+                             <select name="jenis_kelamin" value="{{ $idSantri->jenis_kelamin }}"  class="form-control">
                                   <option disabled selected>Pilih Jenis Kelamin</option>
-                                  <option value="L">Laki-Laki</option>
-                                  <option value="P">Perempuan</option>
+                                  <option value="L" {{ $idSantri->jenis_kelamin == 'L' ? 'selected' : ''}}>Laki-Laki</option>
+                                  <option value="P" {{ $idSantri->jenis_kelamin == 'P' ? 'selected' : ''}}>Perempuan</option>
                               </select>
                               @if($errors->has('jenis_kelamin'))
                                 <span class="label label-danger">
@@ -83,7 +83,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="">Nama Ayah <b>Kandung</b></label>
-                                <input type="text" class="form-control" id="inputBasicFirstName" name="nama_ortu" placeholder="Nama Ayah Kandung" autocomplete="off" />
+                                <input type="text" class="form-control" value="{{ $idSantri->nama_ortu }}" id="inputBasicFirstName" name="nama_ortu" placeholder="Nama Ayah Kandung" autocomplete="off" />
                                 @if($errors->has('nama_ortu'))
                                   <span class="label label-danger">
                                       {{ $errors->first('nama_ortu') }}
@@ -92,7 +92,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Nama Orangtua <b>Wali</b></label>
-                                <input type="text" class="form-control" id="inputBasicLastName" name="nama_wali" placeholder="Nama Wali Bila Ada" autocomplete="off" />
+                                <input type="text" class="form-control" value="{{ $idSantri->nama_wali }}" id="inputBasicLastName" name="nama_wali" placeholder="Nama Wali Bila Ada" autocomplete="off" />
                                 @if($errors->has('nama_wali'))
                                   <span class="label label-danger">
                                       {{ $errors->first('nama_wali') }}
@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="">Nomor Telepon Aktif</label>
-                            <input type="text" class="form-control" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" />
+                            <input type="text" class="form-control" value="{{ $idSantri->no_telp }}" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" />
                             @if($errors->has('no_telp'))
                               <span class="label label-danger">
                                   {{ $errors->first('no_telp') }}
@@ -115,9 +115,10 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
-                                <select name="provinsi" class="form-control selectTo" id="provinces">
+                                <select name="provinsi" value="{{ $idSantri->provinsi }}" class="form-control selectTo" id="provinces">
                                     <option disabled selected>Nama Provinsi</option>
                                 </select>
+                                <input type="hidden" value="{{ $idSantri->provinsi }}" name="provinsi_old">
                                 @if($errors->has('provinsi'))
                                   <span class="label label-danger">
                                       {{ $errors->first('provinsi') }}
@@ -126,9 +127,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Kabupaten</label>
-                                <select name="kabupaten_kota" class="form-control selectTo">
+                                <select name="kabupaten_kota" value="{{ $idSantri->kabupaten_kota }}" class="form-control selectTo">
                                     <option disabled selected>Nama Kabupaten</option>
                                 </select>
+                                <input type="hidden" value="{{ $idSantri->kabupaten_kota }}" name="kabupaten_kota_old">
                                 @if($errors->has('kabupaten_kota'))
                                   <span class="label label-danger">
                                       {{ $errors->first('kabupaten_kota') }}
@@ -139,9 +141,10 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicFirstName">Kecamatan</label>
-                                <select name="kecamatan" class="form-control selectTo">
+                                <select name="kecamatan" value="{{ $idSantri->kecamatan }}" class="form-control selectTo">
                                     <option disabled selected>Nama Kecamatan..</option>
                                 </select>
+                                <input type="hidden" name="kecamatan_old" value="{{ $idSantri->kecamatan }}">
                                 @if($errors->has('kecamatan'))
                                   <span class="label label-danger">
                                       {{ $errors->first('kecamatan') }}
@@ -150,9 +153,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Kelurahan</label>
-                                <select name="kelurahan" class="form-control selectTo">
+                                <select name="kelurahan" value="{{ $idSantri->kelurahan }}" class="form-control selectTo">
                                     <option disabled selected>Kelurahan setempat...</option>
                                 </select>
+                                <input type="hidden" value="{{ $idSantri->kelurahan }}" name="kelurahan_old">
                                 @if($errors->has('kelurahan'))
                                   <span class="label label-danger">
                                       {{ $errors->first('kelurahan') }}
@@ -161,7 +165,7 @@
                             </div>
                         <div class="form-group col-md-12">
                            <label class="form-control-label" for="inputBasicFirstName">Kode Pos</label>
-                           <input type="text" name="kode_pos" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" autocomplete="off" />
+                           <input type="text" name="kode_pos" value="{{ $idSantri->kode_pos }}" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" autocomplete="off" />
                                 @if($errors->has('kode_pos'))
                                   <span class="label label-danger">
                                       {{ $errors->first('kode_pos') }}
@@ -170,7 +174,7 @@
                         </div>
 		                    <div class="form-group col-md-12">
 		                       <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
-		                       <input type="text" name="alamat" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" autocomplete="off" />
+		                       <input type="text" name="alamat" value="{{ $idSantri->alamat }}" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" autocomplete="off" />
                                 @if($errors->has('alamat'))
                                   <span class="label label-danger">
                                       {{ $errors->first('alamat') }}
@@ -186,12 +190,12 @@
                     <div class="example">
                         <div class="form-group">
                            <label class="form-control-label" for="inputBasicFirstName">Pendidikan Terakhir</label>
-                           <select name="pendidikan_terakhir" class="form-control">
+                           <select name="pendidikan_terakhir" value="{{ $idSantri->pendidikan_terakhir }}" class="form-control">
                                 <option disabled selected>Pendidikan Terakhir</option>
-                                <option>SD</option>
-                                <option>SMP</option>
-                                <option>SMA</option>
-                                <option>SMK</option>
+                                <option value="SD" {{ $idSantri->pendidikan_terakhir == 'SD' ? 'selected' : ''}}>SD</option>
+                                <option value="SMP" {{ $idSantri->pendidikan_terakhir == 'SMP' ? 'selected' : ''}}>SMP</option>
+                                <option value="SMA" {{ $idSantri->pendidikan_terakhir == 'SMA' ? 'selected' : ''}}>SMA</option>
+                                <option value="SMK" {{ $idSantri->pendidikan_terakhir == 'SMK' ? 'selected' : ''}}>SMK</option>
                             </select>
                             @if($errors->has('pendidikan_terakhir'))
                               <span class="label label-danger">
@@ -201,7 +205,7 @@
                         </div>
                         <div class="form-group">
                            <label class="form-control-label" for="inputBasicFirstName">Pesantren Sebelumnya</label>
-                           <input type="text" name="pesantren_sebelumnya" class="form-control" id="inputBasicFirstName" name="inputFirstName" placeholder="Nama Pesantren Sebelumnya..." autocomplete="off" />
+                           <input type="text" name="pesantren_sebelumnya" class="form-control" id="inputBasicFirstName" name="inputFirstName" value="{{ $idSantri->pesantren_sebelumnya }}" placeholder="Nama Pesantren Sebelumnya..." autocomplete="off" />
                             @if($errors->has('pesantren_sebelumnya'))
                               <span class="label label-danger">
                                   {{ $errors->first('pesantren_sebelumnya') }}
@@ -211,10 +215,10 @@
                         <div class="form-row">
 	                        <div class="form-group">
 	                           <label class="form-control-label" for="inputBasicFirstName">Dewan Yang Menerima</label>
-	                           <select name="dewan_id" class="form-control">
+	                           <select name="dewan_id" class="form-control" value="{{ $idSantri->dewan_id }}">
 	                                <option disabled selected>Nama Dewan Kyai</option>
                                   @foreach($dewankyai as $in)
-                                    <option value="{{ $in->id }}">{{ $in->nama_dewan_kyai }}</option>
+                                    <option value="{{ $in->id }}" {{ $idSantri->dewan_id == $in->id ? 'selected' : ''}}>{{ $in->nama_dewan_kyai }}</option>
                                   @endforeach
 	                            </select>
                             @if($errors->has('dewan_id'))
@@ -225,7 +229,7 @@
 	                        </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Tanggal Masuk</label>
-                                <input type="text" class="form-control datepicker" name="tgl_masuk" placeholder="DD/MM/YYYY" autocomplete="off" />
+                                <input type="text" class="form-control datepicker" name="tgl_masuk" placeholder="YYYY-MM-DD" value="{{ Carbon\Carbon::parse($idSantri->tgl_masuk)->format('Y-m-d') }}" autocomplete="off" />
 	                            @if($errors->has('tgl_masuk'))
 	                              <span class="label label-danger">
 	                                  {{ $errors->first('tgl_masuk') }}
@@ -236,16 +240,16 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicFirstName">Asrama</label>
-                                <select name="asrama_id" id="asrama" class="form-control selectTo">
+                                <select name="asrama_id" id="asrama" class="form-control">
                                     <option disabled selected>Asrama</option>
                                     <optgroup label="Putra">
                                     @foreach($asramaPutra as $in)
-                                        <option value="{{ $in->id }}">{{ $in->ngaran['nama'] }}</option>
+                                        <option value="{{ $in->id }}" {{ $idSantri->asrama_id == $in->id ? 'selected' : ''}}>{{ $in->ngaran['nama'] }}</option>
                                     @endforeach
                                     </optgroup>
                                     <optgroup label="Putri">
                                     @foreach($asramaPutri as $in)
-                                        <option value="{{ $in->id }}">{{ $in->ngaran['nama'] }}</option>
+                                        <option value="{{ $in->id }}" {{ $idSantri->asrama_id == $in->id ? 'selected' : ''}}>{{ $in->ngaran['nama'] }}</option>
                                     @endforeach
                                     </optgroup>
                                 </select>
@@ -257,10 +261,10 @@
                             </div>
 	                        <div class="form-group col-md-6">
 	                           <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
-	                           <select name="tingkat_id" class="form-control">
+	                           <select name="tingkat_id" value="{{ $idSantri->tingkat_id }}" class="form-control">
 	                                <option disabled selected>Tingkat</option>
                                   @foreach($tingkats as $tingkat)
-                                    <option value="{{ $tingkat->id }}">{{ $tingkat->nama_tingkatan }}</option>
+                                    <option value="{{ $tingkat->id }}" {{ $idSantri->tingkat_id == $tingkat->id ? 'selected' : ''}}>{{ $tingkat->nama_tingkatan }}</option>
                                   @endforeach
 	                            </select>
 	                            @if($errors->has('tingkat_id'))
@@ -273,12 +277,12 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-                                <select name="kelas_id" class="form-control selectTo">
+                                <select name="kelas_id" value="{{ $idSantri->kelas_id }}" class="form-control selectTo">
                                     <option disabled selected>Kelas</option>
                                     @foreach($tingkats as $tingkat)
                                       <optgroup label="{{ $tingkat->nama_tingkatan }}">
                                         @foreach(App\Kelas::whereTingkatId($tingkat->id)->get() as $in)
-                                          <option value="{{ $in->id }}">{{ $in->nama_kelas }}</option>
+                                          <option value="{{ $in->id }}" {{ $idSantri->kelas_id == $in->id ? 'selected' : ''}}>{{ $in->nama_kelas }}</option>
                                         @endforeach
                                       </optgroup>
                                     @endforeach
@@ -291,14 +295,17 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Kobong</label>
-                                <select name="kobong_id" class="form-control selectTo">
+                                <select name="kobong_id" value="{{ $idSantri->kobong_id }}" class="form-control selectTo">
                                     <option disabled selected>Kobong</option>
+                                    @foreach($kobongs as $kobong)
+                                    	<option value="{{ $kobong->id }}" {{ $idSantri->kobong_id == $kobong->id ? 'selected' : ''}}>{{ $kobong->nama_kobong }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                            <label class="form-control-label" for="inputBasicFirstName">Himpunan</label>
-                           <input type="text" class="form-control" id="inputBasicFirstName" name="himpunan" placeholder="Himpunan" autocomplete="off" />
+                           <input type="text" class="form-control" id="inputBasicFirstName" value="{{ $idSantri->himpunan }}" name="himpunan" placeholder="Himpunan" autocomplete="off" />
                             @if($errors->has('himpunan'))
                               <span class="label label-danger">
                                   {{ $errors->first('himpunan') }}
@@ -313,6 +320,7 @@
                               <span class="btn btn-success btn-file">
                                 <i class="icon wb-upload" aria-hidden="true"></i>
                                 <input type="file" name="foto">
+                                <input type="hidden" value="{{ $idSantri->foto }}" name="foto_old">
                               </span>
                             </span>
                           </div>
@@ -380,7 +388,7 @@
             $('select[name="kelurahan"]').empty();
             if(stateID) {
                 $.ajax({
-                    url: 'province/regencies/'+ stateID,
+                    url: '/sekretariat/province/regencies/'+ stateID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {
@@ -397,7 +405,7 @@
 	                var kabupatenID = $(this).val();
 	                if (kabupatenID) {
 		                $.ajax({
-		                	url: 'province/regency/districts/'+ kabupatenID,
+		                	url: '/sekretariat/province/regency/districts/'+ kabupatenID,
 		                	type: "GET",
 		                	dataType: "json",
 		                	success:function(dataKecamatan){
@@ -419,14 +427,14 @@
 	                var kelurahanID = $(this).val();
 	                if (kelurahanID) {
 		                $.ajax({
-		                	url: 'province/regency/district/villages/'+ kelurahanID,
+		                	url: '/sekretariat/province/regency/district/villages/'+ kelurahanID,
 		                	type: "GET",
 		                	dataType: "json",
 		                	success:function(dataKelurahan){
 
 		                        $('select[name="kelurahan"]').empty();
 		                        $.each(dataKelurahan.data, function(key, value) {
-		                            $('select[name="kelurahan"]').append('<option value="'+ value.id_na +'">'+ value.name +'</option>');
+		                            $('select[name="kelurahan"]').append('<option value="'+ value.name +'">'+ value.name +'</option>');
 		                        });	
 		                	}
 		                });
@@ -445,7 +453,7 @@
             var asrama_id = $(this).val();
                   if (asrama_id) {
                     $.ajax({
-                      url: 'asrama/'+ asrama_id +'/kobongJSON',
+                      url: '/sekretariat/asrama/'+ asrama_id +'/kobongJSON',
                       type: "GET",
                       dataType: "json",
                       success:function(dataKobong){

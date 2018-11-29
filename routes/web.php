@@ -48,6 +48,14 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
+			Route::get('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
+			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
+			Route::get('/santri/{id}/show', 'SantriController@show')->name('santri.show');
+			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
+			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
+			Route::delete('/santri/{id}/destroy', 'SantriController@destroy')->name('santri.destroy');
+
+
 			// End Santri
 
 			// Kelas
