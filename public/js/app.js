@@ -62069,7 +62069,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		abortDelete: function abortDelete() {
 			var app = this;
-			app.$router.push('/');
+			app.$router.push('/list_santri');
 		}
 	}
 

@@ -39,7 +39,7 @@
 
 			abortDelete(){
 				let app = this;
-				app.$router.push('/');
+				app.$router.push('/list_santri');
 			}
 		}
 
