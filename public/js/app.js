@@ -11499,38 +11499,58 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 var routes = [
 // GURU
 {
-		path: '/edit/guru/:id',
-		name: 'editGuruForm',
-		component: __webpack_require__(64)
+	path: '/edit/guru/:id',
+	name: 'editGuruForm',
+	component: __webpack_require__(64)
 }, {
-		path: '/hapus/guru/:id',
-		name: 'hapusGuru',
-		component: __webpack_require__(67)
+	path: '/hapus/guru/:id',
+	name: 'hapusGuru',
+	component: __webpack_require__(67)
 },
 // END GURU
 
 // DEWAN KYAI
 {
-		path: '/list_dewankyai',
-		name: 'listDewanKyai',
-		component: __webpack_require__(70)
+	path: '/list_dewankyai',
+	name: 'listDewanKyai',
+	component: __webpack_require__(70)
 }, {
-		path: '/tambah_dewankyai',
-		name: 'tambahDewanKyai',
-		component: __webpack_require__(84)
+	path: '/tambah_dewankyai',
+	name: 'tambahDewanKyai',
+	component: __webpack_require__(84)
 }, {
-		path: '/dewankyai/edit/:id',
-		name: 'editDewanKyai',
-		component: __webpack_require__(87)
+	path: '/dewankyai/edit/:id',
+	name: 'editDewanKyai',
+	component: __webpack_require__(87)
 }, {
-		path: '/dewankyai/hapus/:id',
-		name: 'hapusDewanKyai',
-		component: __webpack_require__(90)
-		// END DEWAN KYAI
+	path: '/dewankyai/hapus/:id',
+	name: 'hapusDewanKyai',
+	component: __webpack_require__(90)
+},
+// END DEWAN KYAI
+
+// SANTRI
+{
+	path: '/list_santri',
+	name: 'listSantri',
+	component: __webpack_require__(93)
+}, {
+	path: '/detail/santri/:id',
+	name: 'detailSantri',
+	component: __webpack_require__(99)
+}, {
+	path: '/edit/santri/:id',
+	name: 'editSantri',
+	component: __webpack_require__(96)
+}, {
+	path: '/hapus/santri/:id',
+	name: 'hapusSantri',
+	component: __webpack_require__(102)
+	// END SANTRI
 }];
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({ routes: routes });
 var app = new Vue({
-		router: router
+	router: router
 }).$mount('#app');
 
 /***/ }),
@@ -61495,6 +61515,621 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-e837e870", module.exports)
+  }
+}
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(94)
+/* template */
+var __vue_template__ = __webpack_require__(95)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Santri/ListSantriComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b98c555a", Component.options)
+  } else {
+    hotAPI.reload("data-v-b98c555a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		$(function () {
+			var table = $('#santriTable').DataTable({
+				processing: true,
+				serverSide: true,
+				ajax: {
+					url: "/sekretariat/santri/getSantriDataTables"
+					// data:function(e){
+					//   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
+					// }
+				},
+				columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+			});
+
+			// Auto reload when getting result 
+			$('#filter_tingkat').on('change', function (e) {
+				table.draw();
+				e.preventDefault();
+			});
+
+			// Trigger auto refresh
+			Echo.channel('draw-table').listen('DrawTable', function (e) {
+				table.draw();
+			});
+		});
+	},
+	data: function data() {
+		return {};
+	}
+});
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "deleteModalGuru", tabindex: "-1", role: "dialog" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", {
+                    staticClass: "modal-title",
+                    attrs: { id: "title-data" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "modal-body",
+                    staticStyle: { "margin-bottom": "50px" }
+                  },
+                  [
+                    _c("h5", [
+                      _vm._v("Anda yakin ingin menghapus data tersebut?")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-info",
+                        attrs: { "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-md btn-danger",
+                        attrs: { id: "deleteBtnAsrama" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-upload" }),
+                        _c("i", { staticClass: "icon wb-trash" }),
+                        _vm._v(" Ya")
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("header", { staticClass: "panel-heading" }, [
+        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Santri")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "form-group col-md-6",
+            staticStyle: { "margin-left": "15px" }
+          },
+          [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Menampilkan Santri Berdasarkan Kelas")
+            ]),
+            _vm._v(" "),
+            _c("select", {
+              staticClass: "form-control",
+              attrs: { name: "filter_tingkat", id: "filter_tingkat" }
+            })
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c(
+          "table",
+          {
+            staticClass:
+              "table table-hover table-bordered dataTable table-striped w-full",
+            attrs: { id: "santriTable" }
+          },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { attrs: { width: "5%" } }, [_vm._v("NIS")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Santri")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "10%" } }, [_vm._v("Kelas")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "10%" } }, [_vm._v("Alamat")]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "10%" } }, [
+                  _vm._v("Tanggal Masuk")
+                ]),
+                _vm._v(" "),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Aksi")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b98c555a", module.exports)
+  }
+}
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(97)
+/* template */
+var __vue_template__ = __webpack_require__(98)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Santri/FormEditSantriComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-479edb83", Component.options)
+  } else {
+    hotAPI.reload("data-v-479edb83", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-479edb83", module.exports)
+  }
+}
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(100)
+/* template */
+var __vue_template__ = __webpack_require__(101)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Santri/DetailSantriComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-10979d00", Component.options)
+  } else {
+    hotAPI.reload("data-v-10979d00", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 100 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-10979d00", module.exports)
+  }
+}
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(103)
+/* template */
+var __vue_template__ = __webpack_require__(104)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Santri/DeleteSantriComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0e476d66", Component.options)
+  } else {
+    hotAPI.reload("data-v-0e476d66", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 103 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		var app = this;
+		var id = app.$route.params.id;
+		axios.get('/sekretariat/santri/' + id + '/show').then(function (response) {
+			app.santri.nama_santri = response.data.nama_santri;
+		});
+	},
+	data: function data() {
+		return {
+			santri: {
+				nama_santri: ''
+			}
+		};
+	},
+
+
+	methods: {
+		deleteAction: function deleteAction() {
+			var app = this;
+			var id = app.$route.params.id;
+			axios.delete('/sekretariat/santri/' + id + '/destroy').then(function (response) {
+				app.$router.push('/list_santri');
+			});
+		},
+		abortDelete: function abortDelete() {
+			var app = this;
+			app.$router.push('/');
+		}
+	}
+
+});
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel" }, [
+    _c("div", { staticClass: "panel-body" }, [
+      _c("h4", [
+        _vm._v(
+          "Anda yakin menghapus " +
+            _vm._s(_vm.santri.nama_santri) +
+            " dari data santri?"
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "btn btn-group" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-danger",
+            on: {
+              click: function($event) {
+                _vm.deleteAction()
+              }
+            }
+          },
+          [_c("i", { staticClass: "icon wb-trash" }), _vm._v(" Ya")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-default",
+            on: {
+              click: function($event) {
+                _vm.abortDelete()
+              }
+            }
+          },
+          [_vm._v("Tidak")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0e476d66", module.exports)
   }
 }
 

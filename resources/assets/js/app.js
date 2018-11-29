@@ -78,8 +78,37 @@ const routes = [
 		  path: '/dewankyai/hapus/:id',
 		  name: 'hapusDewanKyai',
 		  component: require('./components/Sekretariat/DewanKyai/DeleteDewanKyaiComponent.vue') 
-		}
+		},
 		// END DEWAN KYAI
+
+		// SANTRI
+		{
+		  path: '/list_santri',
+		  name: 'listSantri',
+		  component: require('./components/Sekretariat/Santri/ListSantriComponent.vue') 
+		},
+
+
+		{
+	 	  path: '/detail/santri/:id',
+		  name: 'detailSantri',
+		  component: require('./components/Sekretariat/Santri/DetailSantriComponent.vue') 
+		},
+
+
+		{
+		  path: '/edit/santri/:id',
+		  name: 'editSantri',
+		  component: require('./components/Sekretariat/Santri/FormEditSantriComponent.vue') 
+		},
+
+
+		{
+		  path: '/hapus/santri/:id',
+		  name: 'hapusSantri',
+		  component: require('./components/Sekretariat/Santri/DeleteSantriComponent.vue') 
+		}
+		// END SANTRI
 ]
 const router = new VueRouter({ routes });
 const app = new Vue({

@@ -422,7 +422,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Santri</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('sekretariat.santri') }}"><span class="site-menu-title">Data Santri</span></a>
+                                                <a href="{{ route('sekretariat.santri') }}#/list_santri"><span class="site-menu-title">Data Santri</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="{{ route('sekretariat.pendaftaran') }}"><span class="site-menu-title">Pendaftaran</span></a>
@@ -642,16 +642,17 @@
   <script src="/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min599c.js"></script>
     <script>
     $('.datelahir').datepicker({
-        format: "dd/mm/yyyy",
+        format: "yyyy-mm-dd",
         clearBtn: true,
         language: "id",
         defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
     $('.datepicker').datepicker({
-        format: "dd/mm/yyyy",
+        format: "yyyy-mm-dd",
         clearBtn: true,
         language: "id",
+        defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
     </script>
