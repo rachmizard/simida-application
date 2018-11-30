@@ -182,7 +182,7 @@ class SantriController extends Controller
         // $getSantri->update();
 
 
-        return redirect()->back();
+        return response()->json(['message' => 'success']);
 
     }
 

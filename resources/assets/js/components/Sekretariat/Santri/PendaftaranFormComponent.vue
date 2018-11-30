@@ -30,16 +30,16 @@
                         <div class="step col-lg-3" data-target="#exampleVerification" role="tab">
                           <span class="step-number">3</span>
                           <div class="step-desc">
-                            <span class="step-title">Verifikasi</span>
-                            <p>Penempatan kelas dan asrama </p>
+                            <span class="step-title">Data Lanjutan</span>
+                            <p>Penempatan kelas, asrama, & foto santri </p>
                           </div>
                         </div>
 
                         <div class="step col-lg-3" data-target="#exampleGetting" role="tab">
                           <span class="step-number">4</span>
                           <div class="step-desc">
-                            <span class="step-title">Finish</span>
-                            <p>Pengirim Data</p>
+                            <span class="step-title">Verifikasi</span>
+                            <p>Kirim Data</p>
                           </div>
                         </div>
                       </div>
@@ -54,21 +54,21 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="inputBasicFirstName">Nama</label>
-                                    <input type="text" class="form-control" id="inputBasicFirstName" name="nama_santri" placeholder="Nama Santri" autocomplete="off" required="required" />
+                                    <input type="text" class="form-control" v-model="santri.nama_santri" id="inputBasicFirstName" name="nama_santri" placeholder="Nama Santri" autocomplete="off" required="required" />
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="inputBasicLastName">Tanggal Lahir</label>
-                                    <input type="text" class="form-control datelahir" name="tgl_lahir" placeholder="DD/MM/YYYY" autocomplete="off" />
+                                    <input type="text" class="form-control datelahir" v-model="santri.tgl_lahir" name="tgl_lahir" placeholder="DD/MM/YYYY" autocomplete="off" />
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="inputBasicLastName">NIK / No.KTP</label>
-                                    <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" required="required"/>
+                                    <input type="text" class="form-control" v-model="santri.nik" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" required="required"/>
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                    <label class="form-control-label" for="inputBasicFirstName">Jenis Kelamin</label>
-                                   <select name="jenis_kelamin" class="form-control" required="required">
+                                   <select name="jenis_kelamin" class="form-control" v-model="santri.jenis_kelamin" required="required">
                                         <option disabled selected>Pilih Jenis Kelamin</option>
                                         <option value="L">Laki-Laki</option>
                                         <option value="P">Perempuan</option>
@@ -80,11 +80,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="inputBasicLastName">Nama Orangtua <b>Wali</b></label>
-                                    <input type="text" class="form-control" id="inputBasicLastName" name="nama_wali" placeholder="Nama Wali Bila Ada" autocomplete="off" required="required"/>
+                                    <input type="text" class="form-control" id="inputBasicLastName" v-model="santri.nama_wali" name="nama_wali" placeholder="Nama Wali Bila Ada" autocomplete="off" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="">Nomor Telepon Aktif</label>
-                                    <input type="text" class="form-control" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" required="required"/>
+                                    <input type="text" class="form-control" v-model="santri.no_telp" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" required="required"/>
                                 </div>
                               </div>
                             </div>
@@ -126,11 +126,11 @@
                                   </div>
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Kode Pos</label>
-                                     <input type="text" name="kode_pos" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" autocomplete="off" required="numeric" />
+                                     <input type="text" name="kode_pos" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" v-model="santri.kode_pos" autocomplete="off" required="numeric" />
                                   </div>
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
-                                     <input type="text" name="alamat" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" required="required" autocomplete="off" />
+                                     <input type="text" name="alamat" v-model="santri.alamat" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" required="required" autocomplete="off" />
                                   </div>
                                 </div>
                               </div>
@@ -142,7 +142,7 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Pendidikan Terakhir</label>
-                                     <select name="pendidikan_terakhir" class="form-control">
+                                     <select name="pendidikan_terakhir" v-model="santri.pendidikan_terakhir" class="form-control">
                                           <option disabled selected>Pendidikan Terakhir</option>
                                           <option>SD</option>
                                           <option>SMP</option>
@@ -185,21 +185,21 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
-                                     <select name="tingkat_id" v-model="santri.tingkat_id" class="form-control" style="width: 100%;">
+                                     <select name="tingkat_id" class="form-control" v-model="santri.tingkat_id" style="width: 100%;">
                                           <option disabled selected value="">Tingkat</option>
                                           <option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-                                      <select name="kelas_id" v-model="santri.kelas_id" class="form-control selectTo" style="width: 100%;">
+                                      <select name="kelas_id" class="form-control selectTo" v-model="santri.kelas_id" style="width: 100%;">
                                           <option disabled selected value="">Kelas</option>
                                           <option v-for="kelasque in kelas.data" :value="kelasque.id">{{ kelasque.nama_kelas }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Himpunan</label>
-                                     <input type="text" class="form-control" id="inputBasicFirstName" name="himpunan" placeholder="Himpunan" autocomplete="off" />
+                                     <input type="text" class="form-control" v-model="santri.himpunan" id="inputBasicFirstName" name="himpunan" placeholder="Himpunan" autocomplete="off" />
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicFirstName">Foto Santri</label>
@@ -220,7 +220,8 @@
                           <div class="wizard-pane" id="exampleGetting" role="tabpanel">
                             <div class="text-center my-20">
                               <i class="icon wb-check font-size-40" aria-hidden="true"></i>
-                              <h4>We got your order. Your product will be shipping soon.</h4>
+                              <h4>Data sudah lengkap, klik tombol kirim untuk melakukan pengiriman data.</h4>
+                              <button @click="store" class="btn btn-sm btn-success">Kirim</button>
                             </div>
                           </div>
                         </div>
@@ -268,6 +269,7 @@
           kelurahan: '',
           kode_pos: '',
           alamat: '',
+          pendidikan_terakhir: '',
           pesantren_sebelumnya: '',
           dewan_id : '',
           tgl_masuk: '',
@@ -276,7 +278,8 @@
           tingkat_id: '',
           kelas_id: '',  
           himpunan: ''
-        }
+        },
+        image : ''
       }
     },
 
@@ -330,6 +333,21 @@
         var id = app.santri.asrama_id;
         axios.get('/sekretariat/asrama/'+ id +'/kobongJSON').then(response => {
           app.kobongs = response.data;
+        })
+      },
+
+      store:function(e){
+        e.preventDefault();
+        let app = this;
+        const formData = app.santri;
+
+        const config = {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }
+
+        axios.post('/sekretariat/pendaftaran/store', formData, config)
+        then(response => {
+          app.$router.push('/list_santri');
         })
       }
 
