@@ -43,7 +43,16 @@ Vue.use(VueRouter);
 // define routes for users
 const routes = [
 
-		
+		// SANTRI
+
+		{
+		  path: '/pendaftaran',
+		  name: 'pendaftaran',
+		  component: require('./components/Sekretariat/Santri/PendaftaranFormComponent.vue')
+		},
+
+		// END SANTRI
+
 		// KELAS
 
 		{

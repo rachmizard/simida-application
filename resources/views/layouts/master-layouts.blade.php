@@ -46,6 +46,9 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.bootstrap4.min.css">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/webui-popover/webui-popover.min.css?v4.0.2">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/toolbar/toolbar.min.css?v4.0.2">
+    <!-- FORM WIZARD -->
+  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/jquery-wizard/jquery-wizard.min.css?v4.0.2">
+  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/formValidation.min.css?v4.0.2">
 
   <!-- Fonts -->
   <link rel="stylesheet" href="/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2">
@@ -679,6 +682,15 @@
     <!-- Tooltip -->
     <script src="https://getbootstrapadmin.com/remark/global/vendor/webui-popover/jquery.webui-popover.min.js?v4.0.2"></script>
     <script src="https://getbootstrapadmin.com/remark/global/vendor/toolbar/jquery.toolbar.js?v4.0.2"></script>
+      <!-- Form Wizard -->
+
+      <script src="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/formValidation.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/framework/bootstrap.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/global/vendor/matchheight/jquery.matchHeight-min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/global/vendor/jquery-wizard/jquery-wizard.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/jquery-wizard.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/matchheight.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/base/assets/examples/js/forms/wizard.min.js?v4.0.2"></script>
 
 <script>
 
