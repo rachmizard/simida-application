@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kelas;
+use App\Guru;
 use App\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Resources\KelasResource;
@@ -19,7 +20,8 @@ class KelasController extends Controller
     public function index()
     {
         $tingkat = Tingkat::all();
-        return view('sekretariat.kelas.kelas', compact('tingkat'));
+        $gurus = Guru::all();
+        return view('sekretariat.kelas.kelas', compact('tingkat', 'gurus'));
     }
 
     public function getKelasDatatables()
@@ -27,10 +29,12 @@ class KelasController extends Controller
         $karyawans = Kelas::all();
         return Datatables::of(KelasResource::collection(Kelas::all()))
                 ->addColumn('action', function($karyawans){
-                    return '<button data-target="#editModal" data-toggle="modal" data-content="Edit"
+                    return '
+                    <a href="#/kelas/list_santri/'.$karyawans['id'].'" class="btn btn-xs btn-info" title="Lihat Santri di dalam kelas '. $karyawans['nama_kelas'] .'"><i class="icon wb-user-circle"></i></a>
+                    <a data-target="#editModal" data-toggle="modal" data-content="Edit"
                     data-trigger="hover" data-original-title="Hover to trigger"
-                    tabindex="0" title="" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
-                            <button data-target="#deleteModal" data-toggle="modal" data-id="'. $karyawans['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                    tabindex="0" title="" data-id="'. $karyawans['id'] .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
+                            <a href="#/kelas/hapus/'.  $karyawans['id'] .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                             ';
                 })
                 ->rawColumns(['action'])
@@ -163,7 +167,7 @@ class KelasController extends Controller
         $data['message'] = 'Berhasil mengedit Kelas!';
         // return response()->json(['response' => $data]);
         event(new DrawTable());
-        return redirect()->back();
+        return redirect(route('sekretariat.kelas').'#/list_kelas');
     }
 
     /**

@@ -10,7 +10,7 @@
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
-                          <i class="icon wb-check" aria-hidden="true"></i> {{ messageGuru }}, lihat hasil <a href="/sekretariat/guru" class="text-warning">Beralih ke halaman list Kelas.</a>
+                          <i class="icon wb-check" aria-hidden="true"></i> {{ messageGuru }}, lihat hasil <a href="/sekretariat/guru" class="text-warning">Beralih ke halaman data guru.</a>
                     </div>
                     <div v-if="messageGuruWarning" class="alert dark alert-icon alert-warning alert-dismissible" role="alert">
                           {{ messageGuruWarning }}

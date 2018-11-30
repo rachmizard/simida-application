@@ -50,6 +50,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/santri', 'SantriController@index')->name('santri');
 			Route::get('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
 			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
+			Route::get('/santri/{id_kelas}/kelas', 'SantriController@showByClass')->name('santri.showByClass');
 			Route::get('/santri/{id}/show', 'SantriController@show')->name('santri.show');
 			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
 			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
@@ -107,6 +108,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// GURU
 			Route::get('/guru', 'GuruController@index')->name('guru');
 			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
+		Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
 			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
 			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');

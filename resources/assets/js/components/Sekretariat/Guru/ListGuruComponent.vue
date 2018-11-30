@@ -23,7 +23,7 @@
       </div><!-- /.modal -->
     <!-- END MODAL -->
         <header class="panel-heading">
-          <h3 class="panel-title">Table Guru</h3>
+          <h3 class="panel-title"></h3>
           <div class="form-group col-md-6" style="margin-left: 15px;">
             <label for="">Filter Guru Berdasarkan Tingkat Kelas</label>
             <select name="filter_tingkat" id="filter_tingkat" class="form-control">

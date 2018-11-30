@@ -51,7 +51,7 @@
                                 <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
                             </div>
                             <div class="form-row">
-                                <button type="submit" class="btn btn-primary col-md-6" >Edit Kelas</button>
+                                <button type="submit" class="btn btn-primary col-md-6" >Edit Guru</button>
                         		<router-link :to="{path: '/'}" class="btn btn-warning col-md-6">Batal</router-link>
                            </div>
                         </div><!--/.example-->
