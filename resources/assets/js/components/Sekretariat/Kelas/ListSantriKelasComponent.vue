@@ -24,7 +24,6 @@
                 <th width="10%">Kelas</th>
                 <th width="10%">Alamat</th>
                 <th width="10%">Tanggal Masuk</th>
-                <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -71,7 +70,6 @@
 			                  { data: 'alamat', name: 'alamat'},
 			                  { data: 'tgl_masuk', name: 'tgl_masuk'},
 			                  // { data: 'foto', name: 'foto', orderable: false, searchable: false },
-			                  { data: 'action', name: 'action', orderable: false, searchable: false }
 			              ]
 			          }); 
 
