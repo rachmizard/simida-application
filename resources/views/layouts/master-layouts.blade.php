@@ -444,7 +444,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Asrama</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('sekretariat.asrama') }}"><span class="site-menu-title">Data Asrama</span></a>
+                                                <a href="{{ route('sekretariat.asrama') }}"><span class="site-menu-title">Data Asrama & Kobong</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="{{ route('sekretariat.asrama.create') }}"><span class="site-menu-title">Tambah Asrama</span></a>
@@ -537,7 +537,7 @@
                                 </ul>
                             </li>
                             @endif
-                            @if(auth()->user()->role == 'keamanan' || auth()->user()->rle == 'murobbi')
+                            @if(auth()->user()->role == 'keamanan' || auth()->user()->role == 'murobbi')
                             <li class="site-menu-item has-sub">
                                 <a href="javascript:void(0)">
                                     <i class="site-menu-icon wb-lock" aria-hidden="true"></i>

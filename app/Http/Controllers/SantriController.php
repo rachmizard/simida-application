@@ -60,9 +60,9 @@ class SantriController extends Controller
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-sm btn-info text-white"><i class="icon wb-eye"></i></a>
-                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-sm btn-warning text-white"><i class="icon wb-edit"></i></a>
-                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
+                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
+                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
 
                                         ';
@@ -92,9 +92,9 @@ class SantriController extends Controller
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-sm btn-info text-white"><i class="icon wb-eye"></i></a>
-                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-sm btn-warning text-white"><i class="icon wb-edit"></i></a>
-                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
+                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
+                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
 
                                         ';

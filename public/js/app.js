@@ -62105,7 +62105,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
@@ -62135,9 +62134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						//   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
 						// }
 					},
-					columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' },
-					// { data: 'foto', name: 'foto', orderable: false, searchable: false },
-					{ data: 'action', name: 'action', orderable: false, searchable: false }]
+					columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' }]
 				});
 
 				// Auto reload when getting result 
@@ -62262,9 +62259,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("th", { attrs: { width: "10%" } }, [_vm._v("Alamat")]),
               _vm._v(" "),
-              _c("th", { attrs: { width: "10%" } }, [_vm._v("Tanggal Masuk")]),
-              _vm._v(" "),
-              _c("th", { attrs: { width: "20%" } }, [_vm._v("Aksi")])
+              _c("th", { attrs: { width: "10%" } }, [_vm._v("Tanggal Masuk")])
             ])
           ]),
           _vm._v(" "),
