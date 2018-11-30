@@ -59847,134 +59847,111 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    var _this = this;
+
     this.function();
+    axios.get('/sekretariat/provinces').then(function (response) {
+      _this.provinces = response.data;
+    });
   },
   data: function data() {
-    return {};
+    return {
+      provinces: [],
+      regencies: [],
+      districts: [],
+      villages: [],
+      dewans: [],
+      asramas: [],
+      kobongs: [],
+      tingkats: [],
+      kelas: [],
+      santri: {
+        nama_santri: '',
+        tgl_lahir: '',
+        nik: '',
+        jenis_kelamin: '',
+        nama_ortu: '',
+        nama_wali: '',
+        no_telp: '',
+        provinsi: '',
+        kabupaten_kota: '',
+        kecamatan: '',
+        kelurahan: '',
+        kode_pos: '',
+        alamat: '',
+        pesantren_sebelumnya: '',
+        dewan_id: '',
+        tgl_masuk: '',
+        asrama_id: '',
+        kobong_id: '',
+        tingkat_id: '',
+        kelas_id: '',
+        himpunan: ''
+      }
+    };
   },
 
 
   methods: {
     function: function _function() {
-      var provinces = $('#provinces');
-      var kabupaten = $('#kabupaten');
-      var asrama = $('#asrama');
-      provinces.empty();
+      var _this2 = this;
 
-      provinces.append('<option selected="true" disabled>Pilih Provinsi</option>');
-      provinces.prop('selectedIndex', 0);
-
-      var url = '/sekretariat/provinces';
-
-      // Populate provinces with list of provinces
-      $.getJSON(url, function (data) {
-        $.each(data.data, function (key, entry) {
-          provinces.append($('<option></option>').attr('value', entry.id).text(entry.name));
-        });
+      axios.get('/sekretariat/dewankyai/getDewanKyaiJSON').then(function (response) {
+        _this2.dewans = response.data;
       });
 
-      // asrama.empty();
+      axios.get('/sekretariat/asrama/get/allKategori').then(function (response) {
+        _this2.asramas = response.data;
+      });
 
-      // asrama.append('<option selected="true" disabled>Pilih Asrama</option>');
-      // asrama.prop('selectedIndex', 0);
+      axios.get('/sekretariat/tingkatan/getJSON').then(function (response) {
+        _this2.tingkats = response.data;
+      });
 
-      // const urlAsrama = '';
-
-      // // Populate asrama with list of asrama
-      // $.getJSON(urlAsrama, function (data) {
-      //   $.each(data.data, function (key, entry) {
-      //     asrama.append($('<option></option>').attr('value', entry.id).text(entry.nama_asrama));
-      //   })
-      // });
-
-      $(function () {
-        $('select[name="provinsi"]').on('change', function () {
-          var stateID = $(this).val();
-          $('select[name="kabupaten_kota"]').empty();
-          $('select[name="kecamatan"]').empty();
-          $('select[name="kelurahan"]').empty();
-          if (stateID) {
-            $.ajax({
-              url: 'province/regencies/' + stateID,
-              type: "GET",
-              dataType: "json",
-              success: function success(data) {
-
-                $('select[name="kabupaten_kota"]').empty();
-                $.each(data.data, function (key, value) {
-                  $('select[name="kabupaten_kota"]').append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-              }
-            });
-
-            $('select[name="kabupaten_kota"]').on('change', function () {
-              var kabupatenID = $(this).val();
-              if (kabupatenID) {
-                $.ajax({
-                  url: 'province/regency/districts/' + kabupatenID,
-                  type: "GET",
-                  dataType: "json",
-                  success: function success(dataKecamatan) {
-
-                    $('select[name="kecamatan"]').empty();
-                    $.each(dataKecamatan.data, function (key, value) {
-                      $('select[name="kecamatan"]').append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-                  }
-                });
-              } else {
-                $('select[name="kecamatan"]').empty();
-              }
-            });
-
-            $('select[name="kecamatan"]').on('change', function () {
-              var kelurahanID = $(this).val();
-              if (kelurahanID) {
-                $.ajax({
-                  url: 'province/regency/district/villages/' + kelurahanID,
-                  type: "GET",
-                  dataType: "json",
-                  success: function success(dataKelurahan) {
-
-                    $('select[name="kelurahan"]').empty();
-                    $.each(dataKelurahan.data, function (key, value) {
-                      $('select[name="kelurahan"]').append('<option value="' + value.id_na + '">' + value.name + '</option>');
-                    });
-                  }
-                });
-              } else {
-                $('select[name="kelurahan"]').empty();
-              }
-            });
-          } else {
-            $('select[name="kabupaten_kota"]').empty();
-            $('select[name="kecamatan"]').empty();
-            $('select[name="kelurahan"]').empty();
-          }
-        });
-
-        $('select[name="asrama_id"]').on('change', function () {
-          var asrama_id = $(this).val();
-          if (asrama_id) {
-            $.ajax({
-              url: 'asrama/' + asrama_id + '/kobongJSON',
-              type: "GET",
-              dataType: "json",
-              success: function success(dataKobong) {
-
-                $('select[name="kobong_id"]').empty();
-                $.each(dataKobong.data, function (key, value) {
-                  $('select[name="kobong_id"]').append('<option value="' + value.id + '">' + value.asrama_id.nama + ' - ' + value.nama_kobong + '</option>');
-                });
-              }
-            });
-          } else {
-            $('select[name="kobong_id"]').empty();
-          }
-        });
+      axios.get('/sekretariat/kelas/JSON').then(function (response) {
+        _this2.kelas = response.data;
+      });
+    },
+    getRegenciesByProvince: function getRegenciesByProvince() {
+      var app = this;
+      var id = app.santri.provinsi;
+      axios.get('/sekretariat/province/regencies/' + id).then(function (response) {
+        app.regencies = response.data;
+      });
+    },
+    getDistrictsByRegency: function getDistrictsByRegency() {
+      var app = this;
+      var id_regency = app.santri.kabupaten_kota;
+      axios.get('/sekretariat/province/regency/districts/' + id_regency).then(function (response) {
+        app.districts = response.data;
+      });
+    },
+    getVillagesByDistrict: function getVillagesByDistrict() {
+      var app = this;
+      var id_district = app.santri.kecamatan;
+      axios.get('/sekretariat/province/regency/district/villages/' + id_district).then(function (response) {
+        app.villages = response.data;
+      });
+    },
+    getKobongByAsrama: function getKobongByAsrama() {
+      var app = this;
+      var id = app.santri.asrama_id;
+      axios.get('/sekretariat/asrama/' + id + '/kobongJSON').then(function (response) {
+        app.kobongs = response.data;
       });
     }
   }
@@ -59988,914 +59965,1324 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel" }, [
-      _c(
-        "div",
-        {
-          staticClass: "panel-body container-fluid",
-          staticStyle: { "background-color": "#fdfdfd" }
-        },
-        [
-          _c("div", { staticClass: "row row-lg" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c(
-                "div",
-                { staticClass: "panel", attrs: { id: "exampleWizardForm" } },
-                [
-                  _c("div", { staticClass: "panel-heading" }, [
-                    _c("h3", { staticClass: "panel-title" }, [
-                      _vm._v("Form Pendaftaran")
-                    ])
-                  ]),
+  return _c("div", { staticClass: "panel" }, [
+    _c(
+      "div",
+      {
+        staticClass: "panel-body container-fluid",
+        staticStyle: { "background-color": "#fdfdfd" }
+      },
+      [
+        _c("div", { staticClass: "row row-lg" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "div",
+              { staticClass: "panel", attrs: { id: "exampleWizardForm" } },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel-body" }, [
+                  _vm._m(1),
                   _vm._v(" "),
-                  _c("div", { staticClass: "panel-body" }, [
+                  _c("div", { staticClass: "wizard-content" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
                     _c(
                       "div",
                       {
-                        staticClass: "steps steps-sm row",
-                        attrs: {
-                          "data-plugin": "matchHeight",
-                          "data-by-row": "true",
-                          role: "tablist"
-                        }
+                        staticClass: "wizard-pane",
+                        attrs: { id: "exampleBilling", role: "tabpanel" }
+                      },
+                      [
+                        _c("form", { attrs: { id: "exampleBillingForm" } }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Provinsi")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.provinsi,
+                                        expression: "santri.provinsi"
+                                      }
+                                    ],
+                                    staticClass: "form-control col-md-12",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      name: "provinsi",
+                                      required: "required",
+                                      id: "provinces"
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "provinsi",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          _vm.getRegenciesByProvince()
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: {
+                                          disabled: "",
+                                          selected: "",
+                                          value: ""
+                                        }
+                                      },
+                                      [_vm._v("Nama Provinsi")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.provinces.data, function(
+                                      province
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        { domProps: { value: province.id } },
+                                        [_vm._v(_vm._s(province.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicLastName" }
+                                  },
+                                  [_vm._v("Kabupaten")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.kabupaten_kota,
+                                        expression: "santri.kabupaten_kota"
+                                      }
+                                    ],
+                                    staticClass: "form-control col-md-12",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      name: "kabupaten_kota",
+                                      required: "required"
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "kabupaten_kota",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          _vm.getDistrictsByRegency()
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: {
+                                          disabled: "",
+                                          selected: "",
+                                          value: ""
+                                        }
+                                      },
+                                      [_vm._v("Nama Kabupaten")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.regencies.data, function(
+                                      regency
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        { domProps: { value: regency.id } },
+                                        [_vm._v(_vm._s(regency.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Kecamatan")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.kecamatan,
+                                        expression: "santri.kecamatan"
+                                      }
+                                    ],
+                                    staticClass: "form-control col-md-12",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      name: "kecamatan",
+                                      required: "required"
+                                    },
+                                    on: {
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "kecamatan",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          _vm.getVillagesByDistrict()
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: {
+                                          disabled: "",
+                                          selected: "",
+                                          value: ""
+                                        }
+                                      },
+                                      [_vm._v("Nama Kecamatan..")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.districts.data, function(
+                                      district
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        { domProps: { value: district.id } },
+                                        [_vm._v(_vm._s(district.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicLastName" }
+                                  },
+                                  [_vm._v("Kelurahan")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.kelurahan,
+                                        expression: "santri.kelurahan"
+                                      }
+                                    ],
+                                    staticClass: "form-control col-md-12",
+                                    staticStyle: { width: "100%" },
+                                    attrs: {
+                                      name: "kelurahan",
+                                      required: "required"
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.santri,
+                                          "kelurahan",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: {
+                                          disabled: "",
+                                          selected: "",
+                                          value: ""
+                                        }
+                                      },
+                                      [_vm._v("Kelurahan setempat...")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.villages.data, function(
+                                      village
+                                    ) {
+                                      return _c(
+                                        "option",
+                                        { domProps: { value: village.id } },
+                                        [_vm._v(_vm._s(village.name))]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(3),
+                              _vm._v(" "),
+                              _vm._m(4)
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "wizard-pane",
+                        attrs: { id: "exampleVerification", role: "tabpanel" }
                       },
                       [
                         _c(
-                          "div",
-                          {
-                            staticClass: "step col-lg-3 current",
-                            attrs: {
-                              "data-target": "#exampleAccount",
-                              role: "tab"
-                            }
-                          },
+                          "form",
+                          { attrs: { id: "exampleVerificationForm" } },
                           [
-                            _c("span", { staticClass: "step-number" }, [
-                              _vm._v("1")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "step-desc" }, [
-                              _c("span", { staticClass: "step-title" }, [
-                                _vm._v("Data Santri")
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _vm._m(5),
+                                _vm._v(" "),
+                                _vm._m(6),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Dewan Yang Menerima")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.dewan_id,
+                                          expression: "santri.dewan_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { name: "dewan_id" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "dewan_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            disabled: "",
+                                            selected: "",
+                                            value: ""
+                                          }
+                                        },
+                                        [_vm._v("Nama Dewan Kyai")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.dewans.data, function(dewan) {
+                                        return _c(
+                                          "option",
+                                          { domProps: { value: dewan.id } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(dewan.nama_dewan_kyai)
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("p", [_vm._v("Input identitas santri")])
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "step col-lg-3",
-                            attrs: {
-                              "data-target": "#exampleBilling",
-                              role: "tab"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "step-number" }, [
-                              _vm._v("2")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "step-desc" }, [
-                              _c("span", { staticClass: "step-title" }, [
-                                _vm._v("Alamat")
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _vm._m(7),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Asrama")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.asrama_id,
+                                          expression: "santri.asrama_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control selectTo",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        name: "asrama_id",
+                                        id: "asrama"
+                                      },
+                                      on: {
+                                        change: [
+                                          function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.santri,
+                                              "asrama_id",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          },
+                                          _vm.getKobongByAsrama
+                                        ]
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "", selected: "" }
+                                        },
+                                        [_vm._v("Asrama")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.asramas.data, function(
+                                        asrama
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            domProps: {
+                                              value: asrama.asrama_id
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(asrama.nama_asrama))]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicLastName" }
+                                    },
+                                    [_vm._v("Kobong")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.kobong_id,
+                                          expression: "santri.kobong_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control selectTo",
+                                      staticStyle: { width: "100%" },
+                                      attrs: { name: "kobong_id" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "kobong_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "", selected: "" }
+                                        },
+                                        [_vm._v("Kobong")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.kobongs.data, function(
+                                        kobong
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          { domProps: { value: kobong.id } },
+                                          [_vm._v(_vm._s(kobong.nama_kobong))]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("p", [_vm._v("Lokasi dan Alamat santri")])
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "step col-lg-3",
-                            attrs: {
-                              "data-target": "#exampleVerification",
-                              role: "tab"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "step-number" }, [
-                              _vm._v("3")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "step-desc" }, [
-                              _c("span", { staticClass: "step-title" }, [
-                                _vm._v("Verifikasi")
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Penempatan kelas dan asrama ")])
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "step col-lg-3",
-                            attrs: {
-                              "data-target": "#exampleGetting",
-                              role: "tab"
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "step-number" }, [
-                              _vm._v("4")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "step-desc" }, [
-                              _c("span", { staticClass: "step-title" }, [
-                                _vm._v("Finish")
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Pengirim Data")])
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Tingkat")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.tingkat_id,
+                                          expression: "santri.tingkat_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      staticStyle: { width: "100%" },
+                                      attrs: { name: "tingkat_id" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "tingkat_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            disabled: "",
+                                            selected: "",
+                                            value: ""
+                                          }
+                                        },
+                                        [_vm._v("Tingkat")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.tingkats.data, function(
+                                        tingkat
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          { domProps: { value: tingkat.id } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(tingkat.nama_tingkatan)
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Kelas")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.kelas_id,
+                                          expression: "santri.kelas_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control selectTo",
+                                      staticStyle: { width: "100%" },
+                                      attrs: { name: "kelas_id" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "kelas_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            disabled: "",
+                                            selected: "",
+                                            value: ""
+                                          }
+                                        },
+                                        [_vm._v("Kelas")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.kelas.data, function(
+                                        kelasque
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          { domProps: { value: kelasque.id } },
+                                          [_vm._v(_vm._s(kelasque.nama_kelas))]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(8),
+                                _vm._v(" "),
+                                _vm._m(9)
+                              ])
                             ])
                           ]
                         )
                       ]
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "wizard-content" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "wizard-pane active",
-                          attrs: { id: "exampleAccount", role: "tabpanel" }
-                        },
-                        [
-                          _c("form", { attrs: { id: "exampleAccountForm" } }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Nama")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      id: "inputBasicFirstName",
-                                      name: "nama_santri",
-                                      placeholder: "Nama Santri",
-                                      autocomplete: "off",
-                                      required: "required"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicLastName" }
-                                    },
-                                    [_vm._v("Tanggal Lahir")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control datelahir",
-                                    attrs: {
-                                      type: "text",
-                                      name: "tgl_lahir",
-                                      placeholder: "DD/MM/YYYY",
-                                      autocomplete: "off"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicLastName" }
-                                    },
-                                    [_vm._v("NIK / No.KTP")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      id: "nik",
-                                      name: "nik",
-                                      placeholder:
-                                        "Nomor Induk Kartu Keluarga/Nomor",
-                                      autocomplete: "off",
-                                      required: "required"
-                                    }
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Jenis Kelamin")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        name: "jenis_kelamin",
-                                        required: "required"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { disabled: "", selected: "" }
-                                        },
-                                        [_vm._v("Pilih Jenis Kelamin")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("option", { attrs: { value: "L" } }, [
-                                        _vm._v("Laki-Laki")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("option", { attrs: { value: "P" } }, [
-                                        _vm._v("Perempuan")
-                                      ])
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "" }
-                                    },
-                                    [
-                                      _vm._v("Nama Ayah "),
-                                      _c("b", [_vm._v("Kandung")])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      id: "inputBasicFirstName",
-                                      name: "nama_ortu",
-                                      placeholder: "Nama Ayah Kandung",
-                                      autocomplete: "off",
-                                      required: "required"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicLastName" }
-                                    },
-                                    [
-                                      _vm._v("Nama Orangtua "),
-                                      _c("b", [_vm._v("Wali")])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      id: "inputBasicLastName",
-                                      name: "nama_wali",
-                                      placeholder: "Nama Wali Bila Ada",
-                                      autocomplete: "off",
-                                      required: "required"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "" }
-                                    },
-                                    [_vm._v("Nomor Telepon Aktif")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      id: "inputBasicFirstName",
-                                      name: "no_telp",
-                                      placeholder: "Nomor Handphone Aktif",
-                                      autocomplete: "off",
-                                      required: "required"
-                                    }
-                                  })
-                                ])
-                              ])
-                            ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "wizard-pane",
-                          attrs: { id: "exampleBilling", role: "tabpanel" }
-                        },
-                        [
-                          _c("form", { attrs: { id: "exampleBillingForm" } }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Provinsi")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass:
-                                        "form-control col-md-12 selectTo",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        name: "provinsi",
-                                        required: "required",
-                                        id: "provinces"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { disabled: "", selected: "" }
-                                        },
-                                        [_vm._v("Nama Provinsi")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicLastName" }
-                                    },
-                                    [_vm._v("Kabupaten")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass:
-                                        "form-control col-md-12 selectTo",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        name: "kabupaten_kota",
-                                        required: "required"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { disabled: "", selected: "" }
-                                        },
-                                        [_vm._v("Nama Kabupaten")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Kecamatan")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass:
-                                        "form-control col-md-12 selectTo",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        name: "kecamatan",
-                                        required: "required"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { disabled: "", selected: "" }
-                                        },
-                                        [_vm._v("Nama Kecamatan..")]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-6" }, [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicLastName" }
-                                    },
-                                    [_vm._v("Kelurahan")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass:
-                                        "form-control col-md-12 selectTo",
-                                      staticStyle: { width: "100%" },
-                                      attrs: {
-                                        name: "kelurahan",
-                                        required: "required"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: { disabled: "", selected: "" }
-                                        },
-                                        [_vm._v("Kelurahan setempat...")]
-                                      )
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Kode Pos")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "kode_pos",
-                                      id: "inputBasicFirstName",
-                                      placeholder: "Kode Pos",
-                                      autocomplete: "off",
-                                      required: "numeric"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "form-control-label",
-                                      attrs: { for: "inputBasicFirstName" }
-                                    },
-                                    [_vm._v("Alamat")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "alamat",
-                                      id: "inputBasicFirstName",
-                                      placeholder: "Alamat Santri",
-                                      required: "required",
-                                      autocomplete: "off"
-                                    }
-                                  })
-                                ])
-                              ])
-                            ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "wizard-pane",
-                          attrs: { id: "exampleVerification", role: "tabpanel" }
-                        },
-                        [
-                          _c(
-                            "form",
-                            { attrs: { id: "exampleVerificationForm" } },
-                            [
-                              _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Pendidikan Terakhir")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control",
-                                        attrs: { name: "pendidikan_terakhir" }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Pendidikan Terakhir")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("option", [_vm._v("SD")]),
-                                        _vm._v(" "),
-                                        _c("option", [_vm._v("SMP")]),
-                                        _vm._v(" "),
-                                        _c("option", [_vm._v("SMA")]),
-                                        _vm._v(" "),
-                                        _c("option", [_vm._v("SMK")])
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Pesantren Sebelumnya")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        name: "pesantren_sebelumnya",
-                                        id: "inputBasicFirstName",
-                                        placeholder:
-                                          "Nama Pesantren Sebelumnya...",
-                                        autocomplete: "off"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Dewan Yang Menerima")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control",
-                                        attrs: { name: "dewan_id" }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Nama Dewan Kyai")]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicLastName" }
-                                      },
-                                      [_vm._v("Tanggal Masuk")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      staticClass: "form-control datepicker",
-                                      attrs: {
-                                        type: "text",
-                                        name: "tgl_masuk",
-                                        placeholder: "DD/MM/YYYY",
-                                        autocomplete: "off"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Asrama")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control selectTo",
-                                        staticStyle: { width: "100%" },
-                                        attrs: {
-                                          name: "asrama_id",
-                                          id: "asrama"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Asrama")]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Tingkat")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control",
-                                        staticStyle: { width: "100%" },
-                                        attrs: { name: "tingkat_id" }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Tingkat")]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Kelas")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control selectTo",
-                                        staticStyle: { width: "100%" },
-                                        attrs: { name: "kelas_id" }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Kelas")]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicLastName" }
-                                      },
-                                      [_vm._v("Kobong")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        staticClass: "form-control selectTo",
-                                        staticStyle: { width: "100%" },
-                                        attrs: { name: "kobong_id" }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: {
-                                              disabled: "",
-                                              selected: ""
-                                            }
-                                          },
-                                          [_vm._v("Kobong")]
-                                        )
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Himpunan")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        id: "inputBasicFirstName",
-                                        name: "himpunan",
-                                        placeholder: "Himpunan",
-                                        autocomplete: "off"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "form-control-label",
-                                        attrs: { for: "inputBasicFirstName" }
-                                      },
-                                      [_vm._v("Foto Santri")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "input-group input-group-file",
-                                        attrs: {
-                                          "data-plugin": "inputGroupFile"
-                                        }
-                                      },
-                                      [
-                                        _c("input", {
-                                          staticClass: "form-control",
-                                          attrs: { type: "text", readonly: "" }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
-                                          { staticClass: "input-group-btn" },
-                                          [
-                                            _c(
-                                              "span",
-                                              {
-                                                staticClass:
-                                                  "btn btn-success btn-file"
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "icon wb-upload",
-                                                  attrs: {
-                                                    "aria-hidden": "true"
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("input", {
-                                                  attrs: {
-                                                    type: "file",
-                                                    name: "foto"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "wizard-pane",
-                          attrs: { id: "exampleGetting", role: "tabpanel" }
-                        },
-                        [
-                          _c("div", { staticClass: "text-center my-20" }, [
-                            _c("i", {
-                              staticClass: "icon wb-check font-size-40",
-                              attrs: { "aria-hidden": "true" }
-                            }),
-                            _vm._v(" "),
-                            _c("h4", [
-                              _vm._v(
-                                "We got your order. Your product will be shipping soon."
-                              )
-                            ])
-                          ])
-                        ]
-                      )
-                    ])
+                    _vm._m(10)
                   ])
-                ]
-              )
+                ])
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" }, [_vm._v("Form Pendaftaran")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "steps steps-sm row",
+        attrs: {
+          "data-plugin": "matchHeight",
+          "data-by-row": "true",
+          role: "tablist"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "step col-lg-3 current",
+            attrs: { "data-target": "#exampleAccount", role: "tab" }
+          },
+          [
+            _c("span", { staticClass: "step-number" }, [_vm._v("1")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "step-desc" }, [
+              _c("span", { staticClass: "step-title" }, [
+                _vm._v("Data Santri")
+              ]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Input identitas santri")])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "step col-lg-3",
+            attrs: { "data-target": "#exampleBilling", role: "tab" }
+          },
+          [
+            _c("span", { staticClass: "step-number" }, [_vm._v("2")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "step-desc" }, [
+              _c("span", { staticClass: "step-title" }, [_vm._v("Alamat")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Lokasi dan Alamat santri")])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "step col-lg-3",
+            attrs: { "data-target": "#exampleVerification", role: "tab" }
+          },
+          [
+            _c("span", { staticClass: "step-number" }, [_vm._v("3")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "step-desc" }, [
+              _c("span", { staticClass: "step-title" }, [_vm._v("Verifikasi")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Penempatan kelas dan asrama ")])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "step col-lg-3",
+            attrs: { "data-target": "#exampleGetting", role: "tab" }
+          },
+          [
+            _c("span", { staticClass: "step-number" }, [_vm._v("4")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "step-desc" }, [
+              _c("span", { staticClass: "step-title" }, [_vm._v("Finish")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Pengirim Data")])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "wizard-pane active",
+        attrs: { id: "exampleAccount", role: "tabpanel" }
+      },
+      [
+        _c("form", { attrs: { id: "exampleAccountForm" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicFirstName" }
+                  },
+                  [_vm._v("Nama")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "inputBasicFirstName",
+                    name: "nama_santri",
+                    placeholder: "Nama Santri",
+                    autocomplete: "off",
+                    required: "required"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicLastName" }
+                  },
+                  [_vm._v("Tanggal Lahir")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control datelahir",
+                  attrs: {
+                    type: "text",
+                    name: "tgl_lahir",
+                    placeholder: "DD/MM/YYYY",
+                    autocomplete: "off"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicLastName" }
+                  },
+                  [_vm._v("NIK / No.KTP")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "nik",
+                    name: "nik",
+                    placeholder: "Nomor Induk Kartu Keluarga/Nomor",
+                    autocomplete: "off",
+                    required: "required"
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicFirstName" }
+                  },
+                  [_vm._v("Jenis Kelamin")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control",
+                    attrs: { name: "jenis_kelamin", required: "required" }
+                  },
+                  [
+                    _c("option", { attrs: { disabled: "", selected: "" } }, [
+                      _vm._v("Pilih Jenis Kelamin")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "L" } }, [
+                      _vm._v("Laki-Laki")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "P" } }, [
+                      _vm._v("Perempuan")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-control-label", attrs: { for: "" } },
+                  [_vm._v("Nama Ayah "), _c("b", [_vm._v("Kandung")])]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "inputBasicFirstName",
+                    name: "nama_ortu",
+                    placeholder: "Nama Ayah Kandung",
+                    autocomplete: "off",
+                    required: "required"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-control-label",
+                    attrs: { for: "inputBasicLastName" }
+                  },
+                  [_vm._v("Nama Orangtua "), _c("b", [_vm._v("Wali")])]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "inputBasicLastName",
+                    name: "nama_wali",
+                    placeholder: "Nama Wali Bila Ada",
+                    autocomplete: "off",
+                    required: "required"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-control-label", attrs: { for: "" } },
+                  [_vm._v("Nomor Telepon Aktif")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "inputBasicFirstName",
+                    name: "no_telp",
+                    placeholder: "Nomor Handphone Aktif",
+                    autocomplete: "off",
+                    required: "required"
+                  }
+                })
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Kode Pos")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "kode_pos",
+          id: "inputBasicFirstName",
+          placeholder: "Kode Pos",
+          autocomplete: "off",
+          required: "numeric"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Alamat")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "alamat",
+          id: "inputBasicFirstName",
+          placeholder: "Alamat Santri",
+          required: "required",
+          autocomplete: "off"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Pendidikan Terakhir")]
+      ),
+      _vm._v(" "),
+      _c(
+        "select",
+        { staticClass: "form-control", attrs: { name: "pendidikan_terakhir" } },
+        [
+          _c("option", { attrs: { disabled: "", selected: "" } }, [
+            _vm._v("Pendidikan Terakhir")
+          ]),
+          _vm._v(" "),
+          _c("option", [_vm._v("SD")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("SMP")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("SMA")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("SMK")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Pesantren Sebelumnya")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "pesantren_sebelumnya",
+          id: "inputBasicFirstName",
+          placeholder: "Nama Pesantren Sebelumnya...",
+          autocomplete: "off"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicLastName" }
+        },
+        [_vm._v("Tanggal Masuk")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control datepicker",
+        attrs: {
+          type: "text",
+          name: "tgl_masuk",
+          placeholder: "DD/MM/YYYY",
+          autocomplete: "off"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Himpunan")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "inputBasicFirstName",
+          name: "himpunan",
+          placeholder: "Himpunan",
+          autocomplete: "off"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        {
+          staticClass: "form-control-label",
+          attrs: { for: "inputBasicFirstName" }
+        },
+        [_vm._v("Foto Santri")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "input-group input-group-file",
+          attrs: { "data-plugin": "inputGroupFile" }
+        },
+        [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "input-group-btn" }, [
+            _c("span", { staticClass: "btn btn-success btn-file" }, [
+              _c("i", {
+                staticClass: "icon wb-upload",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("input", { attrs: { type: "file", name: "foto" } })
             ])
           ])
         ]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "wizard-pane",
+        attrs: { id: "exampleGetting", role: "tabpanel" }
+      },
+      [
+        _c("div", { staticClass: "text-center my-20" }, [
+          _c("i", {
+            staticClass: "icon wb-check font-size-40",
+            attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" "),
+          _c("h4", [
+            _vm._v("We got your order. Your product will be shipping soon.")
+          ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true

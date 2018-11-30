@@ -46,7 +46,8 @@ class DewanKyaiController extends Controller
 
     public function getDewanKyaiJSON()
     {
-        
+        $dewankyai = DewanKyai::orderBy('nama_dewan_kyai', 'DESC')->get();
+        return response()->json(['data' => $dewankyai]);
     }
 
     /**

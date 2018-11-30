@@ -325,8 +325,9 @@ class SantriController extends Controller
      * @param  \App\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Santri $santri)
+    public function destroy($id)
     {
-        //
+        $santri = Santri::find($id)->delete();
+        return response()->json(['message' => 'success']);
     }
 }

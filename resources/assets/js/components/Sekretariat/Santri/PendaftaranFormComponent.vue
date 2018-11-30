@@ -96,28 +96,32 @@
                                 <div class="col-md-6">
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
-                                      <select name="provinsi" class="form-control col-md-12 selectTo" style="width: 100%;" required="required" id="provinces">
-                                          <option disabled selected>Nama Provinsi</option>
+                                      <select name="provinsi" v-model="santri.provinsi" class="form-control col-md-12" style="width: 100%;" required="required" id="provinces" @change="getRegenciesByProvince()">
+                                          <option disabled selected value="">Nama Provinsi</option>
+                                          <option v-for="province in provinces.data" :value="province.id">{{ province.name }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicLastName">Kabupaten</label>
-                                      <select name="kabupaten_kota" class="form-control col-md-12 selectTo" style="width: 100%;" required="required">
-                                          <option disabled selected>Nama Kabupaten</option>
+                                      <select name="kabupaten_kota" v-model="santri.kabupaten_kota" class="form-control col-md-12" style="width: 100%;" required="required" @change="getDistrictsByRegency()">
+                                          <option disabled selected value="">Nama Kabupaten</option>
+                                          <option v-for="regency in regencies.data" :value="regency.id">{{ regency.name }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicFirstName">Kecamatan</label>
-                                      <select name="kecamatan" class="form-control col-md-12 selectTo" style="width: 100%;" required="required">
-                                          <option disabled selected>Nama Kecamatan..</option>
+                                      <select name="kecamatan" v-model="santri.kecamatan" class="form-control col-md-12" style="width: 100%;" required="required" @change="getVillagesByDistrict()">
+                                          <option disabled selected value="">Nama Kecamatan..</option>
+                                          <option v-for="district in districts.data" :value="district.id">{{ district.name }}</option>
                                       </select>
                                   </div>
                                 </div>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicLastName">Kelurahan</label>
-                                      <select name="kelurahan" class="form-control col-md-12 selectTo" style="width: 100%;" required="required">
-                                          <option disabled selected>Kelurahan setempat...</option>
+                                      <select name="kelurahan" v-model="santri.kelurahan" class="form-control col-md-12" style="width: 100%;" required="required">
+                                          <option disabled selected value="">Kelurahan setempat...</option>
+                                          <option v-for="village in villages.data" :value="village.id">{{ village.name }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
@@ -135,7 +139,7 @@
                           <div class="wizard-pane" id="exampleVerification" role="tabpanel">
                             <form id="exampleVerificationForm">
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Pendidikan Terakhir</label>
                                      <select name="pendidikan_terakhir" class="form-control">
@@ -152,38 +156,45 @@
                                   </div>
                                   <div class="form-group">
                                      <label class="form-control-label" for="inputBasicFirstName">Dewan Yang Menerima</label>
-                                     <select name="dewan_id" class="form-control">
-                                          <option disabled selected>Nama Dewan Kyai</option>
+                                     <select name="dewan_id" v-model="santri.dewan_id" class="form-control">
+                                          <option disabled selected value="">Nama Dewan Kyai</option>
+                                          <option v-for="dewan in dewans.data" :value="dewan.id">{{ dewan.nama_dewan_kyai }}</option>
                                       </select>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicLastName">Tanggal Masuk</label>
                                       <input type="text" class="form-control datepicker" name="tgl_masuk" placeholder="DD/MM/YYYY" autocomplete="off" />
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicFirstName">Asrama</label>
-                                      <select name="asrama_id" id="asrama" class="form-control selectTo" style="width: 100%;">
+                                      <select name="asrama_id" id="asrama" v-model="santri.asrama_id" @change="getKobongByAsrama" class="form-control selectTo" style="width: 100%;">
                                           <option disabled selected>Asrama</option>
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                     <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
-                                     <select name="tingkat_id" class="form-control" style="width: 100%;">
-                                          <option disabled selected>Tingkat</option>
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-                                      <select name="kelas_id" class="form-control selectTo" style="width: 100%;">
-                                          <option disabled selected>Kelas</option>
+                                          <option v-for="asrama in asramas.data" :value="asrama.asrama_id">{{ asrama.nama_asrama }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
                                       <label class="form-control-label" for="inputBasicLastName">Kobong</label>
-                                      <select name="kobong_id" class="form-control selectTo" style="width: 100%;">
+                                      <select name="kobong_id" v-model="santri.kobong_id" class="form-control selectTo" style="width: 100%;">
                                           <option disabled selected>Kobong</option>
+                                          <option v-for="kobong in kobongs.data" :value="kobong.id">{{ kobong.nama_kobong }}</option>
+                                      </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                     <label class="form-control-label" for="inputBasicFirstName">Tingkat</label>
+                                     <select name="tingkat_id" v-model="santri.tingkat_id" class="form-control" style="width: 100%;">
+                                          <option disabled selected value="">Tingkat</option>
+                                          <option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
+                                      <select name="kelas_id" v-model="santri.kelas_id" class="form-control selectTo" style="width: 100%;">
+                                          <option disabled selected value="">Kelas</option>
+                                          <option v-for="kelasque in kelas.data" :value="kelasque.id">{{ kelasque.nama_kelas }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group">
@@ -227,136 +238,101 @@
   export default {
     mounted(){
       this.function()
+      axios.get('/sekretariat/provinces').then(response => {
+        this.provinces = response.data;
+      })
     },
 
     data(){
       return {
-
+        provinces: [],
+        regencies: [],
+        districts: [],
+        villages: [],
+        dewans: [],
+        asramas : [],
+        kobongs: [],
+        tingkats: [],
+        kelas: [],
+        santri: {
+          nama_santri: '',
+          tgl_lahir: '',
+          nik: '',
+          jenis_kelamin: '',
+          nama_ortu: '',
+          nama_wali: '',
+          no_telp: '',
+          provinsi: '',
+          kabupaten_kota: '',
+          kecamatan: '',
+          kelurahan: '',
+          kode_pos: '',
+          alamat: '',
+          pesantren_sebelumnya: '',
+          dewan_id : '',
+          tgl_masuk: '',
+          asrama_id : '',
+          kobong_id: '',
+          tingkat_id: '',
+          kelas_id: '',  
+          himpunan: ''
+        }
       }
     },
 
     methods: {
       function(){
-        let provinces = $('#provinces');
-        let kabupaten = $('#kabupaten');
-        let asrama = $('#asrama');
-        provinces.empty();
 
-        provinces.append('<option selected="true" disabled>Pilih Provinsi</option>');
-        provinces.prop('selectedIndex', 0);
-
-        const url = '/sekretariat/provinces';
-
-        // Populate provinces with list of provinces
-        $.getJSON(url, function (data) {
-          $.each(data.data, function (key, entry) {
-            provinces.append($('<option></option>').attr('value', entry.id).text(entry.name));
+          axios.get('/sekretariat/dewankyai/getDewanKyaiJSON').then(response => {
+            this.dewans = response.data;
           })
-        });
+
+          axios.get('/sekretariat/asrama/get/allKategori').then(response => {
+            this.asramas = response.data;
+          })
+
+          axios.get('/sekretariat/tingkatan/getJSON').then(response => {
+            this.tingkats = response.data;
+          })
+
+          axios.get('/sekretariat/kelas/JSON').then(response => {
+            this.kelas = response.data;
+          })
+      },
+
+      getRegenciesByProvince(){
+          let app = this;
+          var id = app.santri.provinsi;
+          axios.get('/sekretariat/province/regencies/'+ id).then(response => {
+              app.regencies = response.data;
+          })
+      },
+
+      getDistrictsByRegency(){
+          let app = this;
+          var id_regency = app.santri.kabupaten_kota;
+          axios.get('/sekretariat/province/regency/districts/'+ id_regency).then(response => {
+            app.districts = response.data;
+          })
+      },
+
+      getVillagesByDistrict(){
+          let app = this;
+          var id_district = app.santri.kecamatan;
+          axios.get('/sekretariat/province/regency/district/villages/'+ id_district).then(response => {
+              app.villages = response.data;
+          })
+      },
 
 
-        // asrama.empty();
-
-        // asrama.append('<option selected="true" disabled>Pilih Asrama</option>');
-        // asrama.prop('selectedIndex', 0);
-
-        // const urlAsrama = '';
-
-        // // Populate asrama with list of asrama
-        // $.getJSON(urlAsrama, function (data) {
-        //   $.each(data.data, function (key, entry) {
-        //     asrama.append($('<option></option>').attr('value', entry.id).text(entry.nama_asrama));
-        //   })
-        // });
-
-         $(function() {
-              $('select[name="provinsi"]').on('change', function() {
-                  var stateID = $(this).val();
-                  $('select[name="kabupaten_kota"]').empty();
-                  $('select[name="kecamatan"]').empty();
-                  $('select[name="kelurahan"]').empty();
-                  if(stateID) {
-                      $.ajax({
-                          url: 'province/regencies/'+ stateID,
-                          type: "GET",
-                          dataType: "json",
-                          success:function(data) {
-
-                              
-                              $('select[name="kabupaten_kota"]').empty();
-                              $.each(data.data, function(key, value) {
-                                  $('select[name="kabupaten_kota"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
-                              });
-                          }
-                      });
-
-                    $('select[name="kabupaten_kota"]').on('change', function() {
-                        var kabupatenID = $(this).val();
-                        if (kabupatenID) {
-                          $.ajax({
-                            url: 'province/regency/districts/'+ kabupatenID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(dataKecamatan){
-
-                                  $('select[name="kecamatan"]').empty();
-                                  $.each(dataKecamatan.data, function(key, value) {
-                                      $('select[name="kecamatan"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
-                                  }); 
-                            }
-                          });
-                        }else{
-                          $('select[name="kecamatan"]').empty();
-                        }
-                    });
-
-                    $('select[name="kecamatan"]').on('change', function() {
-                        var kelurahanID = $(this).val();
-                        if (kelurahanID) {
-                          $.ajax({
-                            url: 'province/regency/district/villages/'+ kelurahanID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(dataKelurahan){
-
-                                  $('select[name="kelurahan"]').empty();
-                                  $.each(dataKelurahan.data, function(key, value) {
-                                      $('select[name="kelurahan"]').append('<option value="'+ value.id_na +'">'+ value.name +'</option>');
-                                  }); 
-                            }
-                          });
-                        }else{
-                            $('select[name="kelurahan"]').empty();
-                        }
-                    });
-                  }else{
-                      $('select[name="kabupaten_kota"]').empty();
-                      $('select[name="kecamatan"]').empty();
-                      $('select[name="kelurahan"]').empty();
-                  }
-              });
-
-              $('select[name="asrama_id"]').on('change', function(){
-                  var asrama_id = $(this).val();
-                  if (asrama_id) {
-                    $.ajax({
-                      url: 'asrama/'+ asrama_id +'/kobongJSON',
-                      type: "GET",
-                      dataType: "json",
-                      success:function(dataKobong){
-
-                            $('select[name="kobong_id"]').empty();
-                            $.each(dataKobong.data, function(key, value) {
-                                $('select[name="kobong_id"]').append('<option value="'+ value.id +'">'+ value.asrama_id.nama +' - ' + value.nama_kobong +'</option>');
-                            }); 
-                      }
-                    });
-                  }else{
-                      $('select[name="kobong_id"]').empty();
-                  }
-              })
-          });
+      getKobongByAsrama(){
+        let app = this;
+        var id = app.santri.asrama_id;
+        axios.get('/sekretariat/asrama/'+ id +'/kobongJSON').then(response => {
+          app.kobongs = response.data;
+        })
       }
+
     }
   }
 </script>

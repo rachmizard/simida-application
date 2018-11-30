@@ -80,7 +80,7 @@ class AsramaController extends Controller
 
     public function getAsramaAllKategori()
     {
-        $asrama = AsramaResource::collection(DataNamaAsrama::orderBy('kategori', 'ASC')->get());
+        $asrama = AsramaResource::collection(Asrama::orderBy('kategori_asrama', 'ASC')->get());
         return response()->json(['data' => $asrama]);
     }
 
