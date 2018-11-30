@@ -59858,6 +59858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -59893,6 +59894,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         kelurahan: '',
         kode_pos: '',
         alamat: '',
+        pendidikan_terakhir: '',
         pesantren_sebelumnya: '',
         dewan_id: '',
         tgl_masuk: '',
@@ -59901,7 +59903,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         tingkat_id: '',
         kelas_id: '',
         himpunan: ''
-      }
+      },
+      image: ''
     };
   },
 
@@ -59953,7 +59956,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('/sekretariat/asrama/' + id + '/kobongJSON').then(function (response) {
         app.kobongs = response.data;
       });
+    },
+
+
+    store: function store(e) {
+      e.preventDefault();
+      var app = this;
+      var formData = app.santri;
+
+      var config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+
+      axios.post('/sekretariat/pendaftaran/store', formData, config);
+      then(function (response) {
+        app.$router.push('/list_santri');
+      });
     }
+
   }
 });
 
@@ -59985,7 +60005,303 @@ var render = function() {
                   _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "wizard-content" }, [
-                    _vm._m(2),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "wizard-pane active",
+                        attrs: { id: "exampleAccount", role: "tabpanel" }
+                      },
+                      [
+                        _c("form", { attrs: { id: "exampleAccountForm" } }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Nama")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.nama_santri,
+                                      expression: "santri.nama_santri"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "inputBasicFirstName",
+                                    name: "nama_santri",
+                                    placeholder: "Nama Santri",
+                                    autocomplete: "off",
+                                    required: "required"
+                                  },
+                                  domProps: { value: _vm.santri.nama_santri },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "nama_santri",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicLastName" }
+                                  },
+                                  [_vm._v("Tanggal Lahir")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.tgl_lahir,
+                                      expression: "santri.tgl_lahir"
+                                    }
+                                  ],
+                                  staticClass: "form-control datelahir",
+                                  attrs: {
+                                    type: "text",
+                                    name: "tgl_lahir",
+                                    placeholder: "DD/MM/YYYY",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.santri.tgl_lahir },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "tgl_lahir",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicLastName" }
+                                  },
+                                  [_vm._v("NIK / No.KTP")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.nik,
+                                      expression: "santri.nik"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "nik",
+                                    name: "nik",
+                                    placeholder:
+                                      "Nomor Induk Kartu Keluarga/Nomor",
+                                    autocomplete: "off",
+                                    required: "required"
+                                  },
+                                  domProps: { value: _vm.santri.nik },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "nik",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Jenis Kelamin")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.jenis_kelamin,
+                                        expression: "santri.jenis_kelamin"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "jenis_kelamin",
+                                      required: "required"
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.santri,
+                                          "jenis_kelamin",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      { attrs: { disabled: "", selected: "" } },
+                                      [_vm._v("Pilih Jenis Kelamin")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "L" } }, [
+                                      _vm._v("Laki-Laki")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("option", { attrs: { value: "P" } }, [
+                                      _vm._v("Perempuan")
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(2),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.nama_wali,
+                                      expression: "santri.nama_wali"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "inputBasicLastName",
+                                    name: "nama_wali",
+                                    placeholder: "Nama Wali Bila Ada",
+                                    autocomplete: "off",
+                                    required: "required"
+                                  },
+                                  domProps: { value: _vm.santri.nama_wali },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "nama_wali",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "" }
+                                  },
+                                  [_vm._v("Nomor Telepon Aktif")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.no_telp,
+                                      expression: "santri.no_telp"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "inputBasicFirstName",
+                                    name: "no_telp",
+                                    placeholder: "Nomor Handphone Aktif",
+                                    autocomplete: "off",
+                                    required: "required"
+                                  },
+                                  domProps: { value: _vm.santri.no_telp },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "no_telp",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -60332,9 +60648,93 @@ var render = function() {
                                 )
                               ]),
                               _vm._v(" "),
-                              _vm._m(3),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Kode Pos")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.kode_pos,
+                                      expression: "santri.kode_pos"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "kode_pos",
+                                    id: "inputBasicFirstName",
+                                    placeholder: "Kode Pos",
+                                    autocomplete: "off",
+                                    required: "numeric"
+                                  },
+                                  domProps: { value: _vm.santri.kode_pos },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "kode_pos",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
                               _vm._v(" "),
-                              _vm._m(4)
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-control-label",
+                                    attrs: { for: "inputBasicFirstName" }
+                                  },
+                                  [_vm._v("Alamat")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.santri.alamat,
+                                      expression: "santri.alamat"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "alamat",
+                                    id: "inputBasicFirstName",
+                                    placeholder: "Alamat Santri",
+                                    required: "required",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.santri.alamat },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.santri,
+                                        "alamat",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ])
                           ])
                         ])
@@ -60354,9 +60754,77 @@ var render = function() {
                           [
                             _c("div", { staticClass: "row" }, [
                               _c("div", { staticClass: "col-md-4" }, [
-                                _vm._m(5),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Pendidikan Terakhir")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.santri.pendidikan_terakhir,
+                                          expression:
+                                            "santri.pendidikan_terakhir"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { name: "pendidikan_terakhir" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.santri,
+                                            "pendidikan_terakhir",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "", selected: "" }
+                                        },
+                                        [_vm._v("Pendidikan Terakhir")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("SD")]),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("SMP")]),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("SMA")]),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("SMK")])
+                                    ]
+                                  )
+                                ]),
                                 _vm._v(" "),
-                                _vm._m(6),
+                                _vm._m(4),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "form-group" }, [
                                   _c(
@@ -60438,7 +60906,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-md-4" }, [
-                                _vm._m(7),
+                                _vm._m(5),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "form-group" }, [
                                   _c(
@@ -60756,9 +61224,50 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(8),
+                                _c("div", { staticClass: "form-group" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Himpunan")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.santri.himpunan,
+                                        expression: "santri.himpunan"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      id: "inputBasicFirstName",
+                                      name: "himpunan",
+                                      placeholder: "Himpunan",
+                                      autocomplete: "off"
+                                    },
+                                    domProps: { value: _vm.santri.himpunan },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.santri,
+                                          "himpunan",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
                                 _vm._v(" "),
-                                _vm._m(9)
+                                _vm._m(6)
                               ])
                             ])
                           ]
@@ -60766,7 +61275,36 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(10)
+                    _c(
+                      "div",
+                      {
+                        staticClass: "wizard-pane",
+                        attrs: { id: "exampleGetting", role: "tabpanel" }
+                      },
+                      [
+                        _c("div", { staticClass: "text-center my-20" }, [
+                          _c("i", {
+                            staticClass: "icon wb-check font-size-40",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" "),
+                          _c("h4", [
+                            _vm._v(
+                              "Data sudah lengkap, klik tombol kirim untuk melakukan pengiriman data."
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-success",
+                              on: { click: _vm.store }
+                            },
+                            [_vm._v("Kirim")]
+                          )
+                        ])
+                      ]
+                    )
                   ])
                 ])
               ]
@@ -60847,9 +61385,11 @@ var staticRenderFns = [
             _c("span", { staticClass: "step-number" }, [_vm._v("3")]),
             _vm._v(" "),
             _c("div", { staticClass: "step-desc" }, [
-              _c("span", { staticClass: "step-title" }, [_vm._v("Verifikasi")]),
+              _c("span", { staticClass: "step-title" }, [
+                _vm._v("Data Lanjutan")
+              ]),
               _vm._v(" "),
-              _c("p", [_vm._v("Penempatan kelas dan asrama ")])
+              _c("p", [_vm._v("Penempatan kelas, asrama, & foto santri ")])
             ])
           ]
         ),
@@ -60864,9 +61404,9 @@ var staticRenderFns = [
             _c("span", { staticClass: "step-number" }, [_vm._v("4")]),
             _vm._v(" "),
             _c("div", { staticClass: "step-desc" }, [
-              _c("span", { staticClass: "step-title" }, [_vm._v("Finish")]),
+              _c("span", { staticClass: "step-title" }, [_vm._v("Verifikasi")]),
               _vm._v(" "),
-              _c("p", [_vm._v("Pengirim Data")])
+              _c("p", [_vm._v("Kirim Data")])
             ])
           ]
         )
@@ -60877,208 +61417,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "wizard-pane active",
-        attrs: { id: "exampleAccount", role: "tabpanel" }
-      },
-      [
-        _c("form", { attrs: { id: "exampleAccountForm" } }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicFirstName" }
-                  },
-                  [_vm._v("Nama")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputBasicFirstName",
-                    name: "nama_santri",
-                    placeholder: "Nama Santri",
-                    autocomplete: "off",
-                    required: "required"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicLastName" }
-                  },
-                  [_vm._v("Tanggal Lahir")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control datelahir",
-                  attrs: {
-                    type: "text",
-                    name: "tgl_lahir",
-                    placeholder: "DD/MM/YYYY",
-                    autocomplete: "off"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicLastName" }
-                  },
-                  [_vm._v("NIK / No.KTP")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "nik",
-                    name: "nik",
-                    placeholder: "Nomor Induk Kartu Keluarga/Nomor",
-                    autocomplete: "off",
-                    required: "required"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicFirstName" }
-                  },
-                  [_vm._v("Jenis Kelamin")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control",
-                    attrs: { name: "jenis_kelamin", required: "required" }
-                  },
-                  [
-                    _c("option", { attrs: { disabled: "", selected: "" } }, [
-                      _vm._v("Pilih Jenis Kelamin")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "L" } }, [
-                      _vm._v("Laki-Laki")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "P" } }, [
-                      _vm._v("Perempuan")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-control-label", attrs: { for: "" } },
-                  [_vm._v("Nama Ayah "), _c("b", [_vm._v("Kandung")])]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputBasicFirstName",
-                    name: "nama_ortu",
-                    placeholder: "Nama Ayah Kandung",
-                    autocomplete: "off",
-                    required: "required"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-control-label",
-                    attrs: { for: "inputBasicLastName" }
-                  },
-                  [_vm._v("Nama Orangtua "), _c("b", [_vm._v("Wali")])]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputBasicLastName",
-                    name: "nama_wali",
-                    placeholder: "Nama Wali Bila Ada",
-                    autocomplete: "off",
-                    required: "required"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-control-label", attrs: { for: "" } },
-                  [_vm._v("Nomor Telepon Aktif")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputBasicFirstName",
-                    name: "no_telp",
-                    placeholder: "Nomor Handphone Aktif",
-                    autocomplete: "off",
-                    required: "required"
-                  }
-                })
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        {
-          staticClass: "form-control-label",
-          attrs: { for: "inputBasicFirstName" }
-        },
-        [_vm._v("Kode Pos")]
-      ),
+      _c("label", { staticClass: "form-control-label", attrs: { for: "" } }, [
+        _vm._v("Nama Ayah "),
+        _c("b", [_vm._v("Kandung")])
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
         attrs: {
           type: "text",
-          name: "kode_pos",
           id: "inputBasicFirstName",
-          placeholder: "Kode Pos",
+          name: "nama_ortu",
+          placeholder: "Nama Ayah Kandung",
           autocomplete: "off",
-          required: "numeric"
+          required: "required"
         }
       })
     ])
@@ -61087,61 +61440,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        {
-          staticClass: "form-control-label",
-          attrs: { for: "inputBasicFirstName" }
-        },
-        [_vm._v("Alamat")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "text",
-          name: "alamat",
-          id: "inputBasicFirstName",
-          placeholder: "Alamat Santri",
-          required: "required",
-          autocomplete: "off"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        {
-          staticClass: "form-control-label",
-          attrs: { for: "inputBasicFirstName" }
-        },
-        [_vm._v("Pendidikan Terakhir")]
-      ),
-      _vm._v(" "),
-      _c(
-        "select",
-        { staticClass: "form-control", attrs: { name: "pendidikan_terakhir" } },
-        [
-          _c("option", { attrs: { disabled: "", selected: "" } }, [
-            _vm._v("Pendidikan Terakhir")
-          ]),
-          _vm._v(" "),
-          _c("option", [_vm._v("SD")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("SMP")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("SMA")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("SMK")])
-        ]
-      )
-    ])
+    return _c(
+      "label",
+      {
+        staticClass: "form-control-label",
+        attrs: { for: "inputBasicLastName" }
+      },
+      [_vm._v("Nama Orangtua "), _c("b", [_vm._v("Wali")])]
+    )
   },
   function() {
     var _vm = this
@@ -61205,32 +61511,6 @@ var staticRenderFns = [
           staticClass: "form-control-label",
           attrs: { for: "inputBasicFirstName" }
         },
-        [_vm._v("Himpunan")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "text",
-          id: "inputBasicFirstName",
-          name: "himpunan",
-          placeholder: "Himpunan",
-          autocomplete: "off"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        {
-          staticClass: "form-control-label",
-          attrs: { for: "inputBasicFirstName" }
-        },
         [_vm._v("Foto Santri")]
       ),
       _vm._v(" "),
@@ -61259,30 +61539,6 @@ var staticRenderFns = [
         ]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "wizard-pane",
-        attrs: { id: "exampleGetting", role: "tabpanel" }
-      },
-      [
-        _c("div", { staticClass: "text-center my-20" }, [
-          _c("i", {
-            staticClass: "icon wb-check font-size-40",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("h4", [
-            _vm._v("We got your order. Your product will be shipping soon.")
-          ])
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
