@@ -11497,6 +11497,23 @@ Vue.component('list-guru-component', __webpack_require__(60));
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 // define routes for users
 var routes = [
+
+// KELAS
+
+{
+	path: '/list_kelas',
+	name: 'listKelas',
+	component: __webpack_require__(54)
+}, {
+	path: '/kelas/list_santri/:id',
+	name: 'kelasListSantri',
+	component: __webpack_require__(105)
+}, {
+	path: '/kelas/hapus/:id',
+	name: 'hapusKelas',
+	component: __webpack_require__(108)
+},
+
 // GURU
 {
 	path: '/edit/guru/:id',
@@ -55784,52 +55801,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-$(function () {
-  var table = $('#kelasTable').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: "/sekretariat/kelas/getKelasDatatables",
-    columns: [{ data: 'id', name: 'id' }, { data: 'nama_kelas', name: 'nama_kelas' }, { data: 'tingkat', name: 'tingkat' }, { data: 'guru_id', name: 'guru_id' }, { data: 'badal_id', name: 'badal_id' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
-  });
-  // Trigger auto refresh
-  Echo.channel('draw-table').listen('DrawTable', function (e) {
-    table.draw();
-  });
-
-  $('#deleteModal').on('show.bs.modal', function (e) {
-    var id = $(e.relatedTarget).data('id');
-    // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
-    //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
-    // }); 
-    $("#deleteBtn").on('click', function () {
-      axios.delete('/sekretariat/kelas/' + id + '/destroy').then(function (resp) {
-        $('#deleteModal').modal('hide');
-        table.draw();
-      }).then(function () {
-        window.location.reload();
-      });
-    });
-  });
-});
-
-$(document).ready(function () {
-  $('#editModal').on('show.bs.modal', function (e) {
-    var id = $(e.relatedTarget).data('id');
-    $.get('/sekretariat/kelas/' + id + '/show', function (data) {
-      $("#title-data").html(data.nama_kelas);
-      $("#tingkat").val(data.tingkat);
-      $("#nama_kelas").val(data.nama_kelas);
-      $("#tingkat_id").attr('value', data.tingkat_id);
-      $("#lokal").val(data.lokal);
-      $("#guru_id").val(data.guru_id);
-      $("#badal_id").val(data.badal_id);
-      console.log(data);
-    });
-
-    $('#submitEditKelas').attr('action', '/sekretariat/kelas/' + id + '/update');
-  });
-});
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -55850,6 +55821,51 @@ $(document).ready(function () {
       axios.get('/sekretariat/kelas/JSON').then(function (response) {
         app.kelas = response.data;
       });
+      $(function () {
+        var table = $('#kelasTable').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "/sekretariat/kelas/getKelasDatatables",
+          columns: [{ data: 'id', name: 'id' }, { data: 'nama_kelas', name: 'nama_kelas' }, { data: 'tingkat', name: 'tingkat' }, { data: 'guru_id.nama_guru', name: 'guru_id.nama_guru' }, { data: 'badal_id.nama_guru', name: 'badal_id.nama_guru' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+        });
+        // Trigger auto refresh
+        Echo.channel('draw-table').listen('DrawTable', function (e) {
+          table.draw();
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (e) {
+          var id = $(e.relatedTarget).data('id');
+          // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+          //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+          // }); 
+          $("#deleteBtn").on('click', function () {
+            axios.delete('/sekretariat/kelas/' + id + '/destroy').then(function (resp) {
+              $('#deleteModal').modal('hide');
+              table.draw();
+            }).then(function () {
+              window.location.reload();
+            });
+          });
+        });
+      });
+
+      $(document).ready(function () {
+        $('#editModal').on('show.bs.modal', function (e) {
+          var id = $(e.relatedTarget).data('id');
+          $.get('/sekretariat/kelas/' + id + '/show', function (data) {
+            $("#title-data").html(data.nama_kelas);
+            $("#tingkat").val(data.tingkat);
+            $("#nama_kelas").val(data.nama_kelas);
+            $("#tingkat_id").attr('value', data.tingkat_id);
+            $("#lokal").val(data.lokal);
+            $("#guru_id").val(data.guru_id.id);
+            $("#badal_id").val(data.badal_id.id);
+            console.log(data);
+          });
+
+          $('#submitEditKelas').attr('action', '/sekretariat/kelas/' + id + '/update');
+        });
+      });
     }
   }
 });
@@ -55862,143 +55878,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "panel-body" },
+      [
+        _c(
+          "transition",
+          { attrs: { name: "slide-fade" } },
+          [_c("router-view")],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(2)
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: { id: "deleteModal", tabindex: "-1", role: "dialog" }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-label": "Close"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _vm._v("×")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", {
-                    staticClass: "modal-title",
-                    attrs: { id: "title-data" }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "modal-body",
-                    staticStyle: { "margin-bottom": "50px" }
-                  },
-                  [
-                    _c("h5", [
-                      _vm._v("Anda yakin ingin menghapus data tersebut?")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c("div", { staticClass: "btn-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-md btn-info",
-                        attrs: { "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Tidak")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-md btn-danger",
-                        attrs: { id: "deleteBtn" }
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-upload" }),
-                        _c("i", { staticClass: "icon wb-trash" }),
-                        _vm._v(" Ya")
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("header", { staticClass: "panel-heading" }, [
-        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Data Kelas")])
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h1", { staticClass: "page-title" }, [
+        _c("i", { staticClass: "icon wb-flag" }),
+        _vm._v(" Data Kelas")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
-        _c(
-          "table",
-          {
-            staticClass: "table table-hover dataTable table-striped w-full",
-            attrs: { id: "kelasTable" }
-          },
-          [
-            _c("thead", [
-              _c("tr", [
-                _c("th", [_vm._v("ID Kelas")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Nama Kelas")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Tingkat")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Guru")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Badal")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Aksi")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tfoot", [
-              _c("tr", [
-                _c("th", [_vm._v("ID Kelas")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Nama Kelas")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Tingkat")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Guru")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Badal")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Aksi")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody")
-          ]
-        )
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "javascript:void(0)" } }, [
+            _vm._v("Master Kelas")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Data Kelas")
+        ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "table",
+      {
+        staticClass: "table table-hover dataTable table-striped w-full",
+        attrs: { id: "kelasTable" }
+      },
+      [
+        _c("thead", [
+          _c("tr", [
+            _c("th", [_vm._v("ID Kelas")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Nama Kelas")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Tingkat")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Guru")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Badal")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Aksi")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tfoot", [
+          _c("tr", [
+            _c("th", [_vm._v("ID Kelas")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Nama Kelas")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Tingkat")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Guru")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Badal")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Aksi")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tbody")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -56236,7 +56219,7 @@ var render = function() {
                           staticClass: "text-warning",
                           attrs: { href: "/sekretariat/guru" }
                         },
-                        [_vm._v("Beralih ke halaman list Kelas.")]
+                        [_vm._v("Beralih ke halaman data guru.")]
                       )
                     ]
                   )
@@ -56854,7 +56837,7 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
       _c("header", { staticClass: "panel-heading" }, [
-        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Guru")]),
+        _c("h3", { staticClass: "panel-title" }),
         _vm._v(" "),
         _c(
           "div",
@@ -60099,7 +60082,7 @@ var render = function() {
                                 staticClass: "btn btn-primary col-md-6",
                                 attrs: { type: "submit" }
                               },
-                              [_vm._v("Edit Kelas")]
+                              [_vm._v("Edit Guru")]
                             ),
                             _vm._v(" "),
                             _c(
@@ -61602,27 +61585,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
@@ -61636,7 +61598,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					//   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
 					// }
 				},
-				columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+				columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' },
+				// { data: 'foto', name: 'foto', orderable: false, searchable: false },
+				{ data: 'action', name: 'action', orderable: false, searchable: false }]
 			});
 
 			// Auto reload when getting result 
@@ -61672,88 +61636,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: { id: "deleteModalGuru", tabindex: "-1", role: "dialog" }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-label": "Close"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _vm._v("×")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", {
-                    staticClass: "modal-title",
-                    attrs: { id: "title-data" }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "modal-body",
-                    staticStyle: { "margin-bottom": "50px" }
-                  },
-                  [
-                    _c("h5", [
-                      _vm._v("Anda yakin ingin menghapus data tersebut?")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c("div", { staticClass: "btn-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-md btn-info",
-                        attrs: { "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Tidak")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-md btn-danger",
-                        attrs: { id: "deleteBtnAsrama" }
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-upload" }),
-                        _c("i", { staticClass: "icon wb-trash" }),
-                        _vm._v(" Ya")
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
       _c("header", { staticClass: "panel-heading" }, [
-        _c("h3", { staticClass: "panel-title" }, [_vm._v("Table Santri")]),
+        _c("h3", { staticClass: "panel-title" }),
         _vm._v(" "),
         _c(
           "div",
@@ -61774,7 +61658,7 @@ var staticRenderFns = [
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-body" }, [
+      _c("div", { staticClass: "panel-body table-responsive" }, [
         _c(
           "table",
           {
@@ -62130,6 +62014,428 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0e476d66", module.exports)
+  }
+}
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(106)
+/* template */
+var __vue_template__ = __webpack_require__(107)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Kelas/ListSantriKelasComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-66289b60", Component.options)
+  } else {
+    hotAPI.reload("data-v-66289b60", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 106 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		this.listSantriKelas();
+		this.getIdKelas();
+	},
+	data: function data() {
+		return {
+			id_kelas: {
+				nama_kelas: ''
+			}
+		};
+	},
+
+
+	methods: {
+		listSantriKelas: function listSantriKelas() {
+			var app = this;
+			var id_kelas = app.$route.params.id;
+			$(function () {
+				var table = $('#santriTable').DataTable({
+					processing: true,
+					serverSide: true,
+					ajax: {
+						url: "/sekretariat/santri/" + id_kelas + "/kelas"
+						// data:function(e){
+						//   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
+						// }
+					},
+					columns: [{ data: 'nis', name: 'nis' }, { data: 'nama_santri', name: 'nama_santri', orderable: true }, { data: 'asrama.ngaran.nama', name: 'asrama.ngaran.nama' }, { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas' }, { data: 'alamat', name: 'alamat' }, { data: 'tgl_masuk', name: 'tgl_masuk' },
+					// { data: 'foto', name: 'foto', orderable: false, searchable: false },
+					{ data: 'action', name: 'action', orderable: false, searchable: false }]
+				});
+
+				// Auto reload when getting result 
+				$('#filter_tingkat').on('change', function (e) {
+					table.draw();
+					e.preventDefault();
+				});
+
+				// Trigger auto refresh
+				Echo.channel('draw-table').listen('DrawTable', function (e) {
+					table.draw();
+				});
+			});
+		},
+		getIdKelas: function getIdKelas() {
+			var app = this;
+			var id = app.$route.params.id;
+			axios.get('/sekretariat/kelas/' + id + '/show').then(function (response) {
+				app.id_kelas.nama_kelas = response.data.nama_kelas;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+    _c("div", { staticClass: "page-header" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "breadcrumb-item" },
+          [
+            _c("router-link", { attrs: { to: "/list_kelas" } }, [
+              _vm._v("Data Kelas")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Data Santri Kelas " + _vm._s(_vm.id_kelas.nama_kelas) + " ")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(3),
+    _vm._v(" "),
+    _vm._m(4)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h1", { staticClass: "page-title" }, [
+      _c("i", { staticClass: "icon wb-flag" }),
+      _vm._v(" Data Kelas")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "breadcrumb-item" }, [
+      _c("a", { attrs: { href: "" } }, [_vm._v("Home")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "breadcrumb-item" }, [
+      _c("a", { attrs: { href: "javascript:void(0)" } }, [
+        _vm._v("Master Kelas")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-body table-responsive" }, [
+      _c(
+        "table",
+        {
+          staticClass:
+            "table table-hover table-bordered dataTable table-striped w-full",
+          attrs: { id: "santriTable" }
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { width: "5%" } }, [_vm._v("NIS")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Santri")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "10%" } }, [_vm._v("Kelas")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "10%" } }, [_vm._v("Alamat")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "10%" } }, [_vm._v("Tanggal Masuk")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Aksi")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody")
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66289b60", module.exports)
+  }
+}
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(109)
+/* template */
+var __vue_template__ = __webpack_require__(110)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/Kelas/DeleteKelasComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f0f8d31c", Component.options)
+  } else {
+    hotAPI.reload("data-v-f0f8d31c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 109 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		var app = this;
+		var id = app.$route.params.id;
+		axios.get('/sekretariat/kelas/' + id + '/show').then(function (response) {
+			app.kelas.nama_kelas = response.data.nama_kelas;
+		});
+	},
+	data: function data() {
+		return {
+			kelas: {
+				nama_kelas: ''
+			}
+		};
+	},
+
+
+	methods: {
+		deleteAction: function deleteAction() {
+			var app = this;
+			var id = app.$route.params.id;
+			axios.delete('/sekretariat/kelas/' + id + '/destroy').then(function (response) {
+				app.$router.push('/list_kelas');
+			});
+		},
+		abortDelete: function abortDelete() {
+			var app = this;
+			app.$router.push('/list_kelas');
+		}
+	}
+
+});
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel" }, [
+    _c("div", { staticClass: "panel-body" }, [
+      _c("h4", [
+        _vm._v(
+          "Anda yakin menghapus " +
+            _vm._s(_vm.kelas.nama_kelas) +
+            " dari data kelas?"
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "btn btn-group" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-danger",
+            on: {
+              click: function($event) {
+                _vm.deleteAction()
+              }
+            }
+          },
+          [_c("i", { staticClass: "icon wb-trash" }), _vm._v(" Ya")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-sm btn-default",
+            on: {
+              click: function($event) {
+                _vm.abortDelete()
+              }
+            }
+          },
+          [_vm._v("Tidak")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f0f8d31c", module.exports)
   }
 }
 

@@ -1,25 +1,8 @@
 @extends('layouts.master-layouts')
 @section('content')
-<div class="page-header">
-    <h1 class="page-title">Data Kelas</h1>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Master Kelas</a></li>
-        <li class="breadcrumb-item active">Data Kelas</li>
-    </ol>
-    <!-- <div class="page-header-actions">
-        <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Edit">
-            <i class="icon wb-pencil" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Refresh">
-            <i class="icon wb-refresh" aria-hidden="true"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Setting">
-            <i class="icon wb-settings" aria-hidden="true"></i>
-        </button>
-    </div> -->
-</div>
-	<list-kelas-component></list-kelas-component>
+	<transition name="slide-fade">
+     <router-view></router-view>
+    </transition>
 
     <!-- MODAL -->
       <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
@@ -100,15 +83,19 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="">Nama Guru</label>
                                     <select id="guru_id" class="form-control select2" placeholder="Nama Guru" name="guru_id">
-                                        <option value="1">Usman Khatam</option>
-                                        <option value="2">Jeffry Washington</option>
+                                        <option selected disabled>Pilih Guru</option>
+                                        @foreach($gurus as $guru)
+                                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="">Badal (Pengganti)</label>
                                     <select id="badal_id" class="form-control select2" placeholder="Nama Guru" name="badal_id">
-                                        <option value="1">Usman Khatam</option>
-                                        <option value="2">Jeffry Washington</option>
+                                        <option selected disabled>Pilih Badal (Pengganti)</option>
+                                        @foreach($gurus as $guru)
+                                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-row">

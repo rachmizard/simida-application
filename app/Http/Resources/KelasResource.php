@@ -24,7 +24,7 @@ class KelasResource extends Resource
             'tingkat_id' => $this->tingkat($this->tingkat_id),
             'jk' => $this->jk,
             'guru_id' => $this->guru,
-            'badal_id' => $this->guru,
+            'badal_id' => $this->badal,
         ];
     }
 

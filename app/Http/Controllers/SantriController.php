@@ -67,13 +67,40 @@ class SantriController extends Controller
 
                                         ';
                               })
-                              ->rawColumns(['action'])
+                              // ->addColumn('foto', function($var){
+                              //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              // })
+                              ->rawColumns(['action', 'foto'])
                               ->make(true);
     }
 
     public function getSantriJSON()
     {
         return SantriResource::collection(Santri::all());
+    }
+
+    public function showByClass(Datatables $datatables, $id_kelas)
+    {
+        $santri = Santri::whereKelasId($id_kelas)->with([
+                                'asrama.ngaran',
+                                'kobong',
+                                'tingkat',
+                                'kelas',
+                                'dewan'
+                                ])->select('santri.*');
+        return $datatables->eloquent($santri) 
+                              ->addColumn('action', function($var){
+                                return '
+                                        <div class="btn-group text-center">
+                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-sm btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-sm btn-warning text-white"><i class="icon wb-edit"></i></a>
+                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
+                                        </div>
+
+                                        ';
+                              })
+                              ->rawColumns(['action', 'foto'])
+                              ->make(true);
     }
 
     public function create()

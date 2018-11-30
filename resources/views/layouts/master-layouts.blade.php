@@ -402,7 +402,7 @@
                         <ul class="site-menu" data-plugin="menu">
                             <li class="site-menu-category">General</li>
                             <li class="site-menu-item">
-                                <a href="dasboard.html">
+                                <a href="/">
                                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
                                     <span class="site-menu-title">Dashboard</span>
                                     <div class="site-menu-badge">
@@ -433,7 +433,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Kelas</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('sekretariat.kelas') }}"><span class="site-menu-title">Data Kelas</span></a>
+                                                <a href="{{ route('sekretariat.kelas') }}#/list_kelas"><span class="site-menu-title">Data Kelas</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="{{ route('sekretariat.kelas.tambah_kelas') }}"><span class="site-menu-title">Tambah Kelas</span></a>

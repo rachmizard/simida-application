@@ -42,6 +42,28 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
 const routes = [
+
+		
+		// KELAS
+
+		{
+		  path: '/list_kelas',
+		  name: 'listKelas',
+		  component: require('./components/Sekretariat/Kelas/ListKelasComponent.vue')
+		},
+
+		{
+		  path: '/kelas/list_santri/:id',
+		  name: 'kelasListSantri',
+		  component: require('./components/Sekretariat/Kelas/ListSantriKelasComponent.vue')
+		},
+
+		{
+		  path: '/kelas/hapus/:id',
+		  name: 'hapusKelas',
+		  component: require('./components/Sekretariat/Kelas/DeleteKelasComponent.vue')
+		},
+
 		// GURU
 		{
 		  path: '/edit/guru/:id',

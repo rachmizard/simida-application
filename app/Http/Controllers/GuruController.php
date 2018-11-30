@@ -39,6 +39,11 @@ class GuruController extends Controller
                               ->make(true);
     }
 
+    public function getJSON()
+    {
+        return Guru::all();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

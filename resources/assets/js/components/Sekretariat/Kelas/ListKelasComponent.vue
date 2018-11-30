@@ -2,33 +2,33 @@
 	 <!-- Panel Table Tools -->
       <div class="panel" id="app">
 
+        <div class="page-header">
+            <h1 class="page-title"><i class="icon wb-flag"></i> Data Kelas</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Master Kelas</a></li>
+                <li class="breadcrumb-item active">Data Kelas</li>
+            </ol>
+            <!-- <div class="page-header-actions">
+                <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Edit">
+                    <i class="icon wb-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Refresh">
+                    <i class="icon wb-refresh" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-icon btn-default btn-outline btn-round" data-toggle="tooltip" data-original-title="Setting">
+                    <i class="icon wb-settings" aria-hidden="true"></i>
+                </button>
+            </div> -->
+        </div>
 
-    <!-- MODAL -->
-
-      <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="title-data"></h4>
-            </div>
-            <div class="modal-body" style="margin-bottom: 50px;">
-                <h5>Anda yakin ingin menghapus data tersebut?</h5>
-            </div>
-              <div class="modal-footer">
-                <div class="btn-group">
-                  <button class="btn btn-md btn-info" data-dismiss="modal">Tidak</button>
-                  <button class="btn btn-md btn-danger" id="deleteBtn"><i class="fa fa-upload"></i><i class="icon wb-trash"></i> Ya</button>
-                </div>
-              </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-    <!-- END MODAL -->
         <header class="panel-heading">
-          <h3 class="panel-title">Table Data Kelas</h3>
+          <h3 class="panel-title"></h3>
         </header>
         <div class="panel-body">
+          <transition name="slide-fade">
+            <router-view></router-view>
+          </transition>
           <table class="table table-hover dataTable table-striped w-full" id="kelasTable">
             <thead>
               <tr>
@@ -60,60 +60,6 @@
 <script>
 
   import JQuery from 'jquery'
-
-   $(function() {
-         var table = $('#kelasTable').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "/sekretariat/kelas/getKelasDatatables",
-              columns: [
-                  { data: 'id', name: 'id' },
-                  { data: 'nama_kelas', name: 'nama_kelas' },
-                  { data: 'tingkat', name: 'tingkat' },
-                  { data: 'guru_id', name: 'guru_id' },
-                  { data: 'badal_id', name: 'badal_id' },
-                  { data: 'action', name: 'action', orderable: false, searchable: false },
-              ]
-          }); 
-        // Trigger auto refresh
-        Echo.channel('draw-table')
-        .listen('DrawTable', (e) => {
-          table.draw();
-        });
-
-        $('#deleteModal').on('show.bs.modal', function(e) {
-            var id = $(e.relatedTarget).data('id');
-            // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
-            //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
-            // }); 
-          $("#deleteBtn").on('click', function(){
-              axios.delete('/sekretariat/kelas/'+ id +'/destroy').then(function(resp){
-                $('#deleteModal').modal('hide')
-                table.draw()
-              }).then(function(){
-                window.location.reload()
-              })
-          });
-        });
-  });
-
-   $(document).ready(function(){
-        $('#editModal').on('show.bs.modal', function(e) {
-                var id = $(e.relatedTarget).data('id');
-                $.get('/sekretariat/kelas/'+ id +'/show', function( data ) {
-                  $("#title-data").html(data.nama_kelas);
-                  $("#tingkat").val(data.tingkat);
-                  $("#nama_kelas").val(data.nama_kelas);
-                  $("#tingkat_id").attr('value', data.tingkat_id);
-                  $("#lokal").val(data.lokal);
-                  $("#guru_id").val(data.guru_id);
-                  $("#badal_id").val(data.badal_id);
-                  console.log(data);
-                });
-
-              $('#submitEditKelas').attr('action', '/sekretariat/kelas/'+ id +'/update');
-        });
-      });
 	export default {
 		data(){
 			return {
@@ -134,6 +80,59 @@
 				axios.get('/sekretariat/kelas/JSON').then(response => {
 					app.kelas = response.data;
 				});
+       $(function() {
+             var table = $('#kelasTable').DataTable({
+                  processing: true,
+                  serverSide: true,
+                  ajax: "/sekretariat/kelas/getKelasDatatables",
+                  columns: [
+                      { data: 'id', name: 'id' },
+                      { data: 'nama_kelas', name: 'nama_kelas' },
+                      { data: 'tingkat', name: 'tingkat' },
+                      { data: 'guru_id.nama_guru', name: 'guru_id.nama_guru' },
+                      { data: 'badal_id.nama_guru', name: 'badal_id.nama_guru' },
+                      { data: 'action', name: 'action', orderable: false, searchable: false },
+                  ]
+              }); 
+            // Trigger auto refresh
+            Echo.channel('draw-table')
+            .listen('DrawTable', (e) => {
+              table.draw();
+            });
+
+            $('#deleteModal').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                // $.get('/sekretariat/kelas/'+ id +'/destroy', function( data ) {
+                //   $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
+                // }); 
+              $("#deleteBtn").on('click', function(){
+                  axios.delete('/sekretariat/kelas/'+ id +'/destroy').then(function(resp){
+                    $('#deleteModal').modal('hide')
+                    table.draw()
+                  }).then(function(){
+                    window.location.reload()
+                  })
+              });
+            });
+      });
+
+       $(document).ready(function(){
+            $('#editModal').on('show.bs.modal', function(e) {
+                    var id = $(e.relatedTarget).data('id');
+                    $.get('/sekretariat/kelas/'+ id +'/show', function( data ) {
+                      $("#title-data").html(data.nama_kelas);
+                      $("#tingkat").val(data.tingkat);
+                      $("#nama_kelas").val(data.nama_kelas);
+                      $("#tingkat_id").attr('value', data.tingkat_id);
+                      $("#lokal").val(data.lokal);
+                      $("#guru_id").val(data.guru_id.id);
+                      $("#badal_id").val(data.badal_id.id);
+                      console.log(data);
+                    });
+
+                  $('#submitEditKelas').attr('action', '/sekretariat/kelas/'+ id +'/update');
+            });
+          });
 			}
 		}
 	}
