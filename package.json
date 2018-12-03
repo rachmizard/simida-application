@@ -21,6 +21,8 @@
     },
     "dependencies": {
         "laravel-echo": "^1.4.1",
-        "pusher-js": "^4.3.1"
+        "pusher-js": "^4.3.1",
+        "vue-good-wizard": "^1.4.1",
+        "vuejs-datepicker": "^1.5.4"
     }
 }

@@ -469,7 +469,7 @@
                                         <a href="{{ route('sekretariat.dewankyai') }}#list_dewankyai"><span class="site-menu-title">Data Dewan Kyai</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Perpindahan Asrama Santri</span></a>
+                                        <a href="{{ route('sekretariat.mutasi') }}#/mutasi/santri"><span class="site-menu-title">Perpindahan Asrama Santri</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Daftar Santri Aktif</span></a>
@@ -486,7 +486,7 @@
                                 </a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Periode</span></a>
+                                        <a href="{{ route('pendidikan.periode') }}#/list_periode"><span class="site-menu-title">Periode</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="%5Bform%5Dmapel.html"><span class="site-menu-title">Mata Pelajaran</span></a>
