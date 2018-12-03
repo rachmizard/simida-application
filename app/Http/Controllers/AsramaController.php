@@ -74,7 +74,7 @@ class AsramaController extends Controller
 
     public function getAsramaKategori(Request $request, $kategori): JsonResponse
     {
-        $asrama = AsramaResource::collection(DataNamaAsrama::whereKategori($kategori)->get());
+        $asrama = AsramaResource::collection(Asrama::whereKategoriAsrama($kategori)->get());
         return response()->json(['data' => $asrama]);
     }
 
@@ -152,7 +152,7 @@ class AsramaController extends Controller
         ]);
 
         $validate = Asrama::whereNamaAsrama(request('nama_asrama'))->whereKategoriAsrama(request('kategori_asrama'))->count();
-        if ($validate > 1) {
+        if ($validate > 0) {
             $data['messageError'] = 'Asrama sudah tersedia!';
             $data['message'] = false;
             $data['type'] = 'error';

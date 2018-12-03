@@ -126,6 +126,12 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::post('/dewankyai/{id}/update', 'DewanKyaiController@update')->name('dewankyai.update');
 			Route::delete('/dewankyai/{id}/destroy', 'DewanKyaiController@destroy')->name('dewankyai.destroy');
 			// END DEWAN KYAI
+
+			// MUTASI ASRAMA / KOBONG
+			Route::get('/mutasi', 'MutasiController@index')->name('mutasi');
+			Route::get('/mutasi/getSantriDataTables', 'MutasiController@getSantriDataTables')->name('mutasi.getSantriDataTables');
+			Route::post('/mutasi/{id}/mutasi', 'MutasiController@update')->name('mutasi.update');
+			// END MUTASI ASRAMA / KOBONG
 		});
 	});
 });
@@ -134,6 +140,15 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 	Route::prefix('pendidikan')->group(function(){
 		Route::name('pendidikan.')->group(function(){
 			Route::get('/home', 'HomeController@pendidikanHome')->name('home');
+			// Master Periode
+			Route::get('/periode', 'PeriodeController@index')->name('periode');
+			Route::get('/periode/getPeriodeDataTables', 'PeriodeController@getPeriodeDataTables')->name('periode.getPeriodeDataTables');
+			Route::put('/periode/{id}/aktif', 'PeriodeController@aktif')->name('periode.aktif');
+			Route::get('/periode/{id}/show', 'PeriodeController@show')->name('periode.show');
+			Route::post('/periode/store', 'PeriodeController@store')->name('periode.store');
+			Route::put('/periode/{id}/update', 'PeriodeController@update')->name('periode.update');
+			Route::delete('/periode/{id}/delete', 'PeriodeController@destroy')->name('periode.destroy');
+			// End Master Periode
 		});
 	});
 });

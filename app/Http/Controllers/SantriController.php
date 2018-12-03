@@ -47,7 +47,7 @@ class SantriController extends Controller
         return view('sekretariat.santri.pendaftaran', compact('asramaPutra', 'asramaPutri', 'tingkats', 'dewankyai'));
     }
 
-    public function getSantriDataTables(Datatables $datatables)
+    public function getSantriDataTables(Request $request, Datatables $datatables)
     {
         $santri = Santri::with([
                                 'asrama.ngaran',
@@ -67,6 +67,13 @@ class SantriController extends Controller
 
                                         ';
                               })
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_kelas')) {
+                                  return $query->whereHas('kelas', function($q){
+                                    $q->where('nama_kelas', request()->get('filter_kelas'));
+                                  })->get();
+                                }
+                              }, true)
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               // })
@@ -146,7 +153,7 @@ class SantriController extends Controller
         $newSantri->nis = $request->provinsi.substr($request->kabupaten_kota, -2).substr($request->kecamatan, -2).date('dmy', strtotime($request->tgl_masuk));
         $newSantri->nik = $request->nik;
         $newSantri->nama_santri = $request->nama_santri;
-        $newSantri->tgl_lahir = date('Y-m-d',strtotime($request->tgl_lahir));
+        $newSantri->tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
         $newSantri->jenis_kelamin = $request->jenis_kelamin;
         $newSantri->provinsi = $request->provinsi;
         $newSantri->kabupaten_kota = $request->kabupaten_kota;
@@ -182,7 +189,8 @@ class SantriController extends Controller
         // $getSantri->update();
 
 
-        return response()->json(['message' => 'success']);
+        // return response()->json(['message' => 'success']);
+        return redirect(route('sekretariat.santri').'#/list_santri');
 
     }
 

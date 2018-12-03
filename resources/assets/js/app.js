@@ -15,6 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 // ASRAMA
@@ -38,13 +39,19 @@ Vue.component('list-guru-component', require('./components/Sekretariat/Guru/List
 *
 * @link http://router.vuejs.org/en/installation.html
 */
+
+ // Including Plugin
+
+import Vue from 'vue';
+import VueGoodWizard from 'vue-good-wizard';
+Vue.use(VueGoodWizard);
+
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
 const routes = [
 
 		// SANTRI
-
 		{
 		  path: '/pendaftaran',
 		  name: 'pendaftaran',
@@ -54,7 +61,6 @@ const routes = [
 		// END SANTRI
 
 		// KELAS
-
 		{
 		  path: '/list_kelas',
 		  name: 'listKelas',
@@ -138,8 +144,65 @@ const routes = [
 		  path: '/hapus/santri/:id',
 		  name: 'hapusSantri',
 		  component: require('./components/Sekretariat/Santri/DeleteSantriComponent.vue') 
-		}
+		},
 		// END SANTRI
+
+		// MUTASI
+		{
+		  path: '/mutasi/santri',
+		  name: 'mutasiSantri',
+		  component: require('./components/Sekretariat/Mutasi/MutasiComponent.vue') 
+		},
+
+
+		{
+		  path: '/mutasi/santri/:id',
+		  name: 'pindahSantri',
+		  component: require('./components/Sekretariat/Mutasi/PilihAsramaComponent.vue') 
+		},
+		// END MUTASI
+
+
+		// -------------------------------------PENDIDIKAN----------------------------------------- //
+
+		// Periode
+
+		{
+		  path: '/list_periode',
+		  name: 'listPeriode',
+		  component: require('./components/Pendidikan/Periode/ListPeriodeComponent.vue') 
+		},
+
+
+		{
+		  path: '/aktif/periode/:id',
+		  name: 'aktifPeriode',
+		  component: require('./components/Pendidikan/Periode/AktifPeriodeComponent.vue') 
+		},
+
+
+		{
+		  path: '/tambah/periode',
+		  name: 'tambahPeriode',
+		  component: require('./components/Pendidikan/Periode/TambahFormPeriodeComponent.vue') 
+		},
+
+
+		{
+		  path: '/edit/periode/:id',
+		  name: 'editPeriode',
+		  component: require('./components/Pendidikan/Periode/EditFormPeriodeComponent.vue') 
+		},
+
+
+		{
+		  path: '/hapus/periode/:id',
+		  name: 'hapusPeriode',
+		  component: require('./components/Pendidikan/Periode/DeletePeriodeComponent.vue') 
+		}
+
+
+
 ]
 const router = new VueRouter({ routes });
 const app = new Vue({

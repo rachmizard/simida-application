@@ -12,4 +12,14 @@ class Periode extends Model
     protected $fillable = [
         'nama_periode', 'start_date', 'end_date', 'status',
     ];
+
+ //    public function getStartDateAttribute($date)
+	// {
+	//     return \Carbon\Carbon::parse($date)->format('d/m/Y');
+	// }
+
+	// public function getEndDateAttribute($date)
+	// {
+	//     return \Carbon\Carbon::parse($date)->format('d/m/Y');
+	// }
 }
