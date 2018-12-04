@@ -199,8 +199,41 @@ const routes = [
 		  path: '/hapus/periode/:id',
 		  name: 'hapusPeriode',
 		  component: require('./components/Pendidikan/Periode/DeletePeriodeComponent.vue') 
-		}
+		},
 
+		// End Periode
+
+		// Mata Pelajaran
+		{
+		  path: '/list_matapelajaran',
+		  name: 'listMataPelajaran',
+		  component: require('./components/Pendidikan/MataPelajaran/ListMataPelajaranComponent.vue') 
+		},
+
+		{
+		  path: '/mata_pelajaran/tambah',
+		  name: 'tambahMataPelajaran',
+		  component: require('./components/Pendidikan/MataPelajaran/TambahMataPelajaran.vue') 
+		},
+
+		{
+		  path: '/mata_pelajaran/detail/:id',
+		  name: 'detailMataPelajaran',
+		  component: require('./components/Pendidikan/MataPelajaran/DetailMataPelajaranComponent.vue') 
+		},
+
+		{
+		  path: '/mata_pelajaran/edit/:id',
+		  name: 'editMataPelajaran',
+		  component: require('./components/Pendidikan/MataPelajaran/EditMataPelajaranComponent.vue') 
+		},
+
+		{
+		  path: '/mata_pelajaran/hapus/:id',
+		  name: 'hapusMataPelajaran',
+		  component: require('./components/Pendidikan/MataPelajaran/HapusMataPelajaranComponent.vue') 
+		}
+		// End Mata Pelajaran
 
 
 ]

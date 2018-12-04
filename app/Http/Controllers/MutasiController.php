@@ -26,7 +26,7 @@ class MutasiController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getSantriDataTables(Datatables $datatables)
+    public function getSantriDataTables(Request $request, Datatables $datatables)
     {
          $santri = Santri::with([
                                 'asrama.ngaran',
@@ -53,6 +53,18 @@ class MutasiController extends Controller
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               // })
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_kelas')) {
+                                  return $query->whereHas('kelas', function($q){
+                                    $q->where('nama_kelas', request()->get('filter_kelas'));
+                                  })->get();
+                                }
+                              }, true)
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_nis')) {
+                                    return $query->where('nis', '=', request()->get('filter_nis'))->first();
+                                }
+                              }, true)
                               ->rawColumns(['action', 'nis'])
                               ->make(true);
     }

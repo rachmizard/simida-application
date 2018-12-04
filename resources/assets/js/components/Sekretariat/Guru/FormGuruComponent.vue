@@ -53,7 +53,7 @@
                                 <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
                             </div>
                             <div class="form-row">
-                                <button type="submit" class="btn btn-primary col-md-12" >Tambah Kelas </button>
+                                <button type="submit" class="btn btn-primary col-md-12" >Tambah </button>
                            </div>
                         </div><!--/.example-->
                         </div><!--/.form-group
