@@ -10,7 +10,7 @@ class MataPelajaran extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_mata_pelajaran', 'tingkat_id', 'santri_id', 
+        'nama_mata_pelajaran', 'tingkat_id', 'kelas_id', 
     ];
 
     public function tingkat()

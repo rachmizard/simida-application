@@ -149,6 +149,16 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/periode/{id}/update', 'PeriodeController@update')->name('periode.update');
 			Route::delete('/periode/{id}/delete', 'PeriodeController@destroy')->name('periode.destroy');
 			// End Master Periode
+
+			// Master Mata Pelajaran
+			Route::get('/matapelajaran', 'MataPelajaranController@index')->name('matapelajaran');
+			Route::get('/matapelajaran/getMataPelajaranDataTables', 'MataPelajaranController@getMataPelajaranDataTables')->name('matapelajaran.getMataPelajaranDataTables');
+			Route::get('/matapelajaran/JSON', 'MataPelajaranController@JSON')->name('matapelajaran.JSON');
+			Route::post('/matapelajaran/store', 'MataPelajaranController@store')->name('matapelajaran.store');
+			Route::get('/matapelajaran/{id}/show', 'MataPelajaranController@show')->name('matapelajaran.show');
+			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
+			Route::delete('/matapelajaran/{id}/destroy', 'MataPelajaranController@destroy')->name('matapelajaran.destroy');
+			// End Master Mata Pelajaran
 		});
 	});
 });

@@ -489,7 +489,7 @@
                                         <a href="{{ route('pendidikan.periode') }}#/list_periode"><span class="site-menu-title">Periode</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="%5Bform%5Dmapel.html"><span class="site-menu-title">Mata Pelajaran</span></a>
+                                        <a href="{{ route('pendidikan.matapelajaran') }}#/list_matapelajaran"><span class="site-menu-title">Mata Pelajaran</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
