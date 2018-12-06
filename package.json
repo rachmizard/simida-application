@@ -23,6 +23,7 @@
         "laravel-echo": "^1.4.1",
         "pusher-js": "^4.3.1",
         "vue-good-wizard": "^1.4.1",
+        "vue2-timepicker": "^0.1.4",
         "vuejs-datepicker": "^1.5.4"
     }
 }

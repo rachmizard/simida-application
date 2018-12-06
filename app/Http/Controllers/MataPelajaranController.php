@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MataPelajaran;
+use App\Kelas;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -28,20 +29,32 @@ class MataPelajaranController extends Controller
         //
     }
 
-    public function getMataPelajaranDataTables(Datatables $datatables)
+    public function getMataPelajaranDataTables(Request $request, Datatables $datatables)
     {
         $mapels = MataPelajaran::select('mata_pelajaran.*')->with(['tingkat', 'kelas']);
         return $datatables->eloquent($mapels)
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-                                            <a href="#/mata_pelajaran/detail/'. $var->id .'" class="btn btn-sm btn-warning text-white" title="Lihat detil mata pelajaran"><i class="icon wb-eye"></i></a>
                                             <a href="#/mata_pelajaran/edit/'. $var->id .'" class="btn btn-sm btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a href="#/mata_pelajaran/hapus/'. $var->id .'" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
 
                                         ';
                               })
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_kelas')) {
+                                  return $query->whereHas('kelas', function($q){
+                                    $q->where('nama_kelas', request()->get('filter_kelas'));
+                                  })->get();
+                                }
+                                
+                                if (request()->get('filter_tingkat')) {
+                                  return $query->whereHas('tingkat', function($q){
+                                    $q->where('id', request()->get('filter_tingkat'));
+                                  })->get();
+                                }
+                              }, true)
                               ->make(true);
     }
 
@@ -55,13 +68,21 @@ class MataPelajaranController extends Controller
     {
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
-            'tingkat_id' => 'tingkat_id',
-            'kelas_id' => 'kelas_id',
+            'tingkat_id' => 'required',
+            'kelas_id' => 'required',
         ]);
-        $mataPelajaran = MataPelajaran::create($request->all());
-        $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
-        $data['messageError'] = false;
-        $data['messageWarning'] = false;
+
+        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+        if ($validator > 0) {
+            $data['message'] = false;
+            $data['messageError'] = false;
+            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
+        }else{
+            $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
+            $data['messageError'] = false;
+            $data['messageWarning'] = false;
+            $post = MataPelajaran::create($request->all());
+        }
         return response()->json(['response' => $data]);
     }
 
@@ -96,16 +117,23 @@ class MataPelajaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
-            'tingkat_id' => 'tingkat_id',
-            'kelas_id' => 'kelas_id',
+            'tingkat_id' => 'required',
+            'kelas_id' => 'required',
         ]);
 
-        $mataPelajaran = MataPelajaran::find($id)->update($request->all());
-        $data['message'] = 'Mata Pelajaran berhasil diedit!';
-        $data['messageError'] = false;
-        $data['messageWarning'] = false;
+        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+        if ($validator > 0) {
+            $data['message'] = false;
+            $data['messageError'] = false;
+            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
+        }else{
+            $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
+            $data['messageError'] = false;
+            $data['messageWarning'] = false;
+            $post = MataPelajaran::find($id)->update($request->all());
+        }
         return response()->json(['response' => $data]);
     }
 

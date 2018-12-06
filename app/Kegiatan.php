@@ -10,6 +10,6 @@ class Kegiatan extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan',
+        'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan', 'periode'
     ];
 }

@@ -65,6 +65,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
 			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
+			Route::get('/kelas/{id}/tingkat', 'KelasController@showByTingkat')->name('tingkat.showByTingkat');
 			Route::put('/kelas/{id}/update', 'KelasController@update')->name('kelas.update');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
@@ -108,7 +109,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// GURU
 			Route::get('/guru', 'GuruController@index')->name('guru');
 			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
-		Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
+			Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
 			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
 			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
@@ -145,6 +146,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/periode/getPeriodeDataTables', 'PeriodeController@getPeriodeDataTables')->name('periode.getPeriodeDataTables');
 			Route::put('/periode/{id}/aktif', 'PeriodeController@aktif')->name('periode.aktif');
 			Route::get('/periode/{id}/show', 'PeriodeController@show')->name('periode.show');
+			Route::get('/periode/isactived', 'PeriodeController@isactived')->name('periode.isactived');
 			Route::post('/periode/store', 'PeriodeController@store')->name('periode.store');
 			Route::put('/periode/{id}/update', 'PeriodeController@update')->name('periode.update');
 			Route::delete('/periode/{id}/delete', 'PeriodeController@destroy')->name('periode.destroy');
@@ -158,6 +160,17 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/matapelajaran/{id}/show', 'MataPelajaranController@show')->name('matapelajaran.show');
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
 			Route::delete('/matapelajaran/{id}/destroy', 'MataPelajaranController@destroy')->name('matapelajaran.destroy');
+			// End Master Mata Pelajaran
+
+
+			// Master Kegiatan
+			Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
+			Route::get('/kegiatan/getKegiatanDataTables', 'KegiatanController@getKegiatanDataTables')->name('kegiatan.getKegiatanDataTables');
+			Route::get('/kegiatan/JSON', 'KegiatanController@JSON')->name('kegiatan.JSON');
+			Route::post('/kegiatan/store', 'KegiatanController@store')->name('kegiatan.store');
+			Route::get('/kegiatan/{id}/show', 'KegiatanController@show')->name('kegiatan.show');
+			Route::put('/kegiatan/{id}/update', 'KegiatanController@update')->name('kegiatan.update');
+			Route::delete('/kegiatan/{id}/destroy', 'KegiatanController@destroy')->name('kegiatan.destroy');
 			// End Master Mata Pelajaran
 		});
 	});

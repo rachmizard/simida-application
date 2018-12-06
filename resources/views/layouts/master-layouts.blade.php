@@ -491,6 +491,20 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.matapelajaran') }}#/list_matapelajaran"><span class="site-menu-title">Mata Pelajaran</span></a>
                                     </li>
+                                    <li class="site-menu-item has-su">
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Jadwal</span></a>
+                                        <ul class="site-menu-sub">
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('pendidikan.kegiatan') }}#/list_kegiatan"><span class="site-menu-title">Jadwal Kegiatan</span></a>
+                                            </li>
+                                            <li class="site-menu-item">
+                                                <a href="#!"><span class="site-menu-title">Jadwal Pelajaran</span></a>
+                                            </li>
+                                            <li class="site-menu-item">
+                                                <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
                                     </li>

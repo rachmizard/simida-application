@@ -46,6 +46,9 @@ import Vue from 'vue';
 import VueGoodWizard from 'vue-good-wizard';
 Vue.use(VueGoodWizard);
 
+
+// End Including Plugin
+
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
@@ -231,10 +234,41 @@ const routes = [
 		{
 		  path: '/mata_pelajaran/hapus/:id',
 		  name: 'hapusMataPelajaran',
-		  component: require('./components/Pendidikan/MataPelajaran/HapusMataPelajaranComponent.vue') 
-		}
+		  component: require('./components/Pendidikan/Kegiatan/HapusKegiatanComponent.vue') 
+		},
 		// End Mata Pelajaran
 
+		// Master Kegiatan
+		{
+		  path: '/list_kegiatan',
+		  name: 'listKegiatan',
+		  component: require('./components/Pendidikan/Kegiatan/ListKegiatanComponent.vue') 
+		},
+
+		{
+		  path: '/kegiatan/tambah',
+		  name: 'tambahKegiatan',
+		  component: require('./components/Pendidikan/Kegiatan/TambahKegiatan.vue') 
+		},
+
+		{
+		  path: '/kegiatan/detail/:id',
+		  name: 'detailKegiatan',
+		  component: require('./components/Pendidikan/Kegiatan/DetailKegiatanComponent.vue') 
+		},
+
+		{
+		  path: '/kegiatan/edit/:id',
+		  name: 'editKegiatan',
+		  component: require('./components/Pendidikan/Kegiatan/EditKegiatanComponent.vue') 
+		},
+
+		{
+		  path: '/kegiatan/hapus/:id',
+		  name: 'hapusKegiatan',
+		  component: require('./components/Pendidikan/Kegiatan/HapusKegiatanComponent.vue') 
+		}
+		// End Master Kegiatan
 
 ]
 const router = new VueRouter({ routes });

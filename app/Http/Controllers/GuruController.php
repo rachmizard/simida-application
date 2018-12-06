@@ -35,6 +35,13 @@ class GuruController extends Controller
                               ->addColumn('kelas', function($var){
                                 return $var->kelas == null ? 'Kosong' : $var->kelas->nama_kelas;
                               })
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_tingkat')) {
+                                  return $query->whereHas('tingkat', function($q){
+                                    $q->where('id', request()->get('filter_tingkat'));
+                                  })->get();
+                                }
+                              }, true)
                               ->orderColumn('kelas_id', '-kelas_id $1')
                               ->make(true);
     }

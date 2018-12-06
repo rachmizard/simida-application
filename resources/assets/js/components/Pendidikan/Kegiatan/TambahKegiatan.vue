@@ -17,45 +17,45 @@
                                   </button>
                                   <i class="icon wb-check" aria-hidden="true"></i> {{ messageWarning }}
                             </div>
-                            <form @submit.prevent="storematapelajaran" action="/pendidikan/matapelajaran/store"  autocomplete="off">
+                            <form @submit.prevent="storekegiatan" action="/pendidikan/kegiatan/store"  autocomplete="off">
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
-                                    <h4 class="example-title"><i class="icon wb-book"></i> Tambah Mata Pelajaran</h4>
+                                    <h4 class="example-title"><i class="icon wb-book"></i> Tambah Kegiatan</h4>
                                         <div class="example">
                                             <div class="form-row">
                                             	<div class="row">
                                             		<div class="col-md-4">
 		                                                <div class="form-group">
-		                                                   <label class="form-control-label" for="inputBasicFirstName">Nama Mata Pelajaran</label>
-		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Tahun baru.." autocomplete="off" />
-		                                                        <span v-if="errors.nama_mata_pelajaran" class="label label-danger">{{ errors.nama_mata_pelajaran[0] }}</span>
+		                                                   <label class="form-control-label" for="inputBasicFirstName">Nama Kegiatan</label>
+		                                                   <input v-model="kegiatan.nama_kegiatan" type="text" class="form-control" placeholder="Nama Kegiatan.." autocomplete="off" />
+		                                                        <span v-if="errors.nama_kegiatan" class="label label-danger">{{ errors.nama_kegiatan[0] }}</span>
 		                                                </div>
                                             		</div>
                                             		<div class="col-md-4">
 		                                                <div class="form-group">
-		                                                    <label class="form-control-label" for="inputBasicFirstName">Tingkat Mata Pelajaran</label>
-		                                                    <select @change="filterForTingkat" v-model="matapelajaran.tingkat_id" class="form-control">
-		                                                    	<option value="" selected disabled>Pilih tingkat pada mata pelajaran</option>
-		                                                    	<option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
-		                                                    </select>
-		                                                    <span v-if="errors.tingkat_id" class="label label-danger">{{ errors.tingkat_id[0] }}</span>
+		                                                    <label class="form-control-label" for="inputBasicFirstName">Jam Mulai</label>
+		                                                    <input type="time" v-model="kegiatan.mulai_kegiatan" class="form-control" placeholder="H:m">
+		                                                    <span v-if="errors.mulai_kegiatan" class="label label-danger">{{ errors.mulai_kegiatan[0] }}</span>
 		                                                </div>
                                             		</div>
                                             		<div class="col-md-4">
 		                                                <div class="form-group">
-		                                                    <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-		                                                    <select v-model="matapelajaran.kelas_id" class="form-control">
-		                                                    	<option value="" selected disabled>Pilih tingkat pada mata pelajaran</option>
-		                                                    	<option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
-		                                                    </select>
-		                                                    <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
+		                                                    <label class="form-control-label" for="inputBasicFirstName">Jam Akhir</label>
+                                                            <input type="time" v-model="kegiatan.akhir_kegiatan" class="form-control" placeholder="H:m">
+		                                                    <span v-if="errors.akhir_kegiatan" class="label label-danger">{{ errors.akhir_kegiatan[0] }}</span>
 		                                                </div>
 		                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="inputBasicFirstName">Periode Kegiatan</label>
+                                                            <input type="text" disabled v-model="periode" class="form-control">
+                                                        </div>
+                                                    </div>
                                             	</div>
                                             </div>
                                             <div class="form-row">
                                                 <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Tambah</button>
-                                                <router-link :to="{ name: 'listMataPelajaran' }" class="btn btn-warning">Kembali</router-link>
+                                                <router-link :to="{ name: 'listKegiatan' }" class="btn btn-warning">Kembali</router-link>
                                            </div>
                                         </div><!--/Example-->
                                 </div><!--/.form-group
@@ -86,11 +86,12 @@
                 errors: [],
                 tingkats: [],
                 kelass: [],
-                matapelajaran: {
-                    nama_mata_pelajaran: '',
-                    tingkat_id: '',
-                    kelas_id: ''
+                kegiatan: {
+                    nama_kegiatan: '',
+                    mulai_kegiatan: '',
+                    akhir_kegiatan: ''
                 },
+                periode: '',
                 message: '',
                 messageError: '',
                 messageWarning: ''
@@ -103,14 +104,18 @@
         			this.tingkats = response.data;
         		})
 
+                axios.get('/pendidikan/periode/isactived').then(response => {
+                    this.periode = response.data.nama_periode;
+                })
+
         		// axios.get('/sekretariat/kelas/JSON').then(response => {
         		// 	this.kelass = response.data;
         		// })
         	},
 
-            storematapelajaran:function(e){
+            storekegiatan:function(e){
                 let app = this;
-                var body = app.matapelajaran;
+                var body = app.kegiatan;
                 axios.post(e.target.action, body)
                 .then(function (resp) {
                   app.errors = [];
@@ -123,7 +128,7 @@
 	                        app.messageWarning = false;
 	                    }, 5000);	
                   }else{
-	                app.$router.replace('/list_matapelajaran'); // redirect to url "/"
+	                app.$router.replace('/list_kegiatan'); // redirect to url "/"
 	                    setTimeout(() => {
 	                        app.messageError = false;
 	                        app.message = false;
@@ -136,7 +141,7 @@
             },
 
             filterForTingkat(){
-            	axios.get('/sekretariat/kelas/'+ this.matapelajaran.tingkat_id  +'/tingkat').then(response => {
+            	axios.get('/sekretariat/kelas/'+ this.kegiatan.mulai_kegiatan  +'/tingkat').then(response => {
             		this.kelass = response.data;
             	});
             }
