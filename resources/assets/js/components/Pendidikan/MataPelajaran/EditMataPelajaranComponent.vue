@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <div id="app">
         <div class="panel">
             <div class="panel col-md-12">
@@ -153,10 +152,4 @@
         }
 
     }
-=======
-	
-</template>
-<script>
-	
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 </script>

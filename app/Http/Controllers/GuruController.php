@@ -35,7 +35,6 @@ class GuruController extends Controller
                               ->addColumn('kelas', function($var){
                                 return $var->kelas == null ? 'Kosong' : $var->kelas->nama_kelas;
                               })
-<<<<<<< HEAD
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_tingkat')) {
                                   return $query->whereHas('tingkat', function($q){
@@ -43,8 +42,6 @@ class GuruController extends Controller
                                   })->get();
                                 }
                               }, true)
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                               ->orderColumn('kelas_id', '-kelas_id $1')
                               ->make(true);
     }

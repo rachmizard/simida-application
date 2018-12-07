@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MataPelajaran;
-<<<<<<< HEAD
 use App\Kelas;
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -32,28 +29,19 @@ class MataPelajaranController extends Controller
         //
     }
 
-<<<<<<< HEAD
     public function getMataPelajaranDataTables(Request $request, Datatables $datatables)
-=======
-    public function getMataPelajaranDataTables(Datatables $datatables)
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     {
         $mapels = MataPelajaran::select('mata_pelajaran.*')->with(['tingkat', 'kelas']);
         return $datatables->eloquent($mapels)
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-<<<<<<< HEAD
-=======
-                                            <a href="#/mata_pelajaran/detail/'. $var->id .'" class="btn btn-sm btn-warning text-white" title="Lihat detil mata pelajaran"><i class="icon wb-eye"></i></a>
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                                             <a href="#/mata_pelajaran/edit/'. $var->id .'" class="btn btn-sm btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a href="#/mata_pelajaran/hapus/'. $var->id .'" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
 
                                         ';
                               })
-<<<<<<< HEAD
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_kelas')) {
                                   return $query->whereHas('kelas', function($q){
@@ -67,8 +55,6 @@ class MataPelajaranController extends Controller
                                   })->get();
                                 }
                               }, true)
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                               ->make(true);
     }
 
@@ -82,7 +68,6 @@ class MataPelajaranController extends Controller
     {
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
-<<<<<<< HEAD
             'tingkat_id' => 'required',
             'kelas_id' => 'required',
         ]);
@@ -98,7 +83,6 @@ class MataPelajaranController extends Controller
             $data['messageWarning'] = false;
             $post = MataPelajaran::create($request->all());
         }
-=======
             'tingkat_id' => 'tingkat_id',
             'kelas_id' => 'kelas_id',
         ]);
@@ -106,7 +90,6 @@ class MataPelajaranController extends Controller
         $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
         $data['messageError'] = false;
         $data['messageWarning'] = false;
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
         return response()->json(['response' => $data]);
     }
 
@@ -141,7 +124,6 @@ class MataPelajaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
          $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
@@ -159,7 +141,6 @@ class MataPelajaranController extends Controller
             $data['messageWarning'] = false;
             $post = MataPelajaran::find($id)->update($request->all());
         }
-=======
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'tingkat_id',
@@ -170,7 +151,6 @@ class MataPelajaranController extends Controller
         $data['message'] = 'Mata Pelajaran berhasil diedit!';
         $data['messageError'] = false;
         $data['messageWarning'] = false;
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
         return response()->json(['response' => $data]);
     }
 

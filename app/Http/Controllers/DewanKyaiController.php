@@ -23,7 +23,6 @@ class DewanKyaiController extends Controller
         $dewankyai = DewanKyai::select('dewan_kyai.*');
         return $datatables->eloquent($dewankyai)
                 ->addColumn('action', function($dewankyai){
-<<<<<<< HEAD
                     if ($dewankyai->status == 'aktif') {
                         return '
                             <div class="text-center">
@@ -43,17 +42,6 @@ class DewanKyaiController extends Controller
                             </div>
                             ';
                     }
-=======
-                    return '
-                        <div class="text-center">
-
-                            <a href="#/dewankyai/edit/'. $dewankyai->id .'" class="btn btn-sm btn-success text-white" title="Edit"><i class="icon wb-edit"></i></a>
-                            <a href="#/dewankyai/hapus/'. $dewankyai->id .'" title="Hapus" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
-
-                        </div>
-
-                            ';
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                 })
                 ->addColumn('foto', function($dewankyai){
                     return '
@@ -62,7 +50,6 @@ class DewanKyaiController extends Controller
                         </div>
                     ';
                 })
-<<<<<<< HEAD
                 ->editColumn('status', function($dewankyai){
                     if ($dewankyai->status == 'aktif') {
                         return '<span class="badge badge-info">Aktif</span>';
@@ -71,9 +58,6 @@ class DewanKyaiController extends Controller
                     }
                 })
                 ->rawColumns(['action', 'foto', 'status'])
-=======
-                ->rawColumns(['action', 'foto'])
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                 ->make(true);
     }
 
@@ -93,7 +77,6 @@ class DewanKyaiController extends Controller
         //
     }
 
-<<<<<<< HEAD
     public function active($id)
     {
         $validator = DewanKyai::find($id);
@@ -104,9 +87,6 @@ class DewanKyaiController extends Controller
         }
         return response()->json(['response' => 'success']);
     }
-
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     /**
      * Store a newly created resource in storage.
      *

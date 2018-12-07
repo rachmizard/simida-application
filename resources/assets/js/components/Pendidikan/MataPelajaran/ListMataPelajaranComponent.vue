@@ -12,16 +12,11 @@
 			<header class="panel-heading">
 	          <h3 class="panel-title"></h3>
 	          <div class="row">
-<<<<<<< HEAD
 	          	<div class="col-md-5">
-=======
-	          	<div class="col-md-6">
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
 		            <select name="filter_kelas" id="filter_kelas" class="form-control">
 		            	<option value="">Cari berdasarkan kelas</option>
-<<<<<<< HEAD
 		            	<option value="">Semua..</option>
 		            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
 		            </select>
@@ -40,15 +35,6 @@
 	          	<div class="col-md-2" style="margin-top: 21px;">
 		            <router-link to="/mata_pelajaran/tambah" class="btn btn-md btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
 	          	</div>
-=======
-		            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
-		            </select>
-		          </div>
-		          <div class="form-group" style="margin-left: 15px;">
-		            <router-link to="/mata_pelajaran/tambah" class="btn btn-xs btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
-		          </div>
-	          	</div>
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 	      	   </div>
 	        </header>
 	        <div class="panel-body">
@@ -78,7 +64,6 @@
 		              processing: true,
 		              serverSide: true,
 		              ajax: {
-<<<<<<< HEAD
 		                url: "/pendidikan/matapelajaran/getMataPelajaranDataTables",
 		                data:function(e){
 		                  e.filter_kelas = $('select[name="filter_kelas"]').val();
@@ -90,19 +75,6 @@
 		                  { data: 'nama_mata_pelajaran', name: 'nama_mata_pelajaran', orderable: true },
 		                  { data: 'tingkat.nama_tingkatan', name: 'tingkat.nama_tingkatan' },
 		                  { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas'},
-=======
-		                url: "/pendidikan/matapelajaran/getMataPelajaranDataTables"
-		                // data:function(e){
-		                //   e.filter_kelas = $('select[name="filter_kelas"]').val();
-		                //   e.filter_nis = $('input[name="filter_nis"]').val();
-		                // }
-		              },
-		              columns: [
-		                  { data: 'nis', name: 'nis' },
-		                  { data: 'nama_mata_pelajaran', name: 'nama_mata_pelajaran', orderable: true },
-		                  { data: 'tingkat_id', name: 'tingkat_id' },
-		                  { data: 'kelas_id', name: 'kelas_id'},
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		                  { data: 'action', name: 'action', orderable: false, searchable: false }
 		              ]
 		          }); 
@@ -112,12 +84,7 @@
 		            table.draw();
 		            e.preventDefault();
 		        });
-
-<<<<<<< HEAD
 		        $('#filter_tingkat').on('change', function(e) {
-=======
-		        $('#filter_nis').on('change', function(e) {
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		            table.draw();
 		            e.preventDefault();
 		        });
@@ -126,12 +93,8 @@
 
 		data(){
 			return {
-<<<<<<< HEAD
 				kelass: [],
 				tingkats: [],
-=======
-				kelass: []
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			}
 		},
 
@@ -140,13 +103,9 @@
 				axios.get('/sekretariat/kelas/JSON').then(response => {
 					this.kelass = response.data;
 				})
-<<<<<<< HEAD
-
 				axios.get('/sekretariat/tingkatan/getJSON').then(response => {
 					this.tingkats = response.data;
 				})
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			}
 		}
 	}

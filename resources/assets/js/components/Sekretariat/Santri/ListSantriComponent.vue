@@ -21,10 +21,7 @@
                 <th width="10%">Kelas</th>
                 <th width="10%">Alamat</th>
                 <th width="10%">Tanggal Masuk</th>
-<<<<<<< HEAD
                 <th width="10%">Foto Santri</th>
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                 <th width="20%">Aksi</th>
               </tr>
             </thead>
@@ -56,11 +53,9 @@
 		                  { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas'},
 		                  { data: 'alamat', name: 'alamat'},
 		                  { data: 'tgl_masuk', name: 'tgl_masuk'},
-<<<<<<< HEAD
 		                  { data: 'foto', name: 'foto', orderable: false, searchable: false },
-=======
 		                  // { data: 'foto', name: 'foto', orderable: false, searchable: false },
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
+		                  // { data: 'foto', name: 'foto', orderable: false, searchable: false },
 		                  { data: 'action', name: 'action', orderable: false, searchable: false }
 		              ]
 		          }); 

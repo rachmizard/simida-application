@@ -66,16 +66,11 @@ class KelasController extends Controller
         return KelasResource::collection(Kelas::whereJk('Putri')->get());
     }
 
-<<<<<<< HEAD
-
     public function showByTingkat($id)
     {
         $showForClass = Kelas::where('tingkat_id', $id)->get();
         return response()->json(['data' => $showForClass]);
     }
-
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     /**
      * Store a newly created resource in storage.
      *

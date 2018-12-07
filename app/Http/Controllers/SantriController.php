@@ -67,12 +67,9 @@ class SantriController extends Controller
 
                                         ';
                               })
-<<<<<<< HEAD
                               ->editColumn('foto', function($var){
                                     return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               })
-=======
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_kelas')) {
                                   return $query->whereHas('kelas', function($q){
@@ -80,12 +77,12 @@ class SantriController extends Controller
                                   })->get();
                                 }
                               }, true)
-<<<<<<< HEAD
-=======
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               // })
->>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
+                              // ->addColumn('foto', function($var){
+                              //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              // })
                               ->rawColumns(['action', 'foto'])
                               ->make(true);
     }
