@@ -10,6 +10,6 @@ class DewanKyai extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_dewan_kyai', 'foto',
+        'nama_dewan_kyai', 'foto', 'status'
     ];
 }

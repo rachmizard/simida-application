@@ -509,7 +509,7 @@
                                         <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="%5Bform%5Dabsensi.html"><span class="site-menu-title">Absensi Kelas</span></a>
+                                        <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Perubahan semester</span></a>

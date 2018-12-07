@@ -52,6 +52,12 @@ class KegiatanController extends Controller
                 ->make(true);
     }
 
+    public function JSON()
+    {
+        $kegiatans = Kegiatan::orderBy('id', 'DESC')->get();
+        return response()->json(['data' => $kegiatans]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

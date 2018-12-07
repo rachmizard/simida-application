@@ -23,15 +23,25 @@ class DewanKyaiController extends Controller
         $dewankyai = DewanKyai::select('dewan_kyai.*');
         return $datatables->eloquent($dewankyai)
                 ->addColumn('action', function($dewankyai){
-                    return '
-                        <div class="text-center">
+                    if ($dewankyai->status == 'aktif') {
+                        return '
+                            <div class="text-center">
+                                <a href="#/dewankyai/aktif/'. $dewankyai->id .'" class="btn btn-xs btn-danger text-white" title="Matikan Masa Dewan Kyai"><i class="icon wb-power"></i></a>
+                                <a href="#/dewankyai/edit/'. $dewankyai->id .'" class="btn btn-xs btn-success text-white" title="Edit"><i class="icon wb-edit"></i></a>
+                                <a href="#/dewankyai/hapus/'. $dewankyai->id .'" title="Hapus" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
 
-                            <a href="#/dewankyai/edit/'. $dewankyai->id .'" class="btn btn-sm btn-success text-white" title="Edit"><i class="icon wb-edit"></i></a>
-                            <a href="#/dewankyai/hapus/'. $dewankyai->id .'" title="Hapus" class="btn btn-sm btn-danger text-white"><i class="icon wb-trash"></i></a>
-
-                        </div>
-
+                            </div>
                             ';
+                    }else if($dewankyai->status == 'tidak_aktif'){
+                        return '
+                            <div class="text-center">
+                                <a href="#/dewankyai/aktif/'. $dewankyai->id .'" class="btn btn-xs btn-info text-white" title="Aktifkan Masa Dewan Kyai"><i class="icon wb-check"></i></a>
+                                <a href="#/dewankyai/edit/'. $dewankyai->id .'" class="btn btn-xs btn-success text-white" title="Edit"><i class="icon wb-edit"></i></a>
+                                <a href="#/dewankyai/hapus/'. $dewankyai->id .'" title="Hapus" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
+
+                            </div>
+                            ';
+                    }
                 })
                 ->addColumn('foto', function($dewankyai){
                     return '
@@ -40,7 +50,14 @@ class DewanKyaiController extends Controller
                         </div>
                     ';
                 })
-                ->rawColumns(['action', 'foto'])
+                ->editColumn('status', function($dewankyai){
+                    if ($dewankyai->status == 'aktif') {
+                        return '<span class="badge badge-info">Aktif</span>';
+                    }else if($dewankyai->status == 'tidak_aktif'){
+                        return '<span class="badge badge-danger">Tidak Aktif</span>';
+                    }
+                })
+                ->rawColumns(['action', 'foto', 'status'])
                 ->make(true);
     }
 
@@ -58,6 +75,17 @@ class DewanKyaiController extends Controller
     public function create()
     {
         //
+    }
+
+    public function active($id)
+    {
+        $validator = DewanKyai::find($id);
+        if ($validator['status'] == 'aktif') {
+            $dewankyai = DewanKyai::find($id)->update(['status' => 'tidak_aktif']);
+        }else if($validator['status'] == 'tidak_aktif'){
+            $dewankyai = DewanKyai::find($id)->update(['status' => 'aktif']);
+        }
+        return response()->json(['response' => 'success']);
     }
 
     /**

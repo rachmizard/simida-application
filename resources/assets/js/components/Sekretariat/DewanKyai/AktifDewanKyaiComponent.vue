@@ -6,9 +6,9 @@
 		mounted(){
 			let app = this;
 			var id = app.$route.params.id;
-			var r=confirm("Anda yakin ingin menghapusnya?");
+			var r=confirm("Lanjutkan?");
 			if (r == true){
-			  	axios.delete('/sekretariat/dewankyai/'+ id +'/destroy').then(response => {
+			  	axios.post('/sekretariat/dewankyai/'+ id +'/aktif').then(response => {
 			  		app.$router.push('/list_dewankyai');
 			  	})
 			}else{

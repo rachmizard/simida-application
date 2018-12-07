@@ -13,7 +13,7 @@ class Absen extends Model
      */
     protected $table = 'absen';
     protected $primaryKey = 'id';
-    public $timestamps = true;
+    public $timestamps = false;
     protected $fillable = [
         'santri_id', 'kegiatan_id', 'keterangan',
     ];

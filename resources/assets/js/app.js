@@ -9,6 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.moment = require('moment');
+window.moment.locale('id');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -60,7 +63,6 @@ const routes = [
 		  name: 'pendaftaran',
 		  component: require('./components/Sekretariat/Santri/PendaftaranFormComponent.vue')
 		},
-
 		// END SANTRI
 
 		// KELAS
@@ -115,6 +117,11 @@ const routes = [
 		},
 
 		{
+		  path: '/dewankyai/aktif/:id',
+		  name: 'aktifDewanKyai',
+		  component: require('./components/Sekretariat/DewanKyai/AktifDewanKyaiComponent.vue') 
+		},
+		{
 		  path: '/dewankyai/hapus/:id',
 		  name: 'hapusDewanKyai',
 		  component: require('./components/Sekretariat/DewanKyai/DeleteDewanKyaiComponent.vue') 
@@ -128,6 +135,11 @@ const routes = [
 		  component: require('./components/Sekretariat/Santri/ListSantriComponent.vue') 
 		},
 
+		{
+		  path: '/list_santri_aktif',
+		  name: 'listSantriAktif',
+		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
+		},
 
 		{
 	 	  path: '/detail/santri/:id',
@@ -267,8 +279,16 @@ const routes = [
 		  path: '/kegiatan/hapus/:id',
 		  name: 'hapusKegiatan',
 		  component: require('./components/Pendidikan/Kegiatan/HapusKegiatanComponent.vue') 
-		}
+		},
 		// End Master Kegiatan
+
+		// Absen
+		{
+		  path: '/absen',
+		  name: 'absen',
+		  component: require('./components/Pendidikan/Absen/AbsenComponent.vue') 
+		}
+		// End Absen
 
 ]
 const router = new VueRouter({ routes });

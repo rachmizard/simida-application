@@ -67,6 +67,9 @@ class SantriController extends Controller
 
                                         ';
                               })
+                              ->editColumn('foto', function($var){
+                                    return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              })
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_kelas')) {
                                   return $query->whereHas('kelas', function($q){
@@ -74,9 +77,6 @@ class SantriController extends Controller
                                   })->get();
                                 }
                               }, true)
-                              // ->addColumn('foto', function($var){
-                              //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
-                              // })
                               ->rawColumns(['action', 'foto'])
                               ->make(true);
     }

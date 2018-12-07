@@ -55,8 +55,6 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
 			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
 			Route::delete('/santri/{id}/destroy', 'SantriController@destroy')->name('santri.destroy');
-
-
 			// End Santri
 
 			// Kelas
@@ -121,6 +119,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/dewankyai', 'DewanKyaiController@index')->name('dewankyai');
 			Route::get('/dewankyai/getDewanKyaiDataTables', 'DewanKyaiController@getDewanKyaiDataTables')->name('dewankyai.getDewanKyaiDataTables');
 			Route::get('/dewankyai/getDewanKyaiJSON', 'DewanKyaiController@getDewanKyaiJSON')->name('dewankyai.getDewanKyaiJSON');
+			Route::post('/dewankyai/{id}/aktif', 'DewanKyaiController@active')->name('dewankyai.active');
 			Route::get('/dewankyai/tambah', 'DewanKyaiController@create')->name('dewankyai.create');
 			Route::get('/dewankyai/{id}/show', 'DewanKyaiController@show')->name('dewankyai.show');
 			Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
@@ -172,6 +171,13 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/kegiatan/{id}/update', 'KegiatanController@update')->name('kegiatan.update');
 			Route::delete('/kegiatan/{id}/destroy', 'KegiatanController@destroy')->name('kegiatan.destroy');
 			// End Master Mata Pelajaran
+
+			// Absen
+			Route::get('/absen', 'AbsenController@index')->name('absen');
+			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
+			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
+			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
+			// End Absen
 		});
 	});
 });
