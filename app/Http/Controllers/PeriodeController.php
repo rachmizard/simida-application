@@ -85,11 +85,14 @@ class PeriodeController extends Controller
         return Periode::find($id);
     }
 
+<<<<<<< HEAD
     public function isactived()
     {
         return Periode::whereStatus('aktif')->first();
     }
 
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     /**
      * Show the form for editing the specified resource.
      *

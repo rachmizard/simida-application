@@ -25,11 +25,16 @@
         <header class="panel-heading">
           <h3 class="panel-title"></h3>
           <div class="form-group col-md-6" style="margin-left: 15px;">
+<<<<<<< HEAD
             <label for=""></label>
             <select name="filter_tingkat" id="filter_tingkat" class="form-control">
               <option value="" disabled selected>Filter berdasarkan tingkat</option>
               <option value="">Semua..</option>
               <option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
+=======
+            <label for="">Filter Guru Berdasarkan Tingkat Kelas</label>
+            <select name="filter_tingkat" id="filter_tingkat" class="form-control">
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
             </select>
           </div>
         </header>
@@ -57,10 +62,17 @@
               processing: true,
               serverSide: true,
               ajax: {
+<<<<<<< HEAD
                 url: "/sekretariat/guru/getGuruDataTables",
                 data:function(e){
                   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
                 }
+=======
+                url: "/sekretariat/guru/getGuruDataTables"
+                // data:function(e){
+                //   e.filter_tingkat = $('select[name="filter_tingkat"]').val();
+                // }
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
               },
               columns: [
                   { data: 'id', name: 'id' },
@@ -137,6 +149,7 @@
   });
 	export default {
 
+<<<<<<< HEAD
     mounted(){
         axios.get('/sekretariat/tingkatan/getJSON').then(response => {
           this.tingkats = response.data;
@@ -149,5 +162,7 @@
       }
     }
 
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 	}
 </script>

@@ -55,6 +55,11 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
 			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
 			Route::delete('/santri/{id}/destroy', 'SantriController@destroy')->name('santri.destroy');
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			// End Santri
 
 			// Kelas
@@ -63,7 +68,10 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
 			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
+<<<<<<< HEAD
 			Route::get('/kelas/{id}/tingkat', 'KelasController@showByTingkat')->name('tingkat.showByTingkat');
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			Route::put('/kelas/{id}/update', 'KelasController@update')->name('kelas.update');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
@@ -107,7 +115,11 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// GURU
 			Route::get('/guru', 'GuruController@index')->name('guru');
 			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
+<<<<<<< HEAD
 			Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
+=======
+		Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
 			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
@@ -119,7 +131,10 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/dewankyai', 'DewanKyaiController@index')->name('dewankyai');
 			Route::get('/dewankyai/getDewanKyaiDataTables', 'DewanKyaiController@getDewanKyaiDataTables')->name('dewankyai.getDewanKyaiDataTables');
 			Route::get('/dewankyai/getDewanKyaiJSON', 'DewanKyaiController@getDewanKyaiJSON')->name('dewankyai.getDewanKyaiJSON');
+<<<<<<< HEAD
 			Route::post('/dewankyai/{id}/aktif', 'DewanKyaiController@active')->name('dewankyai.active');
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			Route::get('/dewankyai/tambah', 'DewanKyaiController@create')->name('dewankyai.create');
 			Route::get('/dewankyai/{id}/show', 'DewanKyaiController@show')->name('dewankyai.show');
 			Route::post('/dewankyai/store', 'DewanKyaiController@store')->name('dewankyai.store');
@@ -145,7 +160,10 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/periode/getPeriodeDataTables', 'PeriodeController@getPeriodeDataTables')->name('periode.getPeriodeDataTables');
 			Route::put('/periode/{id}/aktif', 'PeriodeController@aktif')->name('periode.aktif');
 			Route::get('/periode/{id}/show', 'PeriodeController@show')->name('periode.show');
+<<<<<<< HEAD
 			Route::get('/periode/isactived', 'PeriodeController@isactived')->name('periode.isactived');
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 			Route::post('/periode/store', 'PeriodeController@store')->name('periode.store');
 			Route::put('/periode/{id}/update', 'PeriodeController@update')->name('periode.update');
 			Route::delete('/periode/{id}/delete', 'PeriodeController@destroy')->name('periode.destroy');
@@ -160,6 +178,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
 			Route::delete('/matapelajaran/{id}/destroy', 'MataPelajaranController@destroy')->name('matapelajaran.destroy');
 			// End Master Mata Pelajaran
+<<<<<<< HEAD
 
 
 			// Master Kegiatan
@@ -178,6 +197,8 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
 			// End Absen
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		});
 	});
 });

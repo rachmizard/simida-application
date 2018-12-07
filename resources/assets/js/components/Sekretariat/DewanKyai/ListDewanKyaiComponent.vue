@@ -15,7 +15,10 @@
                 <th width="5%" class="bg-info text-white">ID Dewan Kyai</th>
                 <th width="10%" class="bg-info text-white">Nama Dewan Kyai</th>
                 <th width="10%" class="bg-info text-white">Foto</th>
+<<<<<<< HEAD
                 <th width="5%" class="bg-info text-white">Status</th>
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                 <th width="10%" class="bg-info text-white">Aksi</th>
               </tr>
             </thead>
@@ -42,7 +45,10 @@
                         { data: 'id', name: 'id' },
                         { data: 'nama_dewan_kyai', name: 'nama_dewan_kyai'},
                         { data: 'foto', name: 'foto', orderable: false  },
+<<<<<<< HEAD
                         { data: 'status', name: 'status', orderable: false  },
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                         { data: 'action', name: 'action', orderable: false, searchable: false },
                     ]
                 }); 

@@ -21,10 +21,15 @@
     },
     "dependencies": {
         "laravel-echo": "^1.4.1",
+<<<<<<< HEAD
         "moment": "^2.22.2",
         "pusher-js": "^4.3.1",
         "vue-good-wizard": "^1.4.1",
         "vue2-timepicker": "^0.1.4",
+=======
+        "pusher-js": "^4.3.1",
+        "vue-good-wizard": "^1.4.1",
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
         "vuejs-datepicker": "^1.5.4"
     }
 }

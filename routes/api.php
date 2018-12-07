@@ -17,8 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+<<<<<<< HEAD
 Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 Route::post('/mutasi/{id}/mutasi', 'MutasiController@update')->name('mutasi.update');
 
 Route::post('/pendaftaran/store', function(Request $request){

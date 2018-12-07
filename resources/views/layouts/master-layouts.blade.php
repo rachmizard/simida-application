@@ -490,6 +490,7 @@
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.matapelajaran') }}#/list_matapelajaran"><span class="site-menu-title">Mata Pelajaran</span></a>
+<<<<<<< HEAD
                                     </li>
                                     <li class="site-menu-item has-su">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Jadwal</span></a>
@@ -504,12 +505,18 @@
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
                                             </li>
                                         </ul>
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
                                     </li>
                                     <li class="site-menu-item">
+<<<<<<< HEAD
                                         <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
+=======
+                                        <a href="%5Bform%5Dabsensi.html"><span class="site-menu-title">Absensi Kelas</span></a>
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Perubahan semester</span></a>

@@ -3,6 +3,7 @@
 </template>
 <script>
 	export default {
+<<<<<<< HEAD
 		mounted(){
 			let app = this;
 			var id = app.$route.params.id;
@@ -15,5 +16,8 @@
 					app.$router.push('/list_matapelajaran');
 			}
 		}
+=======
+		
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 	}
 </script>

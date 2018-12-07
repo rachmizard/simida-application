@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Kegiatan;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 
 class KegiatanController extends Controller
 {
@@ -16,7 +19,11 @@ class KegiatanController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         return view('pendidikan.kegiatan.kegiatan');
+=======
+        //
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     }
 
     /**
@@ -29,6 +36,7 @@ class KegiatanController extends Controller
         //
     }
 
+<<<<<<< HEAD
     public function getKegiatanDataTables(Datatables $datatables)
     {
     $kegiatans = Kegiatan::select('kegiatan.*');
@@ -58,6 +66,8 @@ class KegiatanController extends Controller
         return response()->json(['data' => $kegiatans]);
     }
 
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     /**
      * Store a newly created resource in storage.
      *
@@ -66,6 +76,7 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         $this->validate($request, [
             'nama_kegiatan' => 'required',
             'mulai_kegiatan' => 'required',
@@ -89,6 +100,9 @@ class KegiatanController extends Controller
             $data['messageError'] = false;   
         }
         return response()->json(['response' => $data]);
+=======
+        //
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     }
 
     /**
@@ -97,9 +111,15 @@ class KegiatanController extends Controller
      * @param  \App\Kegiatan  $kegiatan
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function show($id)
     {
         return Kegiatan::find($id);
+=======
+    public function show(Kegiatan $kegiatan)
+    {
+        //
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     }
 
     /**
@@ -120,6 +140,7 @@ class KegiatanController extends Controller
      * @param  \App\Kegiatan  $kegiatan
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function update(Request $request, $id)
     {
        $this->validate($request, [
@@ -145,6 +166,11 @@ class KegiatanController extends Controller
             $data['messageError'] = false;   
         }
         return response()->json(['response' => $data]);
+=======
+    public function update(Request $request, Kegiatan $kegiatan)
+    {
+        //
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     }
 
     /**
@@ -153,6 +179,7 @@ class KegiatanController extends Controller
      * @param  \App\Kegiatan  $kegiatan
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function destroy($id)
     {
         $kegiatan = Kegiatan::find($id)->delete();
@@ -160,5 +187,10 @@ class KegiatanController extends Controller
         $data['messageWarning'] = false;
         $data['messageError'] = false;   
         return response()->json(['response' => $data]);
+=======
+    public function destroy(Kegiatan $kegiatan)
+    {
+        //
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
     }
 }

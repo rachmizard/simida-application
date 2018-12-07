@@ -49,9 +49,12 @@ import Vue from 'vue';
 import VueGoodWizard from 'vue-good-wizard';
 Vue.use(VueGoodWizard);
 
+<<<<<<< HEAD
 
 // End Including Plugin
 
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // define routes for users
@@ -63,6 +66,10 @@ const routes = [
 		  name: 'pendaftaran',
 		  component: require('./components/Sekretariat/Santri/PendaftaranFormComponent.vue')
 		},
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		// END SANTRI
 
 		// KELAS
@@ -117,11 +124,14 @@ const routes = [
 		},
 
 		{
+<<<<<<< HEAD
 		  path: '/dewankyai/aktif/:id',
 		  name: 'aktifDewanKyai',
 		  component: require('./components/Sekretariat/DewanKyai/AktifDewanKyaiComponent.vue') 
 		},
 		{
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 		  path: '/dewankyai/hapus/:id',
 		  name: 'hapusDewanKyai',
 		  component: require('./components/Sekretariat/DewanKyai/DeleteDewanKyaiComponent.vue') 
@@ -135,11 +145,14 @@ const routes = [
 		  component: require('./components/Sekretariat/Santri/ListSantriComponent.vue') 
 		},
 
+<<<<<<< HEAD
 		{
 		  path: '/list_santri_aktif',
 		  name: 'listSantriAktif',
 		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
 		},
+=======
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 
 		{
 	 	  path: '/detail/santri/:id',
@@ -246,6 +259,7 @@ const routes = [
 		{
 		  path: '/mata_pelajaran/hapus/:id',
 		  name: 'hapusMataPelajaran',
+<<<<<<< HEAD
 		  component: require('./components/Pendidikan/Kegiatan/HapusKegiatanComponent.vue') 
 		},
 		// End Mata Pelajaran
@@ -289,6 +303,12 @@ const routes = [
 		  component: require('./components/Pendidikan/Absen/AbsenComponent.vue') 
 		}
 		// End Absen
+=======
+		  component: require('./components/Pendidikan/MataPelajaran/HapusMataPelajaranComponent.vue') 
+		}
+		// End Mata Pelajaran
+
+>>>>>>> 0f9c21bfdd5253e58bb2b1eccdf38268e8407c1c
 
 ]
 const router = new VueRouter({ routes });
