@@ -82,14 +82,10 @@ class MataPelajaranController extends Controller
             $data['messageError'] = false;
             $data['messageWarning'] = false;
             $post = MataPelajaran::create($request->all());
+            $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
+            $data['messageError'] = false;
+            $data['messageWarning'] = false;
         }
-            'tingkat_id' => 'tingkat_id',
-            'kelas_id' => 'kelas_id',
-        ]);
-        $mataPelajaran = MataPelajaran::create($request->all());
-        $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
-        $data['messageError'] = false;
-        $data['messageWarning'] = false;
         return response()->json(['response' => $data]);
     }
 
@@ -136,21 +132,11 @@ class MataPelajaranController extends Controller
             $data['messageError'] = false;
             $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
         }else{
-            $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
+            $data['message'] = 'Mata Pelajaran berhasil diedit!';
             $data['messageError'] = false;
             $data['messageWarning'] = false;
             $post = MataPelajaran::find($id)->update($request->all());
         }
-        $this->validate($request, [
-            'nama_mata_pelajaran' => 'required',
-            'tingkat_id' => 'tingkat_id',
-            'kelas_id' => 'kelas_id',
-        ]);
-
-        $mataPelajaran = MataPelajaran::find($id)->update($request->all());
-        $data['message'] = 'Mata Pelajaran berhasil diedit!';
-        $data['messageError'] = false;
-        $data['messageWarning'] = false;
         return response()->json(['response' => $data]);
     }
 

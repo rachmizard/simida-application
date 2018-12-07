@@ -246,7 +246,7 @@ const routes = [
 		{
 		  path: '/mata_pelajaran/hapus/:id',
 		  name: 'hapusMataPelajaran',
-		  component: require('./components/Pendidikan/Kegiatan/HapusKegiatanComponent.vue') 
+		  component: require('./components/Pendidikan/MataPelajaran/HapusMataPelajaranComponent.vue')  
 		},
 		// End Mata Pelajaran
 
