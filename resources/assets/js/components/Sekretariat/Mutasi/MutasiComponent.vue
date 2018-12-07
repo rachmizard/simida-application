@@ -16,7 +16,7 @@
 		            <label for="">Filter Santri Berdasarkan Kelas</label>
 			            <select name="filter_kelas" id="filter_kelas" class="form-control">
 			            	<option value=""></option>
-			            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
+			            	<option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
 			            </select>
 		          </div>
 	          	</div>

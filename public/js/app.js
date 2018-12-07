@@ -66628,11 +66628,9 @@ var render = function() {
                     _c("option", { attrs: { value: "" } }),
                     _vm._v(" "),
                     _vm._l(_vm.kelass.data, function(kelas) {
-                      return _c(
-                        "option",
-                        { domProps: { value: kelas.nama_kelas } },
-                        [_vm._v(_vm._s(kelas.nama_kelas))]
-                      )
+                      return _c("option", { domProps: { value: kelas.id } }, [
+                        _vm._v(_vm._s(kelas.nama_kelas))
+                      ])
                     })
                   ],
                   2

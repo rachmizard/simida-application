@@ -47,22 +47,16 @@ class MutasiController extends Controller
                               ->editColumn('nis', function($var){
                                 return '<span class="badge badge-round badge-dark badge-md">'. $var->nis .'</span>';
                               })
-                              ->editColumn('nis', function($var){
-                                return '<span class="badge badge-round badge-dark badge-md">'. $var->nis .'</span>';
-                              })
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               // })
                               ->filter(function($query) use ($request){
-                                if (request()->get('filter_kelas')) {
-                                  return $query->whereHas('kelas', function($q){
-                                    $q->where('nama_kelas', request()->get('filter_kelas'));
-                                  })->get();
-                                }
-                              }, true)
-                              ->filter(function($query) use ($request){
-                                if (request()->get('filter_nis')) {
+                                if ($request->get('filter_nis')) {
                                     return $query->where('nis', '=', request()->get('filter_nis'))->first();
+                                }
+
+                                if ($request->get('filter_kelas')) {
+                                    $query->where('kelas_id', request()->get('filter_kelas'))->get();
                                 }
                               }, true)
                               ->rawColumns(['action', 'nis'])
