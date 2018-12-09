@@ -98,8 +98,7 @@ class KegiatanController extends Controller
      */
     public function show($id)
     {
-
-
+        return Kegiatan::find($id);
     }
 
     /**

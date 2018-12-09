@@ -49,7 +49,6 @@ import Vue from 'vue';
 import VueGoodWizard from 'vue-good-wizard';
 Vue.use(VueGoodWizard);
 
-
 // End Including Plugin
 
 import VueRouter from 'vue-router';
@@ -287,8 +286,35 @@ const routes = [
 		  path: '/absen',
 		  name: 'absen',
 		  component: require('./components/Pendidikan/Absen/AbsenComponent.vue') 
-		}
+		},
 		// End Absen
+
+		// Jadwal Pelajaran
+		{
+		  path: '/jadwalpelajaran',
+		  name: 'jadwalPelajaran',
+		  component: require('./components/Pendidikan/JadwalPelajaran/JadwalPelajaranComponent.vue') 
+		},
+
+		{
+		  path: '/jadwalpelajaran/tambah',
+		  name: 'tambahJadwalPelajaran',
+		  component: require('./components/Pendidikan/JadwalPelajaran/TambahJadwalPelajaranComponent.vue') 
+		},
+
+		{
+		  path: '/jadwalpelajaran/edit/:id',
+		  name: 'editJadwalPelajaran',
+		  component: require('./components/Pendidikan/JadwalPelajaran/EditJadwalPelajaranComponent.vue') 
+		},
+
+
+		{
+		  path: '/jadwalpelajaran/hapus/:id',
+		  name: 'hapusJadwalPelajaran',
+		  component: require('./components/Pendidikan/JadwalPelajaran/HapusJadwalPelajaranComponent.vue') 
+		},
+		// End Jadwal Pelajaran
 
 ]
 const router = new VueRouter({ routes });

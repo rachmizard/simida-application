@@ -10,7 +10,7 @@ class Santri extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nis', 'nik', 'nama_santri', 'tgl_lahir', 'jenis_kelamin', 'provinsi', 'kabupaten_kota', 'kecamatan', 'kelurahan', 'alamat', 'kode_pos', 'nama_ortu', 'nama_wali', 'no_telp', 'pendidikan_terakhir', 'asrama_id', 'kobong_id', 'tingkat_id', 'kelas_id', 'tgl_masuk', 'himpunan', 'dewan_id', 'pesantren_sebelumnya', 'foto'
+        'nis', 'nik', 'nama_santri', 'tgl_lahir', 'jenis_kelamin', 'provinsi', 'kabupaten_kota', 'kecamatan', 'kelurahan', 'alamat', 'kode_pos', 'nama_ortu', 'nama_wali', 'no_telp', 'pendidikan_terakhir', 'asrama_id', 'kobong_id', 'tingkat_id', 'kelas_id', 'tgl_masuk', 'himpunan', 'dewan_id', 'pesantren_sebelumnya', 'foto', 'status'
     ];
 
     public function asrama()

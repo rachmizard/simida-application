@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/jadwalpelajaran/store', 'JadwalPelajaranController@store')->name('jadwalpelajaran.store');
+
 Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 
 Route::post('/mutasi/{id}/mutasi', 'MutasiController@update')->name('mutasi.update');

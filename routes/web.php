@@ -61,6 +61,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
 			Route::get('/kelas/getKelasDatatables', 'KelasController@getKelasDatatables')->name('kelas.getKelasDatatables');
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
+			Route::get('/kelas/KelasSelect2', 'KelasController@KelasSelect2')->name('kelas.KelasSelect2');
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
 			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
 			Route::get('/kelas/{id}/tingkat', 'KelasController@showByTingkat')->name('tingkat.showByTingkat');
@@ -108,6 +109,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/guru', 'GuruController@index')->name('guru');
 			Route::get('/guru/getGuruDataTables', 'GuruController@getGuruDataTables')->name('guru.getGuruDataTables');
 			Route::get('/guru/getJSON', 'GuruController@getJSON')->name('guru.getJSON');
+			Route::get('/guru/GuruSelect2', 'GuruController@GuruSelect2')->name('guru.GuruSelect2');
 			Route::get('/guru/tambah', 'GuruController@create')->name('guru.create');
 			Route::get('/guru/{id}/show', 'GuruController@show')->name('guru.show');
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
@@ -155,6 +157,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/matapelajaran', 'MataPelajaranController@index')->name('matapelajaran');
 			Route::get('/matapelajaran/getMataPelajaranDataTables', 'MataPelajaranController@getMataPelajaranDataTables')->name('matapelajaran.getMataPelajaranDataTables');
 			Route::get('/matapelajaran/JSON', 'MataPelajaranController@JSON')->name('matapelajaran.JSON');
+			Route::get('/matapelajaran/MataPelajaranSelect2', 'MataPelajaranController@MataPelajaranSelect2')->name('matapelajaran.MataPelajaranSelect2');
 			Route::post('/matapelajaran/store', 'MataPelajaranController@store')->name('matapelajaran.store');
 			Route::get('/matapelajaran/{id}/show', 'MataPelajaranController@show')->name('matapelajaran.show');
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
@@ -178,6 +181,14 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
 			// End Absen
+
+			// Jadwal Pelajaran
+			Route::get('/jadwalpelajaran', 'JadwalPelajaranController@index')->name('jadwalpelajaran');
+			Route::post('/jadwalpelajaran/getJadwal', 'JadwalPelajaranController@getJadwal')->name('jadwalpelajaran.getJadwal');
+			Route::post('/jadwalpelajaran/store', 'JadwalPelajaranController@store')->name('jadwalpelajaran.store');
+			Route::get('/jadwalpelajaran/{id}/show', 'JadwalPelajaranController@show')->name('jadwalpelajaran.show');
+			Route::delete('/jadwalpelajaran/{id}/destroy', 'JadwalPelajaranController@destroy')->name('jadwalpelajaran.destroy');
+			// End Jadwal Pelajaran
 		});
 	});
 });

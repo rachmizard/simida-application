@@ -7,6 +7,7 @@ use App\Guru;
 use App\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Resources\KelasResource;
+use App\Http\Resources\KelasSelect2Resource;
 use Yajra\Datatables\Datatables;
 use App\Events\DrawTable;
 
@@ -70,6 +71,11 @@ class KelasController extends Controller
     {
         $showForClass = Kelas::where('tingkat_id', $id)->get();
         return response()->json(['data' => $showForClass]);
+    }
+
+    public function KelasSelect2()
+    {
+        return KelasSelect2Resource::collection(Kelas::all());
     }
     /**
      * Store a newly created resource in storage.

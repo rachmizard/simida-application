@@ -6,6 +6,7 @@ use App\Guru;
 use App\Events\DrawTable;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
+use App\Http\Resources\GuruSelect2Resource;
 
 class GuruController extends Controller
 {
@@ -48,7 +49,12 @@ class GuruController extends Controller
 
     public function getJSON()
     {
-        return Guru::all();
+        return Guru::get();
+    }
+
+    public function GuruSelect2()
+    {
+        return GuruSelect2Resource::collection(Guru::all());
     }
 
     /**

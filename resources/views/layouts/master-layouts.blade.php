@@ -498,7 +498,7 @@
                                                 <a href="{{ route('pendidikan.kegiatan') }}#/list_kegiatan"><span class="site-menu-title">Jadwal Kegiatan</span></a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Jadwal Pelajaran</span></a>
+                                                <a href="{{ route('pendidikan.jadwalpelajaran') }}#/jadwalpelajaran"><span class="site-menu-title">Jadwal Pelajaran</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>

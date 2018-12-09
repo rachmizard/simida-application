@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\MataPelajaran;
 use App\Kelas;
 use Illuminate\Http\Request;
+use App\Http\Resources\MataPelajaranSelect2Resource;
 use Yajra\Datatables\Datatables;
 
 class MataPelajaranController extends Controller
@@ -56,6 +57,11 @@ class MataPelajaranController extends Controller
                                 }
                               }, true)
                               ->make(true);
+    }
+
+    public function MataPelajaranSelect2()
+    {
+        return MataPelajaranSelect2Resource::collection(MataPelajaran::all());
     }
 
     /**
