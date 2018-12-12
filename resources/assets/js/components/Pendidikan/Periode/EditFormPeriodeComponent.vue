@@ -86,7 +86,7 @@
             updateperiode:function(e){
                 let app = this;
                 var periode = app.periode;
-                axios.post('/pendidikan/periode/'+ app.$route.params.id +'/update', periode)
+                axios.put('/pendidikan/periode/'+ app.$route.params.id +'/update', periode)
                 .then(function (resp) {
                   app.errors = [];
                   app.message = resp.data.response.message;

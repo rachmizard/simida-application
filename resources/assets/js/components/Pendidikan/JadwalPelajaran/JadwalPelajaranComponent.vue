@@ -15,20 +15,20 @@
 	          	<div class="col-md-5">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
-		            <select name="filter_kelas" id="filter_kelas" class="form-control selectTo">
-		            	<option value="">Cari berdasarkan kelas</option>
+		            <select name="filter_periode" id="filter_periode" class="form-control selectTo">
+		            	<option value="">Periode</option>
 		            	<option value="">Semua..</option>
-		            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
+		            	<option v-for="periode in periodes.data" :value="periode.nama_periode">{{ periode.nama_periode }}</option>
 		            </select>
 		          </div>
 	          	</div>
 	          	<div class="col-md-5">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
-		            <select name="filter_tingkat" id="filter_tingkat" class="form-control selectTo">
-		            	<option value="">Cari berdasarkan tingkatnya</option>
+		            <select name="filter_kelas" id="filter_kelas" class="form-control selectTo">
+		            	<option value="">Filter berdasarkan kelas</option>
 		            	<option value="">Semua..</option>
-		            	<option v-for="tingkat in tingkats.data" :value="tingkat.nama_tingkatan">{{ tingkat.nama_tingkatan }}</option>
+		            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
 		            </select>
 		          </div>
 	          	</div>
@@ -82,7 +82,7 @@
 						},
 		                data:function(e){
 		                  e.filter_kelas = $('select[name="filter_kelas"]').val();
-		                  e.filter_tingkat = $('select[name="filter_tingkat"]').val();
+		                  e.filter_periode = $('select[name="filter_periode"]').val();
 		                }
 		              },
 		              columns: [
@@ -97,14 +97,12 @@
 		              ]
 		          }); 
 
-		         console.log(token);
-
 		         // Auto reload when getting result 
 		        $('#filter_kelas').on('change', function(e) {
 		            table.draw();
 		            e.preventDefault();
 		        });
-		        $('#filter_tingkat').on('change', function(e) {
+		        $('#filter_periode').on('change', function(e) {
 		            table.draw();
 		            e.preventDefault();
 		        });
@@ -114,7 +112,7 @@
 		data(){
 			return {
 				kelass: [],
-				tingkats: [],
+				periodes: [],
 			}
 		},
 
@@ -123,8 +121,8 @@
 				axios.get('/sekretariat/kelas/JSON').then(response => {
 					this.kelass = response.data;
 				})
-				axios.get('/sekretariat/tingkatan/getJSON').then(response => {
-					this.tingkats = response.data;
+				axios.get('/pendidikan/periode/getPeriodeDataTables').then(response => {
+					this.periodes = response.data;
 				})
 			}
 		}

@@ -37,6 +37,11 @@ class SantriController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function santri_aktif()
+    {
+        return view('sekretariat.data-santri-aktif.data-santri-aktif');   
+    }
+
     public function pendaftaran()
     {
 
@@ -55,7 +60,7 @@ class SantriController extends Controller
                                 'tingkat',
                                 'kelas',
                                 'dewan'
-                                ])->select('santri.*');
+                                ])->select('santri.*')->where('status', 'aktif');
         return $datatables->eloquent($santri) 
                               ->addColumn('action', function($var){
                                 return '
@@ -67,6 +72,13 @@ class SantriController extends Controller
 
                                         ';
                               })
+                              ->addColumn('status', function($var){
+                                    if ($var['status'] == 'aktif') {
+                                        return '<span class="badge badge-round badge-md badge-success">'. $var['status'] .'</span>';
+                                    }else{
+                                        return '<span class="badge badge-round badge-md badge-danger">'. $var['status'] .'</span>';
+                                    }
+                              })
                               ->editColumn('foto', function($var){
                                     return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               })
@@ -76,6 +88,12 @@ class SantriController extends Controller
                                     $q->where('nama_kelas', request()->get('filter_kelas'));
                                   })->get();
                                 }
+
+                                if (request()->get('filter_asrama')) {
+                                  return $query->whereHas('asrama', function($q){
+                                    $q->where('id', request()->get('filter_asrama'));
+                                  })->get();
+                                }
                               }, true)
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
@@ -83,13 +101,66 @@ class SantriController extends Controller
                               // ->addColumn('foto', function($var){
                               //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
                               // })
-                              ->rawColumns(['action', 'foto'])
+                              ->rawColumns(['action', 'foto', 'status'])
+                              ->make(true);
+    }
+
+    public function getSantriAktifDataTables(Request $request, Datatables $datatables)
+    {
+        $santri = Santri::with([
+                                'asrama.ngaran',
+                                'kobong',
+                                'tingkat',
+                                'kelas',
+                                'dewan'
+                                ])->select('santri.*')->where('status', 'aktif');
+        return $datatables->eloquent($santri) 
+                              ->addColumn('action', function($var){
+                                return '
+                                        <div class="btn-group text-center">
+                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
+                                            <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
+                                        </div>
+
+                                        ';
+                              })
+                              ->addColumn('status', function($var){
+                                    if ($var['status'] == 'aktif') {
+                                        return '<span class="badge badge-round badge-md badge-success">'. $var['status'] .'</span>';
+                                    }else{
+                                        return '<span class="badge badge-round badge-md badge-danger">'. $var['status'] .'</span>';
+                                    }
+                              })
+                              ->editColumn('foto', function($var){
+                                    return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              })
+                              ->filter(function($query) use ($request){
+                                if (request()->get('filter_kelas')) {
+                                  return $query->whereHas('kelas', function($q){
+                                    $q->where('nama_kelas', request()->get('filter_kelas'));
+                                  })->get();
+                                }
+
+                                if (request()->get('filter_asrama')) {
+                                  return $query->whereHas('asrama', function($q){
+                                    $q->where('id', request()->get('filter_asrama'));
+                                  })->get();
+                                }
+                              }, true)
+                              // ->addColumn('foto', function($var){
+                              //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              // })
+                              // ->addColumn('foto', function($var){
+                              //       return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                              // })
+                              ->rawColumns(['action', 'foto', 'status'])
                               ->make(true);
     }
 
     public function getSantriJSON()
     {
-        return SantriResource::collection(Santri::all());
+        return SantriResource::collection(Santri::whereStatus('aktif')->get());
     }
 
     public function showByClass(Datatables $datatables, $id_kelas)
@@ -100,7 +171,7 @@ class SantriController extends Controller
                                 'tingkat',
                                 'kelas',
                                 'dewan'
-                                ])->select('santri.*');
+                                ])->select('santri.*')->whereStatus('aktif');
         return $datatables->eloquent($santri) 
                               ->addColumn('action', function($var){
                                 return '

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Kegiatan;
 use Illuminate\Http\Request;
-
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
+
 class KegiatanController extends Controller
 {
     /**
@@ -43,10 +43,10 @@ class KegiatanController extends Controller
                             ';
                 })
                 ->editColumn('mulai_kegiatan', function($var){
-                    return '<span class="badge badge-primary">'. $var->mulai_kegiatan .'</span>';
+                    return '<span class="badge badge-primary">'. Carbon::parse($var->mulai_kegiatan)->format('H:i A') .'</span>';
                 })
                 ->editColumn('akhir_kegiatan', function($var){
-                    return '<span class="badge badge-danger">'. $var->akhir_kegiatan .'</span>';     
+                    return '<span class="badge badge-danger">'. Carbon::parse($var->akhir_kegiatan)->format('H:i A').'</span>';     
                 })
                 ->rawColumns(['action', 'mulai_kegiatan', 'akhir_kegiatan'])
                 ->make(true);

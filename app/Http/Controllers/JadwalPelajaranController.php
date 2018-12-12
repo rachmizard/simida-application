@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\JadwalPelajaran;
 use App\Periode;
 use App\MataPelajaran;
+use App\Kegiatan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -30,14 +32,27 @@ class JadwalPelajaranController extends Controller
                             <a href="#/jadwalpelajaran/hapus/'. $jadwalpels['id'] .'" class="btn btn-xs btn-danger"><i class="icon wb-trash"></i></a>
                     ';
                 })
+                ->editColumn('jam_masuk', function($jadwalpels){
+                    return '<span class="badge badge-dark">'. $jadwalpels['jam_masuk'] .'</span>';
+                })
+                ->editColumn('jam_selesai', function($jadwalpels){
+                    return '<span class="badge badge-dark">'. $jadwalpels['jam_selesai'] .'</span>';
+                })
+                ->editColumn('hari', function($jadwalpels){
+                    return '<span class="badge badge-info">'. $jadwalpels['hari'] .'</span>';
+                })
                 ->filter(function($query) use ($request){
                     if (request()->get('filter_kelas')) {
                         $query->whereHas('kelas', function($q){
-                            $q->where('nama_kelas', request()->get('filter_kelas'));
+                            $q->where('nama_kelas', request('filter_kelas'));
                         })->get();
                     }
+
+                    if (request()->get('filter_periode')) {
+                        $query->where('periode', request('filter_periode'));
+                    }
                 }, true)
-                ->rawColumns(['aksi'])
+                ->rawColumns(['jam_masuk', 'jam_selesai','hari', 'aksi'])
                 ->make(true);
     }
 
@@ -77,24 +92,48 @@ class JadwalPelajaranController extends Controller
                                     ->where('kelas_id', $request->kelas_id)
                                     ->where('hari', $request->hari)
                                     // ->where('semester_id', $request->semester_id) // Still waiting for decision
-                                    ->where('jam_masuk', $request->jam_masuk)
-                                    ->where('jam_selesai', $request->jam_selesai)
+                                    ->where('jam_masuk', Carbon::parse($request->jam_masuk)->format('H:i:s'))
+                                    ->where('jam_selesai', Carbon::parse($request->jam_selesai)->format('H:i:s'))
                                     ->where('periode', $getDefaultPeriode['nama_periode'])
                                     ->count();
-        if ($validator > 0) {
-            $data['message'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada periode '. $getDefaultPeriode['nama_periode'] .', silahkan cek lagi Jadwal yang kosong.';
+        $checkMapelnya = JadwalPelajaran::where('mata_pelajaran_id', $request->mata_pelajaran_id)
+                                    ->where('kelas_id', $request->kelas_id)
+                                    ->where('hari', $request->hari)
+                                    // ->where('semester_id', $request->semester_id) // Still waiting for decision
+                                    ->where('jam_masuk', Carbon::parse($request->jam_masuk)->format('H:i:s'))
+                                    ->where('jam_selesai', Carbon::parse($request->jam_selesai)->format('H:i:s'))
+                                    ->where('periode', $getDefaultPeriode['nama_periode'])
+                                    ->count();
+        $checkKegiatan = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->count();
+        $getData = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->first();
+
+
+
+        if ($checkKegiatan > 0) {
+            $data['message'] = false;
+            $data['messageWarningKegiatan'] = 'Jam '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .' sudah terisi oleh kegiatan '. $getData['nama_kegiatan'];
         }else{
-            $jadwalpelajaran = JadwalPelajaran::create([
-                'mata_pelajaran_id' => $request->mata_pelajaran_id,
-                'guru_id' => $request->guru_id,
-                'kelas_id' => $request->kelas_id,
-                'hari' => $request->hari,
-                'semester_id' => $request->semester_id,
-                'jam_masuk' => $request->jam_masuk,
-                'jam_selesai' => $request->jam_selesai,
-                'periode' => $getDefaultPeriode['nama_periode']
-            ]);
-            $data['message'] = 'Jadwal berhasil disimpan!';   
+            if ($validator > 0) {
+                $data['message'] = false;
+                $data['messageWarning'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada pukul '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .', silahkan cek lagi Jadwal yang kosong.';
+            }else{
+                if ($checkMapelnya > 0) {
+                    $data['message'] = false;
+                    $data['messageWarning'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada pukul '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .', silahkan cek lagi Jadwal yang kosong.';
+                }else{
+                    $jadwalpelajaran = JadwalPelajaran::create([
+                        'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                        'guru_id' => $request->guru_id,
+                        'kelas_id' => $request->kelas_id,
+                        'hari' => $request->hari,
+                        'semester_id' => $request->semester_id,
+                        'jam_masuk' => $request->jam_masuk,
+                        'jam_selesai' => $request->jam_selesai,
+                        'periode' => $getDefaultPeriode['nama_periode']
+                    ]);
+                    $data['message'] = 'Jadwal berhasil disimpan!';      
+                }
+            }
         }
 
         return response()->json(['response' => $data]);
@@ -131,39 +170,66 @@ class JadwalPelajaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+         $this->validate($request, [
             'mata_pelajaran_id' => 'required', 
             'hari' => 'required', 
             'guru_id' => 'required', 
             'kelas_id' => 'required', 
-            'semester_id' => 'required', 
+            'hari' => 'required',
+            // 'semester_id' => 'required', 
             'jam_masuk' => 'required', 
             'jam_selesai' => 'required', 
-            'periode' => 'required',
+            // 'periode' => 'required',
         ]);
 
         $getDefaultPeriode = Periode::whereStatus('aktif')->first();
         $validator = JadwalPelajaran::where('mata_pelajaran_id', $request->mata_pelajaran_id)
                                     ->where('guru_id', $request->guru_id)
                                     ->where('kelas_id', $request->kelas_id)
+                                    ->where('hari', $request->hari)
                                     // ->where('semester_id', $request->semester_id) // Still waiting for decision
-                                    ->where('jam_masuk', $request->jam_masuk)
-                                    ->where('jam_selesai', $request->jam_selesai)
+                                    ->where('jam_masuk', Carbon::parse($request->jam_masuk)->format('H:i:s'))
+                                    ->where('jam_selesai', Carbon::parse($request->jam_selesai)->format('H:i:s'))
                                     ->where('periode', $getDefaultPeriode['nama_periode'])
                                     ->count();
-        if ($validator > 0) {
-            $data['message'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada periode '. $getDefaultPeriode['nama_periode'] .', silahkan cek lagi Jadwal yang kosong.';
+        $checkMapelnya = JadwalPelajaran::where('mata_pelajaran_id', $request->mata_pelajaran_id)
+                                    ->where('kelas_id', $request->kelas_id)
+                                    ->where('hari', $request->hari)
+                                    // ->where('semester_id', $request->semester_id) // Still waiting for decision
+                                    ->where('jam_masuk', Carbon::parse($request->jam_masuk)->format('H:i:s'))
+                                    ->where('jam_selesai', Carbon::parse($request->jam_selesai)->format('H:i:s'))
+                                    ->where('periode', $getDefaultPeriode['nama_periode'])
+                                    ->count();
+        $checkKegiatan = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->count();
+        $getData = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->jam_masuk)->format('H:i'))->first();
+
+
+
+        if ($checkKegiatan > 0) {
+            $data['message'] = false;
+            $data['messageWarningKegiatan'] = 'Jam '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .' sudah terisi oleh kegiatan '. $getData['nama_kegiatan'];
         }else{
-            $jadwalpelajaran = JadwalPelajaran::find($id)->update([
-                'mata_pelajaran_id' => $request->mata_pelajaran_id,
-                'guru_id' => $request->guru_id,
-                'kelas_id' => $request->kelas_id,
-                'semester_id' => $request->semester_id,
-                'jam_masuk' => $request->jam_masuk,
-                'jam_selesai' => $request->jam_selesai,
-                'periode' => $getDefaultPeriode['nama_periode']
-            ]);
-            $data['message'] = 'Jadwal berhasil edit!';   
+            if ($validator > 0) {
+                $data['message'] = false;
+                $data['messageWarning'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada pukul '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .', silahkan cek lagi Jadwal yang kosong.';
+            }else{
+                if ($checkMapelnya > 0) {
+                    $data['message'] = false;
+                    $data['messageWarning'] = 'Jadwal '. MataPelajaran::find($request->mata_pelajaran_id)->value('nama_mata_pelajaran') .' sudah tersedia di hari '. $request->hari .' pada pukul '. Carbon::parse($request->jam_masuk)->format('H:i:s A') .', silahkan cek lagi Jadwal yang kosong.';
+                }else{
+                    $jadwalpelajaran = JadwalPelajaran::find($id)->update([
+                        'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                        'guru_id' => $request->guru_id,
+                        'kelas_id' => $request->kelas_id,
+                        'hari' => $request->hari,
+                        'semester_id' => $request->semester_id,
+                        'jam_masuk' => $request->jam_masuk,
+                        'jam_selesai' => $request->jam_selesai,
+                        'periode' => $getDefaultPeriode['nama_periode']
+                    ]);
+                    $data['message'] = 'Jadwal berhasil disimpan!';      
+                }
+            }
         }
 
         return response()->json(['response' => $data]);

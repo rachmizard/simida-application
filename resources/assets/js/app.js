@@ -64,6 +64,15 @@ const routes = [
 		},
 		// END SANTRI
 
+
+		// SANTRI
+		{
+		  path: '/santriaktif',
+		  name: 'listSantriAktif',
+		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
+		},
+		// END SANTRI
+
 		// KELAS
 		{
 		  path: '/list_kelas',
@@ -308,13 +317,27 @@ const routes = [
 		  component: require('./components/Pendidikan/JadwalPelajaran/EditJadwalPelajaranComponent.vue') 
 		},
 
-
 		{
 		  path: '/jadwalpelajaran/hapus/:id',
 		  name: 'hapusJadwalPelajaran',
 		  component: require('./components/Pendidikan/JadwalPelajaran/HapusJadwalPelajaranComponent.vue') 
 		},
 		// End Jadwal Pelajaran
+
+		// Keuangan
+		{
+		  path: '/keuangan',
+		  name: 'keuangan',
+		  component: require('./components/Keuangan/KeuanganComponent.vue') 
+		},
+
+		{
+		  path: '/keuangan/tambahpemasukan/donatur',
+		  name: 'keuanganTambahPemasukanDonatur',
+		  component: require('./components/Keuangan/TambahPemasukanDonaturComponent.vue') 
+		},
+		// End Kuangan
+
 
 ]
 const router = new VueRouter({ routes });

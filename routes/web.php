@@ -49,6 +49,8 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
 			Route::get('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
+			Route::get('/santri/getSantriAktifDataTables', 'SantriController@getSantriAktifDataTables')->name('santri.getSantriAktifDataTables');
+			Route::get('/santri/santri_aktif', 'SantriController@santri_aktif')->name('santri.santri_aktif');
 			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
 			Route::get('/santri/{id_kelas}/kelas', 'SantriController@showByClass')->name('santri.showByClass');
 			Route::get('/santri/{id}/show', 'SantriController@show')->name('santri.show');
@@ -82,6 +84,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/asrama/getAsramaDataTables', 'AsramaController@getAsramaDataTables')->name('asrama.getAsramaDataTables');
 			Route::get('/asrama/getAsrama/{kategori}', 'AsramaController@getAsramaKategori')->name('asrama.getAsramaKategori');
 			Route::get('/asrama/get/allKategori', 'AsramaController@getAsramaAllKategori')->name('asrama.getAsramaAllKategori');
+			Route::get('/asrama/AsramaSelect2', 'AsramaController@AsramaSelect2')->name('asrama.AsramaSelect2');
 			Route::get('/asrama/get/putra', 'AsramaController@getAsramaPutra')->name('asrama.getAsramaPutra');
 			Route::get('/asrama/get/putri', 'AsramaController@getAsramaPutri')->name('asrama.getAsramaPutri');
 			Route::post('/asrama/storeNamaAsrama', 'AsramaController@storeNamaAsrama')->name('asrama.storeNamaAsrama');
@@ -187,6 +190,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::post('/jadwalpelajaran/getJadwal', 'JadwalPelajaranController@getJadwal')->name('jadwalpelajaran.getJadwal');
 			Route::post('/jadwalpelajaran/store', 'JadwalPelajaranController@store')->name('jadwalpelajaran.store');
 			Route::get('/jadwalpelajaran/{id}/show', 'JadwalPelajaranController@show')->name('jadwalpelajaran.show');
+			Route::put('/jadwalpelajaran/{id}/update', 'JadwalPelajaranController@update')->name('jadwalpelajaran.update');
 			Route::delete('/jadwalpelajaran/{id}/destroy', 'JadwalPelajaranController@destroy')->name('jadwalpelajaran.destroy');
 			// End Jadwal Pelajaran
 		});
@@ -195,7 +199,14 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 Route::middleware(['auth', 'is_keuangan'])->group(function(){
 	Route::prefix('keuangan')->group(function(){
 		Route::name('keuangan.')->group(function(){
-			Route::get('/home', 'HomeController@keuanganHome')->name('home');
+			Route::get('/', 'KeuanganController@index')->name('home');
+			Route::get('/pemasukan', 'PemasukanController@index')->name('pemasukan.home');
+			Route::get('/pemasukan/totalPemasukan', 'PemasukanController@totalPemasukan')->name('pemasukan.totalPemasukan');
+			Route::get('/pemasukan/sekilasKeuangan', 'PemasukanController@sekilasKeuangan')->name('pemasukan.sekilasKeuangan');
+			Route::post('/pemasukan/store', 'PemasukanController@store')->name('pemasukan.store');
+			Route::get('/pemasukan/{id}/show', 'PemasukanController@show')->name('pemasukan.show');
+			Route::put('/pemasukan/{id}/update', 'PemasukanController@update')->name('pemasukan.update');
+			Route::delete('/pemasukan/{id}/destroy', 'PemasukanController@destroy')->name('pemasukan.destroy');
 		});
 	});
 });

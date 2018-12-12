@@ -16,6 +16,12 @@
                               </button>
                               <i class="icon wb-check" aria-hidden="true"></i> {{ messageWarning }}
                         </div>
+                        <div v-if="messageWarningKegiatan" class="alert dark alert-icon alert-warning alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <i class="icon wb-check" aria-hidden="true"></i> {{ messageWarningKegiatan }}
+                        </div>
                         <form @submit.prevent="storejadwalpelajaran" action="/pendidikan/jadwalpelajaran/store"  autocomplete="off">
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
@@ -132,7 +138,8 @@
                 periode: '',
                 message: '',
                 messageError: '',
-                messageWarning: ''
+                messageWarning: '',
+                messageWarningKegiatan: ''
             }
         },
 
@@ -168,17 +175,19 @@
                   app.message = resp.data.response.message;
                   if (app.message == false) {
                 	app.messageWarning = resp.data.response.messageWarning;
+                    app.messageWarningKegiatan = resp.data.response.messageWarningKegiatan;
 	                    setTimeout(() => {
 	                        app.messageError = false;
 	                        app.message = false;
 	                        app.messageWarning = false;
-	                    }, 5000);	
+                            app.messageWarningKegiatan = false;
+	                    }, 14000);	
                   }else{
 	                app.$router.replace('/jadwalpelajaran'); // redirect to url "/"
 	                    setTimeout(() => {
 	                        app.messageError = false;
 	                        app.message = false;
-	                    }, 5000);	
+	                    }, 14000);	
                   }
                 }).catch((error) => {
                      app.errors = error.response.data.errors;

@@ -45,7 +45,9 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.5/css/fixedColumns.bootstrap4.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.bootstrap4.min.css">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/webui-popover/webui-popover.min.css?v4.0.2">
-  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/toolbar/toolbar.min.css?v4.0.2">
+  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/toolbar/toolbar.min.css?v4.0.2">  
+  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/tablesaw/tablesaw.min.css?v4.0.2">
+
     <!-- FORM WIZARD -->
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/jquery-wizard/jquery-wizard.min.css?v4.0.2">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/formValidation.min.css?v4.0.2">
@@ -472,7 +474,7 @@
                                         <a href="{{ route('sekretariat.mutasi') }}#/mutasi/santri"><span class="site-menu-title">Perpindahan Asrama Santri</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Daftar Santri Aktif</span></a>
+                                        <a href="{{ route('sekretariat.santri.santri_aktif') }}#/santriaktif"><span class="site-menu-title">Daftar Santri Aktif</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -543,7 +545,7 @@
                                 </a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="%5Bform%5Dpemasukan.html"><span class="site-menu-title">Syariah</span></a>
+                                        <a href="{{ route('keuangan.home') }}#/keuangan"><span class="site-menu-title">Data Keuangan</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="%5Bform%5Dpengeluaran.html"><span class="site-menu-title">Pengeluaran</span></a>
@@ -581,7 +583,7 @@
                             @endif
                         </ul>
 
-                        <div class="site-menubar-section">
+                        <!-- <div class="site-menubar-section">
                             <h5>Santri<span class="float-right">77%</span></h5>
                             <div class="progress progress-xs">
                                 <div class="progress-bar active" style="width: 80%;" role="progressbar"></div>
@@ -590,7 +592,7 @@
                             <div class="progress progress-xs">
                                 <div class="progress-bar progress-bar-warning" style="width: 43%;" role="progressbar"></div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -679,6 +681,9 @@
         $('.selectTo').select2();
     });
     </script>
+
+    <script src="https://getbootstrapadmin.com/remark/global/vendor/tablesaw/tablesaw.jquery.js?v4.0.2"></script>
+    <script src="https://getbootstrapadmin.com/remark/global/vendor/tablesaw/tablesaw-init.js?v4.0.2"></script>
       <!-- Datatables -->
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>

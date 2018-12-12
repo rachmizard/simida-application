@@ -111,7 +111,11 @@ class PeriodeController extends Controller
     public function update(Request $request, $id)
     {
         $periode = Periode::find($id);
-        $periode->update($request->all());
+        $periode->update([
+            'nama_periode' => $request->nama_periode,
+            'start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'end_date' => date('Y-m-d', strtotime($request->end_date))
+        ]);
         $data['message'] = 'Berhasil di edit!';
         $data['messageWarning'] = false;
         $data['messageError'] = false;   

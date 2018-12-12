@@ -34,12 +34,12 @@
               <tr>
                 <th>ID Kelas</th>
                 <th>Nama Kelas</th>
-                <th>Tingkat</th>
+                <!-- <th>Tingkat</th> -->
                 <th>Guru</th>
                 <th>Badal</th>
                 <th>Aksi</th>
               </tr>
-            </thead>
+            </thead><!-- 
             <tfoot>
               <tr>
               	<th>ID Kelas</th>
@@ -49,7 +49,7 @@
                 <th>Badal</th>
                 <th>Aksi</th>
               </tr>
-            </tfoot>
+            </tfoot> -->
             <tbody>
             </tbody>
           </table>
@@ -88,7 +88,7 @@
                   columns: [
                       { data: 'id', name: 'id' },
                       { data: 'nama_kelas', name: 'nama_kelas' },
-                      { data: 'tingkat', name: 'tingkat' },
+                      // { data: 'tingkat', name: 'tingkat' },
                       { data: 'guru_id.nama_guru', name: 'guru_id.nama_guru' },
                       { data: 'badal_id.nama_guru', name: 'badal_id.nama_guru' },
                       { data: 'action', name: 'action', orderable: false, searchable: false },

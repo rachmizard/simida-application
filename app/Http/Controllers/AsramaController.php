@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Resources\AsramaResource;
+use App\Http\Resources\AsramaSelect2Resource;
 use App\Http\Resources\AsramaKobongResource;
 use DB;
 
@@ -60,6 +61,11 @@ class AsramaController extends Controller
                   }, true)
                 ->rawColumns(['action', 'kobong'])
                 ->make(true);
+    }
+
+    public function AsramaSelect2()
+    {
+        return AsramaSelect2Resource::collection(Asrama::orderBy('kategori_asrama', 'DESC')->get());
     }
 
     /**

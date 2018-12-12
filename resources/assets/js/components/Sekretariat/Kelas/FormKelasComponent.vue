@@ -124,20 +124,16 @@
                         <div class="example">
                             <div class="form-group">
                                 <label class="form-control-label" for="">Nama Guru</label>
-                                <select class="form-control select2" v-model="kelas.guru_id" placeholder="Nama Guru">
+                                <Select2 v-model="kelas.guru_id" :options="listGuru" placeholder="Nama Guru">
                                     <option disabled selected value="">Pilih Guru</option>
-                                    <option value="1">Usman Khatam</option>
-                                    <option value="2">Jeffry Washington</option>
-                                </select>
+                                </Select2>
                                 <span v-if="errors.guru_id" class="label label-danger">{{ errors.guru_id[0] }}</span>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="">Badal (Pengganti)</label>
-                                <select class="form-control select2" v-model="kelas.badal_id" placeholder="Nama Guru">
-                                    <option disabled selected value="">Pilih Guru</option>
-                                    <option value="1">Usman Khatam</option>
-                                    <option value="2">Jeffry Washington</option>
-                                </select>
+                                <Select2 v-model="kelas.badal_id" :options="listGuru" placeholder="Nama Guru">
+                                    <option disabled selected value="">Pilih Pengganti Guru</option>
+                                </Select2>
                                 <span v-if="errors.badal_id" class="label label-danger">{{ errors.badal_id[0] }}</span>
                             </div>
                             <div class="form-row">
@@ -155,10 +151,15 @@
 </div>
 </template>
 <script>
+    import Select2 from 'v-select2-component';
 	
     export default {
+      components: {
+        Select2
+      },
         mounted() {
             this.retrieveTingkat();
+            this.retrieveGuru();
         },
 
         data(){
@@ -176,6 +177,7 @@
                     nama_tingkatan: ''
                 },
                 listTingkat: [],
+                listGuru: [],
             	message: '',
             	messageError: '',
             	messageWarning: '',
@@ -217,6 +219,13 @@
                 let app = this;
                 axios.get('/sekretariat/tingkatan/getJSON').then(function(response) {
                     app.listTingkat = response.data;
+                })
+            },
+
+            retrieveGuru(){
+                let app = this;
+                axios.get('/sekretariat/guru/GuruSelect2').then(function(response) {
+                    app.listGuru = response.data.data;
                 })
             },
 
