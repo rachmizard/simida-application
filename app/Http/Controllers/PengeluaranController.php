@@ -6,6 +6,7 @@ use App\Pengeluaran;
 use App\TotalUang;
 use App\Periode;
 use App\NamaJenisPengeluaran;
+use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,27 @@ class PengeluaranController extends Controller
     {
         $getNamaJenisPengeluaran = NamaJenisPengeluaran::get();
         return response()->json(['data' => $getNamaJenisPengeluaran]);
+    }
+
+
+
+    public function sekliaspengeluaran()
+    {
+        return response()->json(Pengeluaran::with('jenispengeluaran')->orderBy('jumlah_pengeluaran', 'DESC')->paginate(10));
+    }
+
+    public function totalpengeluaran()
+    {
+        
+        $periodeDefaultSet = Periode::whereStatus('aktif')->first();
+
+        $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
+        $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
+
+        $totalByPeriodeActive = Pengeluaran::whereBetween('tgl_pengeluaran', [$start_date, $end_date])->sum('jumlah_pengeluaran');
+
+
+        return response()->json(['total' => $totalByPeriodeActive, 'periode' => $periodeDefaultSet['nama_periode']]);
     }
 
     /**

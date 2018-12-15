@@ -333,6 +333,13 @@ const routes = [
 			  component: require('./components/Keuangan/KeuanganComponent.vue') 
 			},
 
+
+			{
+			  path: '/keuangan/pemasukan',
+			  name: 'keuanganPemasukan',
+			  component: require('./components/Keuangan/PemasukanComponent.vue') 
+			},
+
 			{
 			  path: '/keuangan/tambahpemasukan/donatur',
 			  name: 'keuanganTambahPemasukanDonatur',

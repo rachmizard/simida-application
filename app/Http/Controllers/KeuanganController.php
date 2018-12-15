@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Periode;
+use App\TotalUang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class KeuanganController extends Controller
@@ -14,6 +16,20 @@ class KeuanganController extends Controller
     public function index()
     {
         return view('keuangan.keuangan');
+    }
+
+    public function cashNow()
+    {
+        
+        $periodeDefaultSet = Periode::whereStatus('aktif')->first();
+
+        $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
+        $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
+
+        $totalByPeriodeActive = TotalUang::wherePeriode($periodeDefaultSet['nama_periode'])->value('total_nominal');
+
+
+        return response()->json(['total' => $totalByPeriodeActive, 'periode' => $periodeDefaultSet['nama_periode']]);
     }
 
     /**

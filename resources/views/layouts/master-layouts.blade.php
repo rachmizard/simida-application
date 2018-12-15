@@ -548,7 +548,10 @@
                                         <a href="{{ route('keuangan.home') }}#/keuangan"><span class="site-menu-title">Data Keuangan</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="%5Bform%5Dpengeluaran.html"><span class="site-menu-title">Pengeluaran</span></a>
+                                        <a href="{{ route('keuangan.home') }}#/keuangan/pengeluaran"><span class="site-menu-title">Pengeluaran</span></a>
+                                    </li>
+                                    <li class="site-menu-item">
+                                        <a href="{{ route('keuangan.home') }}#/keuangan/pemasukan"><span class="site-menu-title">Pemasukan</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>

@@ -7,6 +7,7 @@ use App\Periode;
 use Carbon\Carbon;
 use DB;
 use App\TotalUang;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
 class PemasukanController extends Controller
@@ -31,6 +32,31 @@ class PemasukanController extends Controller
         //
     }
 
+    public function getPemasukanDataTables(Datatables $datatables)
+    {
+        $pemasukans = Pemasukan::query();
+        return $datatables->eloquent($pemasukans)
+        ->editColumn('jumlah_pemasukan', function($var){
+            return "Rp " . number_format($var->jumlah_pemasukan,2,',','.');
+        })
+        ->editColumn('jenis_pemasukan', function($var){
+            if ($var->jenis_pemasukan == 'donatur') {
+                return '<span class="badge badge-sm bg-yellow-700 text-white">DONATUR</span>';
+            }else if ($var->jenis_pemasukan == 'infaq') {
+                return '<span class="badge badge-sm bg-green-700 text-white">Infaq</span>';
+            }
+        })
+        ->addColumn('action', function($var){
+            return '
+            <div class="text-center">
+            <a title="Hapus pemasukan" href="#/keuangan/pemasukan/hapus/'. $var->id .'" class="btn btn-xs btn-round btn-danger"><i class="icon wb-trash"></i></a>
+            </div>
+            ';
+        })
+        ->rawColumns(['jenis_pemasukan', 'action'])
+        ->make(true);
+    }
+
     public function totalPemasukan()
     {
         $periodeDefaultSet = Periode::whereStatus('aktif')->first();
@@ -38,7 +64,7 @@ class PemasukanController extends Controller
         $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
         $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
 
-        $totalByPeriodeActive = TotalUang::wherePeriode($periodeDefaultSet['nama_periode'])->value('total_nominal');
+        $totalByPeriodeActive = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date ])->sum('jumlah_pemasukan');
 
 
         return response()->json(['total' => $totalByPeriodeActive, 'periode' => $periodeDefaultSet['nama_periode']]);

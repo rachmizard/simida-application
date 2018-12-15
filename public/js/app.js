@@ -40848,6 +40848,10 @@ var routes = [
 		name: 'keuangan',
 		component: __webpack_require__(306)
 }, {
+		path: '/keuangan/pemasukan',
+		name: 'keuanganPemasukan',
+		component: __webpack_require__(333)
+}, {
 		path: '/keuangan/tambahpemasukan/donatur',
 		name: 'keuanganTambahPemasukanDonatur',
 		component: __webpack_require__(309)
@@ -99085,12 +99089,114 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
 		var _this = this;
 
 		this.$forceUpdate();
+
+		axios.get('/keuangan/cashNow').then(function (response) {
+			_this.total_cash.total = _this.formatPrice(response.data.total);
+		});
+
 		axios.get('/keuangan/pemasukan/sekilasKeuangan').then(function (response) {
 			_this.pemasukans = response.data;
 		});
@@ -99104,14 +99210,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.total_pemasukan.periode = response.data.periode;
 			}
 		});
+
+		axios.get('/keuangan/pengeluaran/totalpengeluaran').then(function (response) {
+			if (response.data.total == null) {
+				_this.total_pengeluaran.total = _this.formatPrice(0);
+				_this.total_pengeluaran.periode = response.data.periode;
+			} else {
+				_this.total_pengeluaran.total = _this.formatPrice(response.data.total);
+				_this.total_pengeluaran.periode = response.data.periode;
+			}
+		});
+
+		axios.get('/keuangan/pengeluaran/sekliaspengeluaran').then(function (response) {
+			_this.pengeluarans = response.data;
+		});
 	},
 	data: function data() {
 		return {
 			pemasukans: [],
+			pengeluarans: [],
+			total_cash: {
+				total: '',
+				periode: ''
+			},
+
 			total_pemasukan: {
 				total: '',
 				periode: ''
+			},
+
+			total_pengeluaran: {
+				total: '',
+				periode: ''
 			}
+
 		};
 	},
 
@@ -99151,12 +99283,47 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xl-12 col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-6" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
             _c(
               "div",
               { staticClass: "card p-30 flex-row justify-content-between" },
               [
                 _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "counter counter-md counter text-right" },
+                  [
+                    _c("div", { staticClass: "counter-number-group" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "counter-number-related text-capitalize"
+                        },
+                        [_vm._v(_vm._s(_vm.total_cash.total))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "counter-label text-capitalize font-size-16"
+                      },
+                      [_vm._v("Total Cash Yang Dimiliki")]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-6" }, [
+            _c(
+              "div",
+              { staticClass: "card p-30 flex-row justify-content-between" },
+              [
+                _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -99191,15 +99358,46 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "col-lg-6" }, [
+            _c(
+              "div",
+              { staticClass: "card p-30 flex-row justify-content-between" },
+              [
+                _c("div", { staticClass: "counter counter-md text-left" }, [
+                  _c("div", { staticClass: "counter-number-group" }, [
+                    _c(
+                      "span",
+                      { staticClass: "counter-number-related text-capitalize" },
+                      [_vm._v(_vm._s(_vm.total_pengeluaran.total))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "counter-label text-capitalize font-size-16"
+                    },
+                    [
+                      _vm._v(
+                        "Total Pengeluaran Periode " +
+                          _vm._s(_vm.total_pengeluaran.periode)
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]
+            )
+          ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-6" }, [
         _c("div", { staticClass: "panel" }, [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
+          _c("div", { staticClass: "panel-body table-responsive" }, [
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-lg-6" }, [
                 _c("div", { staticClass: "form-group" }, [
@@ -99220,18 +99418,6 @@ var render = function() {
                         [
                           _c("i", { staticClass: "icon wb-plus" }),
                           _vm._v(" Tambah Pemasukan")
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-md btn-danger",
-                          attrs: { to: { name: "keuanganPengeluaran" } }
-                        },
-                        [
-                          _c("i", { staticClass: "icon wb-plus" }),
-                          _vm._v(" Tambah Pengeluaran")
                         ]
                       )
                     ],
@@ -99256,11 +99442,11 @@ var render = function() {
               [
                 _c("div", { staticClass: "modal-dialog modal-simple" }, [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c("div", { staticClass: "row row-lgtext-center" }, [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-4" }, [
                           _c(
@@ -99280,11 +99466,11 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(5)
+                        _vm._m(6)
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(6)
+                    _vm._m(7)
                   ])
                 ])
               ]
@@ -99294,7 +99480,7 @@ var render = function() {
               "table",
               { staticClass: "table table-striped table-bordered table-hover" },
               [
-                _vm._m(7),
+                _vm._m(8),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -99353,11 +99539,141 @@ var render = function() {
             )
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "panel" }, [
+          _vm._m(9),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body table-responsive" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-md btn-danger",
+                          attrs: { to: { name: "keuanganPengeluaran" } }
+                        },
+                        [
+                          _c("i", { staticClass: "icon wb-plus" }),
+                          _vm._v(" Tambah Pengeluaran")
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "modal fade modal-3d-slit",
+                attrs: {
+                  id: "exampleNifty3dSlit",
+                  "aria-hidden": "true",
+                  "aria-labelledby": "exampleModalTitle",
+                  role: "dialog",
+                  tabindex: "-1"
+                }
+              },
+              [
+                _c("div", { staticClass: "modal-dialog modal-simple" }, [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row row-lgtext-center" }, [
+                        _vm._m(11),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-md btn-success",
+                              on: {
+                                click: function($event) {
+                                  _vm.dismissModalDonatur()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "icon wb-payment" }),
+                              _vm._v(" Donatur")
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(12)
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(13)
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "table",
+              { staticClass: "table table-striped table-bordered table-hover" },
+              [
+                _vm._m(14),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.pengeluarans.data, function(pengeluaran, index) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pengeluaran.tgl_pengeluaran))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            pengeluaran.jenispengeluaran.nama_jenis_pengeluaran
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.formatPrice(pengeluaran.jumlah_pengeluaran)
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(pengeluaran.keterangan))])
+                    ])
+                  })
+                )
+              ]
+            )
+          ])
+        ])
       ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "white" }, [
+      _c("i", {
+        staticClass: "icon icon-circle icon-2x wb-payment bg-green-600",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -99373,31 +99689,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6" }, [
-      _c("div", { staticClass: "card p-30 flex-row justify-content-between" }, [
-        _c("div", { staticClass: "counter counter-md text-left" }, [
-          _c("div", { staticClass: "counter-number-group" }, [
-            _c(
-              "span",
-              { staticClass: "counter-number-related text-capitalize" },
-              [_vm._v("Rp. 8090000")]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "counter-label text-capitalize font-size-16" },
-            [_vm._v("Total Pengeluaran")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "white" }, [
-          _c("i", {
-            staticClass: "icon icon-circle icon-2x wb-graph-down bg-red-600",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
-      ])
+    return _c("div", { staticClass: "white" }, [
+      _c("i", {
+        staticClass: "icon icon-circle icon-2x wb-graph-down bg-red-600",
+        attrs: { "aria-hidden": "true" }
+      })
     ])
   },
   function() {
@@ -99406,8 +99702,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("header", { staticClass: "panel-heading" }, [
       _c("h3", { staticClass: "panel-title" }, [
-        _c("i", { staticClass: "icon wb-payment" }),
-        _vm._v(" Sekilas Info Keuangan\r\n                ")
+        _c("i", { staticClass: "icon wb-graph-up" }),
+        _vm._v(" Sekilas Pemasukan Dana\r\n                ")
       ])
     ])
   },
@@ -99487,6 +99783,96 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nominal Pemasukan")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nama Donatur")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" }, [
+        _c("i", { staticClass: "icon wb-graph-down" }),
+        _vm._v(" Sekilas Pengeluaran Dana\r\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("i", { staticClass: "icon icon-2x wb-graph-up bg-success-600" }),
+        _vm._v(" Pilih Pemasukan")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("button", { staticClass: "btn btn-md btn-success" }, [
+        _c("i", { staticClass: "icon wb-payment" }),
+        _vm._v(" Infaq")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("button", { staticClass: "btn btn-md btn-success" }, [
+        _c("i", { staticClass: "icon wb-payment" }),
+        _vm._v(" Syariah")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Tutup")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("No. Urut")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tanggal Pengeluaran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Jenis Pengeluaran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nominal Pengeluaran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Keterangan")])
       ])
     ])
   }
@@ -100476,7 +100862,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getTotalUangSekarang: function getTotalUangSekarang() {
       var _this = this;
 
-      axios.get('/keuangan/pemasukan/totalPemasukan').then(function (response) {
+      axios.get('/keuangan/cashNow').then(function (response) {
         if (response.data.total == null) {
           _this.total_uang = _this.formatPrice(0);
         } else {
@@ -101721,6 +102107,1125 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-49d3ea72", module.exports)
+  }
+}
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(334)
+/* template */
+var __vue_template__ = __webpack_require__(335)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keuangan/PemasukanComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7689fd0c", Component.options)
+  } else {
+    hotAPI.reload("data-v-7689fd0c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 334 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */]
+  },
+
+  mounted: function mounted() {
+    $(function () {
+      var table = $('#pemasukanTable').DataTable({
+        "destroy": true,
+        "stateSave": true,
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+          url: "/keuangan/pemasukan/getPemasukanDataTables",
+          data: function data(e) {
+            e.filter_kelas = $('select[name="filter_kelas"]').val();
+            e.filter_asrama = $('select[name="filter_asrama"]').val();
+          }
+        },
+        columns: [{ data: 'id', name: 'id' }, { data: 'tgl_pemasukan', name: 'tgl_pemasukan', orderable: true }, { data: 'jenis_pemasukan', name: 'jenis_pemasukan' }, { data: 'jumlah_pemasukan', name: 'jumlah_pemasukan' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+      });
+
+      // Auto reload when getting result 
+      $('#filter_kelas').on('change', function (e) {
+        table.draw();
+        e.preventDefault();
+      });
+
+      // Auto reload when getting result 
+      $('#filter_asrama').on('change', function (e) {
+        table.draw();
+        e.preventDefault();
+      });
+
+      // Trigger auto refresh
+      Echo.channel('draw-table').listen('DrawTable', function (e) {
+        table.draw();
+      });
+    });
+    this.getNamaJenispemasukan();
+    this.getTotalUangSekarang();
+  },
+  data: function data() {
+    return {
+      errors: [],
+      errorsJenis: [],
+      tingkats: [],
+      kelass: [],
+      pemasukans: [],
+      nama_jenis_pemasukans: [],
+      pemasukan: {
+        tgl_pemasukan: '',
+        jumlah_pemasukan: '',
+        jenis_pemasukan: ''
+      },
+      nama_jenis_pemasukannya: {
+        name: ''
+      },
+      total_uang: '',
+      cool_decreased_cash: '',
+      message: '',
+      messageAlert: '',
+      messageSuccess: '',
+      messageJenis: ''
+    };
+  },
+
+
+  methods: {
+    formatPrice: function formatPrice(value) {
+      return "Rp." + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.");
+    },
+    getTotalUangSekarang: function getTotalUangSekarang() {
+      var _this = this;
+
+      axios.get('/keuangan/cashNow').then(function (response) {
+        if (response.data.total == null) {
+          _this.total_uang = _this.formatPrice(0);
+        } else {
+          _this.total_uang = _this.formatPrice(response.data.total);
+        }
+      });
+    },
+    getTablepemasukan: function getTablepemasukan() {
+      $(function () {
+        var table = $('#pemasukanTable').DataTable({
+          "destroy": true,
+          "stateSave": true,
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+            url: "/keuangan/pemasukan/getPemasukanDataTables",
+            data: function data(e) {
+              e.filter_kelas = $('select[name="filter_kelas"]').val();
+              e.filter_asrama = $('select[name="filter_asrama"]').val();
+            }
+          },
+          columns: [{ data: 'id', name: 'id' }, { data: 'tgl_pemasukan', name: 'tgl_pemasukan', orderable: true }, { data: 'jenis_pemasukan', name: 'jenis_pemasukan' }, { data: 'jumlah_pemasukan', name: 'jumlah_pemasukan' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+        });
+
+        // Auto reload when getting result 
+        $('#filter_kelas').on('change', function (e) {
+          table.draw();
+          e.preventDefault();
+        });
+
+        // Auto reload when getting result 
+        $('#filter_asrama').on('change', function (e) {
+          table.draw();
+          e.preventDefault();
+        });
+
+        // Trigger auto refresh
+        Echo.channel('draw-table').listen('DrawTable', function (e) {
+          table.draw();
+        });
+      });
+    },
+    getNamaJenispemasukan: function getNamaJenispemasukan() {
+      var _this2 = this;
+
+      axios.get('/keuangan/pemasukan/getNamaJenispemasukan').then(function (response) {
+        _this2.nama_jenis_pemasukans = response.data;
+      });
+    },
+    customFormatter: function customFormatter(date) {
+      return moment(date).format('DD-MM-YYYY');
+    },
+
+
+    storepemasukan: function storepemasukan(e) {
+      var app = this;
+      var body = app.pemasukan;
+      // console.log(body);
+      axios.post(e.target.action, body).then(function (response) {
+        app.errors = [];
+        app.messageSuccess = response.data.response.messageSuccess;
+        app.messageAlert = response.data.response.messageAlert;
+        app.pemasukan.tgl_pemasukan = '';
+        app.pemasukan.jumlah_pemasukan = '';
+        app.pemasukan.jenis_pemasukan = '';
+        app.getTablepemasukan();
+        app.getTotalUangSekarang();
+        if (app.messageSuccess == 'success') {
+          app.messageSuccess = 'pemasukan berhasil ditambahkan ke database!';
+          app.cool_decreased_cash = true;
+        }
+        setTimeout(function () {
+          app.cool_decreased_cash = false;
+        }, 3000);
+        setTimeout(function () {
+          app.messageSuccess = false;
+          app.messageAlert = false;
+        }, 8000);
+      }).catch(function (error) {
+        app.errors = error.response.data.errors;
+        app.messageSuccess = false;
+      });
+    },
+
+    postnamajns: function postnamajns(a) {
+      var _this3 = this;
+
+      var wadahna = this.nama_jenis_pemasukannya;
+      // console.log(this.wadahna);
+      axios.post(a.target.action, wadahna).then(function (response) {
+        _this3.errorsJenis = [];
+        _this3.messageJenis = response.data.response;
+        _this3.getNamaJenispemasukan();
+        if (_this3.messageJenis == 'success') {
+          _this3.messageJenis = 'Jenis pemasukan berhasil di tambahkan';
+        }
+        setTimeout(function () {
+          _this3.messageJenis = false;
+        }, 8000);
+      }).catch(function (error) {
+        _this3.errorsJenis = error.response.data.errors;
+        _this3.message = false;
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "row row-lg" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "panel" }, [
+              _c("div", { staticClass: "panel col-md-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel-body container-fluid",
+                    staticStyle: { "background-color": "#fdfdfd" }
+                  },
+                  [
+                    _c("div", { staticClass: "row row-lg" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm.messageSuccess
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "alert dark alert-icon alert-success alert-dismissible",
+                                attrs: { role: "alert" }
+                              },
+                              [
+                                _vm._m(0),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "icon wb-check",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.messageSuccess) +
+                                    "\r\n                                  "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.messageAlert
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "alert dark alert-icon alert-danger alert-dismissible",
+                                attrs: { role: "alert" }
+                              },
+                              [
+                                _vm._m(1),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "icon wb-check",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.messageAlert) +
+                                    "\r\n                                  "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            attrs: {
+                              action: "/keuangan/pemasukan/store",
+                              autocomplete: "off"
+                            },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.storepemasukan($event)
+                              }
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "form-row" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group col-md-12 col-sm-12",
+                                  staticStyle: { "padding-right": "15px" }
+                                },
+                                [
+                                  _vm._m(2),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "example" }, [
+                                    _c("div", { staticClass: "form-row" }, [
+                                      _c("div", { staticClass: "row" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-md-12" },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                class: [
+                                                  "form-group",
+                                                  _vm.cool_decreased_cash ==
+                                                  true
+                                                    ? "has-error"
+                                                    : ""
+                                                ]
+                                              },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "input-group input-group-icon"
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        type: "text",
+                                                        disabled: ""
+                                                      },
+                                                      domProps: {
+                                                        value: _vm.total_uang
+                                                      }
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-md-12" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-group" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "input-group input-group-icon"
+                                                  },
+                                                  [
+                                                    _vm._m(3),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "select",
+                                                      {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.pemasukan
+                                                                .jenis_pemasukan,
+                                                            expression:
+                                                              "pemasukan.jenis_pemasukan"
+                                                          }
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        on: {
+                                                          change: function(
+                                                            $event
+                                                          ) {
+                                                            var $$selectedVal = Array.prototype.filter
+                                                              .call(
+                                                                $event.target
+                                                                  .options,
+                                                                function(o) {
+                                                                  return o.selected
+                                                                }
+                                                              )
+                                                              .map(function(o) {
+                                                                var val =
+                                                                  "_value" in o
+                                                                    ? o._value
+                                                                    : o.value
+                                                                return val
+                                                              })
+                                                            _vm.$set(
+                                                              _vm.pemasukan,
+                                                              "jenis_pemasukan",
+                                                              $event.target
+                                                                .multiple
+                                                                ? $$selectedVal
+                                                                : $$selectedVal[0]
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "option",
+                                                          {
+                                                            attrs: {
+                                                              value: "",
+                                                              selected: "",
+                                                              disabled: ""
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "Pilih Jenis Pemasukan"
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "option",
+                                                          {
+                                                            attrs: {
+                                                              value: "infaq"
+                                                            }
+                                                          },
+                                                          [_vm._v("Infaq")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "option",
+                                                          {
+                                                            attrs: {
+                                                              value: "donatur"
+                                                            }
+                                                          },
+                                                          [_vm._v("Donatur")]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "option",
+                                                          {
+                                                            attrs: {
+                                                              value: "syariah"
+                                                            }
+                                                          },
+                                                          [_vm._v("Syariah")]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _vm.errors.jenis_pemasukan
+                                                  ? _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge badge-sm badge-danger"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.errors
+                                                              .jenis_pemasukan[0]
+                                                          )
+                                                        )
+                                                      ]
+                                                    )
+                                                  : _vm._e()
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.pemasukan.jenis_pemasukan ==
+                                        "donatur"
+                                          ? _c(
+                                              "div",
+                                              { staticClass: "col-md-12" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "form-group" },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "input-group input-group-icon"
+                                                      },
+                                                      [
+                                                        _vm._m(4),
+                                                        _vm._v(" "),
+                                                        _c("input", {
+                                                          directives: [
+                                                            {
+                                                              name: "model",
+                                                              rawName:
+                                                                "v-model",
+                                                              value:
+                                                                _vm.pemasukan
+                                                                  .nama_donatur,
+                                                              expression:
+                                                                "pemasukan.nama_donatur"
+                                                            }
+                                                          ],
+                                                          staticClass:
+                                                            "form-control",
+                                                          attrs: {
+                                                            type: "text",
+                                                            placeholder:
+                                                              "Nama Donatur..",
+                                                            autocomplete: "off"
+                                                          },
+                                                          domProps: {
+                                                            value:
+                                                              _vm.pemasukan
+                                                                .nama_donatur
+                                                          },
+                                                          on: {
+                                                            input: function(
+                                                              $event
+                                                            ) {
+                                                              if (
+                                                                $event.target
+                                                                  .composing
+                                                              ) {
+                                                                return
+                                                              }
+                                                              _vm.$set(
+                                                                _vm.pemasukan,
+                                                                "nama_donatur",
+                                                                $event.target
+                                                                  .value
+                                                              )
+                                                            }
+                                                          }
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _vm.errors.nama_donatur
+                                                      ? _c(
+                                                          "span",
+                                                          {
+                                                            staticClass:
+                                                              "badge badge-sm badge-danger"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                _vm.errors
+                                                                  .nama_donatur[0]
+                                                              )
+                                                            )
+                                                          ]
+                                                        )
+                                                      : _vm._e()
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-md-12" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-group" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "input-group input-group-icon"
+                                                  },
+                                                  [
+                                                    _vm._m(5),
+                                                    _vm._v(" "),
+                                                    _c("datepicker", {
+                                                      attrs: {
+                                                        "bootstrap-styling": true,
+                                                        required: "",
+                                                        format:
+                                                          _vm.customFormatter,
+                                                        placeholder:
+                                                          "Tanggal pemasukan"
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.pemasukan
+                                                            .tgl_pemasukan,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.pemasukan,
+                                                            "tgl_pemasukan",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "pemasukan.tgl_pemasukan"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _vm.errors.tgl_pemasukan
+                                                  ? _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge badge-sm badge-danger"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.errors
+                                                              .tgl_pemasukan[0]
+                                                          )
+                                                        )
+                                                      ]
+                                                    )
+                                                  : _vm._e()
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "col-md-12" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-group" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "input-group input-group-icon"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "input-group-addon"
+                                                      },
+                                                      [_vm._v("Rp.")]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.pemasukan
+                                                              .jumlah_pemasukan,
+                                                          expression:
+                                                            "pemasukan.jumlah_pemasukan"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        type: "text",
+                                                        placeholder:
+                                                          "Contoh: 1890000",
+                                                        autocomplete: "off"
+                                                      },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.pemasukan
+                                                            .jumlah_pemasukan
+                                                      },
+                                                      on: {
+                                                        input: function(
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.pemasukan,
+                                                            "jumlah_pemasukan",
+                                                            $event.target.value
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _vm.errors.jumlah_pemasukan
+                                                  ? _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge badge-sm badge-danger"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.errors
+                                                              .jumlah_pemasukan[0]
+                                                          )
+                                                        )
+                                                      ]
+                                                    )
+                                                  : _vm._e()
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-row" },
+                                      [
+                                        _vm._m(6),
+                                        _vm._v(" "),
+                                        _c(
+                                          "router-link",
+                                          {
+                                            staticClass: "btn btn-warning",
+                                            attrs: { to: { name: "keuangan" } }
+                                          },
+                                          [_vm._v("Kembali")]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(7)
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "example-title" }, [
+      _c("i", { staticClass: "icon wb-graph-up text-success" }),
+      _vm._v(" Tambah Pemasukan")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon wb-payment" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon wb-user" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "icon wb-calendar" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "icon wb-check" }), _vm._v(" Tambah")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "panel" }, [
+        _c("header", { staticClass: "panel-heading" }, [
+          _c("h3", { staticClass: "panel-title" }, [
+            _c("i", { staticClass: "icon wb-payment" }),
+            _vm._v(" Pemasukan\r\n                    ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "panel-body table-responsive" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "input-group input-group-icon" }, [
+                  _c("span", { staticClass: "input-group-addon" }, [
+                    _c("i", { staticClass: "icon wb-search" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      staticClass: "form-control",
+                      attrs: { name: "", id: "" }
+                    },
+                    [
+                      _c(
+                        "option",
+                        { attrs: { value: "", selected: "", disabled: "" } },
+                        [_vm._v("Cari berdasarkan jenis")]
+                      ),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "donatur" } }, [
+                        _vm._v("Donatur")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "syariah" } }, [
+                        _vm._v("Syariah")
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "table",
+            {
+              staticClass: "table table-striped table-bordered table-hover",
+              attrs: { id: "pemasukanTable" }
+            },
+            [
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v("No. Urut")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Tanggal Pemasukan")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Jenis Pemasukan")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Nominal Pemasukan")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Aksi")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tbody")
+            ]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7689fd0c", module.exports)
   }
 }
 

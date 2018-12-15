@@ -202,6 +202,8 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 
 			// Pemasukan
 			Route::get('/', 'KeuanganController@index')->name('home');
+			Route::get('/cashNow', 'KeuanganController@cashNow');
+			Route::get('/pemasukan/getPemasukanDataTables', 'PemasukanController@getPemasukanDataTables');
 			Route::get('/pemasukan', 'PemasukanController@index')->name('pemasukan.home');
 			Route::get('/pemasukan/totalPemasukan', 'PemasukanController@totalPemasukan')->name('pemasukan.totalPemasukan');
 			Route::get('/pemasukan/sekilasKeuangan', 'PemasukanController@sekilasKeuangan')->name('pemasukan.sekilasKeuangan');
@@ -215,6 +217,8 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::post('/pengeluaran/store', 'PengeluaranController@store');
 			Route::get('/pengeluaran/getPengeluaranDataTables', 'PengeluaranController@getPengeluaranDataTables');
 			Route::get('/pengeluaran/getNamaJenisPengeluaran', 'PengeluaranController@getNamaJenisPengeluaran');
+			Route::get('/pengeluaran/totalpengeluaran', 'PengeluaranController@totalpengeluaran')->name('pengeluaran.totalpengeluaran');
+			Route::get('/pengeluaran/sekliaspengeluaran', 'PengeluaranController@sekliaspengeluaran')->name('pengeluaran.sekliaspengeluaran');
 			Route::post('/pengeluaran/jenispengeluaran/post', 'PengeluaranController@post');
 			Route::get('/pengeluaran/{id}/show', 'PengeluaranController@show');
 			Route::put('/pengeluaran/{id}/update', 'PengeluaranController@update');
