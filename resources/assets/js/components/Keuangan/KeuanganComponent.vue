@@ -58,8 +58,8 @@
             		<div class="col-lg-6">
             			<div class="form-group">
             				<div class="btn-group">
-            					<router-link to="" data-target="#exampleNifty3dSlit" data-toggle="modal" class="btn btn-md btn-success"><i class="icon wb-plus"></i> Tambah Pemasukan</router-link to="">
-            					<router-link to="" class="btn btn-md btn-danger"><i class="icon wb-plus"></i> Tambah Pengeluaran</router-link to="">
+            					<router-link to="" data-target="#exampleNifty3dSlit" data-toggle="modal" class="btn btn-md btn-success"><i class="icon wb-plus"></i> Tambah Pemasukan</router-link>
+            					<router-link :to="{ name: 'keuanganPengeluaran' }" class="btn btn-md btn-danger"><i class="icon wb-plus"></i> Tambah Pengeluaran</router-link>
             				</div>
             			</div>
             		</div>
@@ -97,18 +97,14 @@
                   </div>
                   <!-- End Modal -->
 
-              <table class="tablesaw table-striped table-bordered table-hover" data-tablesaw-mode="swipe"
-                data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap
-                data-tablesaw-mode-switch>
+              <table class="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="persist">No. Urut</th>
-                    <th data-tablesaw-sortable-col data-tablesaw-priority="4">Tanggal Pemasukan</th>
-                    <th data-tablesaw-sortable-col data-tablesaw-priority="3">Jenis Pemasukan</th>
-                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">Nominal Pemasukan</th>
-                    <th data-tablesaw-sortable-col data-tablesaw-priority="1">
-                      <abbr title="Rotten Tomato Rating">Nama Donatur</abbr>
-                    </th>
+                    <th>No. Urut</th>
+                    <th>Tanggal Pemasukan</th>
+                    <th>Jenis Pemasukan</th>
+                    <th>Nominal Pemasukan</th>
+                    <th>Nama Donatur</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -141,8 +137,13 @@
 			})
 
 			axios.get('/keuangan/pemasukan/totalPemasukan').then(response => {
-				this.total_pemasukan.total = this.formatPrice(response.data.total);
-				this.total_pemasukan.periode = response.data.periode;
+                if (response.data.total == null) {
+					this.total_pemasukan.total = this.formatPrice(0);
+					this.total_pemasukan.periode = response.data.periode;
+                }else{
+					this.total_pemasukan.total = this.formatPrice(response.data.total);
+					this.total_pemasukan.periode = response.data.periode;
+                }
 			})
 		},
 
@@ -158,7 +159,7 @@
 
 		methods: {
 		    formatPrice(value) {
-		        return "Rp." + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.")
+		        return "Rp. " + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.")
 		    },
 			dismissModalDonatur(){
 				$(function(){

@@ -325,17 +325,52 @@ const routes = [
 		// End Jadwal Pelajaran
 
 		// Keuangan
-		{
-		  path: '/keuangan',
-		  name: 'keuangan',
-		  component: require('./components/Keuangan/KeuanganComponent.vue') 
-		},
 
-		{
-		  path: '/keuangan/tambahpemasukan/donatur',
-		  name: 'keuanganTambahPemasukanDonatur',
-		  component: require('./components/Keuangan/TambahPemasukanDonaturComponent.vue') 
-		},
+			// Pemasukan
+			{
+			  path: '/keuangan',
+			  name: 'keuangan',
+			  component: require('./components/Keuangan/KeuanganComponent.vue') 
+			},
+
+			{
+			  path: '/keuangan/tambahpemasukan/donatur',
+			  name: 'keuanganTambahPemasukanDonatur',
+			  component: require('./components/Keuangan/TambahPemasukanDonaturComponent.vue') 
+			},
+			// End Pemasukan
+
+			// Pengeluaran
+
+			{
+			  path: '/keuangan/pengeluaran',
+			  name: 'keuanganPengeluaran',
+			  component: require('./components/Keuangan/PengeluaranComponent.vue')
+			},
+
+
+			{
+			  path: '/keuangan/pengeluaran/edit/:id',
+			  name: 'keuanganPengeluaranEdit',
+			  component: require('./components/Keuangan/EditPengeluaranComponent.vue')
+			},
+
+
+			{
+			  path: '/keuangan/pengeluaran/hapus/:id',
+			  name: 'keuanganPengeluaranHapus',
+			  component: require('./components/Keuangan/HapusPengeluaranComponent.vue')
+			},
+
+
+			{
+			  path: '/keuangan/pengeluaran/jenispengeluaran/hapus/:id',
+			  name: 'keuanganPengeluaranJenisPengeluaranHapus',
+			  component: require('./components/Keuangan/HapusPengeluaranJenisPengeluaranComponent.vue')
+			}
+
+			// End Pengeluaran
+
 		// End Kuangan
 
 

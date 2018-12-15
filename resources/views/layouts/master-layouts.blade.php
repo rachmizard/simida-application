@@ -615,9 +615,9 @@
         </header>
         <!-- Page -->
         <main class="page">
-        <div class="page-content">
-            @yield('content')
-        </div><!--/.page-content-->
+          <div class="page-content">
+              @yield('content')
+          </div><!--/.page-content-->
         </main><!--/.page-->
         <!-- End Page -->
         <!-- Footer -->

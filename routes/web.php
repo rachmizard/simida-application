@@ -199,6 +199,8 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 Route::middleware(['auth', 'is_keuangan'])->group(function(){
 	Route::prefix('keuangan')->group(function(){
 		Route::name('keuangan.')->group(function(){
+
+			// Pemasukan
 			Route::get('/', 'KeuanganController@index')->name('home');
 			Route::get('/pemasukan', 'PemasukanController@index')->name('pemasukan.home');
 			Route::get('/pemasukan/totalPemasukan', 'PemasukanController@totalPemasukan')->name('pemasukan.totalPemasukan');
@@ -207,6 +209,17 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/pemasukan/{id}/show', 'PemasukanController@show')->name('pemasukan.show');
 			Route::put('/pemasukan/{id}/update', 'PemasukanController@update')->name('pemasukan.update');
 			Route::delete('/pemasukan/{id}/destroy', 'PemasukanController@destroy')->name('pemasukan.destroy');
+			// End Pemasukan
+
+			// Pengeluaran
+			Route::post('/pengeluaran/store', 'PengeluaranController@store');
+			Route::get('/pengeluaran/getPengeluaranDataTables', 'PengeluaranController@getPengeluaranDataTables');
+			Route::get('/pengeluaran/getNamaJenisPengeluaran', 'PengeluaranController@getNamaJenisPengeluaran');
+			Route::post('/pengeluaran/jenispengeluaran/post', 'PengeluaranController@post');
+			Route::get('/pengeluaran/{id}/show', 'PengeluaranController@show');
+			Route::put('/pengeluaran/{id}/update', 'PengeluaranController@update');
+			Route::delete('/pengeluaran/{id}/destroy', 'PengeluaranController@destroy');
+			// End Pengeluaran
 		});
 	});
 });
