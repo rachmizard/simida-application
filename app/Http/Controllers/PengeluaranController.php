@@ -135,6 +135,11 @@ class PengeluaranController extends Controller
         return Pengeluaran::find($id);
     }
 
+    public function showJenisPengeluaran($id)
+    {
+        return NamaJenisPengeluaran::find($id);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -177,6 +182,18 @@ class PengeluaranController extends Controller
         return response()->json(['response' => 'success']);
     }
 
+    public function updateJenisPengeluaran(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $jenispengeluaran = NamaJenisPengeluaran::find($id);
+        $jenispengeluaran->update(['nama_jenis_pengeluaran' => $request->name ]);
+
+        return response()->json(['response' => 'success']);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -193,5 +210,13 @@ class PengeluaranController extends Controller
         $hapusPengeluaran->delete();
 
         return response()->json(['response' => 'success!']);
+    }
+
+    public function jenispengeluaranDestroy($id)
+    {
+        $hapusJenisPengeluaran = NamaJenisPengeluaran::find($id);
+        $hapusJenisPengeluaran->delete();
+
+        return response()->json(['response' => 'success']);
     }
 }

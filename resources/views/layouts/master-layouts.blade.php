@@ -554,6 +554,9 @@
                                         <a href="{{ route('keuangan.home') }}#/keuangan/pemasukan"><span class="site-menu-title">Pemasukan</span></a>
                                     </li>
                                     <li class="site-menu-item">
+                                        <a href="{{ route('keuangan.home') }}#/keuangan/syariah"><span class="site-menu-title">Syariah</span></a>
+                                    </li>
+                                    <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
                                     </li>
                                 </ul>

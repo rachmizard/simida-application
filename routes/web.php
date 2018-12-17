@@ -208,6 +208,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/pemasukan/totalPemasukan', 'PemasukanController@totalPemasukan')->name('pemasukan.totalPemasukan');
 			Route::get('/pemasukan/sekilasKeuangan', 'PemasukanController@sekilasKeuangan')->name('pemasukan.sekilasKeuangan');
 			Route::post('/pemasukan/store', 'PemasukanController@store')->name('pemasukan.store');
+			Route::post('/pemasukan/storeSyariah', 'PemasukanController@storeSyariah')->name('pemasukan.storeSyariah');
 			Route::get('/pemasukan/{id}/show', 'PemasukanController@show')->name('pemasukan.show');
 			Route::put('/pemasukan/{id}/update', 'PemasukanController@update')->name('pemasukan.update');
 			Route::delete('/pemasukan/{id}/destroy', 'PemasukanController@destroy')->name('pemasukan.destroy');
@@ -220,10 +221,18 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/pengeluaran/totalpengeluaran', 'PengeluaranController@totalpengeluaran')->name('pengeluaran.totalpengeluaran');
 			Route::get('/pengeluaran/sekliaspengeluaran', 'PengeluaranController@sekliaspengeluaran')->name('pengeluaran.sekliaspengeluaran');
 			Route::post('/pengeluaran/jenispengeluaran/post', 'PengeluaranController@post');
-			Route::get('/pengeluaran/{id}/show', 'PengeluaranController@show');
+			Route::get('/pengeluaran/jenispengeluaran/{id}/showJenisPengeluaran', 'PengeluaranController@showJenisPengeluaran');
+			Route::put('/pengeluaran/jenispengeluaran/{id}/updateJenisPengeluaran', 'PengeluaranController@updateJenisPengeluaran');
+			Route::delete('/pengeluaran/jenispengeluaran/{id}/destroy', 'PengeluaranController@jenispengeluaranDestroy');
 			Route::put('/pengeluaran/{id}/update', 'PengeluaranController@update');
 			Route::delete('/pengeluaran/{id}/destroy', 'PengeluaranController@destroy');
 			// End Pengeluaran
+
+			// Syariah
+			Route::get('/syariah/getSantriForSyariah', 'PemasukanController@getSantriForSyariah'); // API
+			Route::get('/syariah/{id}/getOnceSantri', 'PemasukanController@getOnceSantri'); // API
+			Route::get('/syariah/{id}/riwayatPembayaranPerSantri', 'PemasukanController@riwayatPembayaranPerSantri'); // API
+			// End Syariah
 		});
 	});
 });

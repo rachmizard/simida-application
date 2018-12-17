@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Pemasukan;
 use App\Periode;
+use App\Santri;
 use Carbon\Carbon;
 use DB;
 use App\TotalUang;
+use App\Http\Resources\SyariahSantriResource;
+use App\Http\Resources\RiwayatSyariahPerSantriResource;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
@@ -32,7 +35,7 @@ class PemasukanController extends Controller
         //
     }
 
-    public function getPemasukanDataTables(Datatables $datatables)
+    public function getPemasukanDataTables(Request $request, Datatables $datatables)
     {
         $pemasukans = Pemasukan::query();
         return $datatables->eloquent($pemasukans)
@@ -53,8 +56,40 @@ class PemasukanController extends Controller
             </div>
             ';
         })
+        ->filter(function($query) use ($request){
+            if (request()->get('filter_jenis_pemasukan')) {
+                $query->where('jenis_pemasukan', request()->get('filter_jenis_pemasukan'))->get();
+            }
+
+            if (request()->get('filter_bulan')) {
+                $query->whereMonth('created_at', request()->get('filter_bulan'))->get();
+            }
+        })
         ->rawColumns(['jenis_pemasukan', 'action'])
         ->make(true);
+    }
+
+    public function getSantriForSyariah(Request $request)
+    {
+        $this->validate($request, [
+            'bulan' => 'required'
+        ]);
+        return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());
+    }
+
+    public function getOnceSantri($id)
+    {
+        return new SyariahSantriResource(Santri::findOrFail($id));
+    }
+
+    public function riwayatPembayaranPerSantri(Request $request, $id)
+    {
+        if ($request->start_date && $request->end_date) {
+            $riwayatPembayaranPerSantri =  RiwayatSyariahPerSantriResource::collection(Pemasukan::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());   
+        }else{
+            $riwayatPembayaranPerSantri =  RiwayatSyariahPerSantriResource::collection(Pemasukan::whereSantriId($id)->get());
+        }
+        return $riwayatPembayaranPerSantri;
     }
 
     public function totalPemasukan()
@@ -72,7 +107,7 @@ class PemasukanController extends Controller
 
     public function sekilasKeuangan()
     {
-        return response()->json(Pemasukan::orderBy('jumlah_pemasukan', 'DESC')->paginate(10));
+        return response()->json(Pemasukan::with('santri')->orderBy('jumlah_pemasukan', 'DESC')->paginate(10));
     }
 
     /**
@@ -88,7 +123,7 @@ class PemasukanController extends Controller
             'jenis_pemasukan' => 'required', 
             // 'santri_id' => 'required', 
             'jumlah_pemasukan' => 'required', 
-            'nama_donatur' => 'required',
+            // 'nama_donatur' => 'required',
         ]);
 
         $storepemasukan = new Pemasukan();
@@ -102,10 +137,13 @@ class PemasukanController extends Controller
                 $storepemasukan->tgl_pemasukan = date('Y-m-d', strtotime($request->tgl_pemasukan));
                 $storepemasukan->jumlah_pemasukan = $request->jumlah_pemasukan;
                 $storepemasukan->jenis_pemasukan = 'infaq';
+            }else if ($request->jenis_pemasukan == 'syariah') {
+                $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');
+                $storepemasukan->santri_id = $request->nis;
+                $storepemasukan->jumlah_pemasukan = '300000';
+                $storepemasukan->jenis_pemasukan = 'syariah';
             }
             // Push to datatabase!
-
-
             $periodeDefaultSet = Periode::whereStatus('aktif')->first();
             $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
             $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
@@ -119,6 +157,38 @@ class PemasukanController extends Controller
 
             $storepemasukan->save();
         return response()->json(['response' => 'success']);
+    }
+
+    public function storeSyariah(Request $request)
+    {
+
+        // $this->validate($request, [
+        //     'tgl_pemasukan' => 'required', 
+        //     'jenis_pemasukan' => 'required', 
+        //     // 'santri_id' => 'required', 
+        //     'jumlah_pemasukan' => 'required', 
+        //     // 'nama_donatur' => 'required',
+        // ]);
+        $storepemasukan = new Pemasukan();
+        $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');
+        $storepemasukan->santri_id = $request->santri_id;
+        $storepemasukan->jumlah_pemasukan = '300000'; // nanti mah ada master
+        $storepemasukan->jenis_pemasukan = 'syariah';
+        // Push to datatabase!
+        $periodeDefaultSet = Periode::whereStatus('aktif')->first();
+        $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
+        $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
+
+        $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
+        $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
+        $masukanUang =  $defaultUang + 300000;
+        $updateTotalUang = TotalUang::find($getTotalUang->id);
+        $updateTotalUang->total_nominal = $masukanUang;
+        $updateTotalUang->update();
+
+        $storepemasukan->save();
+        $message['message'] = 'success';
+        return response()->json(['response' => $message]);
     }
 
     /**

@@ -39,8 +39,8 @@
                                                           <div class="form-group">
                                                                 <div class="input-group input-group-icon">
                                                                     <span class="input-group-addon"><i class="icon wb-payment"></i></span>
-                                                                    <select v-model="pemasukan.jenis_pemasukan" class="form-control">
-                                                                      <option value="" selected disabled>Pilih Jenis Pemasukan</option>
+                                                                    <select v-model="pemasukan.jenis_pemasukan" @change="checkIfSyariahWillBeRedirected" class="form-control">
+                                                                      <option selected disabled>Pilih Jenis Pemasukan</option>
                                                                       <option value="infaq">Infaq</option>
                                                                       <option value="donatur">Donatur</option>
                                                                       <option value="syariah">Syariah</option>
@@ -112,10 +112,32 @@
                 			<div class="form-group">
                 				<div class="input-group input-group-icon">
                 					<span class="input-group-addon"><i class="icon wb-search"></i></span>
-	                				<select name="" class="form-control" id="">
+	                				<select name="filter_jenis_pemasukan" class="form-control" id="filter_jenis_pemasukan">
 	                					<option value="" selected="" disabled="">Cari berdasarkan jenis</option>
 	                					<option value="donatur">Donatur</option>
 	                					<option value="syariah">Syariah</option>
+	                				</select>
+                				</div>
+                			</div>
+                		</div>
+                		<div class="col-md-4">
+                			<div class="form-group">
+                				<div class="input-group input-group-icon">
+                					<span class="input-group-addon"><i class="icon wb-calendar"></i></span>
+	                				<select name="filter_bulan" class="form-control" id="filter_bulan">
+	                					<option selected disabled>Tampilkan berdasar bulan</option>
+	                					<option value="1">Januari</option>
+	                					<option value="2">Februari</option>
+	                					<option value="3">Maret</option>
+	                					<option value="4">April</option>
+	                					<option value="5">Mei</option>
+	                					<option value="6">Juni</option>
+	                					<option value="7">Juli</option>
+	                					<option value="8">Agustus</option>
+	                					<option value="9">September</option>
+	                					<option value="10">Oktober</option>
+	                					<option value="11">November</option>
+	                					<option value="12">Desember</option>
 	                				</select>
                 				</div>
                 			</div>
@@ -153,47 +175,7 @@
     },
 
         mounted() {
-            $(function() {
-                     var table = $('#pemasukanTable').DataTable({
-                          "destroy": true,
-                          "stateSave": true,
-                          "processing": true,
-                          "serverSide": true,
-                          "ajax": {
-                            url: "/keuangan/pemasukan/getPemasukanDataTables",
-                            data:function(e){
-                              e.filter_kelas = $('select[name="filter_kelas"]').val();
-                              e.filter_asrama = $('select[name="filter_asrama"]').val();
-                            }
-                          },
-                          columns: [
-                              { data: 'id', name: 'id' },
-                              { data: 'tgl_pemasukan', name: 'tgl_pemasukan', orderable: true },
-                              { data: 'jenis_pemasukan', name: 'jenis_pemasukan' },
-                              { data: 'jumlah_pemasukan', name: 'jumlah_pemasukan'},
-                              { data: 'action', name: 'action', orderable: false, searchable: false }
-                          ]
-                      }); 
-
-                     // Auto reload when getting result 
-                    $('#filter_kelas').on('change', function(e) {
-                        table.draw();
-                        e.preventDefault();
-                    });
-
-
-                     // Auto reload when getting result 
-                    $('#filter_asrama').on('change', function(e) {
-                        table.draw();
-                        e.preventDefault();
-                    });
-
-                    // Trigger auto refresh
-                    Echo.channel('draw-table')
-                    .listen('DrawTable', (e) => {
-                      table.draw();
-                    });
-              });
+            this.getTablepemasukan()
             this.getNamaJenispemasukan()
             this.getTotalUangSekarang()
         },
@@ -248,8 +230,8 @@
                           "ajax": {
                             url: "/keuangan/pemasukan/getPemasukanDataTables",
                             data:function(e){
-                              e.filter_kelas = $('select[name="filter_kelas"]').val();
-                              e.filter_asrama = $('select[name="filter_asrama"]').val();
+                              e.filter_jenis_pemasukan = $('select[name="filter_jenis_pemasukan"]').val();
+                              e.filter_bulan = $('select[name="filter_bulan"]').val();
                             }
                           },
                           columns: [
@@ -262,16 +244,16 @@
                       }); 
 
                      // Auto reload when getting result 
-                    $('#filter_kelas').on('change', function(e) {
+                    $('#filter_jenis_pemasukan').on('change', function(e) {
                         table.draw();
                         e.preventDefault();
                     });
 
 
                      // Auto reload when getting result 
-                    $('#filter_asrama').on('change', function(e) {
+                    $('#filter_bulan').on('change', function(go) {
                         table.draw();
-                        e.preventDefault();
+                        go.preventDefault();
                     });
 
                     // Trigger auto refresh
@@ -340,6 +322,13 @@
                      this.errorsJenis = error.response.data.errors;
                      this.message = false;
               });
+            },
+
+            checkIfSyariahWillBeRedirected(){
+            	let app = this;
+            	if (app.pemasukan.jenis_pemasukan == 'syariah') {
+            		app.$router.push('/keuangan/syariah');
+            	}
             }
         },
 

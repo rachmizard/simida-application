@@ -77,7 +77,7 @@
                         <td>{{ jenis_pengeluaran.nama_jenis_pengeluaran }}</td>
                         <td>
                           <div class="btn-group">
-                            <router-link :to="{ path: '/keuangan/pengeluaran/jenispengeluaran/hapus/'+ jenis_pengeluaran.id }" class="btn btn-warning btn-sm btn-round"><i class="icon wb-edit"></i></router-link>
+                            <router-link :to="{ path: '/keuangan/pengeluaran/jenispengeluaran/edit/'+ jenis_pengeluaran.id }" class="btn btn-warning btn-sm btn-round"><i class="icon wb-edit"></i></router-link>
                             <router-link :to="{ path: '/keuangan/pengeluaran/jenispengeluaran/hapus/'+ jenis_pengeluaran.id }" class="btn btn-danger btn-sm btn-round"><i class="icon wb-trash"></i></router-link>
                           </div>
                         </td>

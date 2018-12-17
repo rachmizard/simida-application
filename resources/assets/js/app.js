@@ -374,9 +374,30 @@ const routes = [
 			  path: '/keuangan/pengeluaran/jenispengeluaran/hapus/:id',
 			  name: 'keuanganPengeluaranJenisPengeluaranHapus',
 			  component: require('./components/Keuangan/HapusPengeluaranJenisPengeluaranComponent.vue')
-			}
+			},
+
+
+			{
+			  path: '/keuangan/pengeluaran/jenispengeluaran/edit/:id',
+			  name: 'keuanganPengeluaranJenisPengeluaranEdit',
+			  component: require('./components/Keuangan/EditJenisPengeluaranComponent.vue')
+			},
 
 			// End Pengeluaran
+
+			// Syariah
+			{
+			  path: '/keuangan/syariah',
+			  name: 'keuanganSyariah',
+			  component: require('./components/Keuangan/Syariah/SyariahComponent.vue')
+			},
+
+			{
+			  path: '/keuangan/syariah/bayar/:id',
+			  name: 'keuanganSyariah',
+			  component: require('./components/Keuangan/Syariah/PembayaranSyariahComponent.vue')
+			},
+			// End Syariah
 
 		// End Kuangan
 

@@ -101,7 +101,7 @@
             					<button @click="dismissModalDonatur()" class="btn btn-md btn-success"><i class="icon wb-payment"></i> Donatur</button>
                           	</div>
                           	<div class="col-md-4">
-            					<button class="btn btn-md btn-success"><i class="icon wb-payment"></i> Syariah</button>
+            					<button  @click="dismissModalSyariah()" class="btn btn-md btn-success"><i class="icon wb-payment"></i> Syariah</button>
                           	</div>
                           </div>
                         </div>
@@ -120,18 +120,20 @@
                     <th>Tanggal Pemasukan</th>
                     <th>Jenis Pemasukan</th>
                     <th>Nominal Pemasukan</th>
-                    <th>Nama Donatur</th>
+                    <th>Nama Donatur/Santri/Lainnya</th>
                   </tr>
                 </thead>
                 <tbody>
                 	<tr v-for="(pemasukan, index) in pemasukans.data">
                 		<td>{{ index+1 }}</td>
                 		<td>{{ pemasukan.tgl_pemasukan }}</td>
-                		<td v-if="pemasukan.jenis_pemasukan == 'donatur'"><span class="badge badge-sm badge-warning text-white">Donatur</span></td>
-                		<td v-else-if="pemasukan.jenis_pemasukan == 'infaq'"><span class="badge badge-sm badge-warning text-white">Donatur</span></td>
-                		<td v-else-if="pemasukan.jenis_pemasukan == 'syariah'"><span class="badge badge-sm badge-warning text-white">Donatur</span></td>
+                		<td>
+                			<span v-if="pemasukan.jenis_pemasukan == 'donatur'" class="badge badge-sm badge-warning text-white">Donatur</span>
+                			<span v-if="pemasukan.jenis_pemasukan == 'infaq'" class="badge badge-sm badge-info text-white">Infaq</span>
+                			<span v-if="pemasukan.jenis_pemasukan == 'syariah'" class="badge badge-sm badge-success text-white">Syariah</span>
+                		</td>
                 		<td>{{ formatPrice(pemasukan.jumlah_pemasukan) }}</td>
-                		<td>{{ pemasukan.nama_donatur }}</td>
+                		<td>{{ pemasukan.nama_donatur == null ? pemasukan.santri.nama_santri : pemasukan.nama_donatur }}</td>
                 	</tr>	
                 </tbody>
               </table>
@@ -303,6 +305,22 @@
 			   setTimeout(() => {
 			   		this.$router.push('/keuangan/tambahpemasukan/donatur');
 			   }, 1300)
+			},
+
+			dismissModalSyariah(){
+
+				$(function(){
+
+					  // $("#exampleNifty3dSlit").removeClass("in");
+					  $(".modal-backdrop").remove();
+					  // $('body').removeClass('modal-open');
+					  // $('body').css('padding-right', '');
+					  $("#exampleNifty3dSlit").hide();
+				})
+
+			   setTimeout(() => {
+			   		this.$router.push('/keuangan/syariah');
+			   }, 1300)	
 			}
 		}
 	}
