@@ -23,10 +23,15 @@
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
-                                          <h4 class="example-title"><i class="icon wb-check text-success"></i> Konfirmasi Data</h4>
+                                          <h4 class="example-title"><i class="icon wb-check text-success"></i> Konfirmasi Pembayaran</h4>
                                               <div class="example">
                                                   <div class="form-row">
                                                     <div class="row">
+                                                      <div class="col-md-12">
+                                                          <div class="form-group text-center">
+                                                          	<img :src="'/storage/santri_pic/'+ santri.foto" alt="Foto Santri" class="img-responsive img-circle" width="100" height="100">
+                                                          </div>
+                                                      </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
                                                           	<label for="">NIS</label>
@@ -64,7 +69,8 @@
                                                   <div class="form-row">
                                                   	<div class="form-group">
                                                       <router-link to="/keuangan/syariah/" class="btn btn-sm btn-warning">Batal</router-link>
-                                                      <button @click="bayar" class="btn btn-success">Bayar</button>
+                                                      <button v-if="santri.status_pembayaran == 'Belum'" @click="bayar" class="btn btn-success">Bayar</button>
+                                                      <button v-if="santri.status_pembayaran == 'Sudah'" class="btn btn-info" disabled>Sudah melakukan pembayaran</button>
                                                   	</div>
                                                  </div>
                                               </div><!--/Example-->
@@ -95,7 +101,6 @@
                     <thead>
                       <tr>
                         <th>Bulan</th>
-                        <th>Tahun/Periode</th>
                         <th>Tanggal Transaksi</th>
                         <th>Nominal</th>
                         <th>Aksi</th>
@@ -104,7 +109,6 @@
                     <tbody>
 						<tr v-if="santris.length != 0" v-for="santri in santris.data">
 							<td>{{ santri.bulan }}</td>
-							<td>{{ santri.tgl_pemasukan }}</td>
 							<td>{{ santri.tgl_transaksi }}</td>
 							<td>{{ formatPrice(santri.nominal) }}</td>
 							<td>a</td>
@@ -141,6 +145,8 @@
 	    		this.santri.kelas = response.data.data.kelas;
 	    		this.santri.asrama = response.data.data.asrama;
 	    		this.santri.bulan = response.data.data.bulan;
+	    		this.santri.status_pembayaran = response.data.data.status_pembayaran;
+	    		this.santri.foto = response.data.data.foto;
 	    		console.log(this.santri);
 	    	});
 	    	this.getRiwayatPembayaranPerSantri();
@@ -161,8 +167,10 @@
                 	nama_santri: '',
                 	kelas: '',
                 	asrama: '',
+                	status_pembayaran: '',
                 	bulan: '',
-                    tgl_pemasukan: '',
+                	foto: '',
+                    tgl_pemasukan: this.$route.params.tgl,
                     jumlah_pemasukan: '',
                     jenis_pengeluaran: ''
                 },

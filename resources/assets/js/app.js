@@ -68,7 +68,7 @@ const routes = [
 		// SANTRI
 		{
 		  path: '/santriaktif',
-		  name: 'listSantriAktif',
+		  name: 'santriAktif',
 		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
 		},
 		// END SANTRI
@@ -393,13 +393,30 @@ const routes = [
 			},
 
 			{
-			  path: '/keuangan/syariah/bayar/:id',
-			  name: 'keuanganSyariah',
+			  path: '/keuangan/syariah/bayar/:id/:tgl',
+			  name: 'keuanganSyariahBayar',
 			  component: require('./components/Keuangan/Syariah/PembayaranSyariahComponent.vue')
+			},
+
+
+			{
+			  path: '/keuangan/syariah/riwayat/:id',
+			  name: 'keuanganRiwayat',
+			  component: require('./components/Keuangan/Syariah/RiwayatPembayaranSyariahPerSantriComponent.vue')
 			},
 			// End Syariah
 
 		// End Kuangan
+
+		// Keamanan
+
+			{
+			  path: '/keamanan',
+			  name: 'keamanan',
+			  component: require('./components/Keamanan/KeamananComponent.vue')
+			},
+
+		// End Keamanan
 
 
 ]

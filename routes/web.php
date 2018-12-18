@@ -240,7 +240,25 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 Route::middleware(['auth', 'is_keamanan'])->group(function(){
 	Route::prefix('keamanan')->group(function(){
 		Route::name('keamanan.')->group(function(){
-			Route::get('/home', 'HomeController@keamananHome')->name('home');
+			Route::get('/', 'HomeController@keamananHome')->name('home');
+			Route::get('/listSantriIzin', 'KeamananController@listSantriIzin');
+			Route::get('/listSantriIzinWithFilter', 'KeamananController@listSantriIzinWithFilter');
+			Route::get('/getListSantriIzinDataTables', 'KeamananController@getListSantriIzinDataTables');
+
+			// CRUD KEAMANAN
+			Route::post('/store', 'KeamananController@store');
+			Route::get('{id}/show', 'KeamananController@show');
+			Route::put('{id}/update', 'KeamananController@update');
+			Route::delete('{id}/destroy', 'KeamananController@destroy');
+			// END CRUD KEAMANAN
+
+			// CRUD MASTER LIMIT IZIN
+			Route::post('/store', 'MasterLimitIzinController@store');
+			Route::get('masterlimitizin/{id}/show', 'MasterLimitIzinController@show');
+			Route::put('masterlimitizin/{id}/update', 'MasterLimitIzinController@update');
+			Route::put('masterlimitizin/{id}/setAktif', 'MasterLimitIzinController@setAktif');
+			Route::delete('masterlimitizin/{id}/destroy', 'MasterLimitIzinController@destroy');
+			// END CRUD MASTER LIMIT IZIN
 		});
 	});
 });

@@ -29,21 +29,17 @@
                                                     <div class="row">
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                                <div class="input-group input-group-icon">
-                                                                    <span class="input-group-addon">NIS</span>
-                                                                    <input type="text" v-model="filter.nis" class="form-control" placeholder="NIS Santri, Contoh : 293000022332">
-                                                                </div>
+                                                            <label class="form-control-label" for="inputBasicFirstName">NIS</label>
+                                                            <input type="text" v-model="filter.nis" class="form-control" placeholder="NIS Santri, Contoh : 293000022332">
                                                           </div>
                                                       </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                                <div class="input-group input-group-icon">
-                                                                    <span class="input-group-addon"><i class="icon wb-user"></i></span>
-                                                                    <select v-model="filter.kelas" class="form-control">
-                                                                      <option value="" selected disabled>Pilih Kelas</option>
-                                                                      <option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
-                                                                    </select>
-                                                                </div>
+                                                          		<label class="form-control-label" for="inputBasicFirstName">Kelas</label>
+                                                                <select v-model="filter.kelas" class="form-control">
+                                                                  <option value="" selected disabled>Pilih Kelas</option>
+                                                                  <option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
+                                                                </select>
                                                           </div>
                                                       </div>
                                                       <div class="col-md-12">
@@ -54,11 +50,9 @@
                                                       </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                                  <div class="input-group input-group-icon">
-                                                                      <span class="input-group-addon"><i class="icon wb-calendar"></i></span>
-                                                                      <datepicker v-model="filter.bulan" :bootstrap-styling="true" required="" :format="customFormatter" placeholder="Bulan Syariah"></datepicker>
-                                                                  </div>
-                                                                  <span v-if="errors.bulan" class="badge badge-danger">{{ errors.bulan[0] }}</span>
+                                                              <label class="form-control-label" for="inputBasicFirstName">Bulan</label>
+                                                              <datepicker v-model="filter.bulan" :bootstrap-styling="true" required="" :format="customFormatter" placeholder="Bulan Syariah"></datepicker>
+                                                          		<span v-if="errors.bulan" class="badge badge-danger">{{ errors.bulan[0] }}</span>
                                                           </div>
                                                       </div>
                                                     </div>
@@ -114,8 +108,9 @@
                     		<td v-if="santri.status_pembayaran == 'Belum'" ><span class="badge badge-round badge-warning text-white">Belum melakukan pembayaran</span></td>
                     		<td v-else-if="santri.status_pembayaran == 'Sudah'" ><span class="badge badge-round badge-success">Sudah</span></td>
                     		<td>
-                    			<router-link v-if="santri.status_pembayaran == 'Belum'" :to="{ path: '/keuangan/syariah/bayar/'+ santri.id }" class="btn btn-sm btn-success"><i class="icon wb-payment"></i> Pembayaran</router-link>
-                    			<router-link v-else-if="santri.status_pembayaran == 'Sudah'" to="" class="btn btn-sm btn-info" disabled><i class="icon wb-check"></i></router-link>
+                    			<router-link v-if="santri.status_pembayaran == 'Belum'" :to="{ path: '/keuangan/syariah/bayar/'+ santri.id +'/'+ santri.bulan }" class="btn btn-xs btn-success"><i class="icon wb-payment"></i> Pembayaran</router-link>
+                    			<router-link v-else-if="santri.status_pembayaran == 'Sudah'" to="" class="btn btn-xs btn-info" disabled><i class="icon wb-check"></i></router-link>
+                    			<router-link :to="{ path: '/keuangan/syariah/riwayat/'+ santri.id }" class="btn btn-warning btn-xs"><i class="icon wb-time"></i> Riwayat Pembayaran</router-link>
                     		</td>
                     	</tr>
                     </tbody>

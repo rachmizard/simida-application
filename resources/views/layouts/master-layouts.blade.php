@@ -571,7 +571,7 @@
                                 </a>
                                 <ul class="site-menu-sub">
                                     <li class="site-menu-item">
-                                        <a href="%5Bform%5Dkemanaan.html"><span class="site-menu-title">Entri Izin Santri</span></a>
+                                        <a href="{{ route('keamanan.home') }}#/keamanan"><span class="site-menu-title">Entri Izin Santri</span></a>
                                     </li>
                                     <li class="site-menu-item has-su">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>

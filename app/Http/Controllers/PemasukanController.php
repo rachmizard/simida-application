@@ -170,7 +170,7 @@ class PemasukanController extends Controller
         //     // 'nama_donatur' => 'required',
         // ]);
         $storepemasukan = new Pemasukan();
-        $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');
+        $storepemasukan->tgl_pemasukan = $request->tgl_pemasukan;
         $storepemasukan->santri_id = $request->santri_id;
         $storepemasukan->jumlah_pemasukan = '300000'; // nanti mah ada master
         $storepemasukan->jenis_pemasukan = 'syariah';
@@ -271,7 +271,7 @@ class PemasukanController extends Controller
         $deletepemasukan = Pemasukan::find($id);
         $getDefaultPeriode = Periode::whereStatus('aktif')->first();
         $getTotalUang = TotalUang::where('periode', $getDefaultPeriode['nama_periode'])->value('total_nominal');
-        $tambahinUangnya = $getTotalUang + $getDefaultPeriode;
+        $tambahinUangnya = $getTotalUang - $deletepemasukan['jumlah_pemasukan'];
         $updateTotalUang = TotalUang::wherePeriode($getDefaultPeriode['nama_periode'])->update(['total_nominal' => $tambahinUangnya]);
         $deletepemasukan->delete();
 

@@ -18,7 +18,7 @@ class SyariahSantriResource extends Resource
     {
         // return parent::toArray($request);
         $requestMonth = date('m', strtotime($request->bulan));
-        $tgl = Carbon::parse($request->bulan)->format('Y-m');
+        $tgl = Carbon::parse($request->bulan)->format('Y-m-d');
         return [
             'id' => $this->id,
             'nis' => $this->nis,
@@ -27,7 +27,8 @@ class SyariahSantriResource extends Resource
             'kelas' => $this->kelas['nama_kelas'],
             'asrama' => $this->asrama['ngaran']['nama'],
             'status_pembayaran' => $this->statusPembayaran($this->id, $requestMonth),
-            'bulan' => $tgl
+            'bulan' => $tgl,
+            'foto' => $this->foto
         ];
     }
 
