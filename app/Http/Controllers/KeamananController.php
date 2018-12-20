@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Keamanan;
+use App\Notifikasi;
 use App\Santri;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
@@ -36,15 +37,39 @@ class KeamananController extends Controller
 
     public function listSantriIzinWithFilter(Request $request)
     {
-        $santri = Santri::with(['kelas', 'asrama'])->where('nama_santri', $request->nama_santri )->orWhere('nis', $request->nis)->get();
+        $santri = Santri::with(['kelas', 'asrama.ngaran'])->where('nama_santri', $request->nama_santri )->orWhere('nis', $request->nis)->get();
         $available = count($santri) > 0 ? true : false;
         return response()->json(['data' => $santri, 'available' => $available]);
     }
 
-    public function getListSantriIzinDataTables(Datatables $datatables)
+    public function getListSantriIzinDataTables(Request $request, Datatables $datatables)
     {
-        $entriIzin = Keamanan::with('santri')->select('keamanan.*');
-        return $datatables->eloquent($entriIzin)->make(true);
+        $entriIzin = Keamanan::with(['santri']);
+        return $datatables->eloquent($entriIzin)
+        ->editColumn('kategori', function($var){
+            if ($var->kategori == 'jauh') {
+                return '<span class="badge badge-danger">Jauh</span>';
+            }else if($var->kategori == 'dekat'){
+                return '<span class="badge badge-info">Dekat</span>';
+            }
+        })
+        ->editColumn('status', function($var){
+            if ($var->status == 'belum_kembali') {
+                return '<span class="badge badge-danger">Belum Kembali</span>';
+            }else if($var->status == 'sudah_kembali'){
+                return '<span class="badge badge-success">Sudah Kembali</span>';
+            }
+        })
+        ->filter(function($query) use ($request){
+            if (request()->get('filter_kategori')) {
+                $query->where('kategori', request()->get('filter_kategori'))->get();
+            }
+            if (request()->get('filter_status')) {
+                $query->where('status', request()->get('filter_status'))->get();
+            }
+        })
+        ->rawColumns(['kategori', 'status'])
+        ->make(true);
     }
 
     /**
@@ -55,9 +80,10 @@ class KeamananController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Keamanan::whereSantriId($request->santri_id)
-                            ->whereKategori($request->kategori)
-                            ->whereStatus($request->status)
+        $validator = Keamanan::where('santri_id', $request->santri_id)
+                            ->where('kategori', $request->kategori)
+                            ->where('status', 'belum_kembali')
+                            ->whereDate('created_at', Carbon::now()->format('Y-m-d'))
                             ->get();
 
         $entri = new Keamanan();
@@ -66,40 +92,48 @@ class KeamananController extends Controller
                 'santri_id' => 'required', 
                 'kategori' => 'required', 
                 'alasan' => 'required', 
-                'durasi' => 'required', 
-                'status' => 'required', 
+                'tujuan' => 'required', 
                 'pemberi_izin' => 'required'
             ]);
 
             if (count($validator) > 0) {
-                $message['message'] = 'Santri tersebut sudah melakukan izin!';
+                $message['message'] = false;
+                $message['messageAlert'] = true;
             }else{
                 $entri->santri_id = $request->santri_id;
                 $entri->kategori = $request->kategori;
                 $entri->alasan = $request->alasan;
                 $entri->tujuan = $request->tujuan;
-                $entri->status = $request->status;
+                $entri->status = 'belum_kembali';
                 $entri->pemberi_izin = $request->pemberi_izin;
-                $message['message'] = 'Santri berhasil di masukan ke entri izin!';
+                $message['message'] = true;
+                $message['messageAlert'] = false;
+                $entri->save();
             }
         }else{
 
             $this->validate($request, [
                 'santri_id' => 'required', 
                 'kategori' => 'required', 
+                'tujuan' => 'required', 
                 'alasan' => 'required', 
-                'durasi' => 'required', 
-                'status' => 'required', 
             ]);
+
+
+            if (count($validator) > 0) {
+                $message['message'] = false;
+                $message['messageAlert'] = true;
+            }else{
                 $entri->santri_id = $request->santri_id;
                 $entri->kategori = $request->kategori;
                 $entri->alasan = $request->alasan;
                 $entri->tujuan = $request->tujuan;
-                $entri->status = $request->status;
-                $message['message'] = 'Santri berhasil di masukan ke entri izin!';
+                $entri->status = 'belum_kembali';
+                $message['message'] = true;
+                $message['messageAlert'] = false;
+                $entri->save();
+            }
         }
-
-        $entri->save();
 
         return response()->json(['response' => $message]);
 
@@ -179,5 +213,18 @@ class KeamananController extends Controller
         $entri = Keamanan::find($id)->delete();
 
         return response()->json(['response' => 'success']);
+    }
+
+    public function getPemberitahuan(Request $request)
+    {
+        if ($request->start_date && $request->end_date) {
+            $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
+            $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
+            $filters = Notifikasi::whereStatus('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
+        }else{
+            $filters = Notifikasi::orderBy('created_at', 'ASC')->whereStatus('keamanan')->paginate(30);
+        }
+
+        return response()->json(['data' => $filters]);
     }
 }

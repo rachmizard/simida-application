@@ -56,40 +56,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-8">
-              <!-- Panel Kitchen Sink -->
-              <div class="panel">
-                <header class="panel-heading">
-                  <h3 class="panel-title">
-                    <i class="icon wb-payment"></i> Sekilas Entri Izin 
-                    <!-- <span class="panel-desc">
-                      Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
-                    </span> -->
-                  </h3>
-                </header>
-
-                <div class="panel-body table-responsive">
-
-                  <table id="keamananTable" class="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>NIS</th>
-                        <th>Nama Santri</th>
-                        <th>Tujuan & Alasan</th>
-                        <th>Alasan</th>
-                        <th>Status</th>
-                        <th>Jam Izin</th>
-                        <!-- <th>Aksi</th> -->
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <!-- End Panel Kitchen Sink -->
-            </div>
-            <div v-if="santris" class="col-md-12">
+            <div v-if="santris" class="col-md-8">
 
                   <!-- Modal -->
                   <div class="modal fade modal-3d-slit" id="exampleNifty3dSlit" data-backdrop="static" data-keyboard="false" aria-hidden="true"
@@ -128,25 +95,25 @@
 				                                              <div class="example">
 				                                                  <div class="form-row">
 				                                                    <div class="row">
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">ID</label>
-				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.santri_id" class="form-control"disabled>
+				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.santri_id" class="form-control" disabled>
 				                                                          </div>
 				                                                      </div>
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">NIS</label>
-				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="filter.nis" class="form-control" disabled>
+				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.nis" class="form-control" disabled>
 				                                                          </div>
 				                                                      </div>
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Nama Santri</label>
-				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="filter.nama_santri" class="form-control" disabled placeholder="NIS Santri, Contoh : 293000022332">
+				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.nama_santri" class="form-control" disabled placeholder="NIS Santri, Contoh : 293000022332">
 				                                                          </div>
 				                                                      </div>
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Kategori Izin</label>
 				                                                            <select v-model="entri.kategori" class="form-control">
@@ -155,18 +122,21 @@
 				                                                            	<option value="dekat">Dekat</option>
 				                                                            </select>
 				                                                          </div>
+                                                        					<span v-if="errors.kategori" class="badge badge-danger">{{ errors.kategori[0] }}</span>
 				                                                      </div>
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Tujuan</label>
 				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.tujuan" class="form-control" placeholder="Contoh: Ke pasar">
 				                                                          </div>
+                                                        					<span v-if="errors.tujuan" class="badge badge-danger">{{ errors.tujuan[0] }}</span>
 				                                                      </div>
-				                                                      <div class="col-md-12">
+				                                                      <div class="col-md-4">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Alasan</label>
 				                                                            <input @change="filterSantriForEntriIzin()" type="text" v-model="entri.alasan" class="form-control" placeholder="Contoh: Belanja">
 				                                                          </div>
+					                                                        <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
 				                                                      </div>
 				                                                      <div v-if="entri.kategori == 'jauh'" class="col-md-12">
 				                                                          <div class="form-group">
@@ -175,6 +145,7 @@
 				                                                            	<option value="">Pilih Dewan Kyai</option>
 				                                                            	<option v-for="dewankyai in dewankyais.data" :value="dewankyai.nama_dewan_kyai">{{ dewankyai.nama_dewan_kyai }}</option>
 				                                                            </select>
+                                                        					<span v-if="errors.pemberi_izin" class="badge badge-danger">{{ errors.pemberi_izin[0] }}</span>
 				                                                            <span class="badge bg-blue-600 text-white">Perhatian: Jika kategori izin jauh, harus melakukan persetujuan terlebih dahulu dari Dewan Kyai.</span>
 				                                                          </div>
 				                                                      </div>
@@ -196,7 +167,7 @@
                           </div>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-default" @click="dismissModal()">Tutup</button>
+                          <button type="button" data-dismiss="modal" @click="dismissModal()" aria-label="Close" class="btn btn-warning text-white">Tutup</button>
                         </div>
                       </div>
                     </div>
@@ -232,7 +203,7 @@
 							<td>{{ santri.nis }}</td>
 							<td>{{ santri.nama_santri }}</td>
 							<td>{{ santri.kelas.nama_kelas }}</td>
-							<td>{{ santri.asrama_id }}</td>
+							<td>{{ santri.asrama.ngaran.nama }}</td>
 							<td>
 								<button @click="getIdSantri(santri.id)" class="btn btn-xs btn-success" data-target="#exampleNifty3dSlit" data-toggle="modal"><i class="icon wb-plus"></i> Entri Izin</button>
 							</td>
@@ -263,7 +234,6 @@
     },
 
         mounted() {
-			this.getKeamananDatatables();
 			this.getDewanKyai();
         },
 
@@ -279,6 +249,8 @@
                 	nama_santri: ''
                 },
                 entri: {
+                	nis: '',
+                	nama_santri: '',
                 	santri_id: '',
                 	kategori: '',
                 	alasan: '',
@@ -307,6 +279,8 @@
             		this.entri.santri_id = response.data.id;
             		this.filter.nis = response.data.nis;
             		this.filter.nama_santri = response.data.nama_santri;
+            		this.entri.nis = response.data.nis;
+            		this.entri.nama_santri = response.data.nama_santri;
             	});
             },
 
@@ -315,36 +289,6 @@
             		this.dewankyais = response.data;
             	});
             },
-
-            getKeamananDatatables(){
-            	$(function(){
-            		var table = $('#keamananTable').DataTable({
-		              processing: true,
-		              serverSide: true,
-		              ajax: {
-		                url: "/keamanan/getListSantriIzinDataTables",
-		                data:function(e){
-		                  e.kategori_asrama = $('select[name="kategori_asrama"]').val();
-		                }
-		              },
-		              columns: [
-		                  { data: 'id', name: 'id' },
-		                  { data: 'santri.nis', name: 'santri.nis', orderable: false },
-		                  { data: 'santri.nama_santri', name: 'santri.nama_santri' },
-		                  { data: 'tujuan', name: 'tujuan' },
-		                  { data: 'status', name: 'status'},
-		                  { data: 'created_at', name: 'created_at'}
-		                  // { data: 'action', name: 'action'},
-		              ]
-		          }); 
-
-			         // Auto reload when getting result 
-			        $('#kategori_asrama').on('change', function(e) {
-			            table.draw();
-			            e.preventDefault();
-			        });
-            	});
-    		},
 
             filterSantriForEntriIzin(){
         		axios.get('/keamanan/listSantriIzinWithFilter', { params: { nis: this.filter.nis, nama_santri: this.filter.nama_santri } }).then(response => {
@@ -373,21 +317,32 @@
 					  // $('body').css('padding-right', '');
 					  $("#exampleNifty3dSlit").hide();
 				})
+				this.resetFilter();
             },
 
             storeentriizin:function(e){
                 let app = this;
                 var body = app.entri;
                 // console.log(body);
-                axios.post('/keamanan/store', body)
+                axios.post('/keamanan/store/entri/izin', body)
                 .then(response => {
                   app.errors = [];
-                  app.messageSuccess = response.data.response;
-                  app.messageAlert = response.data.response;
-                  app.entri = null;
-                  app.dismissModal();
-                  if (app.messageSuccess == 'success') {   
-                    app.messageSuccess = 'Syariah berhasil ditambahkan ke database!';
+                  app.messageSuccess = response.data.response.message;
+                  app.messageAlert = response.data.response.messageAlert;
+                  app.entri.kategori = '';
+                  app.entri.tujuan = '';
+                  app.entri.alasan = '';
+                  app.entri.pemberi_izin = '';
+                  app.filter.id = '';
+                  app.filter.nis = '';
+                  app.filter.nama_santri = '';
+                  if (app.messageSuccess) {   
+                  	// app.dismissModal();
+                    app.messageSuccess = 'Entri izin berhasil di tambahkan!';
+                    app.cool_decreased_cash = true;
+                    this.getKeamananDatatables();
+                  }else if(app.messageAlert){
+                    app.messageAlert = 'Santri tersebut sudah melakukan izin!';
                     app.cool_decreased_cash = true;
                   }
                   setTimeout(() => {
@@ -399,6 +354,7 @@
                   }, 8000);
                 }).catch((error) => {
                      app.errors = error.response.data.errors;
+                     console.log(app.errors);
                      app.messageSuccess = false;
                 });
             }

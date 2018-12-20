@@ -246,11 +246,15 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			Route::get('/getListSantriIzinDataTables', 'KeamananController@getListSantriIzinDataTables');
 
 			// CRUD KEAMANAN
-			Route::post('/store', 'KeamananController@store');
+			Route::post('/store/entri/izin', 'KeamananController@store');
 			Route::get('{id}/show', 'KeamananController@show');
 			Route::put('{id}/update', 'KeamananController@update');
 			Route::delete('{id}/destroy', 'KeamananController@destroy');
 			// END CRUD KEAMANAN
+
+			// NOTIFIKASI KEAMANAN
+			Route::get('getPemberitahuan', 'KeamananController@getPemberitahuan');
+			// END NOTIFIKASI KEAMANAN
 
 			// CRUD MASTER LIMIT IZIN
 			Route::post('/store', 'MasterLimitIzinController@store');

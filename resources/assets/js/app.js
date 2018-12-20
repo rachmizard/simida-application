@@ -416,6 +416,24 @@ const routes = [
 			  component: require('./components/Keamanan/KeamananComponent.vue')
 			},
 
+			{
+			  path: '/list_entri',
+			  name: 'listEntri',
+			  component: require('./components/Keamanan/ListEntriComponent.vue')
+			},
+
+			{
+			  path: '/pemberitahuan',
+			  name: 'pemberitahuan',
+			  component: require('./components/Keamanan/PemberitahuanComponent.vue')
+			},
+
+			{
+			  path: '/laporan/entri_izin',
+			  name: 'laporanEntriIzin',
+			  component: require('./components/Keamanan/LaporanEntriIzinComponent.vue')
+			},
+
 		// End Keamanan
 
 

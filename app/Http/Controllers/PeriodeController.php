@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Periode;
+use App\TotalUang;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -68,9 +69,21 @@ class PeriodeController extends Controller
             'end_date' => date('Y-m-d', strtotime($request->end_date))
         ]);
 
-        $data['message'] = 'Berhasil di ditambahkan!';
-        $data['messageWarning'] = false;
-        $data['messageError'] = false;
+        $validator = TotalUang::where('periode', $request->nama_periode)->count();
+        if ($validator > 0) {
+            TotalUang::where('periode', $request->nama_periode)->delete();
+            $data['message'] = false;
+            $data['messageWarning'] = 'Peringatan : Periode ini sudah tersedia, guna untuk keuangan!';
+            $data['messageError'] = false;
+        }else{
+            TotalUang::create([
+                'total_nominal' => 0,
+                'periode' => $request->nama_periode
+            ]);
+            $data['message'] = 'Berhasil di ditambahkan!';
+            $data['messageWarning'] = false;
+            $data['messageError'] = false;
+        }
         return response()->json(['response' => $data]);
     }
 
@@ -111,6 +124,10 @@ class PeriodeController extends Controller
     public function update(Request $request, $id)
     {
         $periode = Periode::find($id);
+        $countTotalUang = TotalUang::where('periode', $periode->nama_periode)->first();
+        if ($countTotalUang) {
+            TotalUang::find($countTotalUang['id'])->update(['periode' => $request->nama_periode]);
+        }
         $periode->update([
             'nama_periode' => $request->nama_periode,
             'start_date' => date('Y-m-d', strtotime($request->start_date)),
@@ -128,6 +145,10 @@ class PeriodeController extends Controller
         $get = Periode::whereStatus('aktif')->first();
         $reset = Periode::whereIn('status', $get)->update(['status' => 'tidak_aktif']);
         $periode = Periode::find($id);
+        $countTotalUang = TotalUang::where('periode', $periode->nama_periode)->first();
+        if (!count($countTotalUang) > 0) {
+            TotalUang::create(['total_nominal' => 0, 'periode' => $periode->nama_periode]);
+        }
         $periode->update(['status' => 'aktif']);
 
         $data['message'] = 'Periode '. $periode->nama_periode .' telah di aktifkan!';

@@ -112,10 +112,10 @@
                     <img class="navbar-brand-logo" src="/assets/img/logo/Pondok.png" title="Remark">
                     <span class="navbar-brand-text hidden-xs-down"> Simida</span>
                 </div>
-                <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
+                <!-- <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
                     <span class="sr-only">Toggle Search</span>
                     <i class="icon wb-search" aria-hidden="true"></i>
-                </button>
+                </button> -->
             </div>
             <!--/Navbar SM Layer-->
             
@@ -132,11 +132,11 @@
                                 </i>
                             </a>
                         </li>
-                        <li class="nav-item hidden-float">
+                        <!-- <li class="nav-item hidden-float">
                             <a class="nav-link icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search" role="button">
                                 <span class="sr-only">Toggle Search</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown dropdown-fw dropdown-mega">
                             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="fade" role="button">Pintas Link  <i class="icon wb-chevron-down-mini" aria-hidden="true"></i></a>
                             <div class="dropdown-menu" role="menu">
@@ -285,8 +285,6 @@
                             </a>
                             <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-payment" aria-hidden="true"></i> Billing</a>
-                                <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-settings" aria-hidden="true"></i> Settings</a>
                                 <div class="dropdown-divider" role="presentation"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -384,7 +382,7 @@
                 <!-- End Navbar Collapse -->
 
                 <!-- Site Navbar Seach -->
-                <div class="collapse navbar-search-overlap" id="site-navbar-search">
+                <!-- <div class="collapse navbar-search-overlap" id="site-navbar-search">
                     <form role="search">
                         <div class="form-group">
                             <div class="input-search">
@@ -394,7 +392,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> -->
                 <!-- End Site Navbar Seach -->
             </div>
         </nav>
@@ -573,6 +571,9 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('keamanan.home') }}#/keamanan"><span class="site-menu-title">Entri Izin Santri</span></a>
                                     </li>
+                                    <li class="site-menu-item">
+                                        <a href="{{ route('keamanan.home') }}#/list_entri"><span class="site-menu-title">List Entri</span></a>
+                                    </li>
                                     <li class="site-menu-item has-su">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
@@ -604,17 +605,13 @@
             </div>
 
             <div class="site-menubar-footer">
-                <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip" data-original-title="Settings">
-                    <span class="icon wb-settings" aria-hidden="true"></span>
-                </a>
-                <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
-                    <span class="icon wb-eye-close" aria-hidden="true"></span>
-                </a>
-                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
-                    <span class="icon wb-power" aria-hidden="true"></span>
-                </a>
+                <div class="text-center">
+                    <a href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+                      <span class="icon wb-power" aria-hidden="true"></span>
+                  </a>
+                </div>
             </div>
         </div>
         <!--END: Side Navbar-->
