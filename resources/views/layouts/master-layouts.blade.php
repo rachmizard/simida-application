@@ -69,6 +69,12 @@
           'csrfToken' => csrf_token(),
       ]) !!};
   </script>
+
+  <style>
+    .dt-buttons{
+      right:0%;
+    }
+  </style>
   
   <!-- Plugins For This Page -->
   <link rel="stylesheet" href="/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2">
@@ -554,9 +560,9 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('keuangan.home') }}#/keuangan/syariah"><span class="site-menu-title">Syariah</span></a>
                                     </li>
-                                    <li class="site-menu-item">
+                                    <!-- <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
                             @endif
@@ -713,6 +719,15 @@
       <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/jquery-wizard.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/matchheight.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/base/assets/examples/js/forms/wizard.min.js?v4.0.2"></script>
+
+
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/scroller/1.5.1/js/dataTables.scroller.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 
 <script>
 

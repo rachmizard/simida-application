@@ -44,8 +44,8 @@ class KeamananController extends Controller
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::select('keamanan.*');
-        return $datatables->of($entriIzin)
+        $entriIzin = Keamanan::with(['santri'])->select('keamanan.*');
+        return $datatables->eloquent($entriIzin)
         ->editColumn('kategori', function($var){
             if ($var->kategori == 'jauh') {
                 return '<span class="badge badge-danger">Jauh</span>';
@@ -60,9 +60,18 @@ class KeamananController extends Controller
                 return '<span class="badge badge-success">Sudah Kembali</span>';
             }
         })
-        ->filter(function ($query) use ($request){
-            if (request()->has('start_date') && request()->has('end_date')) {
-                $query->whereBetween('created_at', [Carbon::parse($request->get('start_date'))->format('Y-m-d'), Carbon::parse($request->get('end_date'))->format('Y-m-d')]);
+        ->editColumn('tgl_berakhir_izin', function($var){
+            if ($var->tgl_berakhir_izin == null) {
+                return '-';
+            }else{
+                return date('d-m-Y', strtotime($var->tgl_berakhir_izin));
+            }
+        })
+        ->editColumn('created_at', function($var){
+            if ($var->created_at == null) {
+                return '-';
+            }else{
+                return date('d-m-Y H:i:s', strtotime($var->created_at));
             }
         })
         ->rawColumns(['kategori', 'status'])

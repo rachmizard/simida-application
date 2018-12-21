@@ -63,8 +63,8 @@
                     <tbody>
                       <tr v-for="notification in notifications.data">
                         <td>{{ notification.id }}</td>
+                        <td>{{ notification.judul }}</td>
                         <td>{{ notification.pesan }}</td>
-                        <td>{{ notification.keterangan }}</td>
                         <td></td>
                       </tr>
                       <!-- <tr v-if="notifications">

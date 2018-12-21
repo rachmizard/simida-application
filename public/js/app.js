@@ -107969,64 +107969,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -108096,15 +108038,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "/keamanan/getListSantriIzinDataTables",
-                        data: function data(e) {
-                            e.start_date = $('input[name="start_date"]').val();
-                            e.end_date = $('input[name="end_date"]').val();
-                        }
+                        url: "/keamanan/getListSantriIzinDataTables"
+                        // data:function(e){
+                        //     e.start_date = $('input[name="start_date"]').val();
+                        //   e.end_date = $('input[name="end_date"]').val();
+                        // }
                     },
-                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at'
-                        // { data: 'action', name: 'action'},
-                    }]
+                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin' }]
                 });
 
                 // Auto reload when getting result 
@@ -108186,78 +108126,9 @@ var render = function() {
     _c("div", { staticClass: "row row-lg" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "panel" }, [
-              _c("div", { staticClass: "panel col-md-12" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "panel-body container-fluid",
-                    staticStyle: { "background-color": "#fdfdfd" }
-                  },
-                  [
-                    _c("div", { staticClass: "row row-lg" }, [
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _vm.messageSuccess
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "alert dark alert-icon alert-success alert-dismissible",
-                                attrs: { role: "alert" }
-                              },
-                              [
-                                _vm._m(0),
-                                _vm._v(" "),
-                                _c("i", {
-                                  staticClass: "icon wb-check",
-                                  attrs: { "aria-hidden": "true" }
-                                }),
-                                _vm._v(
-                                  " " +
-                                    _vm._s(_vm.messageSuccess) +
-                                    "\r\n                                  "
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.messageAlert
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "alert dark alert-icon alert-danger alert-dismissible",
-                                attrs: { role: "alert" }
-                              },
-                              [
-                                _vm._m(1),
-                                _vm._v(" "),
-                                _c("i", {
-                                  staticClass: "icon wb-check",
-                                  attrs: { "aria-hidden": "true" }
-                                }),
-                                _vm._v(
-                                  " " +
-                                    _vm._s(_vm.messageAlert) +
-                                    "\r\n                                  "
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._m(2)
-                      ])
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-8" }, [
-            _c("div", { staticClass: "panel" }, [
-              _vm._m(3),
+              _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
                 _c(
@@ -108308,7 +108179,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(1)
               ])
             ])
           ])
@@ -108318,124 +108189,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c(
-        "div",
-        {
-          staticClass: "form-group col-md-12 col-sm-12",
-          staticStyle: { "padding-right": "15px" }
-        },
-        [
-          _c("h4", { staticClass: "example-title" }, [
-            _c("i", { staticClass: "icon wb-search text-success" }),
-            _vm._v(" Filter Entri")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "example" }, [
-            _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label",
-                        attrs: { for: "inputBasicFirstName" }
-                      },
-                      [_vm._v("Tanggal Awal")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "date",
-                        name: "start_date",
-                        id: "start_date"
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label",
-                        attrs: { for: "inputBasicFirstName" }
-                      },
-                      [_vm._v("Tanggal Akhir")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "date", name: "end_date", id: "end_date" }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-info",
-                        attrs: { id: "filter_trigger" }
-                      },
-                      [
-                        _c("i", { staticClass: "icon wb-search" }),
-                        _vm._v(
-                          "\r\n                                                              Filter\r\n                                                            "
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -108472,7 +108225,9 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("th", [_vm._v("Kategori")]),
             _vm._v(" "),
-            _c("th", [_vm._v("Tanggal Izin")])
+            _c("th", [_vm._v("Tanggal Izin")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Tanggal Akhir Izin")])
           ])
         ]),
         _vm._v(" "),
@@ -108541,11 +108296,12 @@ module.exports = Component.exports
 /* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(361)
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(362)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -108563,6 +108319,22 @@ var Component = normalizeComponent(
   __vue_module_identifier__
 )
 Component.options.__file = "resources/assets/js/components/Keamanan/LaporanEntriIzinComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5fb766b8", Component.options)
+  } else {
+    hotAPI.reload("data-v-5fb766b8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
 module.exports = Component.exports
 
@@ -108813,9 +108585,9 @@ var render = function() {
                         return _c("tr", [
                           _c("td", [_vm._v(_vm._s(notification.id))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(notification.pesan))]),
+                          _c("td", [_vm._v(_vm._s(notification.judul))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(notification.keterangan))]),
+                          _c("td", [_vm._v(_vm._s(notification.pesan))]),
                           _vm._v(" "),
                           _c("td")
                         ])
@@ -108960,6 +108732,168 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-9344610c", module.exports)
+  }
+}
+
+/***/ }),
+/* 361 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */],
+        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
+    },
+
+    mounted: function mounted() {
+        this.getKeamananDatatables();
+    },
+    data: function data() {
+        return {
+            errors: []
+        };
+    },
+
+
+    methods: {
+        customFormatter: function customFormatter(date) {
+            return moment(date).format('MM-YYYY');
+        },
+        getKeamananDatatables: function getKeamananDatatables() {
+            $(function () {
+                var htmls = [];
+                var rows = [];
+                axios.get('/keamanan/getListSantriIzinDataTables').then(function (response) {
+                    htmls = response.data;
+                    $.each(htmls.data, function (index, value) {
+                        rows.push([value.santri.nis, value.santri.nama_santri, value.tujuan, value.alasan, value.status, value.kategori, value.created_at, value.tgl_berakhir_izin]);
+                    });
+
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+
+                    var yyyy = today.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd;
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm;
+                    }
+                    var today = dd + '/' + mm + '/' + yyyy;
+                    var table = $('#laporanEntriIzin').DataTable({
+                        dom: 'Blfrtip',
+                        buttons: [{
+                            extend: 'excelHtml5',
+                            text: '<i class="icon wb-download"></i> Download Report',
+                            className: 'btn btn-success btn-sm',
+                            title: "laporan_keamanan_miftahul_huda_" + today,
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6]
+                            }
+                        }],
+                        data: rows,
+                        columns: [{ title: 'NIS' }, { title: 'Nama Santri' }, { title: 'Tujuan' }, { title: 'Alasan' }, { title: 'Status' }, { title: 'Kategori' }, { title: 'Tanggal Izin' }, { title: 'Tanggal Akhir Izin' }]
+                    });
+
+                    console.log(rows);
+                });
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "app" } }, [
+      _c("div", { staticClass: "row row-lg" }, [
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "panel" }, [
+                _c("header", { staticClass: "panel-heading" }, [
+                  _c("h3", { staticClass: "panel-title" }, [
+                    _c("i", { staticClass: "icon wb-book" }),
+                    _vm._v(" Laporan Entri\r\n                    ")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel-body table-responsive" }, [
+                  _c("div", { staticClass: "form-group" }),
+                  _vm._v(" "),
+                  _c("table", {
+                    staticClass: "table table-striped table-hover",
+                    attrs: { id: "laporanEntriIzin" }
+                  })
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5fb766b8", module.exports)
   }
 }
 

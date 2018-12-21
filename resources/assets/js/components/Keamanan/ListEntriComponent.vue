@@ -3,66 +3,7 @@
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">
-            <div class="col-md-4">
-              <div class="panel">
-                  <div class="panel col-md-12">
-                      <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
-                          <div class="row row-lg">
-                              <div class="col-md-12">
-                                  <div v-if="messageSuccess" class="alert dark alert-icon alert-success alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <i class="icon wb-check" aria-hidden="true"></i> {{ messageSuccess }}
-                                  </div>
-                                  <div v-if="messageAlert" class="alert dark alert-icon alert-danger alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <i class="icon wb-check" aria-hidden="true"></i> {{ messageAlert }}
-                                  </div>
-                                  <div class="form-row">
-                                      <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
-                                          <h4 class="example-title"><i class="icon wb-search text-success"></i> Filter Entri</h4>
-                                              <div class="example">
-                                                  <div class="form-row">
-                                                    <div class="row">
-                                                      <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <label class="form-control-label" for="inputBasicFirstName">Tanggal Awal</label>
-                                                            <input type="date" class="form-control" name="start_date" id="start_date">
-                                                          </div>
-                                                      </div>
-                                                      <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <label class="form-control-label" for="inputBasicFirstName">Tanggal Akhir</label>
-                                                            <input type="date" class="form-control" name="end_date" id="end_date">
-                                                          </div>
-                                                      </div>
-                                                      <div class="col-md-12">
-                                                          <div class="form-group">
-                                                            <button id="filter_trigger" class="btn btn-sm btn-info">
-                                                              <i class="icon wb-search"></i>
-                                                              Filter
-                                                            </button>
-                                                          </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <!-- <div class="form-row">
-                                                      <button @click="resetFilter" class="btn btn-warning">Reset Pencarian</button>
-                                                 </div> -->
-                                              </div><!--/Example-->
-                                      </div><!--/.form-group
-                                      =========================-->
-                                   </div><!--/.form-row-->
-                              </div><!--/.col-->
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
               <!-- Panel Kitchen Sink -->
               <div class="panel">
                 <header class="panel-heading">
@@ -90,6 +31,7 @@
                         <th>Status</th>
                         <th>Kategori</th>
                         <th>Tanggal Izin</th>
+                        <th>Tanggal Akhir Izin</th>
                         <!-- <th>Aksi</th> -->
                       </tr>
                     </thead>
@@ -175,10 +117,10 @@
 		              serverSide: true,
 		              ajax: {
 		                url: "/keamanan/getListSantriIzinDataTables",
-		                data:function(e){
-                      e.start_date = $('input[name="start_date"]').val();
-		                  e.end_date = $('input[name="end_date"]').val();
-		                }
+		                // data:function(e){
+                  //     e.start_date = $('input[name="start_date"]').val();
+		                //   e.end_date = $('input[name="end_date"]').val();
+		                // }
 		              },
 		              columns: [
 		                  { data: 'santri.nis', name: 'santri.nis' },
@@ -187,7 +129,8 @@
 		                  { data: 'alasan', name: 'alasan' },
                       { data: 'status', name: 'status'},
 		                  { data: 'kategori', name: 'kategori'},
-		                  { data: 'created_at', name: 'created_at'}
+                      { data: 'created_at', name: 'created_at'},
+		                  { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin'},
 		                  // { data: 'action', name: 'action'},
 		              ]
 		          }); 
