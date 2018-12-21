@@ -138,7 +138,7 @@
 				                                                          </div>
 					                                                        <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
 				                                                      </div>
-				                                                      <div v-if="entri.kategori == 'jauh'" class="col-md-12">
+				                                                      <div v-if="entri.kategori == 'jauh'" class="col-md-6">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Dewan Kyai yang mengizinkan</label>
 				                                                            <select v-model="entri.pemberi_izin" class="form-control">
@@ -149,6 +149,13 @@
 				                                                            <span class="badge bg-blue-600 text-white">Perhatian: Jika kategori izin jauh, harus melakukan persetujuan terlebih dahulu dari Dewan Kyai.</span>
 				                                                          </div>
 				                                                      </div>
+                                                              <div v-if="entri.kategori == 'jauh'" class="col-md-6">
+                                                                  <div class="form-group">
+                                                                    <label class="form-control-label" for="inputBasicFirstName">Tanggal Berakhirnya Izin</label>
+                                                                    <datepicker v-model="entri.tgl_berakhir_izin" :bootstrap-styling="true" required="" :format="customFormatter" placeholder="Tanggal Pemasukan"></datepicker>
+                                                                  <span v-if="errors.tgl_berakhir_izin" class="badge badge-danger">{{ errors.tgl_berakhir_izin[0] }}</span>
+                                                                  </div>
+                                                              </div>
 				                                                    </div>
 				                                                  </div>
 				                                                  <div class="form-row">
@@ -199,20 +206,20 @@
                       </tr>
                     </thead>
                     <tbody>
-						<tr v-if="santris" v-for="santri in santris.data">
-							<td>{{ santri.nis }}</td>
-							<td>{{ santri.nama_santri }}</td>
-							<td>{{ santri.kelas.nama_kelas }}</td>
-							<td>{{ santri.asrama.ngaran.nama }}</td>
-							<td>
-								<button @click="getIdSantri(santri.id)" class="btn btn-xs btn-success" data-target="#exampleNifty3dSlit" data-toggle="modal"><i class="icon wb-plus"></i> Entri Izin</button>
-							</td>
-						</tr>
-						<tr v-if="resultsearch == false">
-							<td class="text-center" colspan="5">
-								<i class="icon wb-search"></i> Hasil tidak ditemukan.
-							</td>
-						</tr>
+          						<tr v-if="santris" v-for="santri in santris.data">
+          							<td>{{ santri.nis }}</td>
+          							<td>{{ santri.nama_santri }}</td>
+          							<td>{{ santri.kelas.nama_kelas }}</td>
+          							<td>{{ santri.asrama.ngaran.nama }}</td>
+          							<td>
+          								<button @click="getIdSantri(santri.id)" class="btn btn-xs btn-success" data-target="#exampleNifty3dSlit" data-toggle="modal"><i class="icon wb-plus"></i> Entri Izin</button>
+          							</td>
+          						</tr>
+          						<tr v-if="resultsearch == false">
+          							<td class="text-center" colspan="5">
+          								<i class="icon wb-search"></i> Hasil tidak ditemukan.
+          							</td>
+          						</tr>
                     </tbody>
                   </table>
                 </div>
@@ -255,7 +262,8 @@
                 	kategori: '',
                 	alasan: '',
                 	status: '',
-                	pemberi_izin: ''
+                	pemberi_izin: '',
+                  tgl_berakhir_izin: ''
                 },
                 resultsearch: '',
                 message: '',
@@ -271,7 +279,7 @@
             },
 
             customFormatter(date) {
-                  return moment(date).format('MM-YYYY');
+                  return moment(date).format('DD-MM-YYYY');
             },
 
             getIdSantri(id){
@@ -333,6 +341,7 @@
                   app.entri.tujuan = '';
                   app.entri.alasan = '';
                   app.entri.pemberi_izin = '';
+                  app.entri.tgl_berakhir_izin = '';
                   app.filter.id = '';
                   app.filter.nis = '';
                   app.filter.nama_santri = '';

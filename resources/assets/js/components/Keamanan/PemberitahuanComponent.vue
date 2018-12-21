@@ -15,18 +15,21 @@
                   </h3>
                 </header>
 
-                <div class="panel-body table-responsive">
+                <div class="panel-body">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                         <datepicker :bootstrap-styling="true" required="" placeholder="Tanggal mulai.." v-model="filter.start_date" :format="customFormatter"></datepicker>
                         </div>
                         <div class="form-group col-md-2 text-center">
                           <span>Sampai</span>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                           <datepicker :bootstrap-styling="true" required="" placeholder="Tanggal akhir.." v-model="filter.end_date" :format="customFormatter"></datepicker>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <button @click="triggerFilter" class="btn btn-sm btn-info"><i class="icon wb-search"></i> Menampilkan</button>
                         </div>
                       </div>
                     </div>
@@ -58,15 +61,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-if="notifications" v-for="notification in notifications.data">
+                      <tr v-for="notification in notifications.data">
                         <td>{{ notification.id }}</td>
                         <td>{{ notification.pesan }}</td>
                         <td>{{ notification.keterangan }}</td>
                         <td></td>
                       </tr>
-                      <tr v-if="notifications">
+                      <!-- <tr v-if="notifications">
                         <td colspan="5" class="text-center">Data tidak ditemukan.</td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
@@ -102,9 +105,23 @@
         },
 
         methods: {
-          customFormatter(date) {
-                return moment(date).format('MM-YYYY');
-          },
-            
+            customFormatter(date) {
+                  return moment(date).format('MM-YYYY');
+            },
+
            fecthNotification(){
-              axios.get('getPemberitahuan').then(response =>
+              axios.get('keamanan/getPemberitahuan').then(response => {
+                this.notifications = response.data.data;
+              })
+           },
+
+           triggerFilter(){
+            axios.get('keamanan/getPemberitahuan', { params : { start_date: this.filter.start_date, end_date: this.filter.end_date } }).then(response => {
+                this.notifications = response.data;
+              })
+            console.log('successfully triggered!');
+           }
+        },
+
+    }
+</script>

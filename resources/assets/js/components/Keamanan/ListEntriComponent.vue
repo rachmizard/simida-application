@@ -29,22 +29,22 @@
                                                     <div class="row">
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                            <label class="form-control-label" for="inputBasicFirstName">Tampilkan Berdasarkan Kategori</label>
-                                                            <select name="filter_kategori" id="filter_kategori" class="form-control">
-                                                              <option selected disabled>Cari..</option>
-                                                              <option value="dekat">Dekat</option>
-                                                              <option value="jauh">Jauh</option>
-                                                            </select>
+                                                            <label class="form-control-label" for="inputBasicFirstName">Tanggal Awal</label>
+                                                            <input type="date" class="form-control" name="start_date" id="start_date">
                                                           </div>
                                                       </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                            <label class="form-control-label" for="inputBasicFirstName">Tampilkan Berdasarkan Status</label>
-                                                            <select name="filter_status" id="filter_status" class="form-control">
-                                                              <option selected disabled>Cari..</option>
-                                                              <option value="sudah_kembali">Sudah Kembali</option>
-                                                              <option value="belum_kembali">Belum Kembali</option>
-                                                            </select>
+                                                            <label class="form-control-label" for="inputBasicFirstName">Tanggal Akhir</label>
+                                                            <input type="date" class="form-control" name="end_date" id="end_date">
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <button id="filter_trigger" class="btn btn-sm btn-info">
+                                                              <i class="icon wb-search"></i>
+                                                              Filter
+                                                            </button>
                                                           </div>
                                                       </div>
                                                     </div>
@@ -176,8 +176,8 @@
 		              ajax: {
 		                url: "/keamanan/getListSantriIzinDataTables",
 		                data:function(e){
-                      e.filter_kategori = $('select[name="filter_kategori"]').val();
-		                  e.filter_status = $('select[name="filter_status"]').val();
+                      e.start_date = $('input[name="start_date"]').val();
+		                  e.end_date = $('input[name="end_date"]').val();
 		                }
 		              },
 		              columns: [
@@ -193,14 +193,11 @@
 		          }); 
 
 			         // Auto reload when getting result 
-  			        $('#filter_kategori').on('change', function(e) {
+  			        $('#filter_trigger').on('click', function(e) {
   			            table.draw();
   			            e.preventDefault();
   			        });
-                $('#filter_status').on('change', function(e) {
-                    table.draw();
-                    e.preventDefault();
-                });
+
             	});
     		},
 

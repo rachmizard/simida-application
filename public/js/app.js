@@ -40920,6 +40920,10 @@ var routes = [
 		path: '/laporan/entri_izin',
 		name: 'laporanEntriIzin',
 		component: __webpack_require__(355)
+}, {
+		path: '/pengaturan',
+		name: 'pengaturan',
+		component: __webpack_require__(358)
 }];
 var router = new __WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]({ routes: routes });
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -106018,143 +106022,152 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */],
-        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
+  components: {
+    Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */],
+    Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
+  },
+
+  mounted: function mounted() {
+    this.getDewanKyai();
+  },
+  data: function data() {
+    return {
+      errors: [],
+      errorsJenis: [],
+      santris: [],
+      dewankyais: [],
+      filter: {
+        id: '',
+        nis: '',
+        nama_santri: ''
+      },
+      entri: {
+        nis: '',
+        nama_santri: '',
+        santri_id: '',
+        kategori: '',
+        alasan: '',
+        status: '',
+        pemberi_izin: '',
+        tgl_berakhir_izin: ''
+      },
+      resultsearch: '',
+      message: '',
+      messageAlert: '',
+      messageSuccess: '',
+      messageJenis: ''
+    };
+  },
+
+
+  methods: {
+    formatPrice: function formatPrice(value) {
+      return "Rp." + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.");
+    },
+    customFormatter: function customFormatter(date) {
+      return moment(date).format('DD-MM-YYYY');
+    },
+    getIdSantri: function getIdSantri(id) {
+      var _this = this;
+
+      axios.get('/sekretariat/santri/' + id + '/show').then(function (response) {
+        _this.entri.santri_id = response.data.id;
+        _this.filter.nis = response.data.nis;
+        _this.filter.nama_santri = response.data.nama_santri;
+        _this.entri.nis = response.data.nis;
+        _this.entri.nama_santri = response.data.nama_santri;
+      });
+    },
+    getDewanKyai: function getDewanKyai() {
+      var _this2 = this;
+
+      axios.get('/sekretariat/dewankyai/getDewanKyaiJSON').then(function (response) {
+        _this2.dewankyais = response.data;
+      });
+    },
+    filterSantriForEntriIzin: function filterSantriForEntriIzin() {
+      var _this3 = this;
+
+      axios.get('/keamanan/listSantriIzinWithFilter', { params: { nis: this.filter.nis, nama_santri: this.filter.nama_santri } }).then(function (response) {
+        _this3.santris = response.data;
+        _this3.resultsearch = response.data.available;
+        console.log(_this3.resultsearch);
+      }).catch(function (error) {
+        _this3.errors = error.response.data.errors;
+        setTimeout(function () {
+          _this3.errors = false;
+        }, 4000);
+      });
+    },
+    resetFilter: function resetFilter() {
+      this.filter.nis = '';
+      this.filter.nama_santri = '';
+    },
+    dismissModal: function dismissModal() {
+      $(function () {
+
+        // $("#exampleNifty3dSlit").removeClass("in");
+        $(".modal-backdrop").remove();
+        // $('body').removeClass('modal-open');
+        // $('body').css('padding-right', '');
+        $("#exampleNifty3dSlit").hide();
+      });
+      this.resetFilter();
     },
 
-    mounted: function mounted() {
-        this.getDewanKyai();
-    },
-    data: function data() {
-        return {
-            errors: [],
-            errorsJenis: [],
-            santris: [],
-            dewankyais: [],
-            filter: {
-                id: '',
-                nis: '',
-                nama_santri: ''
-            },
-            entri: {
-                nis: '',
-                nama_santri: '',
-                santri_id: '',
-                kategori: '',
-                alasan: '',
-                status: '',
-                pemberi_izin: ''
-            },
-            resultsearch: '',
-            message: '',
-            messageAlert: '',
-            messageSuccess: '',
-            messageJenis: ''
-        };
-    },
 
+    storeentriizin: function storeentriizin(e) {
+      var _this4 = this;
 
-    methods: {
-        formatPrice: function formatPrice(value) {
-            return "Rp." + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.");
-        },
-        customFormatter: function customFormatter(date) {
-            return moment(date).format('MM-YYYY');
-        },
-        getIdSantri: function getIdSantri(id) {
-            var _this = this;
-
-            axios.get('/sekretariat/santri/' + id + '/show').then(function (response) {
-                _this.entri.santri_id = response.data.id;
-                _this.filter.nis = response.data.nis;
-                _this.filter.nama_santri = response.data.nama_santri;
-                _this.entri.nis = response.data.nis;
-                _this.entri.nama_santri = response.data.nama_santri;
-            });
-        },
-        getDewanKyai: function getDewanKyai() {
-            var _this2 = this;
-
-            axios.get('/sekretariat/dewankyai/getDewanKyaiJSON').then(function (response) {
-                _this2.dewankyais = response.data;
-            });
-        },
-        filterSantriForEntriIzin: function filterSantriForEntriIzin() {
-            var _this3 = this;
-
-            axios.get('/keamanan/listSantriIzinWithFilter', { params: { nis: this.filter.nis, nama_santri: this.filter.nama_santri } }).then(function (response) {
-                _this3.santris = response.data;
-                _this3.resultsearch = response.data.available;
-                console.log(_this3.resultsearch);
-            }).catch(function (error) {
-                _this3.errors = error.response.data.errors;
-                setTimeout(function () {
-                    _this3.errors = false;
-                }, 4000);
-            });
-        },
-        resetFilter: function resetFilter() {
-            this.filter.nis = '';
-            this.filter.nama_santri = '';
-        },
-        dismissModal: function dismissModal() {
-            $(function () {
-
-                // $("#exampleNifty3dSlit").removeClass("in");
-                $(".modal-backdrop").remove();
-                // $('body').removeClass('modal-open');
-                // $('body').css('padding-right', '');
-                $("#exampleNifty3dSlit").hide();
-            });
-            this.resetFilter();
-        },
-
-
-        storeentriizin: function storeentriizin(e) {
-            var _this4 = this;
-
-            var app = this;
-            var body = app.entri;
-            // console.log(body);
-            axios.post('/keamanan/store/entri/izin', body).then(function (response) {
-                app.errors = [];
-                app.messageSuccess = response.data.response.message;
-                app.messageAlert = response.data.response.messageAlert;
-                app.entri.kategori = '';
-                app.entri.tujuan = '';
-                app.entri.alasan = '';
-                app.entri.pemberi_izin = '';
-                app.filter.id = '';
-                app.filter.nis = '';
-                app.filter.nama_santri = '';
-                if (app.messageSuccess) {
-                    // app.dismissModal();
-                    app.messageSuccess = 'Entri izin berhasil di tambahkan!';
-                    app.cool_decreased_cash = true;
-                    _this4.getKeamananDatatables();
-                } else if (app.messageAlert) {
-                    app.messageAlert = 'Santri tersebut sudah melakukan izin!';
-                    app.cool_decreased_cash = true;
-                }
-                setTimeout(function () {
-                    app.cool_decreased_cash = false;
-                }, 3000);
-                setTimeout(function () {
-                    app.messageSuccess = false;
-                    app.messageAlert = false;
-                }, 8000);
-            }).catch(function (error) {
-                app.errors = error.response.data.errors;
-                console.log(app.errors);
-                app.messageSuccess = false;
-            });
+      var app = this;
+      var body = app.entri;
+      // console.log(body);
+      axios.post('/keamanan/store/entri/izin', body).then(function (response) {
+        app.errors = [];
+        app.messageSuccess = response.data.response.message;
+        app.messageAlert = response.data.response.messageAlert;
+        app.entri.kategori = '';
+        app.entri.tujuan = '';
+        app.entri.alasan = '';
+        app.entri.pemberi_izin = '';
+        app.entri.tgl_berakhir_izin = '';
+        app.filter.id = '';
+        app.filter.nis = '';
+        app.filter.nama_santri = '';
+        if (app.messageSuccess) {
+          // app.dismissModal();
+          app.messageSuccess = 'Entri izin berhasil di tambahkan!';
+          app.cool_decreased_cash = true;
+          _this4.getKeamananDatatables();
+        } else if (app.messageAlert) {
+          app.messageAlert = 'Santri tersebut sudah melakukan izin!';
+          app.cool_decreased_cash = true;
         }
+        setTimeout(function () {
+          app.cool_decreased_cash = false;
+        }, 3000);
+        setTimeout(function () {
+          app.messageSuccess = false;
+          app.messageAlert = false;
+        }, 8000);
+      }).catch(function (error) {
+        app.errors = error.response.data.errors;
+        console.log(app.errors);
+        app.messageSuccess = false;
+      });
     }
+  }
 
 });
 
@@ -107270,7 +107283,7 @@ var render = function() {
                                                                       "div",
                                                                       {
                                                                         staticClass:
-                                                                          "col-md-12"
+                                                                          "col-md-6"
                                                                       },
                                                                       [
                                                                         _c(
@@ -107442,6 +107455,103 @@ var render = function() {
                                                                               ]
                                                                             )
                                                                           ]
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                _vm.entri
+                                                                  .kategori ==
+                                                                "jauh"
+                                                                  ? _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "col-md-6"
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "div",
+                                                                          {
+                                                                            staticClass:
+                                                                              "form-group"
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "label",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "form-control-label",
+                                                                                attrs: {
+                                                                                  for:
+                                                                                    "inputBasicFirstName"
+                                                                                }
+                                                                              },
+                                                                              [
+                                                                                _vm._v(
+                                                                                  "Tanggal Berakhirnya Izin"
+                                                                                )
+                                                                              ]
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "datepicker",
+                                                                              {
+                                                                                attrs: {
+                                                                                  "bootstrap-styling": true,
+                                                                                  required:
+                                                                                    "",
+                                                                                  format:
+                                                                                    _vm.customFormatter,
+                                                                                  placeholder:
+                                                                                    "Tanggal Pemasukan"
+                                                                                },
+                                                                                model: {
+                                                                                  value:
+                                                                                    _vm
+                                                                                      .entri
+                                                                                      .tgl_berakhir_izin,
+                                                                                  callback: function(
+                                                                                    $$v
+                                                                                  ) {
+                                                                                    _vm.$set(
+                                                                                      _vm.entri,
+                                                                                      "tgl_berakhir_izin",
+                                                                                      $$v
+                                                                                    )
+                                                                                  },
+                                                                                  expression:
+                                                                                    "entri.tgl_berakhir_izin"
+                                                                                }
+                                                                              }
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _vm
+                                                                              .errors
+                                                                              .tgl_berakhir_izin
+                                                                              ? _c(
+                                                                                  "span",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "badge badge-danger"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        _vm
+                                                                                          .errors
+                                                                                          .tgl_berakhir_izin[0]
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                )
+                                                                              : _vm._e()
+                                                                          ],
+                                                                          1
                                                                         )
                                                                       ]
                                                                     )
@@ -107725,7 +107835,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("td", { staticClass: "text-center", attrs: { colspan: "5" } }, [
       _c("i", { staticClass: "icon wb-search" }),
-      _vm._v(" Hasil tidak ditemukan.\r\n\t\t\t\t\t\t\t")
+      _vm._v(" Hasil tidak ditemukan.\r\n          \t\t\t\t\t\t\t")
     ])
   }
 ]
@@ -107988,8 +108098,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     ajax: {
                         url: "/keamanan/getListSantriIzinDataTables",
                         data: function data(e) {
-                            e.filter_kategori = $('select[name="filter_kategori"]').val();
-                            e.filter_status = $('select[name="filter_status"]').val();
+                            e.start_date = $('input[name="start_date"]').val();
+                            e.end_date = $('input[name="end_date"]').val();
                         }
                     },
                     columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at'
@@ -107998,11 +108108,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
 
                 // Auto reload when getting result 
-                $('#filter_kategori').on('change', function (e) {
-                    table.draw();
-                    e.preventDefault();
-                });
-                $('#filter_status').on('change', function (e) {
+                $('#filter_trigger').on('click', function (e) {
                     table.draw();
                     e.preventDefault();
                 });
@@ -108274,34 +108380,17 @@ var staticRenderFns = [
                         staticClass: "form-control-label",
                         attrs: { for: "inputBasicFirstName" }
                       },
-                      [_vm._v("Tampilkan Berdasarkan Kategori")]
+                      [_vm._v("Tanggal Awal")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control",
-                        attrs: {
-                          name: "filter_kategori",
-                          id: "filter_kategori"
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { selected: "", disabled: "" } },
-                          [_vm._v("Cari..")]
-                        ),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "dekat" } }, [
-                          _vm._v("Dekat")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "jauh" } }, [
-                          _vm._v("Jauh")
-                        ])
-                      ]
-                    )
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "date",
+                        name: "start_date",
+                        id: "start_date"
+                      }
+                    })
                   ])
                 ]),
                 _vm._v(" "),
@@ -108313,29 +108402,29 @@ var staticRenderFns = [
                         staticClass: "form-control-label",
                         attrs: { for: "inputBasicFirstName" }
                       },
-                      [_vm._v("Tampilkan Berdasarkan Status")]
+                      [_vm._v("Tanggal Akhir")]
                     ),
                     _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "date", name: "end_date", id: "end_date" }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "form-group" }, [
                     _c(
-                      "select",
+                      "button",
                       {
-                        staticClass: "form-control",
-                        attrs: { name: "filter_status", id: "filter_status" }
+                        staticClass: "btn btn-sm btn-info",
+                        attrs: { id: "filter_trigger" }
                       },
                       [
-                        _c(
-                          "option",
-                          { attrs: { selected: "", disabled: "" } },
-                          [_vm._v("Cari..")]
-                        ),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "sudah_kembali" } }, [
-                          _vm._v("Sudah Kembali")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "belum_kembali" } }, [
-                          _vm._v("Belum Kembali")
-                        ])
+                        _c("i", { staticClass: "icon wb-search" }),
+                        _vm._v(
+                          "\r\n                                                              Filter\r\n                                                            "
+                        )
                       ]
                     )
                   ])
@@ -108567,6 +108656,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -108591,12 +108683,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
+    customFormatter: function customFormatter(date) {
+      return moment(date).format('MM-YYYY');
+    },
     fecthNotification: function fecthNotification() {
       var _this = this;
 
-      axios.get('getPemberitahuan').then(function (response) {
-        _this.notifications = response.data;
+      axios.get('keamanan/getPemberitahuan').then(function (response) {
+        _this.notifications = response.data.data;
       });
+    },
+    triggerFilter: function triggerFilter() {
+      var _this2 = this;
+
+      axios.get('keamanan/getPemberitahuan', { params: { start_date: this.filter.start_date, end_date: this.filter.end_date } }).then(function (response) {
+        _this2.notifications = response.data;
+      });
+      console.log('successfully triggered!');
     }
   }
 
@@ -108618,13 +108721,13 @@ var render = function() {
             _c("div", { staticClass: "panel" }, [
               _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "panel-body table-responsive" }, [
+              _c("div", { staticClass: "panel-body" }, [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "form-row" }, [
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-5" },
+                        { staticClass: "form-group col-md-4" },
                         [
                           _c("datepicker", {
                             attrs: {
@@ -108649,7 +108752,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-5" },
+                        { staticClass: "form-group col-md-4" },
                         [
                           _c("datepicker", {
                             attrs: {
@@ -108668,7 +108771,21 @@ var render = function() {
                           })
                         ],
                         1
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-info",
+                            on: { click: _vm.triggerFilter }
+                          },
+                          [
+                            _c("i", { staticClass: "icon wb-search" }),
+                            _vm._v(" Menampilkan")
+                          ]
+                        )
+                      ])
                     ])
                   ])
                 ])
@@ -108692,37 +108809,17 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      [
-                        _vm._l(_vm.notifications.data, function(notification) {
-                          return _vm.notifications
-                            ? _c("tr", [
-                                _c("td", [_vm._v(_vm._s(notification.id))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(notification.pesan))]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(notification.keterangan))
-                                ]),
-                                _vm._v(" "),
-                                _c("td")
-                              ])
-                            : _vm._e()
-                        }),
-                        _vm._v(" "),
-                        _vm.notifications
-                          ? _c("tr", [
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-center",
-                                  attrs: { colspan: "5" }
-                                },
-                                [_vm._v("Data tidak ditemukan.")]
-                              )
-                            ])
-                          : _vm._e()
-                      ],
-                      2
+                      _vm._l(_vm.notifications.data, function(notification) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(notification.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(notification.pesan))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(notification.keterangan))]),
+                          _vm._v(" "),
+                          _c("td")
+                        ])
+                      })
                     )
                   ]
                 )
@@ -108788,6 +108885,81 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5c71f168", module.exports)
+  }
+}
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(359)
+/* template */
+var __vue_template__ = __webpack_require__(360)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keamanan/PengaturanKeamananComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9344610c", Component.options)
+  } else {
+    hotAPI.reload("data-v-9344610c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 359 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9344610c", module.exports)
   }
 }
 

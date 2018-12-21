@@ -42,10 +42,10 @@ class KeamananController extends Controller
         return response()->json(['data' => $santri, 'available' => $available]);
     }
 
-    public function getListSantriIzinDataTables(Request $request, Datatables $datatables)
+    public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::with(['santri']);
-        return $datatables->eloquent($entriIzin)
+        $entriIzin = Keamanan::select('keamanan.*');
+        return $datatables->of($entriIzin)
         ->editColumn('kategori', function($var){
             if ($var->kategori == 'jauh') {
                 return '<span class="badge badge-danger">Jauh</span>';
@@ -60,12 +60,9 @@ class KeamananController extends Controller
                 return '<span class="badge badge-success">Sudah Kembali</span>';
             }
         })
-        ->filter(function($query) use ($request){
-            if (request()->get('filter_kategori')) {
-                $query->where('kategori', request()->get('filter_kategori'))->get();
-            }
-            if (request()->get('filter_status')) {
-                $query->where('status', request()->get('filter_status'))->get();
+        ->filter(function ($query) use ($request){
+            if (request()->has('start_date') && request()->has('end_date')) {
+                $query->whereBetween('created_at', [Carbon::parse($request->get('start_date'))->format('Y-m-d'), Carbon::parse($request->get('end_date'))->format('Y-m-d')]);
             }
         })
         ->rawColumns(['kategori', 'status'])
@@ -93,7 +90,8 @@ class KeamananController extends Controller
                 'kategori' => 'required', 
                 'alasan' => 'required', 
                 'tujuan' => 'required', 
-                'pemberi_izin' => 'required'
+                'pemberi_izin' => 'required',
+                'tgl_berakhir_izin' => 'required'
             ]);
 
             if (count($validator) > 0) {
@@ -106,6 +104,7 @@ class KeamananController extends Controller
                 $entri->tujuan = $request->tujuan;
                 $entri->status = 'belum_kembali';
                 $entri->pemberi_izin = $request->pemberi_izin;
+                $entri->tgl_berakhir_izin = Carbon::parse($request->tgl_berakhir_izin)->format('Y-m-d');
                 $message['message'] = true;
                 $message['messageAlert'] = false;
                 $entri->save();
@@ -220,9 +219,9 @@ class KeamananController extends Controller
         if ($request->start_date && $request->end_date) {
             $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
-            $filters = Notifikasi::whereStatus('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
+            $filters = Notifikasi::whereTipe('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
         }else{
-            $filters = Notifikasi::orderBy('created_at', 'ASC')->whereStatus('keamanan')->paginate(30);
+            $filters = Notifikasi::orderBy('created_at', 'ASC')->whereTipe('keamanan')->paginate(30);
         }
 
         return response()->json(['data' => $filters]);

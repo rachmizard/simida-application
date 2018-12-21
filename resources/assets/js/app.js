@@ -434,6 +434,13 @@ const routes = [
 			  component: require('./components/Keamanan/LaporanEntriIzinComponent.vue')
 			},
 
+
+			{
+			  path: '/pengaturan',
+			  name: 'pengaturan',
+			  component: require('./components/Keamanan/PengaturanKeamananComponent.vue')
+			},
+
 		// End Keamanan
 
 
