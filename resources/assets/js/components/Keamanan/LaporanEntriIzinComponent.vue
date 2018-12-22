@@ -8,6 +8,51 @@
               <div class="panel">
                 <header class="panel-heading">
                   <h3 class="panel-title">
+                    <i class="icon wb-search"></i> Filter Report
+                    <!-- <span class="panel-desc">
+                      Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
+                    </span> -->
+                  </h3>
+                </header>
+
+                <div class="panel-body table-responsive">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">Tanggal Awal</label>
+                        <input type="date" name="start_date" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">Tanggal Akhir</label>
+                        <input type="date" name="end_date" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">Status</label>
+                        <select name="status" class="form-control" id="">
+                          <option value="belum_kembali">Belum Kembali</option>
+                          <option value="sudah_kembali">Sudah Kembali</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button @click="getKeamananDatatables" id="filter" class="btn btn-sm btn-info"><i class="icon wb-search"></i> Filter</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Panel Kitchen Sink -->
+            </div>
+            <div class="col-md-12">
+              <!-- Panel Kitchen Sink -->
+              <div class="panel">
+                <header class="panel-heading">
+                  <h3 class="panel-title">
                     <i class="icon wb-book"></i> Laporan Entri
                     <!-- <span class="panel-desc">
                       Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
@@ -45,7 +90,11 @@
 
         data(){
             return {
-                errors: []	
+                errors: [],
+                filter: {
+                  start_date: '',
+                  end_date: ''
+                }	
             }
         },
 
@@ -58,12 +107,15 @@
             	$(function(){
                 var htmls = [];
                 var rows = [];
-                axios.get('/keamanan/getListSantriIzinDataTables').then(response => {
+                var a = $('input[name="start_date"]').val();
+                var b = $('input[name="end_date"]').val();
+                var c = $('select[name="status"]').val();
+                axios.get('/keamanan/getListKeamanan', { params: { start_date : a, end_date : b, status: c } }).then(response => {
                   htmls = response.data;
                   $.each(htmls.data, function(index, value){
                     rows.push([
-                        value.santri.nis,
-                        value.santri.nama_santri,
+                        value.nis,
+                        value.nama_santri,
                         value.tujuan,
                         value.alasan,
                         value.status,
@@ -86,6 +138,7 @@
                     } 
                     var today = dd + '/' + mm + '/' + yyyy;
                    var table = $('#laporanEntriIzin').DataTable({
+                      destroy: true,
                       dom: 'Blfrtip',
                       buttons: [
                           {
@@ -94,7 +147,7 @@
                               className: 'btn btn-success btn-sm',
                               title: "laporan_keamanan_miftahul_huda_"+ today,
                               exportOptions: {
-                                  columns: [0, 1, 2, 3, 4, 5, 6]
+                                  columns: [0, 1, 2, 3, 4, 5, 6, 7]
                               }
                           }
                       ],
@@ -111,7 +164,7 @@
                       ]
                   });
 
-                   console.log(rows);
+                   // console.log(rows); WORKED!
                 })
 
             	});

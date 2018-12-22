@@ -672,15 +672,15 @@
     $('.datelahir').datepicker({
         format: "yyyy-mm-dd",
         clearBtn: true,
-        language: "id",
-        defaultViewDate: { year: 2000, month: 01, day: 01 }
+        language: "id"
+        // defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
     $('.datepicker').datepicker({
         format: "yyyy-mm-dd",
         clearBtn: true,
-        language: "id",
-        defaultViewDate: { year: 2000, month: 01, day: 01 }
+        language: "id"
+        // defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
     </script>

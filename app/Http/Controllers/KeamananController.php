@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Keamanan;
 use App\Notifikasi;
 use App\Santri;
+use App\Http\Resources\LaporanEntriIzinResource;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
@@ -76,6 +77,19 @@ class KeamananController extends Controller
         })
         ->rawColumns(['kategori', 'status'])
         ->make(true);
+    }
+
+    public function getListKeamanan(Request $request)
+    {
+        if ($request->start_date && $request->end_date) {
+            $parseStartDate = Carbon::parse($request->start_date)->format('Y-m-d');
+            $parseEndDate = Carbon::parse($request->end_date)->format('Y-m-d');
+            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->select('keamanan.*')->whereStatus($request->status)->whereBetween('created_at', [$parseStartDate, $parseEndDate])->get());
+        }else{
+            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->select('keamanan.*')->get());
+        }
+
+        return response()->json(['data' => $entriIzin]);
     }
 
     /**
