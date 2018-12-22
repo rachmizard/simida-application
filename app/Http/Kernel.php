@@ -62,6 +62,6 @@ class Kernel extends HttpKernel
         'is_sekretariat' => \App\Http\Middleware\IsSekretariat::class,
         'is_pendidikan' => \App\Http\Middleware\IsPendidikan::class,
         'is_keuangan' => \App\Http\Middleware\IsKeuangan::class,
-        'is_keamanan' => \App\Http\Middleware\ISKeamanan::class,
+        'is_keamanan' => \App\Http\Middleware\IsKeamanan::class,
     ];
 }
