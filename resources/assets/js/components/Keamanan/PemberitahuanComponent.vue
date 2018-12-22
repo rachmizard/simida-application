@@ -21,12 +21,14 @@
                       <div class="form-row">
                         <div class="form-group col-md-4">
                         <datepicker :bootstrap-styling="true" required="" placeholder="Tanggal mulai.." v-model="filter.start_date" :format="customFormatter"></datepicker>
+                        <!-- <span v-if="errors.start_date[0]" class="badge badge-danger badge-sm">Tanggal Awal harus di isi!</span> -->
                         </div>
                         <div class="form-group col-md-2 text-center">
                           <span>Sampai</span>
                         </div>
                         <div class="form-group col-md-4">
                           <datepicker :bootstrap-styling="true" required="" placeholder="Tanggal akhir.." v-model="filter.end_date" :format="customFormatter"></datepicker>
+                          <!-- <span v-if="errors.end_date[0]" class="badge badge-danger badge-sm">Tanggal Akhir harus di isi!</span> -->
                         </div>
                         <div class="form-group col-md-2">
                           <button @click="triggerFilter" class="btn btn-sm btn-info"><i class="icon wb-search"></i> Menampilkan</button>
@@ -54,18 +56,29 @@
                   <table id="listEntriIzinTable" class="table table-striped table-hover">
                     <thead>
                       <tr>
+                        <th></th>
                         <th>Notifikasi ID</th>
                         <th>Pesan</th>
                         <th>Keterangan</th>
+                        <th>Tanggal Pemberitahuan</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="notification in notifications.data">
-                        <td>{{ notification.id }}</td>
+                        <td>
+                          <input type="checkbox">
+                        </td>
+                        <td>
+                          {{ notification.id }}
+                        </td>
                         <td>{{ notification.judul }}</td>
                         <td>{{ notification.pesan }}</td>
-                        <td></td>
+                        <td>{{ notification.created_at }}</td>
+                        <td>
+                          <button v-if="notification.status == 'unread'" class="btn btn-xs btn-info" @click="markAsRead(notification.id)"><i class="icon wb-check"></i></button>
+                          <button class="btn btn-xs btn-danger" title="Hapus"><i class="icon wb-trash"></i></button>
+                        </td>
                       </tr>
                       <!-- <tr v-if="notifications">
                         <td colspan="5" class="text-center">Data tidak ditemukan.</td>
@@ -96,6 +109,7 @@
 
         data(){
             return {
+              errors: [],
               filter: {
                 start_date: '',
                 end_date: ''
@@ -106,7 +120,7 @@
 
         methods: {
             customFormatter(date) {
-                  return moment(date).format('MM-YYYY');
+                  return moment(date).format('DD-MM-YYYY');
             },
 
            fecthNotification(){
@@ -118,8 +132,16 @@
            triggerFilter(){
             axios.get('keamanan/getPemberitahuan', { params : { start_date: this.filter.start_date, end_date: this.filter.end_date } }).then(response => {
                 this.notifications = response.data;
-              })
+              }).catch((error) => {
+                this.errors = error.response.data.errors
+              });
             console.log('successfully triggered!');
+           },
+
+           markAsRead(id){
+              axios.post('/keamanan/notifikasi/'+ id +'/markAsRead').then(response => {
+                this.fecthNotification();
+              })
            }
         },
 

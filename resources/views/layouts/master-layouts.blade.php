@@ -143,140 +143,6 @@
                                 <span class="sr-only">Toggle Search</span>
                             </a>
                         </li> -->
-                        <li class="nav-item dropdown dropdown-fw dropdown-mega">
-                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="fade" role="button">Pintas Link  <i class="icon wb-chevron-down-mini" aria-hidden="true"></i></a>
-                            <div class="dropdown-menu" role="menu">
-                                <div class="mega-content">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h5>Pintas Master Data</h5>
-                                            <ul class="blocks-2">
-                                                <li class="mega-menu m-0">
-                                                    <ul class="list-icons">
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dabsensi.html">Absensi</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dguru.html">Guru</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dkelas.html">Kelas</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dkemanaan.html">Keamaan</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dkobong.html">Kobong</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dmapel.html">Mapel</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mega-menu m-0">
-                                                    <ul class="list-icons">
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dnilai.html">Nilai</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dpemasukan.html">Pemasukan</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dpengeluaran.html">Pengeluaran</a>
-                                                        </li>
-                                                        <li><i class="wb-chevron-right-mini" aria-hidden="true"></i>
-                                                            <a href="%5Bform%5Dseketaris.html">Seketaris</a>
-                                                        </li>
-
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5>Media
-                              <span class="badge badge-pill badge-success">4</span>
-                            </h5>
-                                            <ul class="blocks-3">
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-1-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-2-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-3-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-4-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-5-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thumbnail m-0" href="javascript:void(0)">
-                                                        <img class="w-full" src="/assets/img/photos/view-6-150x100.jpg" alt="..." />
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="mb-0">Accordion</h5>
-                                            <!-- Accordion -->
-                                            <div class="panel-group panel-group-simple" id="siteMegaAccordion" aria-multiselectable="true" role="tablist">
-                                                <div class="panel">
-                                                    <div class="panel-heading" id="siteMegaAccordionHeadingOne" role="tab">
-                                                        <a class="panel-title" data-toggle="collapse" href="#siteMegaCollapseOne" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseOne">
-                                      Collapsible Group Item #1
-                                    </a>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="siteMegaCollapseOne" aria-labelledby="siteMegaAccordionHeadingOne" role="tabpanel">
-                                                        <div class="panel-body">
-                                                            De moveat laudatur vestra parum doloribus labitur sentire partes, eripuit praesenti congressus ostendit alienae, voluptati ornateque accusamus clamat reperietur convicia albucius.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading" id="siteMegaAccordionHeadingTwo" role="tab">
-                                                        <a class="panel-title collapsed" data-toggle="collapse" href="#siteMegaCollapseTwo" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseTwo">
-                                      Collapsible Group Item #2
-                                    </a>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="siteMegaCollapseTwo" aria-labelledby="siteMegaAccordionHeadingTwo" role="tabpanel">
-                                                        <div class="panel-body">
-                                                            Praestabiliorem. Pellat excruciant legantur ullum leniter vacare foris voluptate loco ignavi, credo videretur multoque choro fatemur mortis animus adoptionem, bello statuat expediunt naturales.
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel">
-                                                    <div class="panel-heading" id="siteMegaAccordionHeadingThree" role="tab">
-                                                        <a class="panel-title collapsed" data-toggle="collapse" href="#siteMegaCollapseThree" data-parent="#siteMegaAccordion" aria-expanded="false" aria-controls="siteMegaCollapseThree">
-                                      Collapsible Group Item #3
-                                    </a>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="siteMegaCollapseThree" aria-labelledby="siteMegaAccordionHeadingThree" role="tabpanel">
-                                                        <div class="panel-body">
-                                                            Horum, antiquitate perciperet d conspectum locus obruamus animumque perspici probabis suscipere. Desiderat magnum, contenta poena desiderant concederetur menandri damna disputandum corporum.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Accordion -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                     <!-- End Navbar Toolbar -->
 
@@ -300,88 +166,9 @@
                                 </form>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
-                                <i class="icon wb-bell" aria-hidden="true"></i>
-                                <span class="badge badge-pill badge-danger up">5</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
-                                <div class="dropdown-menu-header">
-                                    <h5>NOTIFICATIONS</h5>
-                                    <span class="badge badge-round badge-danger">New 5</span>
-                                </div>
-
-                                <div class="list-group">
-                                    <div data-role="container">
-                                        <div data-role="content">
-                                            <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                                <div class="media">
-                                                    <div class="pr-10">
-                                                        <i class="icon wb-order bg-red-600 white icon-circle" aria-hidden="true"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="media-heading">A new order has been placed</h6>
-                                                        <time class="media-meta" datetime="2018-06-12T20:50:48+08:00">5 hours ago</time>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                                <div class="media">
-                                                    <div class="pr-10">
-                                                        <i class="icon wb-user bg-green-600 white icon-circle" aria-hidden="true"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="media-heading">Completed the task</h6>
-                                                        <time class="media-meta" datetime="2018-06-11T18:29:20+08:00">2 days ago</time>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                                <div class="media">
-                                                    <div class="pr-10">
-                                                        <i class="icon wb-settings bg-red-600 white icon-circle" aria-hidden="true"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="media-heading">Settings updated</h6>
-                                                        <time class="media-meta" datetime="2018-06-11T14:05:00+08:00">2 days ago</time>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                                <div class="media">
-                                                    <div class="pr-10">
-                                                        <i class="icon wb-calendar bg-blue-600 white icon-circle" aria-hidden="true"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="media-heading">Event started</h6>
-                                                        <time class="media-meta" datetime="2018-06-10T13:50:18+08:00">3 days ago</time>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                                <div class="media">
-                                                    <div class="pr-10">
-                                                        <i class="icon wb-chat bg-orange-600 white icon-circle" aria-hidden="true"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6 class="media-heading">Message received</h6>
-                                                        <time class="media-meta" datetime="2018-06-10T12:34:48+08:00">3 days ago</time>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown-menu-footer">
-                                    <a class="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
-                                        <i class="icon wb-settings" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                            All notifications
-                          </a>
-                                </div>
-                            </div>
-                        </li>
+                         @if(auth()->user()->role == 'keamanan' || auth()->user()->role == 'murobbi')
+                          <notifikasi-keamanan></notifikasi-keamanan>
+                        @endif
                     </ul>
                     <!-- End Navbar Toolbar Right -->
                 </div>
@@ -586,9 +373,7 @@
                                             <li class="site-menu-item">
                                                 <a href="#!"><span class="site-menu-title">Entri</span></a>
                                             </li>
-                                            <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Pemberitahuan</span></a>
-                                            </li>
+                                            <list-notifikasi></list-notifikasi>
                                         </ul>
                                     </li>
                                 </ul>

@@ -32,9 +32,12 @@ Vue.component('list-kelas-component', require('./components/Sekretariat/Kelas/Li
 
 // GURU
 Vue.component('form-guru-component', require('./components/Sekretariat/Guru/FormGuruComponent.vue'));
-Vue.component('list-guru-component', require('./components/Sekretariat/Guru/ListGuruComponent.vue'))
+Vue.component('list-guru-component', require('./components/Sekretariat/Guru/ListGuruComponent.vue'));
 
-// DEWAN KYAI
+// LIST NOTIFIKASI IN KEAMANAN
+Vue.component('list-notifikasi', require('./components/Keamanan/ListNotifikasiKeamananComponent.vue'));
+Vue.component('notifikasi-keamanan', require('./components/Keamanan/NotifikasiKeamananComponent.vue'));
+
 
 
 /**

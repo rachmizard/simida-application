@@ -40609,8 +40609,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('list-kelas-component', __
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('form-guru-component', __webpack_require__(188));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('list-guru-component', __webpack_require__(191));
 
-// DEWAN KYAI
-
+// LIST NOTIFIKASI IN KEAMANAN
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('list-notifikasi', __webpack_require__(363));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('notifikasi-keamanan', __webpack_require__(366));
 
 /**
 * Vue Router
@@ -108368,6 +108369,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -108382,6 +108396,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
+      errors: [],
       filter: {
         start_date: '',
         end_date: ''
@@ -108393,7 +108408,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     customFormatter: function customFormatter(date) {
-      return moment(date).format('MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
     fecthNotification: function fecthNotification() {
       var _this = this;
@@ -108407,8 +108422,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.get('keamanan/getPemberitahuan', { params: { start_date: this.filter.start_date, end_date: this.filter.end_date } }).then(function (response) {
         _this2.notifications = response.data;
+      }).catch(function (error) {
+        _this2.errors = error.response.data.errors;
       });
       console.log('successfully triggered!');
+    },
+    markAsRead: function markAsRead(id) {
+      var _this3 = this;
+
+      axios.post('/keamanan/notifikasi/' + id + '/markAsRead').then(function (response) {
+        _this3.fecthNotification();
+      });
     }
   }
 
@@ -108520,13 +108544,40 @@ var render = function() {
                       "tbody",
                       _vm._l(_vm.notifications.data, function(notification) {
                         return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(notification.id))]),
+                          _vm._m(4, true),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\r\n                          " +
+                                _vm._s(notification.id) +
+                                "\r\n                        "
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(notification.judul))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(notification.pesan))]),
                           _vm._v(" "),
-                          _c("td")
+                          _c("td", [_vm._v(_vm._s(notification.created_at))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            notification.status == "unread"
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-xs btn-info",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.markAsRead(notification.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "icon wb-check" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ])
                         ])
                       })
                     )
@@ -108577,15 +108628,35 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th"),
+        _vm._v(" "),
         _c("th", [_vm._v("Notifikasi ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Pesan")]),
         _vm._v(" "),
         _c("th", [_vm._v("Keterangan")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Tanggal Pemberitahuan")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Aksi")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("input", { attrs: { type: "checkbox" } })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-xs btn-danger", attrs: { title: "Hapus" } },
+      [_c("i", { staticClass: "icon wb-trash" })]
+    )
   }
 ]
 render._withStripped = true
@@ -109037,6 +109108,380 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(364)
+/* template */
+var __vue_template__ = __webpack_require__(365)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keamanan/ListNotifikasiKeamananComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-998326fc", Component.options)
+  } else {
+    hotAPI.reload("data-v-998326fc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 364 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			total: ''
+		};
+	},
+	created: function created() {
+		var _this = this;
+
+		Echo.channel('refresh-notification').listen('RefreshNotification', function (e) {
+			axios.get('/keamanan/countingNotifications').then(function (resp) {
+				_this.total = resp.data.total_unread;
+			});
+		});
+	},
+	mounted: function mounted() {
+		var _this2 = this;
+
+		// will be counting the notifications who status is unread
+		axios.get('/keamanan/countingNotifications').then(function (resp) {
+			_this2.total = resp.data.total_unread;
+		});
+	}
+});
+
+/***/ }),
+/* 365 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "li",
+    { staticClass: "site-menu-item" },
+    [
+      _c("router-link", { attrs: { to: { path: "/pemberitahuan" } } }, [
+        _c("span", { staticClass: "site-menu-title" }, [
+          _vm._v("Pemberitahuan "),
+          _c("span", { staticClass: "badge badge-warning badge-sm" }, [
+            _vm._v(_vm._s(_vm.total))
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-998326fc", module.exports)
+  }
+}
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(367)
+/* template */
+var __vue_template__ = __webpack_require__(368)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keamanan/NotifikasiKeamananComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27edc100", Component.options)
+  } else {
+    hotAPI.reload("data-v-27edc100", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 367 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			total: '',
+			notifications: []
+		};
+	},
+	created: function created() {
+		var _this = this;
+
+		Echo.channel('refresh-notification').listen('RefreshNotification', function (e) {
+			axios.get('/keamanan/countingNotifications').then(function (resp) {
+				_this.total = resp.data.total_unread;
+			});
+			_this.fecthNotification();
+		});
+	},
+	mounted: function mounted() {
+		var _this2 = this;
+
+		// will be counting the notifications who status is unread
+		axios.get('/keamanan/countingNotifications').then(function (resp) {
+			_this2.total = resp.data.total_unread;
+		});
+
+		this.fecthNotification();
+	},
+
+
+	methods: {
+		fecthNotification: function fecthNotification() {
+			var _this3 = this;
+
+			axios.get('/keamanan/getPemberitahuanWhereIsUnRead').then(function (response) {
+				_this3.notifications = response.data.data;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 368 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "nav-item dropdown" }, [
+    _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-toggle": "dropdown",
+          href: "javascript:void(0)",
+          title: "Notifications",
+          "aria-expanded": "false",
+          "data-animation": "scale-up",
+          role: "button"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "icon wb-bell",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "badge badge-pill badge-danger up" }, [
+          _vm._v(_vm._s(_vm.total))
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "dropdown-menu dropdown-menu-right dropdown-menu-media",
+        attrs: { role: "menu" }
+      },
+      [
+        _c("div", { staticClass: "dropdown-menu-header" }, [
+          _c("h5", [_vm._v("Notifikasi")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "badge badge-round badge-danger" }, [
+            _vm._v("Baru " + _vm._s(_vm.total))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "list-group" }, [
+          _c("div", { attrs: { "data-role": "container" } }, [
+            _c(
+              "div",
+              { attrs: { "data-role": "content" } },
+              _vm._l(_vm.notifications.data, function(notification) {
+                return _c(
+                  "a",
+                  {
+                    staticClass: "list-group-item dropdown-item",
+                    attrs: { href: "javascript:void(0)", role: "menuitem" }
+                  },
+                  [
+                    _c("div", { staticClass: "media" }, [
+                      _vm._m(0, true),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "media-body" }, [
+                        _c("h6", { staticClass: "media-heading" }, [
+                          _vm._v(_vm._s(notification.judul))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "time",
+                          {
+                            staticClass: "media-meta",
+                            attrs: { datetime: "2018-06-12T20:50:48+08:00" }
+                          },
+                          [_vm._v(_vm._s(notification.created_at))]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              })
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pr-10" }, [
+      _c("i", {
+        staticClass: "icon wb-order bg-red-600 white icon-circle",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-27edc100", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

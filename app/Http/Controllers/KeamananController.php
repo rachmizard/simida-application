@@ -5,6 +5,7 @@ use App\Keamanan;
 use App\Notifikasi;
 use App\Santri;
 use App\Http\Resources\LaporanEntriIzinResource;
+use App\Events\RefreshNotification;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
@@ -239,7 +240,12 @@ class KeamananController extends Controller
 
     public function getPemberitahuan(Request $request)
     {
+        
         if ($request->start_date && $request->end_date) {
+            $this->validate($request, [
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]);
             $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
             $filters = Notifikasi::whereTipe('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
@@ -248,5 +254,24 @@ class KeamananController extends Controller
         }
 
         return response()->json(['data' => $filters]);
+    }
+
+    public function getPemberitahuanWhereIsUnRead()
+    {
+        $filters = Notifikasi::whereTipe('keamanan')->whereStatus('unread')->paginate(30);
+        return response()->json(['data' => $filters]);
+    }
+
+    public function countingNotifications()
+    {
+        $notifications = Notifikasi::whereTipe('keamanan')->whereStatus('unread')->count();
+        return response()->json(['total_unread' => $notifications]);
+    }
+
+    public function markAsRead($id)
+    {
+        $markAsRead = Notifikasi::findOrFail($id)->update(['status' => 'read']);
+        event(new RefreshNotification());
+        return response()->json(['response' => 'success']);
     }
 }

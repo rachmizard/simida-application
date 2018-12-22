@@ -254,7 +254,10 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			// END CRUD KEAMANAN
 
 			// NOTIFIKASI KEAMANAN
+			Route::get('getPemberitahuanWhereIsUnRead', 'KeamananController@getPemberitahuanWhereIsUnRead');
 			Route::get('getPemberitahuan', 'KeamananController@getPemberitahuan');
+			Route::get('countingNotifications', 'KeamananController@countingNotifications');
+			Route::post('/notifikasi/{id}/markAsRead', 'KeamananController@markAsRead');
 			// END NOTIFIKASI KEAMANAN
 
 			// CRUD MASTER LIMIT IZIN
