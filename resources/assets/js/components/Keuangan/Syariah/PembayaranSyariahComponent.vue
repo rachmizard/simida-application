@@ -34,6 +34,14 @@
                                                       </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
+                                                            <label for=""><i class="icon wb-payment"></i> Bulan Pembayaran</label>
+                                                                <div class="input-group input-group-icon">
+                                                                    <input type="text" v-model="bulan" class="form-control" disabled>
+                                                                </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
                                                           	<label for="">NIS</label>
                                                                 <div class="input-group input-group-icon">
                                                                     <input type="text" v-model="santri.nis" class="form-control" disabled>
@@ -149,6 +157,7 @@
 	    		this.santri.foto = response.data.data.foto;
 	    		console.log(this.santri);
 	    	});
+        this.parseBulan();
 	    	this.getRiwayatPembayaranPerSantri();
         },
 
@@ -161,6 +170,7 @@
                 santris: [],
                 pengeluarans: [],
                 nama_jenis_pengeluarans: [],
+                bulan: '',
                 santri: {
                 	santri_id: '',
                 	nis: '',
@@ -170,9 +180,9 @@
                 	status_pembayaran: '',
                 	bulan: '',
                 	foto: '',
-                    tgl_pemasukan: this.$route.params.tgl,
-                    jumlah_pemasukan: '',
-                    jenis_pengeluaran: ''
+                  tgl_pemasukan: this.$route.params.tgl,
+                  jumlah_pemasukan: '',
+                  jenis_pengeluaran: ''
                 },
                 total_uang: '',
                 cool_decreased_cash: '',
@@ -188,6 +198,12 @@
 
             customFormatter(date) {
                   return moment(date).format('MM-YYYY');
+            },
+
+            parseBulan(){
+              axios.get('/keuangan/syariah/parseBulan', { params: { bulan: this.$route.params.tgl } }).then(response => {
+                this.bulan = response.data.bulan;
+              })
             },
 
             getRiwayatPembayaranPerSantri(){
@@ -209,6 +225,9 @@
                   app.getRiwayatPembayaranPerSantri();
                   if (app.message == 'success') {   
                     app.message = 'Syariah berhasil ditambahkan ke database!';
+                    app.cool_decreased_cash = true;
+                  }else if(app.messageAlert){
+                    app.messageAlert = 'Santri tersebut sudah melakukan bulanan!';
                     app.cool_decreased_cash = true;
                   }
                   setTimeout(() => {

@@ -68,11 +68,18 @@
 		this.function()
 
 		$(function() {
+				 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		         var table = $('#santriAktifTable').DataTable({
                       "stateSave": true,
 		              "processing": true,
 		              "serverSide": true,
 		              "ajax": {
+		              	headers: {'X-CSRF-TOKEN': token},
+		                type: 'POST',
+		                dataType: 'JSON',
+						data: {
+							'_token': token
+						},
 		                url: "/sekretariat/santri/getSantriAktifDataTables",
 		                data:function(e){
 		                  e.filter_kelas = $('select[name="filter_kelas"]').val();

@@ -24,20 +24,29 @@
     <!-- END MODAL -->
         <header class="panel-heading">
           <h3 class="panel-title"></h3>
-          <div class="form-group col-md-6" style="margin-left: 15px;">
-            <label for=""></label>
-            <select name="filter_tingkat" id="filter_tingkat" class="form-control">
-              <option value="" disabled selected>Filter berdasarkan tingkat</option>
-              <option value="">Semua..</option>
-              <option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
-            </select>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group" style="margin-left: 15px;">
+                <select name="filter_tingkat" id="filter_tingkat" class="form-control">
+                  <option value="" disabled selected>Filter berdasarkan tingkat</option>
+                  <option value="">Semua..</option>
+                  <option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <form action="/sekretariat/guru/export" method="POST">
+                <input type="hidden" :value="token" name="_token" class="form-control">
+                <button type="submit" class="btn btn-sm btn-info"><i class="icon wb-download"></i> Export Guru Ke Excel</button>
+              </form>
+            </div>
           </div>
         </header>
         <div class="panel-body">
           <table class="table table-hover table-bordered dataTable table-striped w-full" id="guruTable">
             <thead>
               <tr>
-                <th width="5%" class="bg-info text-white">NIP Guru</th>
+                <th width="5%" class="bg-info text-white">ID</th>
                 <th width="20%" class="bg-info text-white">Nama Guru</th>
                 <th width="20%" class="bg-info text-white">Tingkat Kelas</th>
                 <th width="10%" class="bg-info text-white">Wali Kelas</th>
@@ -138,6 +147,7 @@
 	export default {
 
     mounted(){
+        this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         axios.get('/sekretariat/tingkatan/getJSON').then(response => {
           this.tingkats = response.data;
         })
@@ -145,7 +155,8 @@
 
     data(){
       return {
-        tingkats: []
+        tingkats: [],
+        token: '',
       }
     }
 	}

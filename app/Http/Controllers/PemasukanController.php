@@ -46,7 +46,9 @@ class PemasukanController extends Controller
             if ($var->jenis_pemasukan == 'donatur') {
                 return '<span class="badge badge-sm bg-yellow-700 text-white">DONATUR</span>';
             }else if ($var->jenis_pemasukan == 'infaq') {
-                return '<span class="badge badge-sm bg-green-700 text-white">Infaq</span>';
+                return '<span class="badge badge-sm bg-info-700 text-white">Infaq</span>';
+            }else if ($var->jenis_pemasukan == 'syariah') {
+                return '<span class="badge badge-sm bg-green-700 text-white">Syariah</span>';
             }
         })
         ->addColumn('action', function($var){
@@ -110,6 +112,12 @@ class PemasukanController extends Controller
         return response()->json(Pemasukan::with('santri')->orderBy('jumlah_pemasukan', 'DESC')->paginate(10));
     }
 
+    public function parseBulan(Request $request)
+    {
+        Carbon::setLocale('id');
+        return response()->json(['bulan' => Carbon::parse($request->bulan)->format('F Y')]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -144,19 +152,27 @@ class PemasukanController extends Controller
                 $storepemasukan->jenis_pemasukan = 'syariah';
             }
             // Push to datatabase!
-            $periodeDefaultSet = Periode::whereStatus('aktif')->first();
-            $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
-            $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
+            $validator = Pemasukan::whereSantriId($request->santri_id)
+                                    ->whereJenisPemasukan($request->jenis_pemasukan)
+                                    ->whereDate('created_at', Carbon::parse($request->tgl_pemasukan)->format('m-Y'))
+                                    ->count(); // ngecek apabila dia sudah bayar / belum
+            if ($validator > 0) {
+                return response()->json(['response' => 'fail']);
+            }else{
+                $periodeDefaultSet = Periode::whereStatus('aktif')->first();
+                $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
+                $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
 
-            $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
-            $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
-            $masukanUang =  $defaultUang + $request->jumlah_pemasukan;
-            $updateTotalUang = TotalUang::find($getTotalUang->id);
-            $updateTotalUang->total_nominal = $masukanUang;
-            $updateTotalUang->update();
+                $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
+                $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
+                $masukanUang =  $defaultUang + $request->jumlah_pemasukan;
+                $updateTotalUang = TotalUang::find($getTotalUang->id);
+                $updateTotalUang->total_nominal = $masukanUang;
+                $updateTotalUang->update();
 
-            $storepemasukan->save();
-        return response()->json(['response' => 'success']);
+                $storepemasukan->save();
+                return response()->json(['response' => 'success']);   
+            }
     }
 
     public function storeSyariah(Request $request)
@@ -175,20 +191,29 @@ class PemasukanController extends Controller
         $storepemasukan->jumlah_pemasukan = '300000'; // nanti mah ada master
         $storepemasukan->jenis_pemasukan = 'syariah';
         // Push to datatabase!
-        $periodeDefaultSet = Periode::whereStatus('aktif')->first();
-        $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
-        $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
+        $validator = Pemasukan::whereSantriId($request->santri_id)
+                                ->where('jenis_pemasukan', 'syariah')
+                                ->where('tgl_pemasukan', Carbon::parse($request->tgl_pemasukan)->format('Y-m-d'))
+                                ->count(); // ngecek apabila dia sudah bayar / belum
+        if ($validator > 0) {
+            $message['messageAlert'] = true;
+            return response()->json(['response' => $message]);
+        }else{
+            $periodeDefaultSet = Periode::whereStatus('aktif')->first();
+            $start_date = Carbon::parse($periodeDefaultSet['start_date'])->format('Y-m-d');
+            $end_date = Carbon::parse($periodeDefaultSet['end_date'])->format('Y-m-d');
 
-        $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
-        $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
-        $masukanUang =  $defaultUang + 300000;
-        $updateTotalUang = TotalUang::find($getTotalUang->id);
-        $updateTotalUang->total_nominal = $masukanUang;
-        $updateTotalUang->update();
+            $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
+            $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
+            $masukanUang =  $defaultUang + 300000;
+            $updateTotalUang = TotalUang::find($getTotalUang->id);
+            $updateTotalUang->total_nominal = $masukanUang;
+            $updateTotalUang->update();
 
-        $storepemasukan->save();
-        $message['message'] = 'success';
-        return response()->json(['response' => $message]);
+            $storepemasukan->save();
+            $message['message'] = 'success';
+            return response()->json(['response' => $message]);   
+        }
     }
 
     /**

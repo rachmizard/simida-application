@@ -20,16 +20,17 @@
                                                 <div class="form-group">
                                                    <label class="form-control-label" for="inputBasicFirstName">Nama Asrama Baru</label>
                                                    <input v-model="dataNamaAsrama.nama_asrama_baru" type="text" class="form-control" placeholder="Nama Asrama baru.." autocomplete="off" />
-                                                        <span v-if="errors.nama_asrama_baru" class="label label-danger">{{ errors.nama_asrama_baru[0] }}</span>
+                                                        <span v-if="errors.nama_asrama_baru" class="badge badge-danger">{{ errors.nama_asrama_baru[0] }}</span>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="form-control-label" for="inputBasicFirstName">Kategori Asrama</label>
                                                     <select v-model="dataNamaAsrama.kategori" class="form-control" :placeholder="placeholder.kategori">
                                                         <option disabled value="">Kategori Asrama</option>
-                                                        <option value="Putra">Putra</option>
-                                                        <option value="Putri">Putri</option>
+                                                        <option value="putra">Putra</option>
+                                                        <option value="putri">Putri</option>
+                                                        <option value="mutawasilin">Mutawasilin</option>
                                                     </select>
-                                                    <span v-if="errors.kategori" class="label label-danger">{{ errors.kategori[0] }}</span>
+                                                    <span v-if="errors.kategori" class="badge badge-danger">{{ errors.kategori[0] }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -71,10 +72,11 @@
                                         <label class="form-control-label" for="inputBasicFirstName">Kategori Asrama</label>
                                         <select v-model="asrama.kategori_asrama" @change="filterAsrama()" class="form-control" :placeholder="placeholder.kategori_asrama">
                                             <option disabled value="">Kategori Asrama</option>
-                                            <option value="Putra">Putra</option>
-                                            <option value="Putri">Putri</option>
+                                            <option value="putra">Putra</option>
+                                            <option value="putri">Putri</option>
+                                            <option value="mutawasilin">Mutawasilin</option>
                                         </select>
-                                        <span v-if="errors.kategori_asrama" class="label label-danger">{{ errors.kategori_asrama[0] }}</span>
+                                        <span v-if="errors.kategori_asrama" class="badge badge-danger">{{ errors.kategori_asrama[0] }}</span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label" for="inputBasicFirstName">Nama Asrama</label>
@@ -82,7 +84,7 @@
                                             <option  disabled value="">Pilih Asrama</option>
                                             <option v-for="asrama in namaAsrama.data" :value="asrama.asrama_id" :key="asrama.asrama_id">{{ asrama.nama_asrama }}</option>
                                         </select>
-                                        <span v-if="errors.nama_asrama" class="label label-danger">{{ errors.nama_asrama[0] }}</span>
+                                        <span v-if="errors.nama_asrama" class="badge badge-danger">{{ errors.nama_asrama[0] }}</span>
                                     </div>
                                 </div>
                             </div><!--/Example-->
@@ -94,7 +96,7 @@
                                 <div class="form-group">
                                    <label class="form-control-label" for="inputBasicFirstName">Rais'Am Asrama</label>
                                    <input v-model="asrama.roisam_asrama" type="text" class="form-control" placeholder="First Name" autocomplete="off" />
-                                        <span v-if="errors.roisam_asrama" class="label label-danger">{{ errors.roisam_asrama[0] }}</span>
+                                        <span v-if="errors.roisam_asrama" class="badge badge-danger">{{ errors.roisam_asrama[0] }}</span>
                                 </div>
                                 <div class="form-row">
                                     <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Tambah Asrama</button>

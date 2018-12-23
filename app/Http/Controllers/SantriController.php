@@ -14,6 +14,8 @@ use App\Location\Village;
 use Illuminate\Http\Request;
 use App\DataNamaAsrama;
 use App\Asrama;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SantriExport;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
 use App\Http\Resources\SantriResource;
@@ -132,9 +134,6 @@ class SantriController extends Controller
                                         return '<span class="badge badge-round badge-md badge-danger">'. $var['status'] .'</span>';
                                     }
                               })
-                              ->editColumn('foto', function($var){
-                                    return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
-                              })
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_kelas')) {
                                   return $query->whereHas('kelas', function($q){
@@ -217,8 +216,8 @@ class SantriController extends Controller
             'pendidikan_terakhir' => 'required', 
             'asrama_id' => 'required', 
             'kobong_id' => 'required', 
-            'tingkat_id' => 'required', 
-            'kelas_id' => 'required', 
+            // 'tingkat_id' => 'required', 
+            // 'kelas_id' => 'required', 
             'tgl_masuk' => 'required', 
             'himpunan' => 'required', 
             'dewan_id' => 'required', 
@@ -244,8 +243,8 @@ class SantriController extends Controller
         $newSantri->pendidikan_terakhir = $request->pendidikan_terakhir;
         $newSantri->asrama_id = $request->asrama_id;
         $newSantri->kobong_id = $request->kobong_id;
-        $newSantri->tingkat_id = $request->tingkat_id;
-        $newSantri->kelas_id = $request->kelas_id;
+        // $newSantri->tingkat_id = $request->tingkat_id;
+        // $newSantri->kelas_id = $request->kelas_id;
         $newSantri->tgl_masuk = Carbon::parse($request->tgl_masuk)->format('Y-m-d');
         $newSantri->himpunan = $request->himpunan;
         $newSantri->dewan_id = $request->dewan_id;
@@ -336,8 +335,8 @@ class SantriController extends Controller
             'pendidikan_terakhir' => 'required', 
             'asrama_id' => 'required', 
             'kobong_id' => 'required', 
-            'tingkat_id' => 'required', 
-            'kelas_id' => 'required', 
+            // 'tingkat_id' => 'required', 
+            // 'kelas_id' => 'required', 
             'tgl_masuk' => 'required', 
             'himpunan' => 'required', 
             'dewan_id' => 'required', 
@@ -364,8 +363,8 @@ class SantriController extends Controller
             $newSantri->pendidikan_terakhir = $request->pendidikan_terakhir;
             $newSantri->asrama_id = $request->asrama_id;
             $newSantri->kobong_id = $request->kobong_id;
-            $newSantri->tingkat_id = $request->tingkat_id;
-            $newSantri->kelas_id = $request->kelas_id;
+            // $newSantri->tingkat_id = $request->tingkat_id;
+            // $newSantri->kelas_id = $request->kelas_id;
             $newSantri->tgl_masuk = date('Y-m-d', strtotime($request->tgl_masuk));
             $newSantri->himpunan = $request->himpunan;
             $newSantri->dewan_id = $request->dewan_id;
@@ -414,5 +413,10 @@ class SantriController extends Controller
     {
         $santri = Santri::find($id)->delete();
         return response()->json(['message' => 'success']);
+    }
+
+    public function export(Request $request)
+    {
+      return Excel::download(new SantriExport, 'santri_'.Carbon::now().'.xlsx');
     }
 }

@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');
+
 Route::post('/store/entri/izin', 'KeamananController@store');
 
 Route::post('/pemasukan/storeSyariah', 'PemasukanController@storeSyariah');

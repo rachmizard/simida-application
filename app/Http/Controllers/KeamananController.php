@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Keamanan;
 use App\Notifikasi;
 use App\Santri;
+use App\HistoriIzin;
 use App\Http\Resources\LaporanEntriIzinResource;
 use App\Events\RefreshNotification;
 use Carbon\Carbon;
@@ -128,13 +129,22 @@ class KeamananController extends Controller
                 $entri->tujuan = $request->tujuan;
                 $entri->status = 'belum_kembali';
                 $entri->pemberi_izin = $request->pemberi_izin;
-                $entri->tgl_berakhir_izin = Carbon::parse($request->tgl_berakhir_izin)->format('Y-m-d');
+                $entri->tgl_berakhir_izin = date('Y-m-d', strtotime($request->tgl_berakhir_izin));
                 $message['message'] = true;
                 $message['messageAlert'] = false;
                 $entri->save();
+
+                $storeHistory = HistoriIzin::create([
+                    'santri_id' => $request->santri_id, 
+                    'tujuan' => $request->tujuan, 
+                    'alasan' => $request->alasan, 
+                    'kategori' => $request->kategori, 
+                    'pemberi_izin' => $request->pemberi_izin, 
+                    'status' => 'belum_kembali', 
+                    'tgl_berakhir_izin' => date('Y-m-d', strtotime($request->tgl_berakhir_izin))
+                ]);
             }
         }else{
-
             $this->validate($request, [
                 'santri_id' => 'required', 
                 'kategori' => 'required', 
@@ -155,6 +165,14 @@ class KeamananController extends Controller
                 $message['message'] = true;
                 $message['messageAlert'] = false;
                 $entri->save();
+
+                $storeHistory = HistoriIzin::create([
+                    'santri_id' => $request->santri_id, 
+                    'tujuan' => $request->tujuan, 
+                    'alasan' => $request->alasan, 
+                    'kategori' => $request->kategori, 
+                    'status' => 'belum_kembali', 
+                ]);
             }
         }
 

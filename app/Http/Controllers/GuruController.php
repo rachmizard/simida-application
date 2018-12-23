@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Guru;
 use App\Events\DrawTable;
 use Yajra\Datatables\Datatables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\GuruExport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Resources\GuruSelect2Resource;
 
@@ -170,5 +173,10 @@ class GuruController extends Controller
             $data['type'] = 'error';       
         }
         return response()->json(['response' => $data]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new GuruExport(), 'data_guru_'. Carbon::now() .'.xlsx');
     }
 }

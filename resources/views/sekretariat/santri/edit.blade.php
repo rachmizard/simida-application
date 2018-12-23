@@ -276,24 +276,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-                                <select name="kelas_id" value="{{ $idSantri->kelas_id }}" class="form-control selectTo">
-                                    <option disabled selected>Kelas</option>
-                                    @foreach($tingkats as $tingkat)
-                                      <optgroup label="{{ $tingkat->nama_tingkatan }}">
-                                        @foreach(App\Kelas::whereTingkatId($tingkat->id)->get() as $in)
-                                          <option value="{{ $in->id }}" {{ $idSantri->kelas_id == $in->id ? 'selected' : ''}}>{{ $in->nama_kelas }}</option>
-                                        @endforeach
-                                      </optgroup>
-                                    @endforeach
-                                </select>
-	                            @if($errors->has('kelas_id'))
-	                              <span class="label label-danger">
-	                                  {{ $errors->first('kelas_id') }}
-	                              </span>
-	                            @endif
-                            </div>
-                            <div class="form-group col-md-6">
                                 <label class="form-control-label" for="inputBasicLastName">Kobong</label>
                                 <select name="kobong_id" value="{{ $idSantri->kobong_id }}" class="form-control selectTo">
                                     <option disabled selected>Kobong</option>

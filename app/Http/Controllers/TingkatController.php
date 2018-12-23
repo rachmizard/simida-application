@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tingkat;
+use App\Http\Resources\TingkatSelect2Resource;
 use Illuminate\Http\Request;
 
 class TingkatController extends Controller
@@ -27,6 +28,11 @@ class TingkatController extends Controller
     {
         $tingkat = Tingkat::all();
         return response()->json(['data' => $tingkat]);
+    }
+
+    public function TingkatanSelect2()
+    {
+        return TingkatSelect2Resource::collection(Tingkat::all());
     }
 
     public function create()

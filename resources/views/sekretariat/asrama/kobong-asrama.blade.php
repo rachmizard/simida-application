@@ -23,22 +23,22 @@
 </div>
 
 <!-- MODAL -->
-      <div id="tambahModalKobongAsrama" class="modal fade" role="dialog">
+      <div id="tambahModalKamarAsrama" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="title-data">Tambah Kobong di {{ $kobong_asrama->ngaran->nama }}</h4>
+              <h4 class="modal-title" id="title-data">Tambah Kamar di {{ $kobong_asrama->ngaran->nama }}</h4>
             </div>
-              <form method="POST" enctype="multipart/form-data" id="submitTambahAsramaKobong">
+              <form method="POST" enctype="multipart/form-data" id="submitTambahAsramaKamar">
                 <input type="hidden" value="{{ csrf_token() }}" name="_token">
                 <input type="hidden" value="POST" name="_method">
                 <div class="modal-body" style="margin-bottom: 50px;"><div class="form-row">
                     <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
-                    	<h4 class="example-title" id="kobong-asrama-title">Kobong</h4>
+                    	<h4 class="example-title" id="kobong-asrama-title">Kamar</h4>
 	                    <div class="example">
 	                        <div class="form-group">
-	                           <label class="form-control-label" for="inputBasicFirstName">Nama Kobong</label>
+	                           <label class="form-control-label" for="inputBasicFirstName">Nama Kamar</label>
 	                           <input type="text" name="nama_kobong" class="form-control" placeholder="First Name" autocomplete="off" />
 	                        </div>
 	                    </div><!--/Example-->
@@ -48,8 +48,8 @@
 	                    <h4 class="example-title">Rais'Am</h4>
 	                    <div class="example">
 	                        <div class="form-group">
-	                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kobong</label>
-	                           <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kobong" autocomplete="off" />
+	                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kos</label>
+	                           <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kamar" autocomplete="off" />
 	                        </div>
 	                    </div>
                     </div><!--/.form-group
@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                   <div class="btn-group">
-                    <button type="submit" class="btn btn-primary" id="btntambahKobong"><i class="icon wb-plus"></i> Tambah Kobong</button>
+                    <button type="submit" class="btn btn-primary" id="btntambahKamar"><i class="icon wb-plus"></i> Tambah Kamar</button>
                     <button class="btn btn-md btn-default" data-dismiss="modal">Tutup</button>
                   </div>
                 </div>
@@ -69,24 +69,24 @@
 <!-- END MODAL -->
 
     <!-- MODAL -->
-      <div id="editModalAsramaKobong" class="modal fade" tabindex="-1" role="dialog">
+      <div id="editModalAsramaKamar" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="title-data"></h4>
             </div>
-            <form method="POST" enctype="multipart/form-data" id="submitEditAsramaKobong">
+            <form method="POST" enctype="multipart/form-data" id="submitEditAsramaKamar">
             <div class="modal-body" style="margin-bottom: 50px;">
               <div class="form-row">
                 
                   <input type="hidden" value="{{ csrf_token() }}" name="_token">
                   <input type="hidden" value="PUT" name="_method">
                   <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
-                  	<h4 class="example-title" id="kobong-asrama-title">Kobong</h4>
+                  	<h4 class="example-title" id="kobong-asrama-title">Kamar</h4>
                     <div class="example">
                         <div class="form-group">
-                           <label class="form-control-label" for="inputBasicFirstName">Nama Kobong</label>
+                           <label class="form-control-label" for="inputBasicFirstName">Nama Kamar</label>
                            <input type="text" id="nama_kobong" name="nama_kobong" class="form-control" placeholder="First Name" autocomplete="off" />
                         </div>
                     </div><!--/Example-->
@@ -96,8 +96,8 @@
                     <h4 class="example-title">Rais'Am</h4>
                     <div class="example">
                         <div class="form-group">
-                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kobong</label>
-                           <input type="text" id="roisam_kobong" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kobong" autocomplete="off" />
+                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kamar</label>
+                           <input type="text" id="roisam_kobong" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kamar" autocomplete="off" />
                         </div>
                     </div>
                   </div><!--/.form-group
@@ -106,7 +106,7 @@
             </div>
             <div class="modal-footer">
               <div class="btn-group">
-                <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Edit Kobong</button>
+                <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Edit Kamar</button>
                 <button class="btn btn-md btn-default" data-dismiss="modal">Tutup</button>
               </div>
             </div>
@@ -117,7 +117,7 @@
     <!-- END MODAL -->
 <div class="panel">
     <!-- MODAL -->
-      <div id="deleteModalKobongAsrama" class="modal fade" tabindex="-1" role="dialog">
+      <div id="deleteModalKamarAsrama" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -129,7 +129,7 @@
             </div>
               <div class="modal-footer">
                 <div class="btn-group">
-                  <button class="btn btn-md btn-danger" id="deleteBtnKobongAsrama"><i class="fa fa-upload"></i><i class="icon wb-trash"></i> Ya</button>
+                  <button class="btn btn-md btn-danger" id="deleteBtnKamarAsrama"><i class="fa fa-upload"></i><i class="icon wb-trash"></i> Ya</button>
                   <button class="btn btn-md btn-info" data-dismiss="modal">Tidak</button>
                 </div>
               </div>
@@ -138,26 +138,26 @@
       </div><!-- /.modal -->
     <!-- END MODAL -->
         <header class="panel-heading">
-          <h3 class="panel-title">Data Kobong dari Asrama {{ $kobong_asrama->ngaran->nama }} </h3>
+          <h3 class="panel-title">Data Kamar dari Asrama {{ $kobong_asrama->ngaran->nama }} </h3>
         </header>
         <div class="form-group" style="margin-left: 20px;">
-          	<button data-toggle="modal" data-target="#tambahModalKobongAsrama" data-id="{{ $kobong_asrama->id }}" class="btn btn-sm btn-success"><i class="icon wb-plus"></i> Tambah</button>
+          	<button data-toggle="modal" data-target="#tambahModalKamarAsrama" data-id="{{ $kobong_asrama->id }}" class="btn btn-sm btn-success"><i class="icon wb-plus"></i> Tambah</button>
         </div>		
         <div class="panel-body">
           <table class="table table-hover dataTable table-striped w-full" id="kobongAsramaTable">
             <thead>
               <tr>
-                <th width="20%">ID Kobong</th>
-                <th width="20%">Nama Kobong</th>
-                <th width="20%">Rai'sam Kobong</th>
+                <th width="20%">ID Kamar</th>
+                <th width="20%">Nama Kamar</th>
+                <th width="20%">Rai'sam Kamar</th>
                 <th width="20%">Aksi</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th width="20%">ID Kobong</th>
-                <th width="20%">Nama Kobong</th>
-                <th width="20%">Rai'sam Kobong</th>
+                <th width="20%">ID Kamar</th>
+                <th width="20%">Nama Kamar</th>
+                <th width="20%">Rai'sam Kamar</th>
                 <th width="20%">Aksi</th>
               </tr>
             </tfoot>
@@ -184,29 +184,29 @@
               ]
           }); 
 
-        $('#deleteModalKobongAsrama').on('show.bs.modal', function(e) {
+        $('#deleteModalKamarAsrama').on('show.bs.modal', function(e) {
             var id_delete = $(e.relatedTarget).data('id');
             $.get('/sekretariat/kelas/'+ id_delete +'/destroy', function( data ) {
               $('#submitDeleteKelas').attr('action', '/sekretariat/kelas/'+ id +'/destroy');
             }); 
-          $("#deleteBtnKobongAsrama").on('click', function(){
+          $("#deleteBtnKamarAsrama").on('click', function(){
               axios.post('/sekretariat/kobong/'+ id_delete +'/destroy').then(function(resp){
                 table.draw();
               }).then(respon => {
-                $('#deleteModalKobongAsrama').modal('hide');
+                $('#deleteModalKamarAsrama').modal('hide');
                 window.location.reload();
               })
           });
         });
 
-        $('#editModalAsramaKobong').on('show.bs.modal', function(e) {
+        $('#editModalAsramaKamar').on('show.bs.modal', function(e) {
                 var id_edit = $(e.relatedTarget).data('id');
                 axios.get('/sekretariat/kobong/'+ id_edit +'/showJSON').then(function(response) {
                   $("#nama_kobong").val(response.data.nama_kobong);
                   $("#roisam_kobong").val(response.data.roisam_kobong);
                 });
-              $('#submitEditAsramaKobong').attr('action', '/sekretariat/kobong/'+ id_edit +'/update');
-                // $('#btneditKobong').click(function(p){
+              $('#submitEditAsramaKamar').attr('action', '/sekretariat/kobong/'+ id_edit +'/update');
+                // $('#btneditKamar').click(function(p){
                 //     p.preventDefault();
                 //     axios({
                 //       method: 'put',
@@ -219,17 +219,17 @@
                 //     }).then(response => {
                 //         window.location.reload();
                 //         table.draw();
-                //         $('#editModalAsramaKobong').modal('hide');
+                //         $('#editModalAsramaKamar').modal('hide');
                 //         document.getElementById('nama_kobong').value = '';
                 //         document.getElementById('roisam_kobong').value = '';
                 //     });
                 // });
         });
 
-        $('#tambahModalKobongAsrama').on('show.bs.modal', function(e){
+        $('#tambahModalKamarAsrama').on('show.bs.modal', function(e){
             var id_tambah = $(e.relatedTarget).data('id');
-            $('#submitTambahAsramaKobong').attr('action', '/sekretariat/kobong/'+ id_tambah +'/storeByAsramaId');
-            // $('#btntambahKobong').click(function(event){
+            $('#submitTambahAsramaKamar').attr('action', '/sekretariat/kobong/'+ id_tambah +'/storeByAsramaId');
+            // $('#btntambahKamar').click(function(event){
             //   event.preventDefault();
             //     axios({
             //       method: 'post',
@@ -242,7 +242,7 @@
             //     }).then(response => {
             //         table.draw();
             //         window.location.reload();
-            //         $('#tambahModalKobongAsrama').modal('hide');
+            //         $('#tambahModalKamarAsrama').modal('hide');
             //         $('input[name="nama_kobong"]').val('');
             //         $('input[name="roisam_kobong"]').val('');
             //     });

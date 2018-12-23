@@ -48,8 +48,8 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
-			Route::get('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
-			Route::get('/santri/getSantriAktifDataTables', 'SantriController@getSantriAktifDataTables')->name('santri.getSantriAktifDataTables');
+			Route::post('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
+			Route::post('/santri/getSantriAktifDataTables', 'SantriController@getSantriAktifDataTables')->name('santri.getSantriAktifDataTables');
 			Route::get('/santri/santri_aktif', 'SantriController@santri_aktif')->name('santri.santri_aktif');
 			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
 			Route::get('/santri/{id_kelas}/kelas', 'SantriController@showByClass')->name('santri.showByClass');
@@ -57,6 +57,10 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
 			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
 			Route::delete('/santri/{id}/destroy', 'SantriController@destroy')->name('santri.destroy');
+
+				// Export Report Santri
+					Route::post('/santri/export', 'SantriController@export')->name('export');
+				// End Export Report Santri
 			// End Santri
 
 			// Kelas
@@ -75,6 +79,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 			// Tingkatan
 			Route::get('/tingkatan/getJSON', 'TingkatController@getJSON')->name('tingkat.getJSON');
+			Route::get('/tingkatan/TingkatanSelect2', 'TingkatController@TingkatanSelect2')->name('tingkat.TingkatanSelect2');
 			Route::post('/tingkatan/store', 'TingkatController@store')->name('tingkat.store');
 			// End TIngkatan
 
@@ -118,6 +123,10 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::post('/guru/store', 'GuruController@store')->name('guru.store');
 			Route::put('/guru/{id}/update', 'GuruController@update')->name('guru.update');
 			Route::delete('/guru/{id}/destroy', 'GuruController@destroy')->name('guru.destroy');
+
+				// GURU EXPORT
+					Route::post('/guru/export', 'GuruController@export')->name('guru.export');
+				// END GURU
 			// END GURU
 
 			// DEWAN KYAI
@@ -178,6 +187,13 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::delete('/kegiatan/{id}/destroy', 'KegiatanController@destroy')->name('kegiatan.destroy');
 			// End Master Mata Pelajaran
 
+			// Penempatan Kelas & Tingkat
+			Route::get('/penempatankelas', 'PenempatanKelasController@penempatankelas')->name('penempatankelas');
+			Route::get('/penempatankelas/listSantri', 'PenempatanKelasController@listSantri');
+			Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');
+			Route::post('/penempatankelas/{id}/oneByOne', 'PenempatanKelasController@oneByOne');
+			// End Penempatan Kelas & Tingkat
+
 			// Absen
 			Route::get('/absen', 'AbsenController@index')->name('absen');
 			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
@@ -232,6 +248,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/syariah/getSantriForSyariah', 'PemasukanController@getSantriForSyariah'); // API
 			Route::get('/syariah/{id}/getOnceSantri', 'PemasukanController@getOnceSantri'); // API
 			Route::get('/syariah/{id}/riwayatPembayaranPerSantri', 'PemasukanController@riwayatPembayaranPerSantri'); // API
+			Route::get('/syariah/parseBulan', 'PemasukanController@parseBulan'); // API
 			// End Syariah
 		});
 	});

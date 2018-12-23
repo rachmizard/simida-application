@@ -293,6 +293,18 @@ const routes = [
 		},
 		// End Master Kegiatan
 
+		{
+		  path: '/penempatankelas',
+		  name: 'penempatankelas',
+		  component: require('./components/Pendidikan/PenempatanKelas/PenempatanKelasComponent.vue') 
+		},
+
+		{
+		  path: '/konfirmasipenempatan/:id',
+		  name: 'konfirmasipenempatan',
+		  component: require('./components/Pendidikan/PenempatanKelas/KonfirmasiPenempatanComponent.vue') 
+		},
+
 		// Absen
 		{
 		  path: '/absen',

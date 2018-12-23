@@ -37,4 +37,24 @@ class Santri extends Model
     {
     	return $this->belongsTo(DewanKyai::class, 'dewan_id', 'id');
     }
+
+    public function province()
+    {
+        return $this->belongsTo('\App\Location\Province', 'provinsi', 'id');
+    }
+
+    public function regency()
+    {
+        return $this->belongsTo('\App\Location\Regency', 'kabupaten_kota', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo('\App\Location\District', 'kecamatan', 'id');
+    }
+
+    public function village()
+    {
+        return $this->belongsTo('\App\Location\Village', 'kelurahan', 'id');
+    }
 }

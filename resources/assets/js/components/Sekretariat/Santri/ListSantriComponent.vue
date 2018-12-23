@@ -3,12 +3,21 @@
       <div class="panel" id="app">
         <header class="panel-heading">
           <h3 class="panel-title"></h3>
-          <div class="form-group col-md-6" style="margin-left: 15px;">
-            <label for="">Menampilkan Santri Berdasarkan Kelas</label>
-            <select name="filter_kelas" id="filter_kelas" class="form-control">
-            	<option value=""></option>
-            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
-            </select>
+          <div class="row">
+          	<div class="col-md-4">
+	          <div class="form-group" style="margin-left: 15px;">
+	            <select name="filter_kelas" id="filter_kelas" class="form-control">
+	            	<option value="">Pilih Kelas Untuk Menampilkan Data</option>
+	            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
+	            </select>
+	          </div>
+          	</div>
+          	<div class="col-md-4">
+          		<form action="/sekretariat/santri/export" method="POST">
+          			<input type="hidden" :value="token" name="_token" class="form-control">
+          			<button type="submit" class="btn btn-sm btn-info"><i class="icon wb-download"></i> Export Santri Ke Excel</button>
+          		</form>
+          	</div>
           </div>
         </header>
         <div class="panel-body table-responsive">
@@ -35,13 +44,21 @@
 <script>
 	export default {
 		mounted(){
+		this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		this.function()
 		$(function() {
+				 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		         var table = $('#santriTable').DataTable({
 		              processing: true,
 		              serverSide: true,
 		              ajax: {
 		                url: "/sekretariat/santri/getSantriDataTables",
+		                headers: {'X-CSRF-TOKEN': token},
+		                type: 'post',
+		                dataType: 'JSON',
+						data: {
+							'_token': token
+						},
 		                data:function(e){
 		                  e.filter_kelas = $('select[name="filter_kelas"]').val();
 		                }
@@ -76,7 +93,8 @@
 
 		data(){
 			return {
-				kelass: []
+				kelass: [],
+				token: '',
 			}
 		},
 

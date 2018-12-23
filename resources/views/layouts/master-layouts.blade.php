@@ -299,13 +299,21 @@
                                         </ul>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Penempatan Kelas</span></a>
+                                        <a href="{{ route('pendidikan.penempatankelas') }}#/penempatankelas"><span class="site-menu-title">Penempatan Kelas</span></a>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="#!"><span class="site-menu-title">Perubahan semester</span></a>
+                                        <a href="#!"><span class="site-menu-title">Semester</span></a>
+                                        <ul class="site-menu-sub">
+                                            <li class="site-menu-item">
+                                                <a href="#!"><span class="site-menu-title">Data Semester</span></a>
+                                            </li>
+                                            <li class="site-menu-item">
+                                                <a href="#!"><span class="site-menu-title">Perubahan Semester</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
@@ -420,7 +428,7 @@
             <div class="site-footer-right">
               Crafted with <i class="red-600 wb wb-heart"></i> by <a href="https://birutekno.com" target="_blank" title="Team Web Developer Create with Love. ~ExteraDex~Zimmy~">Birutekno.inc</a>
             </div>
-          </footer>
+        </footer>
     </div>
 </body>
 <!-- VUE JS -->
