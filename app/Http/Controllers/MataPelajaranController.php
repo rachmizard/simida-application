@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\MataPelajaran;
 use App\Kelas;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Http\Resources\MataPelajaranSelect2Resource;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MataPelajaranExport;
 use Yajra\Datatables\Datatables;
 
 class MataPelajaranController extends Controller
@@ -159,5 +162,10 @@ class MataPelajaranController extends Controller
         $data['messageError'] = false;
         $data['messageWarning'] = false;
         return response()->json(['response' => $data]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new MataPelajaranExport(), 'mata_pelajaran_'. Carbon::now()->format('d-m-Y') .'.xlsx');        
     }
 }

@@ -40829,6 +40829,16 @@ var routes = [
 		name: 'absen',
 		component: __webpack_require__(297)
 },
+
+// Report Absensi
+
+{
+		path: '/absen/report',
+		name: 'absenReport',
+		component: __webpack_require__(375)
+},
+
+// End Report Absensi
 // End Absen
 
 // Jadwal Pelajaran
@@ -93123,9 +93133,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
+		this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 		this.function();
 		$(function () {
 			var table = $('#mapelTable').DataTable({
@@ -93155,7 +93167,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			kelass: [],
-			tingkats: []
+			tingkats: [],
+			token: ''
 		};
 	},
 
@@ -93190,7 +93203,7 @@ var render = function() {
         _c("h3", { staticClass: "panel-title" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "col-md-4" }, [
             _c(
               "div",
               {
@@ -93227,7 +93240,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "col-md-4" }, [
             _c(
               "div",
               {
@@ -93264,23 +93277,25 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-md-2", staticStyle: { "margin-top": "21px" } },
+            { staticClass: "col-md-4", staticStyle: { "margin-top": "21px" } },
             [
               _c(
                 "router-link",
                 {
-                  staticClass: "btn btn-md btn-info",
+                  staticClass: "btn btn-sm btn-info",
                   attrs: { to: "/mata_pelajaran/tambah" }
                 },
                 [_c("i", { staticClass: "icon wb-plus" }), _vm._v(" Tambah")]
-              )
+              ),
+              _vm._v(" "),
+              _vm._m(1)
             ],
             1
           )
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(2)
     ])
   ])
 }
@@ -93309,6 +93324,19 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-info btn-sm",
+        attrs: { href: "/pendidikan/matapelajaran/export" }
+      },
+      [_c("i", { staticClass: "icon wb-download" }), _vm._v(" Export Ke Excel")]
+    )
   },
   function() {
     var _vm = this
@@ -94936,6 +94964,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
@@ -95005,30 +95034,32 @@ var render = function() {
         _c("h3", { staticClass: "panel-title" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-10" }),
+          _c("div", { staticClass: "col-md-8" }),
           _vm._v(" "),
           _c(
             "div",
             {
-              staticClass: "col-md-2",
+              staticClass: "col-md-4",
               staticStyle: { "margin-bottom": "21px" }
             },
             [
               _c(
                 "router-link",
                 {
-                  staticClass: "btn btn-md btn-info",
+                  staticClass: "btn btn-sm btn-info",
                   attrs: { to: "/kegiatan/tambah" }
                 },
                 [_c("i", { staticClass: "icon wb-plus" }), _vm._v(" Tambah")]
-              )
+              ),
+              _vm._v(" "),
+              _vm._m(1)
             ],
             1
           )
         ])
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(2)
     ])
   ])
 }
@@ -95057,6 +95088,19 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-info btn-sm",
+        attrs: { href: "/pendidikan/kegiatan/export" }
+      },
+      [_c("i", { staticClass: "icon wb-download" }), _vm._v(" Export Ke Excel")]
+    )
   },
   function() {
     var _vm = this
@@ -110957,6 +111001,754 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0db2773c", module.exports)
+  }
+}
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(376)
+/* template */
+var __vue_template__ = __webpack_require__(377)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Pendidikan/Absen/AbsenReportComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8dd40156", Component.options)
+  } else {
+    hotAPI.reload("data-v-8dd40156", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */],
+        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
+    },
+
+    mounted: function mounted() {
+        this.function();
+        this.fetchKelas();
+        this.fetchAsrama();
+        this.fetchSantri();
+        this.fetchKegiatan();
+    },
+    data: function data() {
+        return {
+            errors: [],
+            santris: [],
+            kegiatans: [],
+            tingkats: [],
+            kelass: [],
+            asramas: [],
+            rekapabsen: {
+                kelas_id: '',
+                asrama_id: '',
+                start_date: '',
+                end_date: ''
+            },
+            periode: '',
+            message: '',
+            messageError: '',
+            messageWarning: ''
+        };
+    },
+
+
+    methods: {
+        customFormatter: function customFormatter(date) {
+            return moment(date).format('DD-MM-YYYY');
+        },
+        fetchKegiatan: function fetchKegiatan() {
+            var _this = this;
+
+            axios.get('/pendidikan/absen/listKegiatan').then(function (response) {
+                _this.kegiatans = response.data;
+            });
+        },
+        fetchSantri: function fetchSantri() {
+            var _this2 = this;
+
+            axios.get('/pendidikan/absen/santri', { params: { kelas_id: 1 } }).then(function (response) {
+                _this2.santris = response.data;
+            });
+        },
+        fetchKelas: function fetchKelas() {
+            var _this3 = this;
+
+            axios.get('/sekretariat/kelas/KelasSelect2').then(function (response) {
+                _this3.kelass = response.data.data;
+            });
+        },
+        fetchAsrama: function fetchAsrama() {
+            var _this4 = this;
+
+            axios.get('/sekretariat/asrama/AsramaSelect2').then(function (response) {
+                _this4.asramas = response.data.data;
+            });
+        },
+        function: function _function() {
+            var _this5 = this;
+
+            axios.get('/sekretariat/tingkatan/getJSON').then(function (response) {
+                _this5.tingkats = response.data;
+            });
+
+            axios.get('/pendidikan/periode/isactived').then(function (response) {
+                _this5.periode = response.data.nama_periode;
+            });
+
+            // axios.get('/sekretariat/kelas/JSON').then(response => {
+            // 	this.kelass = response.data;
+            // })
+        },
+
+
+        storekegiatan: function storekegiatan(e) {
+            var app = this;
+            var body = app.kegiatan;
+            axios.post(e.target.action, body).then(function (resp) {
+                app.errors = [];
+                app.message = resp.data.response.message;
+                if (app.message == false) {
+                    app.messageWarning = resp.data.response.messageWarning;
+                    setTimeout(function () {
+                        app.messageError = false;
+                        app.message = false;
+                        app.messageWarning = false;
+                    }, 5000);
+                } else {
+                    app.$router.replace('/list_kegiatan'); // redirect to url "/"
+                    setTimeout(function () {
+                        app.messageError = false;
+                        app.message = false;
+                    }, 5000);
+                }
+            }).catch(function (error) {
+                app.errors = error.response.data.errors;
+                app.message = false;
+            });
+        },
+
+        filterForTingkat: function filterForTingkat() {
+            var _this6 = this;
+
+            axios.get('/sekretariat/kelas/' + this.kegiatan.mulai_kegiatan + '/tingkat').then(function (response) {
+                _this6.kelass = response.data;
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "panel" }, [
+          _c(
+            "div",
+            {
+              staticClass: "panel-body container-fluid",
+              staticStyle: { "background-color": "#fdfdfd" }
+            },
+            [
+              _c("div", { staticClass: "row row-lg" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _vm.message
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alert dark alert-icon alert-success alert-dismissible",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _vm._m(0),
+                          _vm._v(" "),
+                          _c("i", {
+                            staticClass: "icon wb-check",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.message) +
+                              "\r\n                                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.messageWarning
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alert dark alert-icon alert-warning alert-dismissible",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("i", {
+                            staticClass: "icon wb-check",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.messageWarning) +
+                              "\r\n                                "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      attrs: {
+                        action: "/pendidikan/kegiatan/store",
+                        autocomplete: "off"
+                      },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.storekegiatan($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group col-md-12 col-sm-12",
+                            staticStyle: { "padding-right": "15px" }
+                          },
+                          [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "example" }, [
+                              _c("div", { staticClass: "form-row" }, [
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col-md-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "form-control-label",
+                                            attrs: {
+                                              for: "inputBasicFirstName"
+                                            }
+                                          },
+                                          [_vm._v("Kelas")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("Select2", {
+                                          attrs: { options: _vm.kelass },
+                                          model: {
+                                            value: _vm.rekapabsen.kelas_id,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.rekapabsen,
+                                                "kelas_id",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "rekapabsen.kelas_id"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm.errors.kelas_id
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "label label-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(_vm.errors.kelas_id[0])
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "form-control-label",
+                                            attrs: {
+                                              for: "inputBasicFirstName"
+                                            }
+                                          },
+                                          [_vm._v("Asrama")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("Select2", {
+                                          attrs: { options: _vm.asramas },
+                                          model: {
+                                            value: _vm.rekapabsen.asrama_id,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.rekapabsen,
+                                                "asrama_id",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "rekapabsen.asrama_id"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm.errors.asrama_id
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "label label-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.errors.asrama_id[0]
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "form-control-label",
+                                            attrs: {
+                                              for: "inputBasicFirstName"
+                                            }
+                                          },
+                                          [_vm._v("Tanggal Awal")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("datepicker", {
+                                          attrs: {
+                                            "bootstrap-styling": true,
+                                            required: "",
+                                            format: _vm.customFormatter,
+                                            placeholder: "Tanggal Awal"
+                                          },
+                                          model: {
+                                            value: _vm.rekapabsen.start_date,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.rekapabsen,
+                                                "start_date",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "rekapabsen.start_date"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm.errors.start_date
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "label label-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.errors.start_date[0]
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-4" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "form-control-label",
+                                            attrs: {
+                                              for: "inputBasicFirstName"
+                                            }
+                                          },
+                                          [_vm._v("Tanggal Akhir")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("datepicker", {
+                                          attrs: {
+                                            "bootstrap-styling": true,
+                                            required: "",
+                                            format: _vm.customFormatter,
+                                            placeholder: "Tanggal Akhir"
+                                          },
+                                          model: {
+                                            value: _vm.rekapabsen.end_date,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.rekapabsen,
+                                                "end_date",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "rekapabsen.end_date"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(3)
+                            ])
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "panel" }, [
+          _c(
+            "div",
+            {
+              staticClass: "panel-body container-fluid",
+              staticStyle: { "background-color": "#fdfdfd" }
+            },
+            [
+              _c("div", { staticClass: "row row-lg" }, [
+                _c("div", { staticClass: "col-md-12 table-responsive" }, [
+                  _c(
+                    "table",
+                    { staticClass: "table table-bordered" },
+                    [
+                      _c(
+                        "tr",
+                        [
+                          _c("th", { attrs: { rowspan: "2" } }, [
+                            _vm._v("NIS")
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { attrs: { rowspan: "2" } }, [
+                            _vm._v("Nama Santri")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.kegiatans.data, function(kegiatan) {
+                            return _c(
+                              "th",
+                              {
+                                staticClass: "text-center",
+                                attrs: { colspan: "3" }
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                                            " +
+                                    _vm._s(kegiatan.nama_kegiatan) +
+                                    "\r\n                                        "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "tr",
+                        [
+                          _vm._l(_vm.kegiatans.data, function(kegiatan) {
+                            return _c("td", { attrs: { border: "0" } }, [
+                              _vm._v("Izin")
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.kegiatans.data, function(kegiatan) {
+                            return _c("td", { attrs: { border: "0" } }, [
+                              _vm._v("Sakit")
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.kegiatans.data, function(kegiatan) {
+                            return _c("td", { attrs: { border: "0" } }, [
+                              _vm._v("Hadir")
+                            ])
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.santris.data, function(santri) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(santri.nis))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(santri.nama_santri))])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "example-title" }, [
+      _c("i", { staticClass: "icon wb-search" }),
+      _vm._v(" Filter Data Absen")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_c("i", { staticClass: "icon wb-check" }), _vm._v(" Rekap")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8dd40156", module.exports)
   }
 }
 

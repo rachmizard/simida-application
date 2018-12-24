@@ -12,11 +12,12 @@
 			<header class="panel-heading">
 	          <h3 class="panel-title"></h3>
 	          <div class="row">
-	          	<div class="col-md-10">
+	          	<div class="col-md-8">
 	          		
 	          	</div>
-	          	<div class="col-md-2" style="margin-bottom: 21px;">
-		            <router-link to="/kegiatan/tambah" class="btn btn-md btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
+	          	<div class="col-md-4" style="margin-bottom: 21px;">
+		            <router-link to="/kegiatan/tambah" class="btn btn-sm btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
+		            <a href="/pendidikan/kegiatan/export" class="btn btn-info btn-sm"><i class="icon wb-download"></i> Export Ke Excel</a>
 	          	</div>
 	      	   </div>
 	        </header>

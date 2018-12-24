@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Kegiatan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Exports\JadwalKegiatanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 
 class KegiatanController extends Controller
@@ -160,5 +162,10 @@ class KegiatanController extends Controller
         $data['messageWarning'] = false;
         $data['messageError'] = false;   
         return response()->json(['response' => $data]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new JadwalKegiatanExport(), 'jadwal_kegiatan_'. Carbon::now()->format('d-m-Y') .'.xlsx');
     }
 }

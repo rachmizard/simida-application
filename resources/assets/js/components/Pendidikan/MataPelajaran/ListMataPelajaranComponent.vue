@@ -12,7 +12,7 @@
 			<header class="panel-heading">
 	          <h3 class="panel-title"></h3>
 	          <div class="row">
-	          	<div class="col-md-5">
+	          	<div class="col-md-4">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
 		            <select name="filter_kelas" id="filter_kelas" class="form-control">
@@ -22,7 +22,7 @@
 		            </select>
 		          </div>
 	          	</div>
-	          	<div class="col-md-5">
+	          	<div class="col-md-4">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
 		            <select name="filter_tingkat" id="filter_tingkat" class="form-control">
@@ -32,8 +32,9 @@
 		            </select>
 		          </div>
 	          	</div>
-	          	<div class="col-md-2" style="margin-top: 21px;">
-		            <router-link to="/mata_pelajaran/tambah" class="btn btn-md btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
+	          	<div class="col-md-4" style="margin-top: 21px;">
+            		<router-link to="/mata_pelajaran/tambah" class="btn btn-sm btn-info"><i class="icon wb-plus"></i> Tambah</router-link>
+		            <a href="/pendidikan/matapelajaran/export" class="btn btn-info btn-sm"><i class="icon wb-download"></i> Export Ke Excel</a>	
 	          	</div>
 	      	   </div>
 	        </header>
@@ -58,6 +59,7 @@
 <script>
 	export default {
 		mounted(){
+			this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 			this.function();
 			$(function() {
 		         var table = $('#mapelTable').DataTable({
@@ -95,6 +97,7 @@
 			return {
 				kelass: [],
 				tingkats: [],
+				token: ''
 			}
 		},
 

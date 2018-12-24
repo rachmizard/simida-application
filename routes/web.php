@@ -174,6 +174,10 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/matapelajaran/{id}/show', 'MataPelajaranController@show')->name('matapelajaran.show');
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
 			Route::delete('/matapelajaran/{id}/destroy', 'MataPelajaranController@destroy')->name('matapelajaran.destroy');
+
+				// Export Mata Pelajaran
+					Route::get('/matapelajaran/export', 'MataPelajaranController@export')->name('matapelajaran.export');
+				// End Export Mata Pelajaran
 			// End Master Mata Pelajaran
 
 
@@ -185,6 +189,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/kegiatan/{id}/show', 'KegiatanController@show')->name('kegiatan.show');
 			Route::put('/kegiatan/{id}/update', 'KegiatanController@update')->name('kegiatan.update');
 			Route::delete('/kegiatan/{id}/destroy', 'KegiatanController@destroy')->name('kegiatan.destroy');
+			Route::get('/kegiatan/export', 'KegiatanController@export')->name('kegiatan.export');
 			// End Master Mata Pelajaran
 
 			// Penempatan Kelas & Tingkat
@@ -196,9 +201,16 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
 			// Absen
 			Route::get('/absen', 'AbsenController@index')->name('absen');
+			Route::get('/absen/reportview', 'AbsenController@reportView')->name('absen.report');
 			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
+
+				// Report Absensi
+				Route::get('/absen/report', 'AbsenController@report')->name('absen.report'); // API
+				Route::get('/absen/santri', 'AbsenController@santri')->name('absen.santri'); // API
+				Route::get('/absen/listKegiatan', 'AbsenController@listKegiatan')->name('absen.listKegiatan'); // API
+				// End Report Absensi
 			// End Absen
 
 			// Jadwal Pelajaran

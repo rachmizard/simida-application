@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Absen;
 use App\Santri;
+use App\Asrama;
+use App\Kelas;
+use App\Kegiatan;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Resources\AbsenSantriResource;
@@ -111,5 +114,47 @@ class AbsenController extends Controller
     {
         $absen = Absen::find($id)->delete();
         return response()->json(['response' => 'success']);
+    }
+
+    public function santri(Request $request)
+    {
+        $santri = array();
+        if ($request->kelas_id) {
+            $santri = Santri::whereKelasId($request->kelas_id)->whereStatus('aktif')->get();
+        }
+        if($request->asrama_id)
+        {
+            $santri = Santri::whereAsramaId($request->asrama_id)->whereStatus('aktif')->get();
+        }
+
+        return response()->json(['data' => $santri]);
+    }
+
+    public function listKegiatan()
+    {
+        $listKegiatan = Kegiatan::orderBy('mulai_kegiatan', 'ASC')->get();
+        return response()->json(['data' => $listKegiatan]);
+    }
+
+    public function report()
+    {
+        
+    }
+
+    public function reportView(Request $request)
+    {
+        $asramas = Asrama::all();
+        $kelass = Kelas::all();
+        $listSantris = array();
+        $listKegiatans = Kegiatan::all();
+        $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
+        $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
+        if ($request->kelas_id) {
+            $listSantris = Santri::whereKelasId($request->kelas_id)->get();
+        }else if($request->asrama_id){
+            $listSantris = Santri::whereAsramaId($request->asrama_id)->get();
+        }
+
+        return view('pendidikan.absen.report', compact('asramas', 'kelass', 'listSantris', 'listKegiatans', 'start_date', 'end_date'));
     }
 }

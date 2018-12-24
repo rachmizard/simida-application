@@ -311,6 +311,16 @@ const routes = [
 		  name: 'absen',
 		  component: require('./components/Pendidikan/Absen/AbsenComponent.vue') 
 		},
+
+			// Report Absensi
+
+			{
+			  path: '/absen/report',
+			  name: 'absenReport',
+			  component: require('./components/Pendidikan/Absen/AbsenReportComponent.vue') 
+			},
+
+			// End Report Absensi
 		// End Absen
 
 		// Jadwal Pelajaran

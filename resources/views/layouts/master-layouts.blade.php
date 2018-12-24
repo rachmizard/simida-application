@@ -322,10 +322,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Report Nilai Siswa Terendah</span></a>
-                                            </li>
-                                            <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Report Absensi Siswa</span></a>
+                                                <a href="{{ route('pendidikan.absen.report') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
