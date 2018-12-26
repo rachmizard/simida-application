@@ -38,6 +38,10 @@ Vue.component('list-guru-component', require('./components/Sekretariat/Guru/List
 Vue.component('list-notifikasi', require('./components/Keamanan/ListNotifikasiKeamananComponent.vue'));
 Vue.component('notifikasi-keamanan', require('./components/Keamanan/NotifikasiKeamananComponent.vue'));
 
+// SYARIAH LAPORAN
+Vue.component('list-laporan-syariah', require('./components/Keuangan/Syariah/ListLaporanSyariahComponent.vue'));
+
+
 
 
 /**

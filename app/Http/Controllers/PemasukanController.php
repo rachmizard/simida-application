@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Pemasukan;
 use App\Periode;
 use App\Santri;
+use App\Kelas;
+use App\Asrama;
 use Carbon\Carbon;
 use DB;
 use App\TotalUang;
@@ -301,5 +303,44 @@ class PemasukanController extends Controller
         $deletepemasukan->delete();
 
         return response()->json(['response' => 'success']);
+    }
+
+    public function laporan(Request $request)
+    {
+        if ($request->jenis_pemasukan == 'all') {
+            $pemasukans = Pemasukan::orderBy('jumlah_pemasukan', 'DESC')->whereIn('jenis_pemasukan', ['infaq', 'donatur'])->whereBetween('tgl_pemasukan', [$request->start_date, $request->end_date])->get();
+
+            $sum_pemasukan = Pemasukan::orderBy('jumlah_pemasukan', 'DESC')->whereIn('jenis_pemasukan', ['infaq', 'donatur'])->whereBetween('tgl_pemasukan', [$request->start_date, $request->end_date])->sum('jumlah_pemasukan');
+            $money_convert = "Rp. " . number_format($sum_pemasukan,2,',','.');
+        }else{
+            $pemasukans = Pemasukan::orderBy('jumlah_pemasukan', 'DESC')->whereJenisPemasukan($request->jenis_pemasukan)->whereBetween('tgl_pemasukan', [$request->start_date, $request->end_date])->get();
+
+            $sum_pemasukan = Pemasukan::orderBy('jumlah_pemasukan', 'DESC')->whereJenisPemasukan($request->jenis_pemasukan)->whereBetween('tgl_pemasukan', [$request->start_date, $request->end_date])->sum('jumlah_pemasukan');
+            $money_convert = "Rp. " . number_format($sum_pemasukan,2,',','.');
+        }
+
+        return view('keuangan.laporan-pemasukan', compact('pemasukans', 'money_convert'));
+    }
+
+    public function laporanSyariah(Request $request)
+    {
+        $classes = Kelas::all();
+        $asrama = Asrama::with('ngaran')->get();
+        $syariah = SyariahSantriResource::collection(Santri::orderBy('nama_santri', 'ASC')->whereStatus('aktif')->where('kelas_id', $request->kelas_id)->orWhere('asrama_id', $request->asrama_id)->get());
+        // return response()->json($syariah);
+        $kelasId = $request->kelas_id == null ? null : $request->kelas_id;
+        $asramaId = $request->asrama_id == null ? null : $request->asrama_id;
+        $bulan = $request->bulan == null ? '1900-10-10' : $request->bulan;
+        return view('keuangan.laporan-syariah', compact('classes', 'asrama', 'syariah', 'kelasId', 'asramaId', 'bulan'));
+    }
+
+    public function getSantriForReport(Request $request)
+    {
+        if ($request->kelas_id == 'all' && $request->asrama_id == 'all') {
+            $santris = SyariahSantriResource::collection(Santri::orderBy('nama_santri', 'ASC')->whereStatus('aktif')->get());
+        }else{
+            $santris = SyariahSantriResource::collection(Santri::orderBy('nama_santri', 'ASC')->whereStatus('aktif')->where('kelas_id', $request->kelas_id)->orWhere('asrama_id', $request->asrama_id)->get());
+        }
+        return $santris;
     }
 }

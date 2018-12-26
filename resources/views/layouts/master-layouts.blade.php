@@ -322,7 +322,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="{{ route('pendidikan.absen.report') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
+                                                <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
                                             </li>
                                             <li class="site-menu-item">
                                                 <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
@@ -351,6 +351,20 @@
                                     </li>
                                     <li class="site-menu-item">
                                         <a href="{{ route('keuangan.home') }}#/keuangan/syariah"><span class="site-menu-title">Syariah</span></a>
+                                    </li>
+                                    <li class="site-menu-item has-su">
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
+                                        <ul class="site-menu-sub">
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('keuangan.pemasukan.laporan') }}"><span class="site-menu-title">Pemasukan</span></a>
+                                            </li>
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('keuangan.pengeluaran.laporan') }}"><span class="site-menu-title">Pengeluaran</span></a>
+                                            </li>
+                                            <li class="site-menu-item">
+                                                <a href="{{ route('keuangan.pemasukan.laporan-syariah') }}"><span class="site-menu-title">Syariah</span></a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <!-- <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
@@ -466,6 +480,7 @@
         // defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
+
     $('.datepicker').datepicker({
         format: "yyyy-mm-dd",
         clearBtn: true,
@@ -473,6 +488,14 @@
         // defaultViewDate: { year: 2000, month: 01, day: 01 }
         
     });
+
+    $('.datepickerMonth').datepicker({
+        format: "yyyy-mm",
+        clearBtn: true,
+        language: "id"
+        // defaultViewDate: { year: 2000, month: 01, day: 01 }        
+    });
+
     </script>
     <script src="/assets/vendor/select2/select2.full.min599c.js?v4.0.2"></script>
     <script>

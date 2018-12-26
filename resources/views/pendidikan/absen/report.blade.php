@@ -11,27 +11,25 @@
                                     <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
                                         <h4 class="example-title"><i class="icon wb-search"></i> Filter Data Absen</h4>
                                             <div class="example">
-                                                <div class="form-row">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                               <label class="form-control-label" for="inputBasicFirstName"><i class="icon wb-home"></i> Asrama</label>
-                                                               <select name="kelas_id" class="form-control selectTo" id="">
-                                                                @foreach($asramas as $asrama)
-                                                                   <option value="{{ $asrama->id }}">{{ $asrama['ngaran']['nama'] }}</option>
-                                                                @endforeach
-                                                               </select>
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                           <label class="form-control-label" for="inputBasicFirstName"><i class="icon wb-home"></i> Asrama</label>
+                                                           <select name="kelas_id" class="form-control selectTo" id="">
+                                                            @foreach($asramas as $asrama)
+                                                               <option value="{{ $asrama->id }}">{{ $asrama['ngaran']['nama'] }}</option>
+                                                            @endforeach
+                                                           </select>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                               <label class="form-control-label" for="inputBasicFirstName"><i class="icon wb-book"></i> Kelas</label>
-                                                               <select name="asrama_id" class="form-control selectTo" id="">
-                                                                @foreach($kelass as $kelas)
-                                                                   <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
-                                                                @endforeach
-                                                               </select>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                           <label class="form-control-label" for="inputBasicFirstName"><i class="icon wb-book"></i> Kelas</label>
+                                                           <select name="asrama_id" class="form-control selectTo" id="">
+                                                            @foreach($kelass as $kelas)
+                                                               <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+                                                            @endforeach
+                                                           </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">

@@ -201,7 +201,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
 			// Absen
 			Route::get('/absen', 'AbsenController@index')->name('absen');
-			Route::get('/absen/reportview', 'AbsenController@reportView')->name('absen.report');
+			Route::get('/absen/reportview', 'AbsenController@reportView')->name('absen.reportview');
 			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
@@ -240,6 +240,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/pemasukan/{id}/show', 'PemasukanController@show')->name('pemasukan.show');
 			Route::put('/pemasukan/{id}/update', 'PemasukanController@update')->name('pemasukan.update');
 			Route::delete('/pemasukan/{id}/destroy', 'PemasukanController@destroy')->name('pemasukan.destroy');
+			Route::get('/pemasukan/laporan', 'PemasukanController@laporan')->name('pemasukan.laporan');
 			// End Pemasukan
 
 			// Pengeluaran
@@ -254,13 +255,16 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::delete('/pengeluaran/jenispengeluaran/{id}/destroy', 'PengeluaranController@jenispengeluaranDestroy');
 			Route::put('/pengeluaran/{id}/update', 'PengeluaranController@update');
 			Route::delete('/pengeluaran/{id}/destroy', 'PengeluaranController@destroy');
+			Route::get('/pengeluaran/laporan', 'PengeluaranController@laporan')->name('pengeluaran.laporan');
 			// End Pengeluaran
 
 			// Syariah
 			Route::get('/syariah/getSantriForSyariah', 'PemasukanController@getSantriForSyariah'); // API
+			Route::get('/syariah/getSantriForReport', 'PemasukanController@getSantriForReport'); // API
 			Route::get('/syariah/{id}/getOnceSantri', 'PemasukanController@getOnceSantri'); // API
 			Route::get('/syariah/{id}/riwayatPembayaranPerSantri', 'PemasukanController@riwayatPembayaranPerSantri'); // API
 			Route::get('/syariah/parseBulan', 'PemasukanController@parseBulan'); // API
+			Route::get('/syariah/laporan', 'PemasukanController@laporanSyariah')->name('pemasukan.laporan-syariah'); 
 			// End Syariah
 		});
 	});

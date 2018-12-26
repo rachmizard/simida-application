@@ -40,7 +40,7 @@ class KeamananController extends Controller
 
     public function listSantriIzinWithFilter(Request $request)
     {
-        $santri = Santri::with(['kelas', 'asrama.ngaran'])->where('nama_santri', $request->nama_santri )->orWhere('nis', $request->nis)->get();
+        $santri = Santri::with(['kelas', 'asrama.ngaran'])->where('nama_santri', 'like', '%'.$request->nama_santri.'%' )->orWhere('nis', $request->nis)->get();
         $available = count($santri) > 0 ? true : false;
         return response()->json(['data' => $santri, 'available' => $available]);
     }

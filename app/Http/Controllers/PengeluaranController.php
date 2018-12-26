@@ -219,4 +219,30 @@ class PengeluaranController extends Controller
 
         return response()->json(['response' => 'success']);
     }
+
+    public function laporan(Request $request)
+    {
+        if ($request->jenis_pengeluaran == 'all') {
+            $nama_jenis_pengeluarans = NamaJenisPengeluaran::all();
+
+            $pengeluarans = Pengeluaran::whereBetween('tgl_pengeluaran', [$request->start_date, $request->end_date])->get();
+
+            $sum_pengeluaran = Pengeluaran::whereBetween('tgl_pengeluaran', [$request->start_date, $request->end_date])->sum('jumlah_pengeluaran');
+            $money_convert = $sum_pengeluaran == null ? 0 : $sum_pengeluaran;
+        }else{
+            $nama_jenis_pengeluarans = NamaJenisPengeluaran::all();
+
+            $pengeluarans = Pengeluaran::whereHas('jenispengeluaran', function($query) use ($request){
+                $query->where('id', $request->jenis_pengeluaran);
+            })->whereBetween('tgl_pengeluaran', [$request->start_date, $request->end_date])->get();
+
+            $sum_pengeluaran = Pengeluaran::whereHas('jenispengeluaran', function($query) use ($request){
+                $query->where('id', $request->jenis_pengeluaran);
+            })->whereBetween('tgl_pengeluaran', [$request->start_date, $request->end_date])->sum('jumlah_pengeluaran');
+            $money_convert = $sum_pengeluaran == null ? 0 : $sum_pengeluaran;
+        }
+
+        return view('keuangan.laporan-pengeluaran', compact('nama_jenis_pengeluarans', 'pengeluarans', 'money_convert'));
+        // return response()->json(['data' => $pengeluarans]);
+    }
 }
