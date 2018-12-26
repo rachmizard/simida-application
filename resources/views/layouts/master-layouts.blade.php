@@ -201,9 +201,9 @@
                                 <a href="/">
                                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
                                     <span class="site-menu-title">Dashboard</span>
-                                    <div class="site-menu-badge">
+                                    <!-- <div class="site-menu-badge">
                                         <span class="badge badge-pill badge-success">3</span>
-                                    </div>
+                                    </div> -->
                                 </a>
                             </li>
                             @if(auth()->user()->role == 'sekretariat' || auth()->user()->role == 'murobbi')
@@ -290,9 +290,9 @@
                                             <li class="site-menu-item">
                                                 <a href="{{ route('pendidikan.kegiatan') }}#/list_kegiatan"><span class="site-menu-title">Jadwal Kegiatan</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <!-- <li class="site-menu-item">
                                                 <a href="{{ route('pendidikan.jadwalpelajaran') }}#/jadwalpelajaran"><span class="site-menu-title">Jadwal Pelajaran</span></a>
-                                            </li>
+                                            </li> -->
                                             <li class="site-menu-item">
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
                                             </li>
@@ -308,10 +308,10 @@
                                         <a href="#!"><span class="site-menu-title">Semester</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Data Semester</span></a>
+                                                <a href="{{ route('pendidikan.semester.index') }}#/list_semester"><span class="site-menu-title">Data Semester</span></a>
                                             </li>
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Perubahan Semester</a>
+                                                <a href="{{ route('pendidikan.semester.index') }}#/perubahan_semester"><span class="site-menu-title">Perubahan Semester</a>
                                             </li>
                                         </ul>
                                     </li>

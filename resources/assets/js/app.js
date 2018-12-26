@@ -327,6 +327,35 @@ const routes = [
 			// End Report Absensi
 		// End Absen
 
+		// Semester
+
+		{
+		  path: '/list_semester',
+		  name: 'listSemester',
+		  component: require('./components/Pendidikan/Semester/ListSemesterComponent.vue') 
+		},
+
+		{
+		  path: '/tambah/semester',
+		  name: 'tambahSemester',
+		  component: require('./components/Pendidikan/Semester/TambahSemesterComponent.vue') 
+		},
+
+		{
+		  path: '/edit/semester/:id',
+		  name: 'editSemester',
+		  component: require('./components/Pendidikan/Semester/EditSemesterComponent.vue') 
+		},
+
+
+		{
+		  path: '/perubahan_semester',
+		  name: 'perubahanSemester',
+		  component: require('./components/Pendidikan/Semester/PerubahanSemesterComponent.vue') 
+		},
+
+		// End Semester
+
 		// Jadwal Pelajaran
 		{
 		  path: '/jadwalpelajaran',

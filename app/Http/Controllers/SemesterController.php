@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Semester;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
 class SemesterController extends Controller
@@ -14,7 +15,20 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        //
+        return view('pendidikan.semester.semester');
+    }
+
+    public function getSemesterDataTables(Datatables $datatables)
+    {
+        return $datatables->of(Semester::query())
+                ->addColumn('action', function($var){
+                    return '
+                    <a href="" class="btn btn-sm btn-info" title="Aktifkan semester"><i class="icon wb-check"></i></a>
+                    <a href="" class="btn btn-sm btn-danger" title="Hapus"><i class="icon wb-trash"></i></a>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     /**
@@ -35,7 +49,18 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'tingkat_semester' => 'required',
+            'periode_id' => 'required',
+        ]);
+
+        $semester = Semester::create([
+            'tingkat_semester' => $request->tingkat_semester,
+            'periode_id' => $request->periode_id,
+            'status' => 'tidak_aktif'
+        ]);
+
+        return response()->json(['message' => 'success']);
     }
 
     /**
@@ -44,9 +69,9 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function show(Semester $semester)
+    public function show($id)
     {
-        //
+        return Semester::findOrFail($id);
     }
 
     /**
@@ -67,9 +92,29 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Semester $semester)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'tingkat_semester' => 'required',
+            'periode_id' => 'required',
+        ]);
+
+        $semester = Semester::find($id)->update([
+            'tingkat_semester' => $request->tingkat_semester,
+            'periode_id' => $request->periode_id,
+            'status' => 'tidak_aktif'
+        ]);
+
+        return response()->json(['message' => 'success']);
+    }
+
+    public function statusActive($id)
+    {
+        $default = Semester::whereStatus('aktif')->update(['status' => 'tidak_aktif']);
+        if ($default) {
+            $setActive = Semester::find($id)->update(['status' => 'aktif']);
+        }
+        return response()->json(['message' => 'success']);
     }
 
     /**
@@ -78,8 +123,10 @@ class SemesterController extends Controller
      * @param  \App\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Semester $semester)
+    public function destroy($id)
     {
-        //
+        $semester = Semester::find($id)->delete();
+
+        return response()->json(['message' => 'success']);
     }
 }

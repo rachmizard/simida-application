@@ -213,6 +213,17 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 				// End Report Absensi
 			// End Absen
 
+			// Semester
+
+			Route::get('/semester', 'SemesterController@index')->name('semester.index');
+			Route::get('/semester/getSemesterDataTables', 'SemesterController@getSemesterDataTables')->name('semester.getSemesterDataTables');
+			Route::post('/semester/store', 'SemesterController@store')->name('semester.store');
+			Route::put('/semester/{id}/update', 'SemesterController@update')->name('semester.update');
+			Route::delete('/semester/{id}/destroy', 'SemesterController@destroy')->name('semester.destroy');
+			Route::put('/semester/{id}/statusActive', 'SemesterController@statusActive')->name('semester.statusActive');
+
+			// End Semester
+
 			// Jadwal Pelajaran
 			Route::get('/jadwalpelajaran', 'JadwalPelajaranController@index')->name('jadwalpelajaran');
 			Route::post('/jadwalpelajaran/getJadwal', 'JadwalPelajaranController@getJadwal')->name('jadwalpelajaran.getJadwal');

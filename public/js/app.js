@@ -40844,6 +40844,28 @@ var routes = [
 // End Report Absensi
 // End Absen
 
+// Semester
+
+{
+		path: '/list_semester',
+		name: 'listSemester',
+		component: __webpack_require__(381)
+}, {
+		path: '/tambah/semester',
+		name: 'tambahSemester',
+		component: __webpack_require__(384)
+}, {
+		path: '/edit/semester/:id',
+		name: 'editSemester',
+		component: __webpack_require__(382)
+}, {
+		path: '/perubahan_semester',
+		name: 'perubahanSemester',
+		component: __webpack_require__(383)
+},
+
+// End Semester
+
 // Jadwal Pelajaran
 {
 		path: '/jadwalpelajaran',
@@ -111941,6 +111963,706 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-78f37fef", module.exports)
+  }
+}
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(385)
+/* template */
+var __vue_template__ = __webpack_require__(386)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Pendidikan/Semester/ListSemesterComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-190241a3", Component.options)
+  } else {
+    hotAPI.reload("data-v-190241a3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Pendidikan/Semester/EditSemesterComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Pendidikan/Semester/PerubahanSemesterComponent.vue"
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(387)
+/* template */
+var __vue_template__ = __webpack_require__(388)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Pendidikan/Semester/TambahSemesterComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-45198db8", Component.options)
+  } else {
+    hotAPI.reload("data-v-45198db8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 385 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			periodes: []
+		};
+	},
+	mounted: function mounted() {
+		this.listPeriode();
+		this.function();
+		$(document).ready(function () {
+			$('#exampleTableTools').DataTable();
+		});
+	},
+
+
+	methods: {
+		function: function _function() {
+			$(function () {
+				var table = $('#semesterTable').DataTable({
+					processing: true,
+					serverSide: true,
+					ajax: {
+						url: "/pendidikan/semester/getSemesterDataTables"
+					},
+					columns: [{ data: 'id', name: 'id' }, { data: 'tingkat_semester', name: 'tingkat_semester', orderable: true }, { data: 'periode.nama_periode', name: 'periode.nama_periode' }, { data: 'status', name: 'status' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+				});
+			});
+		},
+		listPeriode: function listPeriode() {
+			var app = this;
+			axios.get('/pendidikan/periode/getPeriodeDataTables').then(function (response) {
+				app.periodes = response.data;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+    _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "form-group col-md-6",
+          staticStyle: { "margin-left": "15px" }
+        },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-sm btn-success",
+              attrs: { to: { name: "tambahSemester" } }
+            },
+            [
+              _c("i", { staticClass: "icon wb-plus" }),
+              _vm._v(" Tambah Semester")
+            ]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-body" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-hover dataTable table-striped w-full",
+          attrs: { id: "semesterTable" }
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { width: "5%" } }, [_vm._v("ID Semester")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [
+                _vm._v("Tingkat Semester")
+              ]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Periode")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Status")]),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", attrs: { width: "20%" } },
+                [_vm._v("Aksi")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody")
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-190241a3", module.exports)
+  }
+}
+
+/***/ }),
+/* 387 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */]
+    },
+
+    mounted: function mounted() {},
+    data: function data() {
+        return {
+            errors: [],
+            semester: {
+                tingkat_semester: '',
+                periode_id: ''
+            },
+            message: '',
+            messageError: '',
+            messageWarning: ''
+        };
+    },
+
+
+    methods: {
+        storesemester: function storesemester(e) {
+            var app = this;
+            var semester = app.semester;
+            axios.post(e.target.action, semester).then(function (resp) {
+                app.errors = [];
+                app.message = resp.data.response.message;
+                // app.messageError = false; // showing result
+                app.semester.tingkat_semester = ''; // clear form
+                app.semester.periode_id = ''; // clear form
+                app.$router.replace('/list_semester'); // redirect to url "/"
+                setTimeout(function () {
+                    app.messageError = false;
+                    app.message = false;
+                }, 5000);
+            }).catch(function (error) {
+                app.errors = error.response.data.errors;
+                app.message = false;
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "panel" }, [
+      _c("div", { staticClass: "panel col-md-6" }, [
+        _c(
+          "div",
+          {
+            staticClass: "panel-body container-fluid",
+            staticStyle: { "background-color": "#fdfdfd" }
+          },
+          [
+            _c("div", { staticClass: "row row-lg" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm.message
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alert dark alert-icon alert-success alert-dismissible",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass: "icon wb-check",
+                          attrs: { "aria-hidden": "true" }
+                        }),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.message) +
+                            "\r\n                            "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    attrs: {
+                      action: "/pendidikan/semester/store",
+                      autocomplete: "off"
+                    },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.storesemester($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "form-group col-md-12 col-sm-12",
+                          staticStyle: { "padding-right": "15px" }
+                        },
+                        [
+                          _c("h4", { staticClass: "example-title" }, [
+                            _vm._v("Tambah Semester")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "example" }, [
+                            _c("div", { staticClass: "form-row" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group col-md-6" },
+                                [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Tingkat Semester")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.semester.tingkat_semester,
+                                        expression: "semester.tingkat_semester"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Tahun baru..",
+                                      autocomplete: "off"
+                                    },
+                                    domProps: {
+                                      value: _vm.semester.tingkat_semester
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.semester,
+                                          "tingkat_semester",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.errors.tingkat_semester
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "label label-danger" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.errors.tingkat_semester[0]
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group col-md-6" },
+                                [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "form-control-label",
+                                      attrs: { for: "inputBasicFirstName" }
+                                    },
+                                    [_vm._v("Periode")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.semester.periode_id,
+                                          expression: "semester.periode_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.semester,
+                                            "periode_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("option", { attrs: { value: "1" } }, [
+                                        _vm._v("1440")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("option", { attrs: { value: "2" } }, [
+                                        _vm._v("1441")
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.errors.periode_id
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "label label-danger" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.errors.periode_id[0])
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-row" },
+                              [
+                                _vm._m(1),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-warning",
+                                    attrs: { to: { name: "listSemester" } }
+                                  },
+                                  [_vm._v("Batal")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "icon wb-check" }), _vm._v(" Tambah")]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-45198db8", module.exports)
   }
 }
 

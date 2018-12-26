@@ -12,4 +12,9 @@ class Semester extends Model
     protected $fillable = [
         'tingkat_semester', 'periode_id', 'status',
     ];
+
+    public function periode()
+    {
+    	return $this->belongsTo('App\Periode', 'periode_id', 'id');
+    }
 }
