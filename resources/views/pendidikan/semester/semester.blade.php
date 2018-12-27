@@ -1,7 +1,7 @@
 @extends('layouts.master-layouts')
 @section('content')
 
-<transition name="slide-fade">
+<transition>
   <router-view></router-view>
 </transition>
 

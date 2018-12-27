@@ -56,6 +56,7 @@ class SantriController extends Controller
 
     public function getSantriDataTables(Request $request, Datatables $datatables)
     {
+          // <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
         $santri = Santri::with([
                                 'asrama.ngaran',
                                 'kobong',
@@ -67,7 +68,7 @@ class SantriController extends Controller
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-                                            <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                        
                                             <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
@@ -82,7 +83,11 @@ class SantriController extends Controller
                                     }
                               })
                               ->editColumn('foto', function($var){
+                                  if ($var->foto == null) {
+                                    return '<span class="badge badge-dark">Belum ada foto</span>';
+                                  }else{
                                     return '<img src="/storage/santri_pic/'. $var->foto .'" width="100" height="100" alt="Foto Santri '. $var->nama_santri .'">';
+                                  }
                               })
                               ->filter(function($query) use ($request){
                                 if (request()->get('filter_kelas')) {
@@ -266,7 +271,7 @@ class SantriController extends Controller
 
 
         // return response()->json(['message' => 'success']);
-        return redirect(route('sekretariat.santri').'#/list_santri');
+        return redirect()->back()->with('message', 'Santri telah didaftarkan, tunggu pendidikan mengkonfirmasi data santri tersebut.');
 
     }
 

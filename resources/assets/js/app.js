@@ -347,11 +347,22 @@ const routes = [
 		  component: require('./components/Pendidikan/Semester/EditSemesterComponent.vue') 
 		},
 
+		{
+		  path: '/aktifkan_semester/:id',
+		  name: 'aktifKanSemester',
+		  component: require('./components/Pendidikan/Semester/AktifkanSemesterComponent.vue') 
+		},
 
 		{
 		  path: '/perubahan_semester',
 		  name: 'perubahanSemester',
 		  component: require('./components/Pendidikan/Semester/PerubahanSemesterComponent.vue') 
+		},
+
+		{
+		  path: '/hapus/semester/:id',
+		  name: 'haspuSemester',
+		  component: require('./components/Pendidikan/Semester/HapusSemesterComponent.vue') 
 		},
 
 		// End Semester

@@ -217,6 +217,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
 			Route::get('/semester', 'SemesterController@index')->name('semester.index');
 			Route::get('/semester/getSemesterDataTables', 'SemesterController@getSemesterDataTables')->name('semester.getSemesterDataTables');
+			Route::get('/semester/{id}/show', 'SemesterController@show')->name('semester.show');
 			Route::post('/semester/store', 'SemesterController@store')->name('semester.store');
 			Route::put('/semester/{id}/update', 'SemesterController@update')->name('semester.update');
 			Route::delete('/semester/{id}/destroy', 'SemesterController@destroy')->name('semester.destroy');

@@ -1,6 +1,14 @@
 @extends('layouts.master-layouts')
 @section('content')
 
+@if(session('message'))
+<div class="alert dark alert-icon alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ session('message') }}
+</div>
+@endif
 <div class="panel">
     <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
         <div class="row row-lg">

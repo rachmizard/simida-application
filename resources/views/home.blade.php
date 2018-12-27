@@ -17,7 +17,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Total Santri</div>
-                                    <div class="counter-number font-size-40 mt-10">5.531</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getTotalSantri }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -35,7 +35,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Santri Putra</div>
-                                    <div class="counter-number font-size-40 mt-10">3.321</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getSantriPutra }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -53,7 +53,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Santri Putri</div>
-                                    <div class="counter-number font-size-40 mt-10">2.210</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getSantriPutri }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -78,7 +78,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Ibtida</div>
-                                    <div class="counter-number font-size-40 mt-10">200</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getSantriIbtida }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -96,7 +96,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Tsanawi</div>
-                                    <div class="counter-number font-size-40 mt-10">901</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getSantriTsanawi }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -114,7 +114,7 @@
                             <div class="col-6">
                                 <div class="counter text-left blue-grey-700">
                                     <div class="counter-label mt-10">Mah'ad Aly</div>
-                                    <div class="counter-number font-size-40 mt-10">2</div>
+                                    <div class="counter-number font-size-40 mt-10">{{ $getSantriMahadAly }}</div>
                                 </div>
                             </div><!--/.col-->
                             
@@ -135,67 +135,19 @@
             <div class="col-md-6">
                 <!-- Example Table For Url -->
                 <div class="example-wrap m-sm-0">
-                    <h4 class="example-title">Akademik terendah</h4>
-                    <p>-Description-</p>
+                    <h4 class="example-title">Akademik Tertinggi</h4>
+                    <p>Akademik Santri Terendah</p>
                     <div class="example">
                         <table data-toggle="table" data-height="300" data-mobile-responsive="true">
                             <thead>
                                 <tr>
                                     <th data-field="no">No</th>
-                                    <th data-field="name">Name</th>
+                                    <th data-field="name">Nama Santri</th>
                                     <th data-field="akreditasi">Akreditasi</th>
                                     <th data-field="nilai">Nilai</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -207,7 +159,7 @@
                 <!-- Example Table From Data -->
                 <div class="example-wrap">
                     <h4 class="example-title">Akhlaq terendah</h4>
-                    <p>-Description-</p>
+                    <p>-</p>
                     <div class="example">
                         <table data-toggle="table" data-height="300" data-mobile-responsive="true">
                             <thead>
@@ -219,54 +171,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Samsul</td>
-                                    <td>D</td>
-                                    <td>50</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

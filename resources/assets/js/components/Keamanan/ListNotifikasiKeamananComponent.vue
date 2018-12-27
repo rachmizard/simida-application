@@ -1,6 +1,6 @@
 <template>
 	<li class="site-menu-item">
-	    <router-link :to="{ path: '/pemberitahuan' }"><span class="site-menu-title">Pemberitahuan <span class="badge badge-warning badge-sm">{{ total }}</span></span></router-link>
+	    <a href="/keamanan/#pemberitahuan"><span class="site-menu-title">Pemberitahuan <span class="badge badge-warning badge-sm">{{ total }}</span></span></a>
 	</li>
 </template>
 <script>

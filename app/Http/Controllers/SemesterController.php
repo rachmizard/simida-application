@@ -20,14 +20,24 @@ class SemesterController extends Controller
 
     public function getSemesterDataTables(Datatables $datatables)
     {
-        return $datatables->of(Semester::query())
+        return $datatables->of(Semester::with('periode')->get())
                 ->addColumn('action', function($var){
                     return '
-                    <a href="" class="btn btn-sm btn-info" title="Aktifkan semester"><i class="icon wb-check"></i></a>
-                    <a href="" class="btn btn-sm btn-danger" title="Hapus"><i class="icon wb-trash"></i></a>
+                    <a href="#/aktifkan_semester/'. $var->id .'" class="btn btn-xs btn-info" title="Aktifkan semester"><i class="icon wb-check"></i></a>
+                    <a href="#/edit/semester/'.$var->id.'" class="btn btn-xs btn-warning" title="Edit"><i class="icon wb-edit"></i></a>
+                    <a href="#/hapus/semester/'. $var->id .'" class="btn btn-xs btn-danger" title="Hapus"><i class="icon wb-trash"></i></a>
                     ';
                 })
-                ->rawColumns(['action'])
+                ->editColumn('status', function($btn){
+                    if ($btn->status == 'aktif') {
+                        return '<span class="badge badge-success">Aktif</span>';
+                    }else if($btn->status == 'tidak_aktif'){
+                        return '<span class="badge badge-dark">Tidak Aktif</span>';
+                    }else{
+                        return '<span class="badge badge-warning">Belum di set</span>';
+                    }
+                })
+                ->rawColumns(['action', 'status'])
                 ->make(true);
     }
 
@@ -54,13 +64,22 @@ class SemesterController extends Controller
             'periode_id' => 'required',
         ]);
 
-        $semester = Semester::create([
-            'tingkat_semester' => $request->tingkat_semester,
-            'periode_id' => $request->periode_id,
-            'status' => 'tidak_aktif'
-        ]);
+        $validator = Semester::where('tingkat_semester', $request->tingkat_semester)
+                    ->where('periode_id', $request->periode_id)
+                    ->count();
+        if ($validator > 0) {
+            $message = 'fail';
+        }else{
+            $semester = Semester::create([
+                'tingkat_semester' => $request->tingkat_semester,
+                'periode_id' => $request->periode_id,
+                'status' => 'tidak_aktif'
+            ]);
 
-        return response()->json(['message' => 'success']);
+            $message = 'success';
+        }
+
+        return response()->json(['message' => $message]);
     }
 
     /**
@@ -110,10 +129,8 @@ class SemesterController extends Controller
 
     public function statusActive($id)
     {
-        $default = Semester::whereStatus('aktif')->update(['status' => 'tidak_aktif']);
-        if ($default) {
-            $setActive = Semester::find($id)->update(['status' => 'aktif']);
-        }
+        $default = Semester::where('status', 'aktif')->update(['status' => 'tidak_aktif']);
+        $setActive = Semester::find($id)->update(['status' => 'aktif']);
         return response()->json(['message' => 'success']);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Santri;
 use Auth;
 
 class HomeController extends Controller
@@ -24,7 +25,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $getTotalSantri = Santri::whereStatus('aktif')->count();
+        $getSantriPutra = Santri::whereStatus('aktif')->whereJenisKelamin('L')->count();
+        $getSantriPutri = Santri::whereStatus('aktif')->whereJenisKelamin('P')->count();
+
+        $getSantriIbtida = Santri::whereStatus('aktif')->whereHas('tingkat', function($query){
+                $query->where('nama_tingkatan', 'Ibtida');
+        })->count();
+
+        $getSantriTsanawi = Santri::whereStatus('aktif')->whereHas('tingkat', function($query){
+                $query->where('nama_tingkatan', 'Tsanawi');
+        })->count();
+
+        $getSantriMahadAly = Santri::whereStatus('aktif')->whereHas('tingkat', function($query){
+                $query->where('nama_tingkatan', "Ma'had Aly");
+        })->count();
+        return view('home', compact('getTotalSantri', 'getSantriPutra', 'getSantriPutri', 'getSantriIbtida', 'getSantriTsanawi', 'getSantriMahadAly'));
     }
 
     public function sekretariatHome(Request $request)
