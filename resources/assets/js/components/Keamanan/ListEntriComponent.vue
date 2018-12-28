@@ -18,7 +18,7 @@
                 <div class="panel-body table-responsive">
                   <div class="form-group">
                     <router-link :to="{ path: '/keamanan' }" class="btn btn-sm btn-info"><i class="icon wb-plus"></i>  Tambah Entri Izin</router-link>
-                    <router-link :to="{ path: '/pemberitahuan' }" class="btn btn-sm btn-danger"><i class="icon wb-bell"></i>  Pemberitahuan <span class="badge bg-yellow-800 text-white">4</span></router-link>
+                    <router-link :to="{ path: '/pemberitahuan' }" class="btn btn-sm btn-danger"><i class="icon wb-bell"></i>  Pemberitahuan</router-link>
                     <router-link :to="{ path: '/laporan/entri_izin' }" class="btn btn-sm btn-primary"><i class="icon wb-book"></i> Laporan Entri</router-link>
                   </div>
                   <table id="listEntriIzinTable" class="table table-striped table-hover">
@@ -32,7 +32,7 @@
                         <th>Kategori</th>
                         <th>Tanggal Izin</th>
                         <th>Tanggal Akhir Izin</th>
-                        <!-- <th>Aksi</th> -->
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -131,7 +131,7 @@
 		                  { data: 'kategori', name: 'kategori'},
                       { data: 'created_at', name: 'created_at'},
 		                  { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin'},
-		                  // { data: 'action', name: 'action'},
+		                  { data: 'action', name: 'action'},
 		              ]
 		          }); 
 

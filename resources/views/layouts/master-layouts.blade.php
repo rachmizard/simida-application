@@ -634,6 +634,7 @@
         }((0, _jquery2.default)("#exampleTableLargeColumns"), 50, 50), (0, _jquery2.default)("#exampleTableToolbar").bootstrapTable({
             url: "../assets/data/bootstrap_table_test2.json",
             search: !0,
+            pagination: true,
             showRefresh: !0,
             showToggle: !0,
             showColumns: !0,

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Santri;
+use App\Keamanan;
+use App\Pemasukan;
+use Carbon\Carbon;
 use Auth;
 
 class HomeController extends Controller
@@ -40,7 +43,14 @@ class HomeController extends Controller
         $getSantriMahadAly = Santri::whereStatus('aktif')->whereHas('tingkat', function($query){
                 $query->where('nama_tingkatan', "Ma'had Aly");
         })->count();
-        return view('home', compact('getTotalSantri', 'getSantriPutra', 'getSantriPutri', 'getSantriIbtida', 'getSantriTsanawi', 'getSantriMahadAly'));
+
+        $keamanans = Keamanan::all();
+
+        $pendapatan = Pemasukan::whereYear('tgl_pemasukan', Carbon::now()->format('Y'))->whereMonth('tgl_pemasukan', Carbon::now()->format('m'));
+        $sum = Pemasukan::whereYear('tgl_pemasukan', Carbon::now()->format('Y'))->whereMonth('tgl_pemasukan', Carbon::now()->format('m'))->sum('jumlah_pemasukan');
+
+
+        return view('home', compact('getTotalSantri', 'getSantriPutra', 'getSantriPutri', 'getSantriIbtida', 'getSantriTsanawi', 'getSantriMahadAly', 'keamanans', 'pendapatan', 'sum'));
     }
 
     public function sekretariatHome(Request $request)

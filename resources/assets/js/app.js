@@ -497,6 +497,14 @@ const routes = [
 			  component: require('./components/Keamanan/PemberitahuanComponent.vue')
 			},
 
+
+			{
+			  path: '/edit/keamanan/:id',
+			  name: 'editKeamanan',
+			  component: require('./components/Keamanan/EditKeamananComponent.vue')
+			},
+
+
 			{
 			  path: '/laporan/entri_izin',
 			  name: 'laporanEntriIzin',

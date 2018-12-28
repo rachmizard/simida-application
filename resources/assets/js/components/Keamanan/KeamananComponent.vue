@@ -274,9 +274,6 @@
         },
 
         methods: {
-            formatPrice(value) {
-                return "Rp." + value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1\.")
-            },
 
             customFormatter(date) {
                   return moment(date).format('DD-MM-YYYY');

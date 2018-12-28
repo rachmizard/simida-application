@@ -294,7 +294,7 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			// CRUD KEAMANAN
 			Route::post('/store/entri/izin', 'KeamananController@store');
 			Route::get('{id}/show', 'KeamananController@show');
-			Route::put('{id}/update', 'KeamananController@update');
+			Route::post('{id}/update', 'KeamananController@update');
 			Route::delete('{id}/destroy', 'KeamananController@destroy');
 			// END CRUD KEAMANAN
 
