@@ -58,6 +58,15 @@
                                                                       <span v-if="errors.nama_donatur" class="badge badge-sm badge-danger">{{ errors.nama_donatur[0] }}</span>
                                                           </div>
                                                       </div>
+                                                      <div v-if="pemasukan.jenis_pemasukan == 'infaq'" class="col-md-12">
+                                                          <div class="form-group">
+                                                                  <div class="input-group input-group-icon">
+                                                                      <span class="input-group-addon"><i class="icon wb-user"></i></span>
+                                                                      <input v-model="pemasukan.nama_donatur" type="text" class="form-control" placeholder="Nama Pemberi Infaq.." autocomplete="off" />
+                                                                  </div>
+                                                                      <span v-if="errors.nama_donatur" class="badge badge-sm badge-danger">{{ errors.nama_donatur[0] }}</span>
+                                                          </div>
+                                                      </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
                                                                   <div class="input-group input-group-icon">
@@ -176,7 +185,7 @@
 
         mounted() {
             this.getTablepemasukan()
-            this.getNamaJenispemasukan()
+            // this.getNamaJenispemasukan()
             this.getTotalUangSekarang()
         },
 
@@ -285,6 +294,7 @@
                   app.messageAlert = response.data.response.messageAlert;
                   app.pemasukan.tgl_pemasukan = '';
                   app.pemasukan.jumlah_pemasukan = '';
+                  app.pemasukan.nama_donatur = '';
                   app.pemasukan.jenis_pemasukan = '';
                   app.getTablepemasukan();
                   app.getTotalUangSekarang();

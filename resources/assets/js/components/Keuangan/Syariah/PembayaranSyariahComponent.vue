@@ -111,7 +111,6 @@
                         <th>Bulan</th>
                         <th>Tanggal Transaksi</th>
                         <th>Nominal</th>
-                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -119,7 +118,6 @@
 							<td>{{ santri.bulan }}</td>
 							<td>{{ santri.tgl_transaksi }}</td>
 							<td>{{ formatPrice(santri.nominal) }}</td>
-							<td>a</td>
 						</tr>
 						<tr v-else>
 							<td colspan="6">Data Kosong</td>

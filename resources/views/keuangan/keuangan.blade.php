@@ -2,7 +2,7 @@
 @section('content')
 
 <transition name="slide-fade">
-  <router-view></router-view>
+  <router-view :role="'{{ auth()->user()->role }}'"></router-view>
 </transition>
 
 @endsection

@@ -197,6 +197,8 @@
                     <div>
                         <ul class="site-menu" data-plugin="menu">
                             <li class="site-menu-category">General</li>
+
+                            @if(auth()->user()->role == 'murobbi')
                             <li class="site-menu-item">
                                 <a href="/">
                                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
@@ -206,6 +208,7 @@
                                     </div> -->
                                 </a>
                             </li>
+                            @endif
                             @if(auth()->user()->role == 'sekretariat' || auth()->user()->role == 'murobbi')
                             <li class="site-menu-item has-sub">
                                 <a href="javascript:void(0)">
@@ -352,6 +355,7 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('keuangan.home') }}#/keuangan/syariah"><span class="site-menu-title">Syariah</span></a>
                                     </li>
+                                  @if(auth()->user()->role == 'murobbi')
                                     <li class="site-menu-item has-su">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
                                         <ul class="site-menu-sub">
@@ -366,6 +370,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endif
                                     <!-- <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Utang Piutang</span></a>
                                     </li> -->

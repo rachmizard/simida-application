@@ -3,7 +3,7 @@
  <div class="page-content container-fluid">
       <div class="row">
 
-        <div class="col-xl-12 col-lg-12">
+        <div v-if="role == 'murobbi'" class="col-xl-12 col-lg-12">
           <div class="row">
 
             <div class="col-lg-12">
@@ -95,7 +95,7 @@
                         <div class="modal-body">
                           <div class="row row-lgtext-center">
                           	<div class="col-md-4">
-            					<button class="btn btn-md btn-success"><i class="icon wb-payment"></i> Infaq</button>
+            					<button @click="dismissModalInfaq()" class="btn btn-md btn-success"><i class="icon wb-payment"></i> Infaq</button>
                           	</div>
                           	<div class="col-md-4">
             					<button @click="dismissModalDonatur()" class="btn btn-md btn-success"><i class="icon wb-payment"></i> Donatur</button>
@@ -120,7 +120,8 @@
                     <th>Tanggal Pemasukan</th>
                     <th>Jenis Pemasukan</th>
                     <th>Nominal Pemasukan</th>
-                    <th>Nama Donatur/Santri/Lainnya</th>
+                    <th>Nama Donatur/Pemberi Infaq</th>
+                    <th>Nama Santri</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -133,7 +134,8 @@
                 			<span v-if="pemasukan.jenis_pemasukan == 'syariah'" class="badge badge-sm badge-success text-white">Syariah</span>
                 		</td>
                 		<td>{{ formatPrice(pemasukan.jumlah_pemasukan) }}</td>
-                		<td>{{ pemasukan.nama_donatur == null ? pemasukan.santri.nama_santri : pemasukan.nama_donatur }}</td>
+                		<td>{{ pemasukan.nama_donatur == null ? '-' : pemasukan.nama_donatur }}</td>
+                    <td>{{ pemasukan.santri == null ? '-' : pemasukan.santri.nama_santri }}</td>
                 	</tr>	
                 </tbody>
               </table>
@@ -229,9 +231,10 @@
 </template>
 <script>
 	export default {
+    props: ['role'],
+
 		mounted(){
 			this.$forceUpdate();
-
 			axios.get('/keuangan/cashNow').then(response => {
 				this.total_cash.total = this.formatPrice(response.data.total);
 			})
@@ -306,6 +309,23 @@
 			   		this.$router.push('/keuangan/tambahpemasukan/donatur');
 			   }, 1300)
 			},
+
+      dismissModalInfaq(){
+
+        $(function(){
+
+            $("#exampleNifty3dSlit").removeClass("in");
+            $(".modal-backdrop").remove();
+            $('body').removeClass('modal-open');
+            $('body').css('padding-right', '');
+            $("#exampleNifty3dSlit").hide();
+        })
+
+         setTimeout(() => {
+            this.$router.push('/keuangan/pemasukan');
+         }, 1300)
+      
+      },
 
 			dismissModalSyariah(){
 

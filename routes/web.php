@@ -240,6 +240,18 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 	Route::prefix('keuangan')->group(function(){
 		Route::name('keuangan.')->group(function(){
 
+			// No Access Page
+			Route::get('/blocked-access', 'KeuanganController@blockedAccess')->name('blocked-access')->middleware('is_keuangan');
+			// End No Access Page
+
+			// Get Kelas
+			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
+			// End Get Kelas
+
+			// Get Asrama
+			Route::get('/asrama/AsramaSelect2', 'AsramaController@AsramaSelect2')->name('asrama.AsramaSelect2');
+			// End Get Asrawam
+
 			// Pemasukan
 			Route::get('/', 'KeuanganController@index')->name('home');
 			Route::get('/cashNow', 'KeuanganController@cashNow');
@@ -252,7 +264,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/pemasukan/{id}/show', 'PemasukanController@show')->name('pemasukan.show');
 			Route::put('/pemasukan/{id}/update', 'PemasukanController@update')->name('pemasukan.update');
 			Route::delete('/pemasukan/{id}/destroy', 'PemasukanController@destroy')->name('pemasukan.destroy');
-			Route::get('/pemasukan/laporan', 'PemasukanController@laporan')->name('pemasukan.laporan');
+			Route::get('/pemasukan/laporan', 'PemasukanController@laporan')->name('pemasukan.laporan')->middleware('is_murobbi');
 			// End Pemasukan
 
 			// Pengeluaran
@@ -267,7 +279,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::delete('/pengeluaran/jenispengeluaran/{id}/destroy', 'PengeluaranController@jenispengeluaranDestroy');
 			Route::put('/pengeluaran/{id}/update', 'PengeluaranController@update');
 			Route::delete('/pengeluaran/{id}/destroy', 'PengeluaranController@destroy');
-			Route::get('/pengeluaran/laporan', 'PengeluaranController@laporan')->name('pengeluaran.laporan');
+			Route::get('/pengeluaran/laporan', 'PengeluaranController@laporan')->name('pengeluaran.laporan')->middleware('is_murobbi');
 			// End Pengeluaran
 
 			// Syariah

@@ -399,7 +399,7 @@ const routes = [
 			{
 			  path: '/keuangan',
 			  name: 'keuangan',
-			  component: require('./components/Keuangan/KeuanganComponent.vue') 
+			  component: require('./components/Keuangan/KeuanganComponent.vue')
 			},
 
 
@@ -413,6 +413,12 @@ const routes = [
 			  path: '/keuangan/tambahpemasukan/donatur',
 			  name: 'keuanganTambahPemasukanDonatur',
 			  component: require('./components/Keuangan/TambahPemasukanDonaturComponent.vue') 
+			},
+
+			{
+			  path: '/keuangan/pemasukan/hapus/:id',
+			  name: 'keuanganPemasukanHapus',
+			  component: require('./components/Keuangan/HapusPemasukanComponent.vue') 
 			},
 			// End Pemasukan
 

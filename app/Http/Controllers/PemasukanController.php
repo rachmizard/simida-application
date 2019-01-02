@@ -48,7 +48,7 @@ class PemasukanController extends Controller
             if ($var->jenis_pemasukan == 'donatur') {
                 return '<span class="badge badge-sm bg-yellow-700 text-white">DONATUR</span>';
             }else if ($var->jenis_pemasukan == 'infaq') {
-                return '<span class="badge badge-sm bg-info-700 text-white">Infaq</span>';
+                return '<span class="badge badge-sm bg-blue-700 text-white">Infaq</span>';
             }else if ($var->jenis_pemasukan == 'syariah') {
                 return '<span class="badge badge-sm bg-green-700 text-white">Syariah</span>';
             }
@@ -132,7 +132,7 @@ class PemasukanController extends Controller
             'tgl_pemasukan' => 'required', 
             'jenis_pemasukan' => 'required', 
             // 'santri_id' => 'required', 
-            'jumlah_pemasukan' => 'required', 
+            'jumlah_pemasukan' => 'required|numeric', 
             // 'nama_donatur' => 'required',
         ]);
 
@@ -146,6 +146,7 @@ class PemasukanController extends Controller
                 $storepemasukan->santri_id = $request->santri_id;
                 $storepemasukan->tgl_pemasukan = date('Y-m-d', strtotime($request->tgl_pemasukan));
                 $storepemasukan->jumlah_pemasukan = $request->jumlah_pemasukan;
+                $storepemasukan->nama_donatur = $request->nama_donatur;
                 $storepemasukan->jenis_pemasukan = 'infaq';
             }else if ($request->jenis_pemasukan == 'syariah') {
                 $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');

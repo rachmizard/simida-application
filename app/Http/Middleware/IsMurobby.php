@@ -19,6 +19,8 @@ class IsMurobby
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->role == 'murobbi') {   
                 return $next($request);
+            }else if(Auth::user()->role == 'keuangan'){
+                return redirect()->route('keuangan.blocked-access');
             }else{
                 return redirect()->back();
             }

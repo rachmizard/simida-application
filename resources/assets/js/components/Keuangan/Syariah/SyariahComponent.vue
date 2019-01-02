@@ -135,11 +135,11 @@
 
         mounted() {
 
-				axios.get('/sekretariat/kelas/JSON').then(response => {
+				axios.get('/keuangan/kelas/JSON').then(response => {
 					this.kelass = response.data;
 				})
 
-				axios.get('/sekretariat/asrama/AsramaSelect2').then(response => {
+				axios.get('/keuangan/asrama/AsramaSelect2').then(response => {
 					this.asramas = response.data.data;
 				})
         },

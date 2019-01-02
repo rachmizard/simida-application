@@ -13,6 +13,15 @@ class KeuanganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function blockedAccess()
+    {
+        $errorType = 403;
+        $messageTitle = 'Tidak ada akses!';
+        $messageCaption = 'Akses anda tidak dapat dialihkan kehalaman ini!';
+        return view('keuangan.no-access-page', compact('errorType', 'messageTitle', 'messageCaption'));
+    }
+
     public function index()
     {
         return view('keuangan.keuangan');
