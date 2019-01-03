@@ -57,7 +57,7 @@
 		              </tr>
 		            </thead>
 		            <tbody>
-		            	<tr v-for="santri in santris.data">
+		            	<tr v-if="santris.data.length > 0" v-for="santri in santris.data">
 		            		<td>{{ santri.nis }}</td>
 		            		<td>{{ santri.nama_santri }}</td>
 		            		<td>{{ santri.kelas.nama_kelas }}</td>
@@ -81,7 +81,7 @@
 			                    </div>
                 			</td>
 		            	</tr>
-		            	<tr v-if="santris.length == 0">
+		            	<tr v-else-if="!santri.data.length > 0">
 		            		<td colspan="10">
 		            			<div class="text-center">
 		            				<span><i class="icon wb-search"></i> Filter terlebih dahulu untuk mencari data</span>

@@ -98465,140 +98465,144 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  [
-                    _vm._l(_vm.santris.data, function(santri) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(santri.nis))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(santri.nama_santri))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(santri.kelas.nama_kelas))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(santri.kegiatan.nama_kegiatan))
-                        ]),
-                        _vm._v(" "),
-                        santri.keterangan
-                          ? _c("td", [
-                              santri.keterangan.keterangan == "hadir"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "badge badge-sm badge-success"
-                                    },
-                                    [_vm._v("Hadir")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              santri.keterangan.keterangan == "izin"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "badge badge-sm badge-warning"
-                                    },
-                                    [_vm._v("Izin")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              santri.keterangan.keterangan == "alfa"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass: "badge badge-sm badge-danger"
-                                    },
-                                    [_vm._v("Alfa")]
-                                  )
-                                : _vm._e()
-                            ])
-                          : _c("td", [
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-sm badge-dark" },
-                                [_vm._v("Belum absen")]
-                              )
-                            ]),
-                        _vm._v(" "),
-                        santri.action == "sudah"
-                          ? _c("td", [
-                              _c(
-                                "div",
-                                { staticClass: "btn-group text-center" },
-                                [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      attrs: { title: "Batal Absen" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.batalAbsen(santri.keterangan.id)
+                  _vm._l(_vm.santris.data, function(santri) {
+                    return _vm.santris.data.length > 0
+                      ? _c("tr", [
+                          _c("td", [_vm._v(_vm._s(santri.nis))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(santri.nama_santri))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(santri.kelas.nama_kelas))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(santri.kegiatan.nama_kegiatan))
+                          ]),
+                          _vm._v(" "),
+                          santri.keterangan
+                            ? _c("td", [
+                                santri.keterangan.keterangan == "hadir"
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "badge badge-sm badge-success"
+                                      },
+                                      [_vm._v("Hadir")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                santri.keterangan.keterangan == "izin"
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "badge badge-sm badge-warning"
+                                      },
+                                      [_vm._v("Izin")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                santri.keterangan.keterangan == "alfa"
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "badge badge-sm badge-danger"
+                                      },
+                                      [_vm._v("Alfa")]
+                                    )
+                                  : _vm._e()
+                              ])
+                            : _c("td", [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-sm badge-dark" },
+                                  [_vm._v("Belum absen")]
+                                )
+                              ]),
+                          _vm._v(" "),
+                          santri.action == "sudah"
+                            ? _c("td", [
+                                _c(
+                                  "div",
+                                  { staticClass: "btn-group text-center" },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        attrs: { title: "Batal Absen" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.batalAbsen(santri.keterangan.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "icon wb-trash" })]
-                                  )
-                                ]
-                              )
-                            ])
-                          : santri.action == "belum"
-                          ? _c("td", [
-                              _c(
-                                "div",
-                                { staticClass: "btn-group text-center" },
-                                [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-info text-white",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.absenHadir(santri.id)
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "icon wb-trash"
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            : santri.action == "belum"
+                            ? _c("td", [
+                                _c(
+                                  "div",
+                                  { staticClass: "btn-group text-center" },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-info text-white",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.absenHadir(santri.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_vm._v("Hadir")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-warning text-white",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.absenIzin(santri.id)
+                                      },
+                                      [_vm._v("Hadir")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-warning text-white",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.absenIzin(santri.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_vm._v("Izin")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-danger text-white",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.absenAlfa(santri.id)
+                                      },
+                                      [_vm._v("Izin")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-danger text-white",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.absenAlfa(santri.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_vm._v("Alfa")]
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _vm.santris.length == 0 ? _c("tr", [_vm._m(3)]) : _vm._e()
-                  ],
-                  2
+                                      },
+                                      [_vm._v("Alfa")]
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      : !santri.data.length > 0
+                      ? _c("tr", [_vm._m(3)])
+                      : _vm._e()
+                  })
                 )
               ]
             )

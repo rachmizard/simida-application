@@ -149,11 +149,13 @@ class AbsenController extends Controller
         $listKegiatans = Kegiatan::all();
         $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
         $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
-        if ($request->kelas_id) {
-            $listSantris = Santri::whereKelasId($request->kelas_id)->get();
-        }else if($request->asrama_id){
-            $listSantris = Santri::whereAsramaId($request->asrama_id)->get();
-        }
+        // if ($request->kelas_id) {
+        //     $listSantris = Santri::whereKelasId($request->kelas_id)->get();
+        // }else if($request->asrama_id){
+        //     $listSantris = Santri::whereAsramaId($request->asrama_id)->get();
+        // }
+            $listSantris = Santri::whereAsramaId($request->asrama_id)->orWhere('kelas_id', $request->kelas_id)->get();
+
 
         return view('pendidikan.absen.report', compact('asramas', 'kelass', 'listSantris', 'listKegiatans', 'start_date', 'end_date'));
     }
