@@ -87652,9 +87652,13 @@ var render = function() {
                 _c(
                   "select",
                   {
-                    staticClass: "form-control selectTo",
+                    staticClass: "form-control",
                     staticStyle: { width: "100%" },
-                    attrs: { name: "filter_asrama", id: "filter_asrama" }
+                    attrs: {
+                      name: "filter_asrama",
+                      id: "filter_asrama",
+                      "data-plugin": "select2"
+                    }
                   },
                   [
                     _c("option", { attrs: { value: "" } }),

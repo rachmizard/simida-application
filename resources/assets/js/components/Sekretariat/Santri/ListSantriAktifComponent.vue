@@ -25,7 +25,7 @@
 	          <div class="form-group" style="margin-left: 15px;">
 	            <label for=""><i class="icon wb-home"></i> Menampilkan Santri Berdasarkan Asrama</label>
 	            <!-- <Select2 name="filter_asrama" id="filter_asrama" :options="asramas" v-on-change="getAsrama(asrama.id)" v-model="asrama.id"/> -->
-	            <select name="filter_asrama" id="filter_asrama" class="form-control selectTo" style="width: 100%;">
+	            <select name="filter_asrama" id="filter_asrama" class="form-control" data-plugin="select2" style="width: 100%;">
 	            	<option value=""></option>
 	            	<option v-for="asrama in asramas.data" :value="asrama.id">{{ asrama.text }}</option>
 	            </select>
