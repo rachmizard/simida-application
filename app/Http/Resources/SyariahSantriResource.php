@@ -18,6 +18,7 @@ class SyariahSantriResource extends Resource
     {
         // return parent::toArray($request);
         $requestMonth = date('m', strtotime($request->bulan));
+        $requestYear = Carbon::parse($request->bulan)->format('Y');
         $tgl = Carbon::parse($request->bulan)->format('Y-m-d');
         return [
             'id' => $this->id,
@@ -26,15 +27,15 @@ class SyariahSantriResource extends Resource
             'nama_santri' => $this->nama_santri,
             'kelas' => $this->kelas['nama_kelas'],
             'asrama' => $this->asrama['ngaran']['nama'],
-            'status_pembayaran' => $this->statusPembayaran($this->id, $requestMonth),
+            'status_pembayaran' => $this->statusPembayaran($this->id, $requestYear, $requestMonth),
             'bulan' => $tgl,
             'foto' => $this->foto
         ];
     }
 
-    public function statusPembayaran($id, $requestMonth)
+    public function statusPembayaran($id, $requestYear, $requestMonth)
     {
-        $validator = Pemasukan::whereSantriId($id)->whereJenisPemasukan('syariah')->whereMonth('tgl_pemasukan', $requestMonth)->first();
+        $validator = Pemasukan::whereSantriId($id)->whereJenisPemasukan('syariah')->whereYear('tgl_pemasukan', $requestYear)->whereMonth('tgl_pemasukan', $requestMonth)->first();
         if (count($validator) > 0) {
             return 'Sudah';
         }else{

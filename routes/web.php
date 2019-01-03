@@ -286,6 +286,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/syariah/getSantriForSyariah', 'PemasukanController@getSantriForSyariah'); // API
 			Route::get('/syariah/getSantriForReport', 'PemasukanController@getSantriForReport'); // API
 			Route::get('/syariah/{id}/getOnceSantri', 'PemasukanController@getOnceSantri'); // API
+			Route::get('/syariah/checkingofpaid', 'PemasukanController@checkingofpaid'); // API
 			Route::get('/syariah/{id}/riwayatPembayaranPerSantri', 'PemasukanController@riwayatPembayaranPerSantri'); // API
 			Route::get('/syariah/parseBulan', 'PemasukanController@parseBulan'); // API
 			Route::get('/syariah/laporan', 'PemasukanController@laporanSyariah')->name('pemasukan.laporan-syariah'); 

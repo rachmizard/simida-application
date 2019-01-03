@@ -65,8 +65,8 @@ class PemasukanController extends Controller
                 $query->where('jenis_pemasukan', request()->get('filter_jenis_pemasukan'))->get();
             }
 
-            if (request()->get('filter_bulan')) {
-                $query->whereMonth('created_at', request()->get('filter_bulan'))->get();
+            if (request()->get('filter_bulan') && request()->get('filter_tahun')) {
+                $query->whereYear('created_at', request()->get('filter_tahun'))->whereMonth('created_at', request()->get('filter_bulan'))->get();
             }
         })
         ->rawColumns(['jenis_pemasukan', 'action'])
@@ -79,6 +79,23 @@ class PemasukanController extends Controller
             'bulan' => 'required'
         ]);
         return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());
+    }
+
+    public function checkingofpaid(Request $request)
+    {
+        $validator = Pemasukan::whereSantriId($request->santri_id)
+                                ->where('jenis_pemasukan', 'syariah')
+                                ->whereYear('tgl_pemasukan', Carbon::parse($request->tgl_pemasukan)->format('Y'))
+                                ->whereMonth('tgl_pemasukan', Carbon::parse($request->tgl_pemasukan)->format('m'))
+                                ->count(); 
+                                // ngecek apabila dia sudah bayar / belum // ngecek apabila dia sudah bayar / belum
+            $results = '';
+            if ($validator > 0) {
+                $results = true;
+            }else{   
+                $results = false;
+            }
+        return response()->json(['hasil' => $results]);
     }
 
     public function getOnceSantri($id)
@@ -134,6 +151,8 @@ class PemasukanController extends Controller
             // 'santri_id' => 'required', 
             'jumlah_pemasukan' => 'required|numeric', 
             // 'nama_donatur' => 'required',
+            'metode_pembayaran' => 'required',
+            'status_tunggakan' => 'required'
         ]);
 
         $storepemasukan = new Pemasukan();
@@ -142,18 +161,25 @@ class PemasukanController extends Controller
                 $storepemasukan->tgl_pemasukan = date('Y-m-d', strtotime($request->tgl_pemasukan));
                 $storepemasukan->jumlah_pemasukan = $request->jumlah_pemasukan;
                 $storepemasukan->jenis_pemasukan = 'donatur';
+                $storepemasukan->metode_pembayaran = $request->metode_pembayaran;
+                $storepemasukan->status_tunggakan = 1; // donatur mah ga ada tunggakan, jadi ya auto lunas.
             }else if($request->jenis_pemasukan == 'infaq'){
                 $storepemasukan->santri_id = $request->santri_id;
                 $storepemasukan->tgl_pemasukan = date('Y-m-d', strtotime($request->tgl_pemasukan));
                 $storepemasukan->jumlah_pemasukan = $request->jumlah_pemasukan;
                 $storepemasukan->nama_donatur = $request->nama_donatur;
                 $storepemasukan->jenis_pemasukan = 'infaq';
-            }else if ($request->jenis_pemasukan == 'syariah') {
-                $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');
-                $storepemasukan->santri_id = $request->nis;
-                $storepemasukan->jumlah_pemasukan = '300000';
-                $storepemasukan->jenis_pemasukan = 'syariah';
+                $storepemasukan->metode_pembayaran = $request->metode_pembayaran;
+                $storepemasukan->status_tunggakan = 1; // sama ini juga, infaq mah ga ada tunggakan2, jadi auto lunas.
             }
+            // sementara di non-aktifkan di dalam fungsi store untuk jenis_pemasukan syariah
+            // else if ($request->jenis_pemasukan == 'syariah') {
+            //     $storepemasukan->tgl_pemasukan = Carbon::now()->format('Y-m-d');
+            //     $storepemasukan->santri_id = $request->nis;
+            //     $storepemasukan->jumlah_pemasukan = '300000';
+            //     $storepemasukan->jenis_pemasukan = 'syariah';
+            //     $storepemasukan->metode_pembayaran = $request->metode_pembayaran;
+            // }
             // Push to datatabase!
             $validator = Pemasukan::whereSantriId($request->santri_id)
                                     ->whereJenisPemasukan($request->jenis_pemasukan)
@@ -180,19 +206,22 @@ class PemasukanController extends Controller
 
     public function storeSyariah(Request $request)
     {
+        $this->validate($request, [
+            'metode_pembayaran' => 'required'
+        ]);
 
-        // $this->validate($request, [
-        //     'tgl_pemasukan' => 'required', 
-        //     'jenis_pemasukan' => 'required', 
-        //     // 'santri_id' => 'required', 
-        //     'jumlah_pemasukan' => 'required', 
-        //     // 'nama_donatur' => 'required',
-        // ]);
         $storepemasukan = new Pemasukan();
-        $storepemasukan->tgl_pemasukan = $request->tgl_pemasukan;
+        $storepemasukan->tgl_pemasukan = date('Y-m-d', strtotime($request->tgl_pemasukan));
         $storepemasukan->santri_id = $request->santri_id;
-        $storepemasukan->jumlah_pemasukan = '300000'; // nanti mah ada master
+        $storepemasukan->jumlah_pemasukan = $request->jumlah_pemasukan == null ? '300000' : $request->jumlah_pemasukan; // nanti mah ada master
         $storepemasukan->jenis_pemasukan = 'syariah';
+        $storepemasukan->metode_pembayaran = $request->metode_pembayaran;
+        if ($storepemasukan->jumlah_pemasukan >= 300000) {
+            $storepemasukan->status_tunggakan = 1; // menyatakan lunas
+        }else{
+            $total_tunggakan = 300000 - $request->jumlah_pemasukan; // nanti akan  di masterkan
+            $storepemasukan->jumlah_tunggakan = $total_tunggakan;
+        }
         // Push to datatabase!
         $validator = Pemasukan::whereSantriId($request->santri_id)
                                 ->where('jenis_pemasukan', 'syariah')
@@ -208,7 +237,8 @@ class PemasukanController extends Controller
 
             $getTotalUang = DB::table('total_uang')->where('periode', $periodeDefaultSet['nama_periode'])->first();
             $defaultUang = Pemasukan::whereBetween('tgl_pemasukan', [$start_date, $end_date])->sum('jumlah_pemasukan');
-            $masukanUang =  $defaultUang + 300000;
+            $jumlahPemasukan = $request->jumlah_pemasukan == null ? 300000 : $request->jumlah_pemasukan; // wadah pemasukan
+            $masukanUang =  $defaultUang + $jumlahPemasukan;
             $updateTotalUang = TotalUang::find($getTotalUang->id);
             $updateTotalUang->total_nominal = $masukanUang;
             $updateTotalUang->update();

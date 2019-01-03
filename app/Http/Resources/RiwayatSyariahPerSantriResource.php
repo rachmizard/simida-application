@@ -26,7 +26,9 @@ class RiwayatSyariahPerSantriResource extends Resource
             'tgl_pemasukan' => Carbon::parse($this->tgl_pemasukan)->format('d-m-Y'),
             'jenis_pemasukan' => $this->jenis_pemasukan,
             'tgl_transaksi' => Carbon::parse($this->created_at)->format('d-m-Y H:i:s'),
-            'nominal' => $this->jumlah_pemasukan
+            'nominal' => $this->jumlah_pemasukan,
+            'status_tunggakan' => $this->status_tunggakan == 1 ? 'Lunas' : 'Belum Lunas',
+            'jumlah_tunggakan' => $this->jumlah_tunggakan
         ];
     }
 }

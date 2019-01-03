@@ -10,7 +10,7 @@ class Pemasukan extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'tgl_pemasukan', 'jenis_pemasukan', 'jumlah_pemasukan', 'santri_id', 'nama_donatur',
+        'tgl_pemasukan', 'jenis_pemasukan', 'jumlah_pemasukan', 'santri_id', 'nama_donatur', 'metode_pembayaran', 'jumlah_tunggakan', 'status_tunggakan'
     ];
 
     public function santri()

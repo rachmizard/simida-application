@@ -106,7 +106,7 @@ class AsramaController extends Controller
     {
         $kobong_asrama = Asrama::find($id);
         return view('sekretariat.asrama.kobong-asrama', compact('kobong_asrama'))->with([
-            'title' => 'Data Kobong di Asrama',
+            'title' => 'Data Kamar Asrama',
             'name' => $kobong_asrama->ngaran->nama
         ]);
     }
@@ -117,10 +117,10 @@ class AsramaController extends Controller
         return Datatables::of($asramaKobong)
                 ->addColumn('action', function($asramaKobong){
                     return '
-                    <button data-target="#editModalAsramaKobong" data-toggle="modal" data-content="Edit"
+                    <button data-target="#editModalAsramaKamar" data-toggle="modal" data-content="Edit"
                     data-trigger="hover" data-original-title="Hover to trigger"
                     tabindex="0" title="" data-id="'. $asramaKobong['id'] .'" class="btn btn-sm btn-warning"><i class="icon wb-edit"></i></button>
-                            <button data-target="#deleteModalKobongAsrama" data-toggle="modal" data-id="'. $asramaKobong['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
+                            <button data-target="#deleteModalKamarAsrama" data-toggle="modal" data-id="'. $asramaKobong['id'] .'" class="btn btn-sm btn-danger"><i class="icon wb-trash"></i></button>
                             ';
                 })
                 ->rawColumns(['action'])

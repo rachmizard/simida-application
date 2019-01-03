@@ -45,11 +45,11 @@
                     </div><!--/.form-group
                     =========================-->
                     <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
-	                    <h4 class="example-title">Rais'Am</h4>
+	                    <h4 class="example-title">Rais</h4>
 	                    <div class="example">
 	                        <div class="form-group">
-	                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kos</label>
-	                           <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kamar" autocomplete="off" />
+	                           <label class="form-control-label" for="inputBasicFirstName">Rais Kos</label>
+	                           <input type="text" name="roisam_kobong" class="form-control" placeholder="Rais Kamar" autocomplete="off" />
 	                        </div>
 	                    </div>
                     </div><!--/.form-group
@@ -93,11 +93,11 @@
                   </div><!--/.form-group
                   =========================-->
                   <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
-                    <h4 class="example-title">Rais'Am</h4>
+                    <h4 class="example-title">Rais</h4>
                     <div class="example">
                         <div class="form-group">
-                           <label class="form-control-label" for="inputBasicFirstName">Rais'Am Kamar</label>
-                           <input type="text" id="roisam_kobong" name="roisam_kobong" class="form-control" placeholder="Rais'Am Kamar" autocomplete="off" />
+                           <label class="form-control-label" for="inputBasicFirstName">Rais Kamar</label>
+                           <input type="text" id="roisam_kobong" name="roisam_kobong" class="form-control" placeholder="Rais Kamar" autocomplete="off" />
                         </div>
                     </div>
                   </div><!--/.form-group
@@ -138,7 +138,7 @@
       </div><!-- /.modal -->
     <!-- END MODAL -->
         <header class="panel-heading">
-          <h3 class="panel-title">Data Kamar dari Asrama {{ $kobong_asrama->ngaran->nama }} </h3>
+          <h3 class="panel-title">Data Kamar Asrama {{ $kobong_asrama->ngaran->nama }} </h3>
         </header>
         <div class="form-group" style="margin-left: 20px;">
           	<button data-toggle="modal" data-target="#tambahModalKamarAsrama" data-id="{{ $kobong_asrama->id }}" class="btn btn-sm btn-success"><i class="icon wb-plus"></i> Tambah</button>

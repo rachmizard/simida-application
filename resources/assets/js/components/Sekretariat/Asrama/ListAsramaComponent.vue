@@ -38,8 +38,8 @@
               <tr>
                 <th width="5%">ID Asrama</th>
                 <th width="20%">Nama Asrama</th>
-                <th width="20%">Rai'sam Asrama</th>
-                <th width="10%">Jumlah Kobong</th>
+                <th width="20%">Rais Asrama</th>
+                <th width="10%">Jumlah Kamar</th>
                 <th width="20%" class="text-center">Aksi</th>
               </tr>
             </thead>
@@ -47,8 +47,8 @@
               <tr>
                 <th width="5%">ID Asrama</th>
                 <th width="20%">Nama Asrama</th>
-                <th width="20%">Rai'sam Asrama</th>
-                <th width="10%">Jumlah Kobong</th>
+                <th width="20%">Rais Asrama</th>
+                <th width="10%">Jumlah Kamar</th>
                 <th width="20%" class="text-center">Aksi</th>
               </tr>
             </tfoot>

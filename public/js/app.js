@@ -73428,13 +73428,9 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
                 _vm._v(" "),
-                _c("th", { attrs: { width: "20%" } }, [
-                  _vm._v("Rai'sam Asrama")
-                ]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Rais Asrama")]),
                 _vm._v(" "),
-                _c("th", { attrs: { width: "10%" } }, [
-                  _vm._v("Jumlah Kobong")
-                ]),
+                _c("th", { attrs: { width: "10%" } }, [_vm._v("Jumlah Kamar")]),
                 _vm._v(" "),
                 _c(
                   "th",
@@ -73450,13 +73446,9 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Asrama")]),
                 _vm._v(" "),
-                _c("th", { attrs: { width: "20%" } }, [
-                  _vm._v("Rai'sam Asrama")
-                ]),
+                _c("th", { attrs: { width: "20%" } }, [_vm._v("Rais Asrama")]),
                 _vm._v(" "),
-                _c("th", { attrs: { width: "10%" } }, [
-                  _vm._v("Jumlah Kobong")
-                ]),
+                _c("th", { attrs: { width: "10%" } }, [_vm._v("Jumlah Kamar")]),
                 _vm._v(" "),
                 _c(
                   "th",
@@ -104440,6 +104432,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -104506,6 +104506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             data: function data(e) {
               e.filter_jenis_pemasukan = $('select[name="filter_jenis_pemasukan"]').val();
               e.filter_bulan = $('select[name="filter_bulan"]').val();
+              e.filter_tahun = $('input[name="filter_tahun"]').val();
             }
           },
           columns: [{ data: 'id', name: 'id' }, { data: 'tgl_pemasukan', name: 'tgl_pemasukan', orderable: true }, { data: 'jenis_pemasukan', name: 'jenis_pemasukan' }, { data: 'jumlah_pemasukan', name: 'jumlah_pemasukan' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
@@ -105395,6 +105396,26 @@ var staticRenderFns = [
                       ])
                     ]
                   )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "input-group input-group-icon" }, [
+                  _c("span", { staticClass: "input-group-addon" }, [
+                    _c("i", { staticClass: "icon wb-calendar" })
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contoh: 2019",
+                      name: "filter_tahun",
+                      id: "filter_tahun"
+                    }
+                  })
                 ])
               ])
             ]),
@@ -109183,6 +109204,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -109203,12 +109264,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _this.santri.kelas = response.data.data.kelas;
       _this.santri.asrama = response.data.data.asrama;
       _this.santri.bulan = response.data.data.bulan;
-      _this.santri.status_pembayaran = response.data.data.status_pembayaran;
+      // this.santri.status_pembayaran = response.data.data.status_pembayaran;
       _this.santri.foto = response.data.data.foto;
       console.log(_this.santri);
     });
     this.parseBulan();
     this.getRiwayatPembayaranPerSantri();
+    this.checkifhaspaid();
   },
   data: function data() {
     return {
@@ -109231,7 +109293,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         foto: '',
         tgl_pemasukan: this.$route.params.tgl,
         jumlah_pemasukan: '',
-        jenis_pengeluaran: ''
+        jenis_pengeluaran: '',
+        status_tunggakan: '',
+        metode_pembayaran: ''
       },
       total_uang: '',
       cool_decreased_cash: '',
@@ -109263,9 +109327,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.santris = response.data;
       });
     },
+    checkifhaspaid: function checkifhaspaid() {
+      var _this4 = this;
+
+      axios.get('/keuangan/syariah/checkingofpaid', { params: { santri_id: this.$route.params.id, tgl_pemasukan: this.$route.params.tgl } }).then(function (response) {
+        _this4.santri.status_pembayaran = response.data.hasil;
+        console.log(_this4.santri.status_pembayaran);
+      });
+    },
 
 
     bayar: function bayar(e) {
+      var _this5 = this;
+
       var app = this;
       var body = app.santri;
       // console.log(body);
@@ -109288,9 +109362,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           app.message = false;
           app.messageAlert = false;
         }, 8000);
+        _this5.checkifhaspaid();
       }).catch(function (error) {
         app.errors = error.response.data.errors;
-        console.log(app.errors);
+        // console.log(app.errors);
         app.message = false;
       });
     }
@@ -109310,7 +109385,7 @@ var render = function() {
     _c("div", { staticClass: "row row-lg" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "col-md-8" }, [
             _c("div", { staticClass: "panel" }, [
               _c("div", { staticClass: "panel col-md-12" }, [
                 _c(
@@ -109390,18 +109465,34 @@ var render = function() {
                                           staticClass: "form-group text-center"
                                         },
                                         [
-                                          _c("img", {
-                                            staticClass:
-                                              "img-responsive img-circle",
-                                            attrs: {
-                                              src:
-                                                "/storage/santri_pic/" +
-                                                _vm.santri.foto,
-                                              alt: "Foto Santri",
-                                              width: "100",
-                                              height: "100"
-                                            }
-                                          })
+                                          _vm.santri.foto
+                                            ? _c("img", {
+                                                staticClass:
+                                                  "img-responsive img-circle",
+                                                attrs: {
+                                                  src:
+                                                    "/storage/santri_pic/" +
+                                                    _vm.santri.foto,
+                                                  alt: "Foto Santri",
+                                                  width: "100",
+                                                  height: "100"
+                                                }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          !_vm.santri.foto
+                                            ? _c("img", {
+                                                staticClass:
+                                                  "img-responsive img-circle",
+                                                attrs: {
+                                                  src:
+                                                    "/img/avatar_default.jpg",
+                                                  alt: "Foto Santri",
+                                                  width: "100",
+                                                  height: "100"
+                                                }
+                                              })
+                                            : _vm._e()
                                         ]
                                       )
                                     ]),
@@ -109638,6 +109729,284 @@ var render = function() {
                                           ]
                                         )
                                       ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-12" }, [
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _vm._m(4),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "input-group input-group-icon"
+                                          },
+                                          [
+                                            _c(
+                                              "select",
+                                              {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value:
+                                                      _vm.santri
+                                                        .metode_pembayaran,
+                                                    expression:
+                                                      "santri.metode_pembayaran"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                on: {
+                                                  change: function($event) {
+                                                    var $$selectedVal = Array.prototype.filter
+                                                      .call(
+                                                        $event.target.options,
+                                                        function(o) {
+                                                          return o.selected
+                                                        }
+                                                      )
+                                                      .map(function(o) {
+                                                        var val =
+                                                          "_value" in o
+                                                            ? o._value
+                                                            : o.value
+                                                        return val
+                                                      })
+                                                    _vm.$set(
+                                                      _vm.santri,
+                                                      "metode_pembayaran",
+                                                      $event.target.multiple
+                                                        ? $$selectedVal
+                                                        : $$selectedVal[0]
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "option",
+                                                  { attrs: { value: "cash" } },
+                                                  [_vm._v("Cash")]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "option",
+                                                  { attrs: { value: "trf" } },
+                                                  [_vm._v("Transfer Bank")]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.errors.metode_pembayaran
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "badge badge-danger"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.errors
+                                                      .metode_pembayaran[0]
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-12" }, [
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Status Tunggakan")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "checkbox-custom checkbox-primary"
+                                          },
+                                          [
+                                            _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value:
+                                                    _vm.santri.status_tunggakan,
+                                                  expression:
+                                                    "santri.status_tunggakan"
+                                                }
+                                              ],
+                                              attrs: {
+                                                type: "checkbox",
+                                                id: "inputUnchecked"
+                                              },
+                                              domProps: {
+                                                checked: Array.isArray(
+                                                  _vm.santri.status_tunggakan
+                                                )
+                                                  ? _vm._i(
+                                                      _vm.santri
+                                                        .status_tunggakan,
+                                                      null
+                                                    ) > -1
+                                                  : _vm.santri.status_tunggakan
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  var $$a =
+                                                      _vm.santri
+                                                        .status_tunggakan,
+                                                    $$el = $event.target,
+                                                    $$c = $$el.checked
+                                                      ? true
+                                                      : false
+                                                  if (Array.isArray($$a)) {
+                                                    var $$v = null,
+                                                      $$i = _vm._i($$a, $$v)
+                                                    if ($$el.checked) {
+                                                      $$i < 0 &&
+                                                        _vm.$set(
+                                                          _vm.santri,
+                                                          "status_tunggakan",
+                                                          $$a.concat([$$v])
+                                                        )
+                                                    } else {
+                                                      $$i > -1 &&
+                                                        _vm.$set(
+                                                          _vm.santri,
+                                                          "status_tunggakan",
+                                                          $$a
+                                                            .slice(0, $$i)
+                                                            .concat(
+                                                              $$a.slice($$i + 1)
+                                                            )
+                                                        )
+                                                    }
+                                                  } else {
+                                                    _vm.$set(
+                                                      _vm.santri,
+                                                      "status_tunggakan",
+                                                      $$c
+                                                    )
+                                                  }
+                                                }
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("label", {
+                                              attrs: { for: "inputUnchecked" }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._m(5)
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-12" }, [
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _vm._m(6),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "input-group input-group-icon"
+                                          },
+                                          [
+                                            _vm.santri.status_tunggakan
+                                              ? _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value:
+                                                        _vm.santri
+                                                          .jumlah_pemasukan,
+                                                      expression:
+                                                        "santri.jumlah_pemasukan"
+                                                    }
+                                                  ],
+                                                  staticClass: "form-control",
+                                                  attrs: {
+                                                    type: "number",
+                                                    placeholder:
+                                                      "Masukan nominal cicilan syahriah jika status tunggakan di aktifkan."
+                                                  },
+                                                  domProps: {
+                                                    value:
+                                                      _vm.santri
+                                                        .jumlah_pemasukan
+                                                  },
+                                                  on: {
+                                                    input: function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.$set(
+                                                        _vm.santri,
+                                                        "jumlah_pemasukan",
+                                                        $event.target.value
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            !_vm.santri.status_tunggakan
+                                              ? _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value:
+                                                        _vm.santri
+                                                          .jumlah_pemasukan,
+                                                      expression:
+                                                        "santri.jumlah_pemasukan"
+                                                    }
+                                                  ],
+                                                  staticClass: "form-control",
+                                                  attrs: {
+                                                    type: "number",
+                                                    placeholder:
+                                                      "Status tunggakan tidak diaktifkan.",
+                                                    disabled: ""
+                                                  },
+                                                  domProps: {
+                                                    value:
+                                                      _vm.santri
+                                                        .jumlah_pemasukan
+                                                  },
+                                                  on: {
+                                                    input: function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.$set(
+                                                        _vm.santri,
+                                                        "jumlah_pemasukan",
+                                                        $event.target.value
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      ])
                                     ])
                                   ])
                                 ]),
@@ -109656,7 +110025,7 @@ var render = function() {
                                         [_vm._v("Batal")]
                                       ),
                                       _vm._v(" "),
-                                      _vm.santri.status_pembayaran == "Belum"
+                                      !_vm.santri.status_pembayaran
                                         ? _c(
                                             "button",
                                             {
@@ -109667,7 +110036,7 @@ var render = function() {
                                           )
                                         : _vm._e(),
                                       _vm._v(" "),
-                                      _vm.santri.status_pembayaran == "Sudah"
+                                      _vm.santri.status_pembayaran
                                         ? _c(
                                             "button",
                                             {
@@ -109697,9 +110066,9 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "col-md-4" }, [
             _c("div", { staticClass: "panel" }, [
-              _vm._m(4),
+              _vm._m(7),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
                 _c(
@@ -109710,7 +110079,7 @@ var render = function() {
                     attrs: { id: "pengeluaranTable" }
                   },
                   [
-                    _vm._m(5),
+                    _vm._m(8),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -109719,11 +110088,29 @@ var render = function() {
                           ? _c("tr", [
                               _c("td", [_vm._v(_vm._s(santri.bulan))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(santri.tgl_transaksi))]),
-                              _vm._v(" "),
                               _c("td", [
                                 _vm._v(_vm._s(_vm.formatPrice(santri.nominal)))
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                santri.status_tunggakan == "Lunas"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-success" },
+                                      [_vm._v(_vm._s(santri.status_tunggakan))]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                santri.status_tunggakan == "Belum Lunas"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-dark" },
+                                      [_vm._v(_vm._s(santri.status_tunggakan))]
+                                    )
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(9, true)
                             ])
                           : _c("tr", [
                               _c("td", { attrs: { colspan: "6" } }, [
@@ -109791,8 +110178,36 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "" } }, [
-      _c("i", { staticClass: "icon wb-payment" }),
+      _c("i", { staticClass: "icon wb-calendar" }),
       _vm._v(" Bulan Pembayaran")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _c("i", { staticClass: "icon wb-payment" }),
+      _vm._v(" Metode Pembayaran")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "small" }, [
+      _vm._v("Jika pembayaran belum lunas "),
+      _c("i", { staticClass: "icon wb-check" }),
+      _vm._v(", jika sudah lunas biarkan kosong.")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _c("i", { staticClass: "icon wb-money" }),
+      _vm._v(" Masukan Nilai Uang")
     ])
   },
   function() {
@@ -109812,11 +110227,32 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Bulan")]),
+        _c("th", [_vm._v("Bulan Pembayaran")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tanggal Transaksi")]),
+        _c("th", [_vm._v("Nominal")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nominal")])
+        _c("th", [_vm._v("Tunggakan")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Aksi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-xs btn-info",
+          attrs: { title: "Lihat Detil Pembayaran" }
+        },
+        [_c("i", { staticClass: "icon wb-eye" })]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-xs btn-danger" }, [
+        _c("i", { staticClass: "icon wb-trash" })
       ])
     ])
   }

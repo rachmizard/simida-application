@@ -129,6 +129,14 @@
                 				</div>
                 			</div>
                 		</div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="input-group input-group-icon">
+                          <span class="input-group-addon"><i class="icon wb-calendar"></i></span>
+                          <input type="text" placeholder="Contoh: 2019" name="filter_tahun" class="form-control" id="filter_tahun">
+                        </div>
+                      </div>
+                    </div>
                 		<div class="col-md-4">
                 			<div class="form-group">
                 				<div class="input-group input-group-icon">
@@ -241,6 +249,7 @@
                             data:function(e){
                               e.filter_jenis_pemasukan = $('select[name="filter_jenis_pemasukan"]').val();
                               e.filter_bulan = $('select[name="filter_bulan"]').val();
+                              e.filter_tahun = $('input[name="filter_tahun"]').val();
                             }
                           },
                           columns: [

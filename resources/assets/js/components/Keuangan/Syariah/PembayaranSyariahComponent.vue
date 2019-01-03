@@ -3,7 +3,7 @@
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
               <div class="panel">
                   <div class="panel col-md-12">
                       <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
@@ -29,12 +29,13 @@
                                                     <div class="row">
                                                       <div class="col-md-12">
                                                           <div class="form-group text-center">
-                                                          	<img :src="'/storage/santri_pic/'+ santri.foto" alt="Foto Santri" class="img-responsive img-circle" width="100" height="100">
+                                                          	<img v-if="santri.foto" :src="'/storage/santri_pic/'+ santri.foto" alt="Foto Santri" class="img-responsive img-circle" width="100" height="100">
+                                                            <img v-if="!santri.foto" :src="'/img/avatar_default.jpg'" alt="Foto Santri" class="img-responsive img-circle" width="100" height="100">
                                                           </div>
                                                       </div>
                                                       <div class="col-md-12">
                                                           <div class="form-group">
-                                                            <label for=""><i class="icon wb-payment"></i> Bulan Pembayaran</label>
+                                                            <label for=""><i class="icon wb-calendar"></i> Bulan Pembayaran</label>
                                                                 <div class="input-group input-group-icon">
                                                                     <input type="text" v-model="bulan" class="form-control" disabled>
                                                                 </div>
@@ -72,13 +73,44 @@
                                                                 </div>
                                                           </div>
                                                       </div>
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label for=""><i class="icon wb-payment"></i> Metode Pembayaran</label>
+                                                                <div class="input-group input-group-icon">
+                                                                    <select class="form-control" v-model="santri.metode_pembayaran">
+                                                                      <option value="cash">Cash</option>
+                                                                      <option value="trf">Transfer Bank</option>
+                                                                    </select>
+                                                                </div>
+                                                                <span v-if="errors.metode_pembayaran" class="badge badge-danger">{{ errors.metode_pembayaran[0] }}</span>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label for="">Status Tunggakan</label>
+                                                                <div class="checkbox-custom checkbox-primary">
+                                                                  <input v-model="santri.status_tunggakan" type="checkbox" id="inputUnchecked" />
+                                                                  <label for="inputUnchecked"></label>
+                                                                </div>
+                                                                <small class="small">Jika pembayaran belum lunas <i class="icon wb-check"></i>, jika sudah lunas biarkan kosong.</small>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                            <label for=""><i class="icon wb-money"></i> Masukan Nilai Uang</label>
+                                                                <div class="input-group input-group-icon">
+                                                                    <input v-if="santri.status_tunggakan" type="number" v-model="santri.jumlah_pemasukan" class="form-control" placeholder="Masukan nominal cicilan syahriah jika status tunggakan di aktifkan.">
+                                                                    <input v-if="!santri.status_tunggakan" type="number" v-model="santri.jumlah_pemasukan" class="form-control" placeholder="Status tunggakan tidak diaktifkan." disabled>
+                                                                </div>
+                                                          </div>
+                                                      </div>
                                                     </div>
                                                   </div>
                                                   <div class="form-row">
                                                   	<div class="form-group">
                                                       <router-link to="/keuangan/syariah/" class="btn btn-sm btn-warning">Batal</router-link>
-                                                      <button v-if="santri.status_pembayaran == 'Belum'" @click="bayar" class="btn btn-success">Bayar</button>
-                                                      <button v-if="santri.status_pembayaran == 'Sudah'" class="btn btn-info" disabled>Sudah melakukan pembayaran</button>
+                                                      <button v-if="!santri.status_pembayaran" @click="bayar" class="btn btn-success">Bayar</button>
+                                                      <button v-if="santri.status_pembayaran" class="btn btn-info" disabled>Sudah melakukan pembayaran</button>
                                                   	</div>
                                                  </div>
                                               </div><!--/Example-->
@@ -91,7 +123,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
               <!-- Panel Kitchen Sink -->
               <div class="panel">
                 <header class="panel-heading">
@@ -108,20 +140,28 @@
                   <table id="pengeluaranTable" class="table table-striped table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>Bulan</th>
-                        <th>Tanggal Transaksi</th>
+                        <th>Bulan Pembayaran</th>
                         <th>Nominal</th>
+                        <th>Tunggakan</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-						<tr v-if="santris.length != 0" v-for="santri in santris.data">
-							<td>{{ santri.bulan }}</td>
-							<td>{{ santri.tgl_transaksi }}</td>
-							<td>{{ formatPrice(santri.nominal) }}</td>
-						</tr>
-						<tr v-else>
-							<td colspan="6">Data Kosong</td>
-						</tr>
+        						<tr v-if="santris.length != 0" v-for="santri in santris.data">
+        							<td>{{ santri.bulan }}</td>
+                      <td>{{ formatPrice(santri.nominal) }}</td>
+                      <td>
+                        <span v-if="santri.status_tunggakan == 'Lunas'" class="badge badge-success">{{ santri.status_tunggakan }}</span>
+                        <span v-if="santri.status_tunggakan == 'Belum Lunas'" class="badge badge-dark">{{ santri.status_tunggakan }}</span>
+                      </td>
+        							<td>
+                          <button class="btn btn-xs btn-info" title="Lihat Detil Pembayaran"><i class="icon wb-eye"></i></button>
+                          <button class="btn btn-xs btn-danger"><i class="icon wb-trash"></i></button>     
+                      </td>
+        						</tr>
+        						<tr v-else>
+        							<td colspan="6">Data Kosong</td>
+        						</tr>
                     </tbody>
                   </table>
                 </div>
@@ -143,20 +183,21 @@
     },
 
         mounted() {	
-	    	var id = this.$route.params.id;
-	    	axios.get('/keuangan/syariah/'+ id +'/getOnceSantri').then(response => {
-	    		this.santri.santri_id = response.data.data.santri_id;
-	    		this.santri.nis = response.data.data.nis;
-	    		this.santri.nama_santri = response.data.data.nama_santri;
-	    		this.santri.kelas = response.data.data.kelas;
-	    		this.santri.asrama = response.data.data.asrama;
-	    		this.santri.bulan = response.data.data.bulan;
-	    		this.santri.status_pembayaran = response.data.data.status_pembayaran;
-	    		this.santri.foto = response.data.data.foto;
-	    		console.log(this.santri);
-	    	});
-        this.parseBulan();
-	    	this.getRiwayatPembayaranPerSantri();
+    	    	var id = this.$route.params.id;
+    	    	axios.get('/keuangan/syariah/'+ id +'/getOnceSantri').then(response => {
+    	    		this.santri.santri_id = response.data.data.santri_id;
+    	    		this.santri.nis = response.data.data.nis;
+    	    		this.santri.nama_santri = response.data.data.nama_santri;
+    	    		this.santri.kelas = response.data.data.kelas;
+    	    		this.santri.asrama = response.data.data.asrama;
+    	    		this.santri.bulan = response.data.data.bulan;
+    	    		// this.santri.status_pembayaran = response.data.data.status_pembayaran;
+    	    		this.santri.foto = response.data.data.foto;
+    	    		console.log(this.santri);
+    	    	});
+            this.parseBulan();
+    	    	this.getRiwayatPembayaranPerSantri();
+            this.checkifhaspaid();
         },
 
         data(){
@@ -180,7 +221,9 @@
                 	foto: '',
                   tgl_pemasukan: this.$route.params.tgl,
                   jumlah_pemasukan: '',
-                  jenis_pengeluaran: ''
+                  jenis_pengeluaran: '',
+                  status_tunggakan: '',
+                  metode_pembayaran: '',
                 },
                 total_uang: '',
                 cool_decreased_cash: '',
@@ -206,9 +249,17 @@
 
             getRiwayatPembayaranPerSantri(){
             	var id = this.$route.params.id;
-		    	axios.get('/keuangan/syariah/'+ id +'/riwayatPembayaranPerSantri').then(response => {
-		    		this.santris = response.data;
-		    	})
+    		    	axios.get('/keuangan/syariah/'+ id +'/riwayatPembayaranPerSantri').then(response => {
+    		    		this.santris = response.data;
+    		    	})
+            },
+
+            checkifhaspaid(){
+                axios.get('/keuangan/syariah/checkingofpaid', { params: { santri_id: this.$route.params.id, tgl_pemasukan: this.$route.params.tgl } })
+                .then(response => {
+                    this.santri.status_pembayaran = response.data.hasil;    
+                    console.log(this.santri.status_pembayaran)
+                })
             },
 
             bayar:function(e){
@@ -235,9 +286,10 @@
                     app.message = false;
                     app.messageAlert = false;
                   }, 8000);
+                  this.checkifhaspaid();
                 }).catch((error) => {
                      app.errors = error.response.data.errors;
-                     console.log(app.errors);
+                     // console.log(app.errors);
                      app.message = false;
                 });
             }
