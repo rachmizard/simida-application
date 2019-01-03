@@ -90,18 +90,30 @@
                             </div><!--/Example-->
                             </div><!--/.form-group
                             =========================-->
-                            <div class="form-group col-md-6 col-sm-12" style="padding-left: 15px;">
-                            <h4 class="example-title">Rais'Am</h4>
+                            <div class="form-group col-md-4 col-sm-12" style="padding-left: 15px;">
+                            <h4 class="example-title">Rois</h4>
                             <div class="example">
                                 <div class="form-group">
-                                   <label class="form-control-label" for="inputBasicFirstName">Rais'Am Asrama</label>
+                                   <label class="form-control-label" for="inputBasicFirstName">Rois Asrama</label>
                                    <input v-model="asrama.roisam_asrama" type="text" class="form-control" placeholder="First Name" autocomplete="off" />
                                         <span v-if="errors.roisam_asrama" class="badge badge-danger">{{ errors.roisam_asrama[0] }}</span>
                                 </div>
-                                <div class="form-row">
-                                    <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Tambah Asrama</button>
-                               </div>
                             </div>
+                            </div><!--/.form-group
+                            ======================-->
+                            <!--/.form-group
+                            =========================-->
+                            <div class="form-group col-md-4 col-sm-12" style="padding-left: 15px;">
+                                <div class="example">
+                                    <div class="form-group">
+                                       <label class="form-control-label" for="inputBasicFirstName">Murobbi Asrama</label>
+                                       <input v-model="asrama.murobbi_asrama" type="text" class="form-control" placeholder="Nama Murobbi Asrama" autocomplete="off" />
+                                            <span v-if="errors.murobbi_asrama" class="badge badge-danger">{{ errors.murobbi_asrama[0] }}</span>
+                                    </div>
+                                    <div class="form-row">
+                                        <button type="submit" class="btn btn-primary"><i class="icon wb-check"></i> Tambah Asrama</button>
+                                   </div>
+                                </div>
                             </div><!--/.form-group
                             ======================-->
                          </div><!--/.form-row-->
@@ -129,7 +141,8 @@
                 asrama: {
                     kategori_asrama: '',
                     nama_asrama: '',
-                    roisam_asrama: ''
+                    roisam_asrama: '',
+                    murobbi_asrama: ''
                 },
                 placeholder: {
                     kategori_asrama: 'Pilih Kategori Asrama',
@@ -189,6 +202,7 @@
                   app.asrama.kategori_asrama = ''; // clear form
                   app.asrama.nama_asrama = ''; // clear form
                   app.asrama.roisam_asrama = ''; // clear form
+                  app.asrama.murobbi_asrama = ''; // clear form
                     // app.$router.replace('/'); // redirect to url "/"
                     setTimeout(() => {
                         app.messageError = false;

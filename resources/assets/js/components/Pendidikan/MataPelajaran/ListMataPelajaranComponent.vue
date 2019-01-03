@@ -12,7 +12,7 @@
 			<header class="panel-heading">
 	          <h3 class="panel-title"></h3>
 	          <div class="row">
-	          	<div class="col-md-4">
+	          	<!-- <div class="col-md-4">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
 		            <select name="filter_kelas" id="filter_kelas" class="form-control">
@@ -21,7 +21,7 @@
 		            	<option v-for="kelas in kelass.data" :value="kelas.nama_kelas">{{ kelas.nama_kelas }}</option>
 		            </select>
 		          </div>
-	          	</div>
+	          	</div> -->
 	          	<div class="col-md-4">
 		          <div class="form-group col-md-12" style="margin-left: 15px;">
 		            <label for=""></label>
@@ -45,7 +45,7 @@
 	                <th width="5%">Kode Mata Pelajaran</th>
 	                <th width="20%">Nama Mata Pelajaran</th>
 	                <th width="20%">Tingkat</th>
-	                <th width="10%">Kelas</th>
+	                <!-- <th width="10%">Kelas</th> -->
 	                <th width="20%">Aksi</th>
 	              </tr>
 	            </thead>
@@ -68,7 +68,7 @@
 		              ajax: {
 		                url: "/pendidikan/matapelajaran/getMataPelajaranDataTables",
 		                data:function(e){
-		                  e.filter_kelas = $('select[name="filter_kelas"]').val();
+		                  // e.filter_kelas = $('select[name="filter_kelas"]').val();
 		                  e.filter_tingkat = $('select[name="filter_tingkat"]').val();
 		                }
 		              },
@@ -76,16 +76,16 @@
 		                  { data: 'id', name: 'id' },
 		                  { data: 'nama_mata_pelajaran', name: 'nama_mata_pelajaran', orderable: true },
 		                  { data: 'tingkat.nama_tingkatan', name: 'tingkat.nama_tingkatan' },
-		                  { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas'},
+		                  // { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas'},
 		                  { data: 'action', name: 'action', orderable: false, searchable: false }
 		              ]
 		          }); 
 
 		         // Auto reload when getting result 
-		        $('#filter_kelas').on('change', function(e) {
-		            table.draw();
-		            e.preventDefault();
-		        });
+		        // $('#filter_kelas').on('change', function(e) {
+		        //     table.draw();
+		        //     e.preventDefault();
+		        // });
 		        $('#filter_tingkat').on('change', function(e) {
 		            table.draw();
 		            e.preventDefault();

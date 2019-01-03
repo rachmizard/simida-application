@@ -10,7 +10,7 @@ class Asrama extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'kategori_asrama', 'nama_asrama', 'roisam_asrama',
+        'kategori_asrama', 'nama_asrama', 'roisam_asrama', 'murobbi_asrama'
     ];
 
     public function ngaran()

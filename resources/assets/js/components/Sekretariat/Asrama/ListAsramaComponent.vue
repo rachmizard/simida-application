@@ -29,6 +29,7 @@
             <select name="kategori_asrama" id="kategori_asrama" class="form-control">
               <option value="putra">Putra</option>
               <option value="putri">Putri</option>
+              <option value="mutawasilin">Mutawasilin</option>
             </select>
           </div>
         </header>
@@ -116,6 +117,7 @@
                 $("#nama_asrama").val(data.nama_asrama);
                 $("#kategori_asrama").val(data.kategori_asrama);
                 $("#roisam_asrama").attr('value', data.roisam_asrama);
+                $("#murobbi_asrama").attr('value', data.murobbi_asrama);
                 });
 
               $('#submitEditAsrama').attr('action', '/sekretariat/asrama/'+ id +'/update');

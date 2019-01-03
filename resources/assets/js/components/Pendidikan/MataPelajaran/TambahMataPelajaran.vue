@@ -24,14 +24,14 @@
                                         <div class="example">
                                             <div class="form-row">
                                             	<div class="row">
-                                            		<div class="col-md-4">
+                                            		<div class="col-md-6">
 		                                                <div class="form-group">
 		                                                   <label class="form-control-label" for="inputBasicFirstName">Nama Mata Pelajaran</label>
 		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Tahun baru.." autocomplete="off" />
 		                                                        <span v-if="errors.nama_mata_pelajaran" class="label label-danger">{{ errors.nama_mata_pelajaran[0] }}</span>
 		                                                </div>
                                             		</div>
-                                            		<div class="col-md-4">
+                                            		<div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="form-control-label" for="inputBasicFirstName">Tingkat Mata Pelajaran</label>
 		                                                    <select @change="filterForTingkat" v-model="matapelajaran.tingkat_id" class="form-control">
@@ -41,7 +41,7 @@
 		                                                    <span v-if="errors.tingkat_id" class="label label-danger">{{ errors.tingkat_id[0] }}</span>
 		                                                </div>
                                             		</div>
-                                            		<div class="col-md-4">
+                                            		<!-- <div class="col-md-4">
 		                                                <div class="form-group">
 		                                                    <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
 		                                                    <select v-model="matapelajaran.kelas_id" class="form-control">
@@ -50,7 +50,7 @@
 		                                                    </select>
 		                                                    <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
 		                                                </div>
-		                                            </div>
+		                                            </div> -->
                                             	</div>
                                             </div>
                                             <div class="form-row">
@@ -89,7 +89,7 @@
                 matapelajaran: {
                     nama_mata_pelajaran: '',
                     tingkat_id: '',
-                    kelas_id: ''
+                    // kelas_id: ''
                 },
                 message: '',
                 messageError: '',
@@ -105,9 +105,9 @@
         		// axios.get('/sekretariat/kelas/JSON').then(response => {
         		// 	this.kelass = response.data;
         		// })
-        		axios.get('/sekretariat/kelas/JSON').then(response => {
-        			this.kelass = response.data;
-        		})
+        		// axios.get('/sekretariat/kelas/JSON').then(response => {
+        		// 	this.kelass = response.data;
+        		// })
         	},
 
             storematapelajaran:function(e){

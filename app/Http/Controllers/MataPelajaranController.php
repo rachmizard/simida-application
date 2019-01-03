@@ -35,7 +35,7 @@ class MataPelajaranController extends Controller
 
     public function getMataPelajaranDataTables(Request $request, Datatables $datatables)
     {
-        $mapels = MataPelajaran::select('mata_pelajaran.*')->with(['tingkat', 'kelas']);
+        $mapels = MataPelajaran::select('mata_pelajaran.*')->with(['tingkat']);
         return $datatables->eloquent($mapels)
                               ->addColumn('action', function($var){
                                 return '
@@ -47,11 +47,11 @@ class MataPelajaranController extends Controller
                                         ';
                               })
                               ->filter(function($query) use ($request){
-                                if (request()->get('filter_kelas')) {
-                                  return $query->whereHas('kelas', function($q){
-                                    $q->where('nama_kelas', request()->get('filter_kelas'));
-                                  })->get();
-                                }
+                                // if (request()->get('filter_kelas')) {
+                                //   return $query->whereHas('kelas', function($q){
+                                //     $q->where('nama_kelas', request()->get('filter_kelas'));
+                                //   })->get();
+                                // }
                                 
                                 if (request()->get('filter_tingkat')) {
                                   return $query->whereHas('tingkat', function($q){
@@ -78,14 +78,16 @@ class MataPelajaranController extends Controller
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
-            'kelas_id' => 'required',
+            // 'kelas_id' => 'required',
         ]);
 
-        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+        // $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->count();
         if ($validator > 0) {
             $data['message'] = false;
             $data['messageError'] = false;
-            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
+            // $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
+            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
         }else{
             $data['message'] = 'Mata Pelajaran berhasil ditambahkan!';
             $data['messageError'] = false;
@@ -132,16 +134,19 @@ class MataPelajaranController extends Controller
          $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
-            'kelas_id' => 'required',
+            // 'kelas_id' => 'required',
         ]);
 
-        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+        // $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->where('kelas_id', $request->kelas_id)->count();
+
+        $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->count();
+
         if ($validator > 0) {
             $data['message'] = false;
             $data['messageError'] = false;
-            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di kelas '. Kelas::find($request->kelas_id)->nama_kelas .'';
+            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
         }else{
-            $data['message'] = 'Mata Pelajaran berhasil diedit!';
+            $data['message'] = 'Mata Pelajaran berhasil di edit!';
             $data['messageError'] = false;
             $data['messageWarning'] = false;
             $post = MataPelajaran::find($id)->update($request->all());

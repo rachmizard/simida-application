@@ -17,13 +17,13 @@ class JadwalKegiatanExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Kegiatan::select(['id', 'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan', 'periode'])->get();
+        return Kegiatan::select(['id', 'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan', 'periode', 'nilai_kegiatan'])->get();
     }
 
     public function headings(): array
     {
     	return [
-    		'id', 'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan', 'periode'
+    		'id', 'nama_kegiatan', 'mulai_kegiatan', 'akhir_kegiatan', 'periode', 'nilai_kegiatan'
     	];
     }
 }

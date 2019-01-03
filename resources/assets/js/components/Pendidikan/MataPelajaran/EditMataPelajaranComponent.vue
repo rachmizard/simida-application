@@ -41,7 +41,7 @@
 		                                                    <span v-if="errors.tingkat_id" class="label label-danger">{{ errors.tingkat_id[0] }}</span>
 		                                                </div>
                                             		</div>
-                                            		<div class="col-md-4">
+                                            		<!-- <div class="col-md-4">
 		                                                <div class="form-group">
 		                                                    <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
 		                                                    <select v-model="matapelajaran.kelas_id" class="form-control">
@@ -50,7 +50,7 @@
 		                                                    </select>
 		                                                    <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
 		                                                </div>
-		                                            </div>
+		                                            </div> -->
                                             	</div>
                                             </div>
                                             <div class="form-row">
@@ -89,7 +89,7 @@
                 matapelajaran: {
                     nama_mata_pelajaran: '',
                     tingkat_id: '',
-                    kelas_id: ''
+                    // kelas_id: ''
                 },
                 message: '',
                 messageError: '',
@@ -107,13 +107,13 @@
         		axios.get('/pendidikan/matapelajaran/'+ id +'/show').then(response => {
         			this.matapelajaran.nama_mata_pelajaran = response.data.nama_mata_pelajaran;
         			this.matapelajaran.tingkat_id = response.data.tingkat_id;
-        			this.matapelajaran.kelas_id = response.data.kelas_id;
+        			// this.matapelajaran.kelas_id = response.data.kelas_id;
         		});
 
 
-        		axios.get('/sekretariat/kelas/JSON').then(response => {
-        			this.kelass = response.data;
-        		})
+        		// axios.get('/sekretariat/kelas/JSON').then(response => {
+        		// 	this.kelass = response.data;
+        		// })
         	},
 
             storematapelajaran:function(e){

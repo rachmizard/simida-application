@@ -217,8 +217,10 @@
                                     <span class="site-menu-arrow"></span>
                                 </a>
                                 <ul class="site-menu-sub">
-                                    <li class="site-menu-item has-su">
-                                        <a href="javascript:void(0)"><span class="site-menu-title">Master Santri</span></a>
+                                    <li class="site-menu-item has-sub">
+                                        <a href="javascript:void(0)">
+                                          <span class="site-menu-title">Master Santri</span>
+                                        </a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
                                                 <a href="{{ route('sekretariat.santri') }}#/list_santri"><span class="site-menu-title">Data Santri</span></a>
@@ -228,7 +230,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Kelas</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -239,7 +241,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Asrama</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -250,7 +252,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Data Guru</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -287,7 +289,7 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.matapelajaran') }}#/list_matapelajaran"><span class="site-menu-title">Mata Pelajaran</span></a>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Jadwal</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -321,7 +323,7 @@
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -356,7 +358,7 @@
                                         <a href="{{ route('keuangan.home') }}#/keuangan/syariah"><span class="site-menu-title">Syariah</span></a>
                                     </li>
                                   @if(auth()->user()->role == 'murobbi')
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
@@ -391,7 +393,7 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('keamanan.home') }}#/list_entri"><span class="site-menu-title">List Entri</span></a>
                                     </li>
-                                    <li class="site-menu-item has-su">
+                                    <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">

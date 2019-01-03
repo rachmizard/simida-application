@@ -10,7 +10,8 @@ class MataPelajaran extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_mata_pelajaran', 'tingkat_id', 'kelas_id', 
+        'nama_mata_pelajaran', 'tingkat_id'
+        // , 'kelas_id', 
     ];
 
     public function tingkat()
@@ -18,8 +19,8 @@ class MataPelajaran extends Model
     	return $this->belongsTo(Tingkat::class, 'tingkat_id', 'id');
     }
 
-    public function kelas()
-    {
-    	return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
-    }
+    // public function kelas()
+    // {
+    // 	return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
+    // }
 }

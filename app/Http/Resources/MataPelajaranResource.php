@@ -19,7 +19,7 @@ class MataPelajaranResource extends Resource
             'id' => $this->id,
             'nama_mata_pelajaran' => $this->nama_mata_pelajaran, 
             'tingkat_id' => $this->tingkat['nama_tingkatan'], 
-            'kelas_id' => $this->kelas['nama_kelas'], 
+            // 'kelas_id' => $this->kelas['nama_kelas'], 
         ];
     }
 }

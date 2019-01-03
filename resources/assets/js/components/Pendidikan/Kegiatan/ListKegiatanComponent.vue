@@ -29,6 +29,7 @@
 	                <th width="20%">Nama Kegiatan</th>
 	                <th width="20%">Jam Mulai</th>
 	                <th width="10%">Jam Selesai</th>
+	                <th width="10%">Point Kegiatan</th>
 	                <th width="20%">Aksi</th>
 	              </tr>
 	            </thead>
@@ -59,6 +60,7 @@
 		                  { data: 'nama_kegiatan', name: 'nama_kegiatan', orderable: true },
 		                  { data: 'mulai_kegiatan', name: 'mulai_kegiatan' },
 		                  { data: 'akhir_kegiatan', name: 'akhir_kegiatan'},
+		                  { data: 'nilai_kegiatan', name: 'nilai_kegiatan'},
 		                  { data: 'action', name: 'action', orderable: false, searchable: false }
 		              ]
 		          }); 

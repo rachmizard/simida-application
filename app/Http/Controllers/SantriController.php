@@ -231,7 +231,7 @@ class SantriController extends Controller
         ]);
 
         $newSantri = new Santri();
-        $newSantri->nis = $request->provinsi.substr($request->kabupaten_kota, -2).substr($request->kecamatan, -2).date('dmy', strtotime($request->tgl_masuk));
+        $newSantri->nis = $request->provinsi.substr($request->kabupaten_kota, -2).substr($request->kecamatan, -2).date('dmy', strtotime($request->tgl_masuk)); // apa bila data sudah tersimpan, NIS akan di update secara otomatis dan ditambahkan increment.
         $newSantri->nik = $request->nik;
         $newSantri->nama_santri = $request->nama_santri;
         $newSantri->tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
@@ -263,6 +263,9 @@ class SantriController extends Controller
         }
         $newSantri->save();
 
+        // Fungsi ini akan menggenerate NIS setelah didapatkannya parameters
+        $this->generateNis($newSantri->id, $newSantri->nis, $request->provinsi, $request->kabupaten_kota, $request->kecamatan, $request->tgl_masuk);
+
         // $getSantri = Santri::find($newSantri->id);
         // $getSantri->provinsi = Province::whereId($request->provinsi)->value('name');
         // $getSantri->kabupaten_kota = Regency::whereId($request->kabupaten_kota)->value('name');
@@ -273,6 +276,17 @@ class SantriController extends Controller
         // return response()->json(['message' => 'success']);
         return redirect()->back()->with('message', 'Santri telah didaftarkan, tunggu pendidikan mengkonfirmasi data santri tersebut.');
 
+    }
+
+    public function generateNis(int $id, $nis, $provinsi, $kabupaten_kota, $kecamatan, $tgl_masuk)
+    {
+        $hitung = Santri::whereDate('created_at', Carbon::now()->format('Y-m-d'))
+                  ->count();
+                  
+        $increment = $hitung;
+        $generate = $provinsi.substr($kabupaten_kota, -2).substr($kecamatan, -2).date('dmy', strtotime($tgl_masuk)).$increment;
+        
+        return Santri::find($id)->update(['nis' => $generate]);
     }
 
     /**

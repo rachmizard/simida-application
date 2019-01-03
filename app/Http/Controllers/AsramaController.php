@@ -80,7 +80,7 @@ class AsramaController extends Controller
 
     public function getAsramaKategori(Request $request, $kategori): JsonResponse
     {
-        $asrama = AsramaResource::collection(Asrama::whereKategoriAsrama($kategori)->get());
+        $asrama = AsramaResource::collection(DataNamaAsrama::whereKategori($kategori)->get());
         return response()->json(['data' => $asrama]);
     }
 
@@ -154,7 +154,7 @@ class AsramaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kategori_asrama' => 'required', 'nama_asrama' => 'required', 'roisam_asrama' => 'required'
+            'kategori_asrama' => 'required', 'nama_asrama' => 'required', 'roisam_asrama' => 'required', 'murobbi_asrama' => 'required'
         ]);
 
         $validate = Asrama::whereNamaAsrama(request('nama_asrama'))->whereKategoriAsrama(request('kategori_asrama'))->count();
@@ -167,6 +167,7 @@ class AsramaController extends Controller
             $asrama->kategori_asrama = request('kategori_asrama');
             $asrama->nama_asrama = request('nama_asrama');
             $asrama->roisam_asrama = request('roisam_asrama');
+            $asrama->murobbi_asrama = request('murobbi_asrama');
             $asrama->save();
             $data['messageError'] = false;
             $data['message'] = 'Berhasil menambahkan Asrama!';

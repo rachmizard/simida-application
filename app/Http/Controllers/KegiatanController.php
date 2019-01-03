@@ -71,6 +71,7 @@ class KegiatanController extends Controller
             'nama_kegiatan' => 'required',
             'mulai_kegiatan' => 'required',
             'akhir_kegiatan' => 'required',
+            'nilai_kegiatan' => 'required|numeric'
         ]);
 
         $validator = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->mulai_kegiatan)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->mulai_kegiatan)->format('H:i'))->count();
@@ -83,7 +84,8 @@ class KegiatanController extends Controller
             $kegiatan = Kegiatan::create([
                             'nama_kegiatan' => $request->nama_kegiatan,
                             'mulai_kegiatan' => Carbon::parse($request->mulai_kegiatan)->format('H:i'),
-                            'akhir_kegiatan' => Carbon::parse($request->akhir_kegiatan)->format('H:i')
+                            'akhir_kegiatan' => Carbon::parse($request->akhir_kegiatan)->format('H:i'),
+                            'nilai_kegiatan' => $request->nilai_kegiatan
                         ]);
             $data['message'] = 'Kegiatan berhasil di tambahkan!';
             $data['messageWarning'] = false;
@@ -127,6 +129,7 @@ class KegiatanController extends Controller
             'nama_kegiatan' => 'required',
             'mulai_kegiatan' => 'required',
             'akhir_kegiatan' => 'required',
+            'nilai_kegiatan' => 'required|numeric'
         ]);
 
         $validator = Kegiatan::where('mulai_kegiatan', Carbon::parse($request->mulai_kegiatan)->format('H:i'))->where('mulai_kegiatan', Carbon::parse($request->mulai_kegiatan)->format('H:i'))->count();
@@ -139,7 +142,8 @@ class KegiatanController extends Controller
             $kegiatan = Kegiatan::find($id)->update([
                             'nama_kegiatan' => $request->nama_kegiatan,
                             'mulai_kegiatan' => Carbon::parse($request->mulai_kegiatan)->format('H:i'),
-                            'akhir_kegiatan' => Carbon::parse($request->akhir_kegiatan)->format('H:i')
+                            'akhir_kegiatan' => Carbon::parse($request->akhir_kegiatan)->format('H:i'),
+                            'nilai_kegiatan' => $request->nilai_kegiatan
                         ]);
             $data['message'] = 'Kegiatan berhasil di edit!';
             $data['messageWarning'] = false;

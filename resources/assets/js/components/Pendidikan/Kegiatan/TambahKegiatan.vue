@@ -51,6 +51,12 @@
                                                             <input type="text" disabled v-model="periode" class="form-control">
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-control-label" for="inputBasicFirstName">Poin Kegiatan</label>
+                                                            <input type="number" v-model="kegiatan.nilai_kegiatan" class="form-control" placeholder='Contoh: "5" / atau lebih'>
+                                                        </div>
+                                                    </div>
                                             	</div>
                                             </div>
                                             <div class="form-row">
@@ -89,7 +95,8 @@
                 kegiatan: {
                     nama_kegiatan: '',
                     mulai_kegiatan: '',
-                    akhir_kegiatan: ''
+                    akhir_kegiatan: '',
+                    nilai_kegiatan: ''
                 },
                 periode: '',
                 message: '',

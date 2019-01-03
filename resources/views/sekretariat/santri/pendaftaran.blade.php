@@ -24,7 +24,7 @@
                                 <label class="form-control-label" for="inputBasicFirstName">Nama</label>
                                 <input type="text" class="form-control" id="inputBasicFirstName" name="nama_santri" placeholder="Nama Santri" autocomplete="off" />
                                 @if($errors->has('nama_santri'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('nama_santri') }}
                                   </span>
                                 @endif
@@ -33,7 +33,7 @@
                                 <label class="form-control-label" for="inputBasicLastName">Tanggal Lahir</label>
                                 <input type="text" class="form-control datelahir" name="tgl_lahir" placeholder="DD/MM/YYYY" autocomplete="off" />
                                 @if($errors->has('tgl_lahir'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('tgl_lahir') }}
                                   </span>
                                 @endif
@@ -48,7 +48,7 @@
                                 <label class="form-control-label" for="inputBasicLastName">NIK / No.KTP</label>
                                 <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor Induk Kartu Keluarga/Nomor" autocomplete="off" />
                                 @if($errors->has('nik'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('nik') }}
                                   </span>
                                 @endif
@@ -61,7 +61,7 @@
                                   <option value="P">Perempuan</option>
                               </select>
                               @if($errors->has('jenis_kelamin'))
-                                <span class="label label-danger">
+                                <span class="badge badge-danger">
                                     {{ $errors->first('jenis_kelamin') }}
                                 </span>
                               @endif
@@ -72,7 +72,7 @@
                                 <label class="form-control-label" for="">Nama Ayah <b>Kandung</b></label>
                                 <input type="text" class="form-control" id="inputBasicFirstName" name="nama_ortu" placeholder="Nama Ayah Kandung" autocomplete="off" />
                                 @if($errors->has('nama_ortu'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('nama_ortu') }}
                                   </span>
                                 @endif
@@ -81,7 +81,7 @@
                                 <label class="form-control-label" for="inputBasicLastName">Nama Orangtua <b>Wali</b></label>
                                 <input type="text" class="form-control" id="inputBasicLastName" name="nama_wali" placeholder="Nama Wali Bila Ada" autocomplete="off" />
                                 @if($errors->has('nama_wali'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('nama_wali') }}
                                   </span>
                                 @endif
@@ -91,7 +91,7 @@
                             <label class="form-control-label" for="">Nomor Telepon Aktif</label>
                             <input type="text" class="form-control" id="inputBasicFirstName" name="no_telp" placeholder="Nomor Handphone Aktif" autocomplete="off" />
                             @if($errors->has('no_telp'))
-                              <span class="label label-danger">
+                              <span class="badge badge-danger">
                                   {{ $errors->first('no_telp') }}
                               </span>
                             @endif
@@ -106,7 +106,7 @@
                                     <option disabled selected>Nama Provinsi</option>
                                 </select>
                                 @if($errors->has('provinsi'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('provinsi') }}
                                   </span>
                                 @endif
@@ -117,7 +117,7 @@
                                     <option disabled selected>Nama Kabupaten</option>
                                 </select>
                                 @if($errors->has('kabupaten_kota'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('kabupaten_kota') }}
                                   </span>
                                 @endif
@@ -130,7 +130,7 @@
                                     <option disabled selected>Nama Kecamatan..</option>
                                 </select>
                                 @if($errors->has('kecamatan'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('kecamatan') }}
                                   </span>
                                 @endif
@@ -141,7 +141,7 @@
                                     <option disabled selected>Kelurahan setempat...</option>
                                 </select>
                                 @if($errors->has('kelurahan'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('kelurahan') }}
                                   </span>
                                 @endif
@@ -150,7 +150,7 @@
                            <label class="form-control-label" for="inputBasicFirstName">Kode Pos</label>
                            <input type="text" name="kode_pos" class="form-control" id="inputBasicFirstName" placeholder="Kode Pos" autocomplete="off" />
                                 @if($errors->has('kode_pos'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('kode_pos') }}
                                   </span>
                                 @endif
@@ -159,7 +159,7 @@
 		                       <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
 		                       <input type="text" name="alamat" class="form-control" id="inputBasicFirstName" placeholder="Alamat Santri" autocomplete="off" />
                                 @if($errors->has('alamat'))
-                                  <span class="label label-danger">
+                                  <span class="badge badge-danger">
                                       {{ $errors->first('alamat') }}
                                   </span>
                                 @endif
@@ -181,7 +181,7 @@
                                 <option>SMK</option>
                             </select>
                             @if($errors->has('pendidikan_terakhir'))
-                              <span class="label label-danger">
+                              <span class="badge badge-danger">
                                   {{ $errors->first('pendidikan_terakhir') }}
                               </span>
                             @endif
@@ -190,7 +190,7 @@
                            <label class="form-control-label" for="inputBasicFirstName">Pesantren Sebelumnya</label>
                            <input type="text" name="pesantren_sebelumnya" class="form-control" id="inputBasicFirstName" name="inputFirstName" placeholder="Nama Pesantren Sebelumnya..." autocomplete="off" />
                             @if($errors->has('pesantren_sebelumnya'))
-                              <span class="label label-danger">
+                              <span class="badge badge-danger">
                                   {{ $errors->first('pesantren_sebelumnya') }}
                               </span>
                             @endif
@@ -205,7 +205,7 @@
                                   @endforeach
 	                            </select>
                             @if($errors->has('dewan_id'))
-                              <span class="label label-danger">
+                              <span class="badge badge-danger">
                                   {{ $errors->first('dewan_id') }}
                               </span>
                             @endif
@@ -214,7 +214,7 @@
                                 <label class="form-control-label" for="inputBasicLastName">Tanggal Masuk</label>
                                 <input type="text" class="form-control datepicker" name="tgl_masuk" placeholder="DD/MM/YYYY" autocomplete="off" />
 	                            @if($errors->has('tgl_masuk'))
-	                              <span class="label label-danger">
+	                              <span class="badge badge-danger">
 	                                  {{ $errors->first('tgl_masuk') }}
 	                              </span>
 	                            @endif
@@ -237,7 +237,7 @@
                                     </optgroup>
                                 </select>
 	                            @if($errors->has('asrama_id'))
-	                              <span class="label label-danger">
+	                              <span class="badge badge-danger">
 	                                  {{ $errors->first('asrama_id') }}
 	                              </span>
 	                            @endif
@@ -255,7 +255,7 @@
                            <label class="form-control-label" for="inputBasicFirstName">Himpunan</label>
                            <input type="text" class="form-control" id="inputBasicFirstName" name="himpunan" placeholder="Himpunan" autocomplete="off" />
                             @if($errors->has('himpunan'))
-                              <span class="label label-danger">
+                              <span class="badge badge-danger">
                                   {{ $errors->first('himpunan') }}
                               </span>
                             @endif
