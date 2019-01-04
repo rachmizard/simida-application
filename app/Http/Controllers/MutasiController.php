@@ -110,6 +110,8 @@ class MutasiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, ['asrama_id' => 'required', 'kobong_id' => 'required', 'alasan_mutasi' => 'required']);
+
         $mutasi = Santri::find($id);
         // Send a report
         $report = DB::table('report_mutasi')

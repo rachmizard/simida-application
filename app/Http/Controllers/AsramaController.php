@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Resources\AsramaResource;
+use App\Http\Resources\AsramaResourceV2;
 use App\Http\Resources\AsramaSelect2Resource;
 use App\Http\Resources\AsramaKobongResource;
 use DB;
@@ -86,7 +87,7 @@ class AsramaController extends Controller
 
     public function getAsramaAllKategori()
     {
-        $asrama = AsramaResource::collection(Asrama::orderBy('kategori_asrama', 'ASC')->get());
+        $asrama = AsramaResourceV2::collection(Asrama::orderBy('kategori_asrama', 'ASC')->get());
         return response()->json(['data' => $asrama]);
     }
 

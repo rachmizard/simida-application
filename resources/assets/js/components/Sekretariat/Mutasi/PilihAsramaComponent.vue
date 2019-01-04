@@ -45,7 +45,7 @@
                                                    		<option value="" disabled="" selected="">Pilih Asrama Yang Dituju</option>
                                                    		<option v-for="asrama in asramas.data" :value="asrama.asrama_id" >{{ asrama.nama_asrama }}</option>
                                                    </select>
-                                                        <span v-if="errors.asrama_id" class="label label-danger">{{ errors.asrama_id[0] }}</span>
+                                                        <span v-if="errors.asrama_id" class="badge badge-danger">{{ errors.asrama_id[0] }}</span>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                    <label class="form-control-label" for="inputBasicFirstName">Kobong</label>
@@ -53,12 +53,12 @@
                                                    		<option value="" disabled="" selected>Pilih Asrama Terlebih Dahulu</option>
                                                    		<option v-for="kobong in kobongs.data" :value="kobong.id" >{{ kobong.nama_kobong }}</option>
                                                    </select>
-                                                        <span v-if="errors.kobong_id" class="label label-danger">{{ errors.kobong_id[0] }}</span>
+                                                        <span v-if="errors.kobong_id" class="badge badge-danger">{{ errors.kobong_id[0] }}</span>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label class="form-control-label" for="inputBasicFirstName">Alasan Mutasi</label>
 													<input type="text" class="form-control" v-model="mutasi.alasan_mutasi">
-                                                    <span v-if="errors.alasan_mutasi" class="label label-danger">{{ errors.alasan_mutasi[0] }}</span>
+                                                    <span v-if="errors.alasan_mutasi" class="badge badge-danger">{{ errors.alasan_mutasi[0] }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -118,6 +118,7 @@
         		let app = this;
         		var body = app.mutasi;
         		let id = app.$route.params.id;
+            // console.log(id);
         		axios.post('/sekretariat/mutasi/'+ id +'/mutasi', body).then(response => {
         			app.$router.push('/mutasi/santri');
         		}).catch((error) => {
@@ -127,8 +128,10 @@
 
         	getKobongForAsrama(){
         		var kobong_id = this.mutasi.asrama_id;
+            // console.log(kobong_id);
         		axios.get('/sekretariat/asrama/'+ kobong_id +'/kobongJSON').then(response => {
         			this.kobongs = response.data;
+              // console.log(this.kobongs);
         		})
         	}
         }
