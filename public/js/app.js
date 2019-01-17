@@ -40983,6 +40983,14 @@ var routes = [
 		name: 'laporanEntriIzin',
 		component: __webpack_require__(386)
 }, {
+		path: '/update/status/:id',
+		name: 'updateStatusIzin',
+		component: __webpack_require__(403)
+}, {
+		path: '/delete/entri/:id',
+		name: 'deleteEntri',
+		component: __webpack_require__(406)
+}, {
 		path: '/pengaturan',
 		name: 'pengaturan',
 		component: __webpack_require__(389)
@@ -82036,9 +82044,11 @@ var render = function() {
     _c("a", { attrs: { href: "#/pemberitahuan" } }, [
       _c("span", { staticClass: "site-menu-title" }, [
         _vm._v("Pemberitahuan "),
-        _c("span", { staticClass: "badge badge-warning badge-sm" }, [
-          _vm._v(_vm._s(_vm.total))
-        ])
+        _vm.total != 0
+          ? _c("span", { staticClass: "badge badge-warning badge-sm" }, [
+              _vm._v(_vm._s(_vm.total))
+            ])
+          : _vm._e()
       ])
     ])
   ])
@@ -110947,6 +110957,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -111095,6 +111113,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "row row-lg" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
@@ -111119,7 +111139,7 @@ var render = function() {
                                 attrs: { role: "alert" }
                               },
                               [
-                                _vm._m(0),
+                                _vm._m(1),
                                 _vm._v(" "),
                                 _c("i", {
                                   staticClass: "icon wb-check",
@@ -111143,7 +111163,7 @@ var render = function() {
                                 attrs: { role: "alert" }
                               },
                               [
-                                _vm._m(1),
+                                _vm._m(2),
                                 _vm._v(" "),
                                 _c("i", {
                                   staticClass: "icon wb-check",
@@ -111166,7 +111186,7 @@ var render = function() {
                               staticStyle: { "padding-right": "15px" }
                             },
                             [
-                              _vm._m(2),
+                              _vm._m(3),
                               _vm._v(" "),
                               _c("div", { staticClass: "example" }, [
                                 _c("div", { staticClass: "form-row" }, [
@@ -111389,7 +111409,7 @@ var render = function() {
                   [
                     _c("div", { staticClass: "modal-dialog modal-simple" }, [
                       _c("div", { staticClass: "modal-content" }, [
-                        _vm._m(3),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("div", { staticClass: "modal-body" }, [
                           _c("div", { staticClass: "row row-lg" }, [
@@ -111419,7 +111439,7 @@ var render = function() {
                                                     attrs: { role: "alert" }
                                                   },
                                                   [
-                                                    _vm._m(4),
+                                                    _vm._m(5),
                                                     _vm._v(" "),
                                                     _c("i", {
                                                       staticClass:
@@ -111448,7 +111468,7 @@ var render = function() {
                                                     attrs: { role: "alert" }
                                                   },
                                                   [
-                                                    _vm._m(5),
+                                                    _vm._m(6),
                                                     _vm._v(" "),
                                                     _c("i", {
                                                       staticClass:
@@ -112542,14 +112562,14 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "panel" }, [
-                  _vm._m(6),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c("div", { staticClass: "panel-body table-responsive" }, [
                     _c(
                       "table",
                       { staticClass: "table table-striped table-hover" },
                       [
-                        _vm._m(7),
+                        _vm._m(8),
                         _vm._v(" "),
                         _c(
                           "tbody",
@@ -112600,7 +112620,7 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _vm.resultsearch == false
-                              ? _c("tr", [_vm._m(8)])
+                              ? _c("tr", [_vm._m(9)])
                               : _vm._e()
                           ],
                           2
@@ -112617,6 +112637,30 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h1", { staticClass: "page-title" }, [_vm._v("Keamanan")]),
+      _vm._v(" "),
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "/" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "javascript:void(0)" } }, [
+            _vm._v("Keamanan")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Entri Keamanan")
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -112868,6 +112912,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -113022,12 +113074,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "row row-lg" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "panel" }, [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
                 _c(
@@ -113073,7 +113127,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ])
             ])
           ])
@@ -113083,6 +113137,30 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h1", { staticClass: "page-title" }, [_vm._v("Keamanan")]),
+      _vm._v(" "),
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "/" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "javascript:void(0)" } }, [
+            _vm._v("Keamanan")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("List Entri")
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -114776,6 +114854,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -114861,20 +114947,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "row row-lg" }, [
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "panel" }, [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
                 _c("div", { staticClass: "row" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
                   _vm._m(2),
                   _vm._v(" "),
                   _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "form-group" }, [
@@ -114897,13 +114985,37 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(5)
         ])
       ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h1", { staticClass: "page-title" }, [_vm._v("Keamanan")]),
+      _vm._v(" "),
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "/" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "javascript:void(0)" } }, [
+            _vm._v("Keamanan")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Laporan Izin")
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -115083,6 +115195,206 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(404)
+/* template */
+var __vue_template__ = __webpack_require__(405)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keamanan/UpdateStatusIzinComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-70bcfad4", Component.options)
+  } else {
+    hotAPI.reload("data-v-70bcfad4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 404 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		var app = this;
+		var id = app.$route.params.id;
+		var r = confirm("Setelah status entri ini di rubah akan otomatis tersimpan di riwayat entri izin, tetap lanjutkan?");
+		if (r == true) {
+			axios.put('/keamanan/' + id + '/update/status').then(function (response) {
+				app.$router.push('/list_entri');
+			});
+		} else {
+			app.$router.push('/list_entri');
+		}
+	},
+	data: function data() {
+		return {};
+	}
+});
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-70bcfad4", module.exports)
+  }
+}
+
+/***/ }),
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(407)
+/* template */
+var __vue_template__ = __webpack_require__(408)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Keamanan/DeleteEntriIzinComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9720e250", Component.options)
+  } else {
+    hotAPI.reload("data-v-9720e250", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 407 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mounted: function mounted() {
+		var app = this;
+		var id = app.$route.params.id;
+		var r = confirm("Anda yakin?");
+		if (r == true) {
+			axios.delete('/keamanan/' + id + '/destroy').then(function (response) {
+				app.$router.push('/list_entri');
+			});
+		} else {
+			app.$router.push('/list_entri');
+		}
+	},
+	data: function data() {
+		return {};
+	}
+});
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9720e250", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

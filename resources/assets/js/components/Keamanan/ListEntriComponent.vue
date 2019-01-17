@@ -1,5 +1,13 @@
 <template>
     <div id="app">
+      <div class="page-header">
+          <h1 class="page-title">Keamanan</h1>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Keamanan</a></li>
+              <li class="breadcrumb-item active">List Entri</li>
+          </ol>
+      </div>
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">

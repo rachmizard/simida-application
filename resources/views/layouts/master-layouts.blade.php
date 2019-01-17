@@ -397,7 +397,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Entri</span></a>
+                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Entri</span></a>
                                             </li>
                                             <list-notifikasi></list-notifikasi>
                                         </ul>

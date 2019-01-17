@@ -519,6 +519,18 @@ const routes = [
 
 
 			{
+			  path: '/update/status/:id',
+			  name: 'updateStatusIzin',
+			  component: require('./components/Keamanan/UpdateStatusIzinComponent.vue')
+			},
+
+			{
+			  path: '/delete/entri/:id',
+			  name: 'deleteEntri',
+			  component: require('./components/Keamanan/DeleteEntriIzinComponent.vue')
+			},
+
+			{
 			  path: '/pengaturan',
 			  name: 'pengaturan',
 			  component: require('./components/Keamanan/PengaturanKeamananComponent.vue')

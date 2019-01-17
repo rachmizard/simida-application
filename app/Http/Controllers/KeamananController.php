@@ -51,8 +51,9 @@ class KeamananController extends Controller
         return $datatables->eloquent($entriIzin)
         ->addColumn('action', function($var){
             return '
+                <a class="btn btn-xs btn-info" href="#/update/status/'. $var['id'] .'" title="Edit"><i class="icon wb-check"></i></a>
                 <a class="btn btn-xs btn-warning" href="#/edit/keamanan/'. $var['id'] .'" title="Edit"><i class="icon wb-pencil"></i></a>
-                <a class="btn btn-xs btn-danger" href="" title="Hapus"><i class="icon wb-trash"></i></a>
+                <a class="btn btn-xs btn-danger" href="#/delete/entri/'. $var['id'] .'" title="Hapus"><i class="icon wb-trash"></i></a>
             ';
         })
         ->editColumn('kategori', function($var){
@@ -144,6 +145,7 @@ class KeamananController extends Controller
 
                 $storeHistory = HistoriIzin::create([
                     'kode_izin' => 'SK'.$kode_izin.'',
+                    'keamanan_id' => $entri->id,
                     'santri_id' => $request->santri_id, 
                     'tujuan' => $request->tujuan, 
                     'alasan' => $request->alasan, 
@@ -154,7 +156,7 @@ class KeamananController extends Controller
                 ]);
 
                 $updateHistoryIdAndKodeIzin = Keamanan::find($entri->id)
-                                        ->update(['kode_izin' => 'SK'.$kode_izin.'', 'history_id' => $storeHistory->id]);
+                                        ->update(['kode_izin' => 'SK'.$kode_izin.'']);
             }
         }else{
             $this->validate($request, [
@@ -182,6 +184,7 @@ class KeamananController extends Controller
 
                 $storeHistory = HistoriIzin::create([
                     'kode_izin' => 'SK'.$kode_izin.'',
+                    'keamanan_id' => $entri->id,
                     'santri_id' => $request->santri_id, 
                     'tujuan' => $request->tujuan, 
                     'alasan' => $request->alasan, 
@@ -190,7 +193,7 @@ class KeamananController extends Controller
                 ]);
 
                 $updateHistoryIdAndKodeIzin = Keamanan::find($entri->id)
-                                        ->update(['kode_izin' => 'SK'.$kode_izin.'', 'history_id' => $storeHistory->id]);
+                                        ->update(['kode_izin' => 'SK'.$kode_izin.'']);
 
             }
         }
@@ -261,6 +264,7 @@ class KeamananController extends Controller
                 $searchforHistory = HistoriIzin::find($entri->history_id);
 
                 $storeHistory = HistoriIzin::find($searchforHistory['id'])->update([
+                    'keamanan_id' => $entri->id,
                     'kode_izin' => $entri->kode_izin,
                     'santri_id' => $entri->santri_id, 
                     'tujuan' => $entri->tujuan, 
@@ -287,9 +291,10 @@ class KeamananController extends Controller
                 $message['messageAlert'] = false;
                 $entri->save();
 
-                $searchforHistory = HistoriIzin::find($entri->history_id);
+                $searchforHistory = HistoriIzin::whereKeamananId($entri->id)->first();
 
                 $storeHistory = HistoriIzin::find($searchforHistory['id'])->update([
+                    'keamanan_id' => $entri->id,
                     'kode_izin' => $entri->kode_izin,
                     'santri_id' => $entri->santri_id, 
                     'tujuan' => $entri->tujuan, 
@@ -354,13 +359,15 @@ class KeamananController extends Controller
 
     public function ceklisSantriKembali(Request $request, $id)
     {
+        $getKeamananInfo = Keamanan::find($id);
         $ceklis = Keamanan::find($id)->update(['status' => 'sudah_kembali']);
         $storeHistory = HistoriIzin::create([
-                    'kode_izin' => $ceklis->kode_izin,
-                    'santri_id' => $ceklis->santri_id, 
-                    'tujuan' => $ceklis->tujuan, 
-                    'alasan' => $ceklis->alasan, 
-                    'kategori' => $ceklis->kategori, 
+                    'keamanan_id' => $id,
+                    'kode_izin' => $getKeamananInfo->kode_izin,
+                    'santri_id' => $getKeamananInfo->santri_id, 
+                    'tujuan' => $getKeamananInfo->tujuan, 
+                    'alasan' => $getKeamananInfo->alasan, 
+                    'kategori' => $getKeamananInfo->kategori, 
                     'status' => 'sudah_kembali', 
                 ]);
         return response()->json(['response' => 'success']);
