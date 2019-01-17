@@ -304,6 +304,8 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			Route::get('/listSantriIzinWithFilter', 'KeamananController@listSantriIzinWithFilter');
 			Route::get('/getListSantriIzinDataTables', 'KeamananController@getListSantriIzinDataTables');
 			Route::get('/getListKeamanan', 'KeamananController@getListKeamanan');
+			Route::get('{id}/getSantri', 'KeamananController@getSantri');
+			Route::get('{id}/historyByKeamananId', 'KeamananController@historyByKeamananId');
 
 			// CRUD KEAMANAN
 			Route::post('/store/entri/izin', 'KeamananController@store');

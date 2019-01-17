@@ -57,7 +57,7 @@
                                               </div><!--/Example-->
                                       </div><!--/.form-group
                                       =========================-->
-                                   </div><!--/.form-row-->
+                                  </div><!--/.form-row-->
                               </div><!--/.col-->
                           </div>
                       </div>

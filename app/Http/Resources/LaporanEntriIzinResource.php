@@ -24,7 +24,6 @@ class LaporanEntriIzinResource extends Resource
             'kategori' => $this->kategori == 'dekat' ? '<span class="badge badge-sm badge-info">Dekat</span>' : '<span class="badge badge-sm badge-danger">Jauh</span>',
             'created_at' => date('d-m-Y H:i:s', strtotime($this->created_at)),
             'tgl_berakhir_izin' => $this->tgl_berakhir_izin == null ? '-' : date('d-m-Y', strtotime($this->tgl_berakhir_izin))
-
         ];
     }
 }

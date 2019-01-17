@@ -15,12 +15,12 @@ class HistoriIzin extends Model
 
     public function santri()
     {
-    	return $this->belongsTo('App/Santri', 'santri_id', 'id');
+    	return $this->belongsTo('App\Santri', 'santri_id', 'id');
     }
 
     public function keamanan()
     {
-        return $this->belongsTo('App/Keamanan', 'keamanan_id', 'id');
+        return $this->belongsTo('App\Keamanan', 'keamanan_id', 'id');
     }
 
 }

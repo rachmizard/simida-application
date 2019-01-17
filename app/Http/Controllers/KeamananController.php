@@ -47,11 +47,13 @@ class KeamananController extends Controller
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::with(['santri'])->select('keamanan.*');
-        return $datatables->eloquent($entriIzin)
+        $entriIzin = Keamanan::with(['santri'])->where('status', 'belum_kembali')->get();
+        return $datatables->of($entriIzin)
         ->addColumn('action', function($var){
             return '
-                <a class="btn btn-xs btn-info" href="#/update/status/'. $var['id'] .'" title="Edit"><i class="icon wb-check"></i></a>
+
+                <a class="btn btn-xs btn-info" href="#/update/status/'. $var['id'] .'" title="Nyatakan status kembali"><i class="icon wb-check"></i></a>
+                <a class="btn btn-xs btn-primary" href="#/detail/entri/'. $var['santri_id'] .'/keamanan/'. $var['id'] .'" title="Lihat Detil"><i class="icon wb-eye"></i></a>
                 <a class="btn btn-xs btn-warning" href="#/edit/keamanan/'. $var['id'] .'" title="Edit"><i class="icon wb-pencil"></i></a>
                 <a class="btn btn-xs btn-danger" href="#/delete/entri/'. $var['id'] .'" title="Hapus"><i class="icon wb-trash"></i></a>
             ';
@@ -99,6 +101,11 @@ class KeamananController extends Controller
         }
 
         return response()->json(['data' => $entriIzin]);
+    }
+
+    public function getSantri($id)
+    {
+        return Santri::with(['kelas', 'asrama.ngaran', 'kobong'])->find($id);
     }
 
     /**
@@ -200,6 +207,12 @@ class KeamananController extends Controller
 
         return response()->json(['response' => $message]);
 
+    }
+
+    public function historyByKeamananId($id)
+    {
+        $historyBySantriId = HistoriIzin::with(['santri'])->where('keamanan_id', $id)->get();
+        return response()->json($historyBySantriId);
     }
 
     /**

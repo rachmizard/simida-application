@@ -498,6 +498,13 @@ const routes = [
 			},
 
 			{
+			  path: '/detail/entri/:id/keamanan/:keamanan_id',
+			  name: 'detailEntri',
+			  component: require('./components/Keamanan/DetailEntriComponent.vue')
+			},
+
+
+			{
 			  path: '/pemberitahuan',
 			  name: 'pemberitahuan',
 			  component: require('./components/Keamanan/PemberitahuanComponent.vue')
