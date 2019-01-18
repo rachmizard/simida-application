@@ -10,7 +10,7 @@ class Keamanan extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'kode_izin', 'santri_id', 'kategori', 'alasan', 'tujuan', 'durasi', 'status', 'pemberi_izin', 'tgl_berakhir_izin'
+        'kode_izin', 'santri_id', 'kategori', 'alasan', 'tujuan', 'durasi', 'status', 'pemberi_izin', 'tgl_berakhir_izin', 'jam_berakhir'
     ];
 
     public function santri()

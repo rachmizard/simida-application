@@ -40,6 +40,7 @@
                         <th>Kategori</th>
                         <th>Tanggal Izin</th>
                         <th>Tanggal Akhir Izin</th>
+                        <th>Jam Berakhir Izin</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -139,6 +140,7 @@
 		                  { data: 'kategori', name: 'kategori'},
                       { data: 'created_at', name: 'created_at'},
 		                  { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin'},
+                      { data: 'jam_berakhir', name: 'jam_berakhir'},
 		                  { data: 'action', name: 'action'},
 		              ]
 		          }); 

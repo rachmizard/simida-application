@@ -10,7 +10,7 @@ class HistoriIzin extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'kode_izin', 'santri_id', 'tujuan', 'alasan', 'kategori', 'pemberi_izin', 'status', 'tgl_berakhir_izin', 'keamanan_id'
+        'kode_izin', 'santri_id', 'tujuan', 'alasan', 'kategori', 'pemberi_izin', 'status', 'tgl_berakhir_izin', 'keamanan_id', 'jam_berakhir'
     ];
 
     public function santri()

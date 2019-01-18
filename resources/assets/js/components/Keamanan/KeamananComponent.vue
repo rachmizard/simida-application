@@ -146,6 +146,13 @@
 				                                                          </div>
 					                                                        <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
 				                                                      </div>
+                                                              <div v-if="entri.kategori == 'dekat'" class="col-md-4">
+                                                                  <div class="form-group">
+                                                                    <label class="form-control-label" for="inputBasicFirstName">Jam Berakhir Izin</label>
+                                                                    <input @change="filterSantriForEntriIzin()" type="time" v-model="entri.jam_berakhir" class="form-control" placeholder="Contoh: 17:00:00">
+                                                                  </div>
+                                                                  <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
+                                                              </div>
 				                                                      <div v-if="entri.kategori == 'jauh'" class="col-md-6">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Dewan Kyai yang mengizinkan</label>
@@ -271,7 +278,8 @@
                 	alasan: '',
                 	status: '',
                 	pemberi_izin: '',
-                  tgl_berakhir_izin: ''
+                  tgl_berakhir_izin: '',
+                  jam_berakhir: '17:00:00'
                 },
                 resultsearch: '',
                 message: '',

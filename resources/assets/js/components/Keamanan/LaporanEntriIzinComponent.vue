@@ -129,7 +129,8 @@
                         value.status,
                         value.kategori,
                         value.created_at,
-                        value.tgl_berakhir_izin
+                        value.tgl_berakhir_izin,
+                        value.jam_berakhir
                     ]);
                   })
 
@@ -167,8 +168,9 @@
                            {title: 'Alasan' },
                            {title: 'Status' },
                            {title: 'Kategori' },
-                           {title: 'Tanggal Izin' },
-                           {title: 'Tanggal Akhir Izin' },
+                           {title: 'Tanggal Mulai Izin' },
+                           {title: 'Tanggal Kembali' },
+                           {title: 'Jam Kembali' },
                       ]
                   });
 

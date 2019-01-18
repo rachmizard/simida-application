@@ -18,7 +18,7 @@
                       <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
                           <div class="form-row">
                               <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
-                                  <h4 class="example-title"><i class="icon wb-user text-success"></i> Santri</h4>
+                                  <h4 class="example-title"><i class="icon wb-user"></i> Santri</h4>
                                       <div class="example">
                                           <div class="form-row">
                                             <div class="row">
@@ -55,7 +55,7 @@
               <div class="panel">
                 <header class="panel-heading">
                   <h3 class="panel-title">
-                    <i class="icon wb-search"></i> Track Izin Santri 
+                    <i class="icon wb-search"></i> {{ santri.nama_santri }} {{ entri.tujuan }}
                     <!-- <span class="panel-desc">
                       Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
                     </span> -->
@@ -70,10 +70,10 @@
                         <th>NIS</th>
                         <th>Nama Santri</th>
                         <th>Kategori Izin</th>
-                        <th>Tanggal Izin</th>
-                        <th>Tanggal Berakhir Izin</th>
+                        <th>Tanggal Mulai Izin</th>
+                        <th>Tanggal Selesai Izin</th>
+                        <th>Jam Kembali</th>
                         <th>Status</th>
-                        <!-- <th>Aksi</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -83,6 +83,7 @@
                     		<td>{{ detail.kategori }}</td>
                     		<td>{{ detail.created_at }}</td>
                     		<td>{{ detail.tgl_berakhir_izin }}</td>
+                    		<td>{{ detail.jam_berakhir }}</td>
                     		<td>
                     			<span v-if="detail.status == 'sudah_kembali'" class="badge badge-success">Kembali</span>
                     			<span v-if="detail.status == 'belum_kembali'" class="badge badge-danger">Belum Kembali</span>
@@ -107,12 +108,19 @@
 				id_keamanan : this.$route.params.keamanan_id,
 				santri: [],
 				details: [],
+				entri: {
+					alasan: '',
+					tujuan: '',
+					tgl_berakhir_izin: '',
+					jam_berakhir: '',
+				}
 			}
 		},
 
 		mounted(){
 		  this.getSantri();
 		  this.getDetailEntri();
+		  this.getKeamananId();
 		},
 
 		methods: {
@@ -129,6 +137,16 @@
 				axios.get('/keamanan/'+ santri_id +'/getSantri').then(response => {
 					this.santri = response.data;
 					// console.log(response.data);
+				});
+			},
+
+			getKeamananId(){
+				var keamanan_id = this.id_keamanan;
+				axios.get('/keamanan/'+ keamanan_id +'/show').then(response => {
+					this.entri.alasan = response.data.alasan;
+					this.entri.tujuan = response.data.tujuan;
+					this.entri.tgl_berakhir_izin = response.data.tgl_berakhir_izin;
+					this.entri.jam_berakhir = response.data.jam_berakhir;
 				});
 			}
 		}

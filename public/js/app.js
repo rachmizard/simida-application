@@ -110969,6 +110969,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -111000,7 +111007,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         alasan: '',
         status: '',
         pemberi_izin: '',
-        tgl_berakhir_izin: ''
+        tgl_berakhir_izin: '',
+        jam_berakhir: '17:00:00'
       },
       resultsearch: '',
       message: '',
@@ -112217,6 +112225,129 @@ var render = function() {
                                                                 _vm._v(" "),
                                                                 _vm.entri
                                                                   .kategori ==
+                                                                "dekat"
+                                                                  ? _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "col-md-4"
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "div",
+                                                                          {
+                                                                            staticClass:
+                                                                              "form-group"
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "label",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "form-control-label",
+                                                                                attrs: {
+                                                                                  for:
+                                                                                    "inputBasicFirstName"
+                                                                                }
+                                                                              },
+                                                                              [
+                                                                                _vm._v(
+                                                                                  "Jam Berakhir Izin"
+                                                                                )
+                                                                              ]
+                                                                            ),
+                                                                            _vm._v(
+                                                                              " "
+                                                                            ),
+                                                                            _c(
+                                                                              "input",
+                                                                              {
+                                                                                directives: [
+                                                                                  {
+                                                                                    name:
+                                                                                      "model",
+                                                                                    rawName:
+                                                                                      "v-model",
+                                                                                    value:
+                                                                                      _vm
+                                                                                        .entri
+                                                                                        .jam_berakhir,
+                                                                                    expression:
+                                                                                      "entri.jam_berakhir"
+                                                                                  }
+                                                                                ],
+                                                                                staticClass:
+                                                                                  "form-control",
+                                                                                attrs: {
+                                                                                  type:
+                                                                                    "time",
+                                                                                  placeholder:
+                                                                                    "Contoh: 17:00:00"
+                                                                                },
+                                                                                domProps: {
+                                                                                  value:
+                                                                                    _vm
+                                                                                      .entri
+                                                                                      .jam_berakhir
+                                                                                },
+                                                                                on: {
+                                                                                  change: function(
+                                                                                    $event
+                                                                                  ) {
+                                                                                    _vm.filterSantriForEntriIzin()
+                                                                                  },
+                                                                                  input: function(
+                                                                                    $event
+                                                                                  ) {
+                                                                                    if (
+                                                                                      $event
+                                                                                        .target
+                                                                                        .composing
+                                                                                    ) {
+                                                                                      return
+                                                                                    }
+                                                                                    _vm.$set(
+                                                                                      _vm.entri,
+                                                                                      "jam_berakhir",
+                                                                                      $event
+                                                                                        .target
+                                                                                        .value
+                                                                                    )
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _vm._v(
+                                                                          " "
+                                                                        ),
+                                                                        _vm
+                                                                          .errors
+                                                                          .alasan
+                                                                          ? _c(
+                                                                              "span",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "badge badge-danger"
+                                                                              },
+                                                                              [
+                                                                                _vm._v(
+                                                                                  _vm._s(
+                                                                                    _vm
+                                                                                      .errors
+                                                                                      .alasan[0]
+                                                                                  )
+                                                                                )
+                                                                              ]
+                                                                            )
+                                                                          : _vm._e()
+                                                                      ]
+                                                                    )
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                _vm.entri
+                                                                  .kategori ==
                                                                 "jauh"
                                                                   ? _c(
                                                                       "div",
@@ -112924,6 +113055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -112999,7 +113131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         //   e.end_date = $('input[name="end_date"]').val();
                         // }
                     },
-                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin' }, { data: 'action', name: 'action' }]
+                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin' }, { data: 'jam_berakhir', name: 'jam_berakhir' }, { data: 'action', name: 'action' }]
                 });
 
                 // Auto reload when getting result 
@@ -113205,6 +113337,8 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("th", [_vm._v("Tanggal Akhir Izin")]),
             _vm._v(" "),
+            _c("th", [_vm._v("Jam Berakhir Izin")]),
+            _vm._v(" "),
             _c("th", [_vm._v("Aksi")])
           ])
         ]),
@@ -113377,6 +113511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -113384,12 +113519,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			id_santri: this.$route.params.id,
 			id_keamanan: this.$route.params.keamanan_id,
 			santri: [],
-			details: []
+			details: [],
+			entri: {
+				alasan: '',
+				tujuan: '',
+				tgl_berakhir_izin: '',
+				jam_berakhir: ''
+			}
 		};
 	},
 	mounted: function mounted() {
 		this.getSantri();
 		this.getDetailEntri();
+		this.getKeamananId();
 	},
 
 
@@ -113410,6 +113552,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.get('/keamanan/' + santri_id + '/getSantri').then(function (response) {
 				_this2.santri = response.data;
 				// console.log(response.data);
+			});
+		},
+		getKeamananId: function getKeamananId() {
+			var _this3 = this;
+
+			var keamanan_id = this.id_keamanan;
+			axios.get('/keamanan/' + keamanan_id + '/show').then(function (response) {
+				_this3.entri.alasan = response.data.alasan;
+				_this3.entri.tujuan = response.data.tujuan;
+				_this3.entri.tgl_berakhir_izin = response.data.tgl_berakhir_izin;
+				_this3.entri.jam_berakhir = response.data.jam_berakhir;
 			});
 		}
 	}
@@ -113543,14 +113696,25 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8" }, [
             _c("div", { staticClass: "panel" }, [
-              _vm._m(2),
+              _c("header", { staticClass: "panel-heading" }, [
+                _c("h3", { staticClass: "panel-title" }, [
+                  _c("i", { staticClass: "icon wb-search" }),
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm.santri.nama_santri) +
+                      " " +
+                      _vm._s(_vm.entri.tujuan) +
+                      "\r\n                    "
+                  )
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
                 _c(
                   "table",
                   { staticClass: "table table-striped table-hover" },
                   [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -113565,6 +113729,8 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(detail.created_at))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(detail.tgl_berakhir_izin))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(detail.jam_berakhir))]),
                           _vm._v(" "),
                           _c("td", [
                             detail.status == "sudah_kembali"
@@ -113626,19 +113792,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", { staticClass: "example-title" }, [
-      _c("i", { staticClass: "icon wb-user text-success" }),
+      _c("i", { staticClass: "icon wb-user" }),
       _vm._v(" Santri")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "panel-heading" }, [
-      _c("h3", { staticClass: "panel-title" }, [
-        _c("i", { staticClass: "icon wb-search" }),
-        _vm._v(" Track Izin Santri \r\n                    ")
-      ])
     ])
   },
   function() {
@@ -113653,9 +113808,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Kategori Izin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tanggal Izin")]),
+        _c("th", [_vm._v("Tanggal Mulai Izin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tanggal Berakhir Izin")]),
+        _c("th", [_vm._v("Tanggal Selesai Izin")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Jam Kembali")]),
         _vm._v(" "),
         _c("th", [_vm._v("Status")])
       ])
@@ -114295,6 +114452,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -114327,7 +114490,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         alasan: '',
         status: '',
         pemberi_izin: '',
-        tgl_berakhir_izin: ''
+        tgl_berakhir_izin: '',
+        jam_berakhir: ''
       },
       resultsearch: '',
       message: '',
@@ -114357,6 +114521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.entri.pemberi_izin = response.data.pemberi_izin;
         _this.entri.pemberi_izin = response.data.pemberi_izin;
         _this.entri.tgl_berakhir_izin = response.data.tgl_berakhir_izin;
+        _this.entri.jam_berakhir = response.data.jam_berakhir;
       });
     },
     getDewanKyai: function getDewanKyai() {
@@ -114860,6 +115025,82 @@ var render = function() {
                                         : _vm._e()
                                     ]),
                                     _vm._v(" "),
+                                    _vm.entri.kategori == "dekat"
+                                      ? _c("div", { staticClass: "col-md-4" }, [
+                                          _c(
+                                            "div",
+                                            { staticClass: "form-group" },
+                                            [
+                                              _c(
+                                                "label",
+                                                {
+                                                  staticClass:
+                                                    "form-control-label",
+                                                  attrs: {
+                                                    for: "inputBasicFirstName"
+                                                  }
+                                                },
+                                                [_vm._v("Jam Berakhir Izin")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value:
+                                                      _vm.entri.jam_berakhir,
+                                                    expression:
+                                                      "entri.jam_berakhir"
+                                                  }
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "time",
+                                                  placeholder:
+                                                    "Contoh: 17:00:00"
+                                                },
+                                                domProps: {
+                                                  value: _vm.entri.jam_berakhir
+                                                },
+                                                on: {
+                                                  change: function($event) {
+                                                    _vm.filterSantriForEntriIzin()
+                                                  },
+                                                  input: function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.$set(
+                                                      _vm.entri,
+                                                      "jam_berakhir",
+                                                      $event.target.value
+                                                    )
+                                                  }
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm.errors.alasan
+                                            ? _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-danger"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(_vm.errors.alasan[0])
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
                                     _vm.entri.kategori == "jauh"
                                       ? _c("div", { staticClass: "col-md-6" }, [
                                           _c(
@@ -115059,34 +115300,20 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "form-row" },
-                                  [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-success",
-                                        on: {
-                                          click: function($event) {
-                                            _vm.updateizin()
-                                          }
+                                _c("div", { staticClass: "form-row" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-success",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.storeentriizin()
                                         }
-                                      },
-                                      [_vm._v("Simpan")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "btn btn-warning",
-                                        attrs: { to: "/list_entri" }
-                                      },
-                                      [_vm._v("<< Kembali")]
-                                    )
-                                  ],
-                                  1
-                                )
+                                      }
+                                    },
+                                    [_vm._v("Simpan")]
+                                  )
+                                ])
                               ])
                             ]
                           )
@@ -115351,7 +115578,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.get('/keamanan/getListKeamanan', { params: { start_date: a, end_date: b, status: c } }).then(function (response) {
                     htmls = response.data;
                     $.each(htmls.data, function (index, value) {
-                        rows.push([value.nis, value.nama_santri, value.tujuan, value.alasan, value.status, value.kategori, value.created_at, value.tgl_berakhir_izin]);
+                        rows.push([value.nis, value.nama_santri, value.tujuan, value.alasan, value.status, value.kategori, value.created_at, value.tgl_berakhir_izin, value.jam_berakhir]);
                     });
 
                     var today = new Date();
@@ -115379,7 +115606,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             }
                         }],
                         data: rows,
-                        columns: [{ title: 'NIS' }, { title: 'Nama Santri' }, { title: 'Tujuan' }, { title: 'Alasan' }, { title: 'Status' }, { title: 'Kategori' }, { title: 'Tanggal Izin' }, { title: 'Tanggal Akhir Izin' }]
+                        columns: [{ title: 'NIS' }, { title: 'Nama Santri' }, { title: 'Tujuan' }, { title: 'Alasan' }, { title: 'Status' }, { title: 'Kategori' }, { title: 'Tanggal Mulai Izin' }, { title: 'Tanggal Kembali' }, { title: 'Jam Kembali' }]
                     });
 
                     // console.log(rows); WORKED!
@@ -115723,7 +115950,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {
 		var app = this;
 		var id = app.$route.params.id;
-		var r = confirm("Anda yakin?");
+		var r = confirm("Seluruh histori pada izin santri ini akan ikut dihapus, lanjutkan?");
 		if (r == true) {
 			axios.delete('/keamanan/' + id + '/destroy').then(function (response) {
 				app.$router.push('/list_entri');
