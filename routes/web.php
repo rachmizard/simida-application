@@ -27,6 +27,7 @@ Route::middleware(['auth', 'is_murobbi'])->group(function(){
 	Route::prefix('admin')->group(function(){
 		Route::name('admin.')->group(function(){
 			Route::get('/home', 'HomeController@index')->name('home');
+			Route::get('/user_management', 'UserLevelController@index')->name('userManagement');
 		});
 	});
 });
@@ -303,6 +304,8 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			Route::get('/listSantriIzinWithFilter', 'KeamananController@listSantriIzinWithFilter');
 			Route::get('/getListSantriIzinDataTables', 'KeamananController@getListSantriIzinDataTables');
 			Route::get('/getListKeamanan', 'KeamananController@getListKeamanan');
+			Route::get('{id}/getSantri', 'KeamananController@getSantri');
+			Route::get('{id}/historyByKeamananId', 'KeamananController@historyByKeamananId');
 
 			// CRUD KEAMANAN
 			Route::post('/store/entri/izin', 'KeamananController@store');
@@ -310,6 +313,10 @@ Route::middleware(['auth', 'is_keamanan'])->group(function(){
 			Route::post('{id}/update', 'KeamananController@update');
 			Route::delete('{id}/destroy', 'KeamananController@destroy');
 			// END CRUD KEAMANAN
+
+			// UPDATE STATUS
+			Route::put('{id}/update/status', 'KeamananController@ceklisSantriKembali');
+			// END UPDATE STATUS
 
 			// NOTIFIKASI KEAMANAN
 			Route::get('getPemberitahuanWhereIsUnRead', 'KeamananController@getPemberitahuanWhereIsUnRead');

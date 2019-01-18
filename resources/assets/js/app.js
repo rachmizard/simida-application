@@ -498,6 +498,13 @@ const routes = [
 			},
 
 			{
+			  path: '/detail/entri/:id/keamanan/:keamanan_id',
+			  name: 'detailEntri',
+			  component: require('./components/Keamanan/DetailEntriComponent.vue')
+			},
+
+
+			{
 			  path: '/pemberitahuan',
 			  name: 'pemberitahuan',
 			  component: require('./components/Keamanan/PemberitahuanComponent.vue')
@@ -517,6 +524,18 @@ const routes = [
 			  component: require('./components/Keamanan/LaporanEntriIzinComponent.vue')
 			},
 
+
+			{
+			  path: '/update/status/:id',
+			  name: 'updateStatusIzin',
+			  component: require('./components/Keamanan/UpdateStatusIzinComponent.vue')
+			},
+
+			{
+			  path: '/delete/entri/:id',
+			  name: 'deleteEntri',
+			  component: require('./components/Keamanan/DeleteEntriIzinComponent.vue')
+			},
 
 			{
 			  path: '/pengaturan',

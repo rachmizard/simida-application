@@ -193,10 +193,9 @@
         <!--Start: Side Navbar-->
         <div class="site-menubar">
             <div class="site-menubar-body">
-                <div>
-                    <div>
+               
                         <ul class="site-menu" data-plugin="menu">
-                            <li class="site-menu-category">General</li>
+                            <li class="site-menu-category"></li>
 
                             @if(auth()->user()->role == 'murobbi')
                             <li class="site-menu-item">
@@ -222,10 +221,10 @@
                                           <span class="site-menu-title">Master Santri</span>
                                         </a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.santri') }}#/list_santri"><span class="site-menu-title">Data Santri</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.pendaftaran') }}"><span class="site-menu-title">Pendaftaran</span></a>
                                             </li>
                                         </ul>
@@ -233,10 +232,10 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Kelas</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.kelas') }}#/list_kelas"><span class="site-menu-title">Data Kelas</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.kelas.tambah_kelas') }}"><span class="site-menu-title">Tambah Kelas</span></a>
                                             </li>
                                         </ul>
@@ -244,10 +243,10 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Master Asrama</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.asrama') }}"><span class="site-menu-title">Data Asrama & Kobong</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.asrama.create') }}"><span class="site-menu-title">Tambah Asrama</span></a>
                                             </li>
                                         </ul>
@@ -255,10 +254,10 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Data Guru</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.guru') }}"><span class="site-menu-title">Data Guru</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.guru.create') }}"><span class="site-menu-title">Tambah Guru</span></a>
                                             </li>
                                         </ul>
@@ -292,13 +291,13 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Jadwal</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.kegiatan') }}#/list_kegiatan"><span class="site-menu-title">Jadwal Kegiatan</span></a>
                                             </li>
                                             <!-- <li class="site-menu-item">
                                                 <a href="{{ route('pendidikan.jadwalpelajaran') }}#/jadwalpelajaran"><span class="site-menu-title">Jadwal Pelajaran</span></a>
                                             </li> -->
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
                                             </li>
                                         </ul>
@@ -309,13 +308,13 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
                                     </li>
-                                    <li class="site-menu-item">
+                                    <li class="site-menu-item has-sub">
                                         <a href="#!"><span class="site-menu-title">Semester</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.semester.index') }}#/list_semester"><span class="site-menu-title">Data Semester</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.semester.index') }}#/perubahan_semester"><span class="site-menu-title">Perubahan Semester</a>
                                             </li>
                                         </ul>
@@ -326,10 +325,10 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
                                             </li>
                                         </ul>
@@ -361,13 +360,13 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('keuangan.pemasukan.laporan') }}"><span class="site-menu-title">Pemasukan</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('keuangan.pengeluaran.laporan') }}"><span class="site-menu-title">Pengeluaran</span></a>
                                             </li>
-                                            <li class="site-menu-item">
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('keuangan.pemasukan.laporan-syariah') }}"><span class="site-menu-title">Syariah</span></a>
                                             </li>
                                         </ul>
@@ -396,10 +395,10 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
-                                            <li class="site-menu-item">
-                                                <a href="#!"><span class="site-menu-title">Entri</span></a>
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Entri</span></a>
                                             </li>
-                                            <list-notifikasi></list-notifikasi>
+                                            <list-notifikasi class="anak"></list-notifikasi>
                                         </ul>
                                     </li>
                                 </ul>
@@ -417,8 +416,7 @@
                                 <div class="progress-bar progress-bar-warning" style="width: 43%;" role="progressbar"></div>
                             </div>
                         </div> -->
-                    </div>
-                </div>
+                
             </div>
 
             <div class="site-menubar-footer">

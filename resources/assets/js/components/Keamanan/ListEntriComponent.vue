@@ -1,5 +1,13 @@
 <template>
     <div id="app">
+      <div class="page-header">
+          <h1 class="page-title">Keamanan</h1>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Keamanan</a></li>
+              <li class="breadcrumb-item active">List Entri</li>
+          </ol>
+      </div>
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">
@@ -32,6 +40,7 @@
                         <th>Kategori</th>
                         <th>Tanggal Izin</th>
                         <th>Tanggal Akhir Izin</th>
+                        <th>Jam Berakhir Izin</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -131,6 +140,7 @@
 		                  { data: 'kategori', name: 'kategori'},
                       { data: 'created_at', name: 'created_at'},
 		                  { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin'},
+                      { data: 'jam_berakhir', name: 'jam_berakhir'},
 		                  { data: 'action', name: 'action'},
 		              ]
 		          }); 

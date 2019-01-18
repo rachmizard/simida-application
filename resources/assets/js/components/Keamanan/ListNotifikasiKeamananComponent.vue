@@ -1,6 +1,6 @@
 <template>
 	<li class="site-menu-item">
-	    <a href="#/pemberitahuan"><span class="site-menu-title">Pemberitahuan <span class="badge badge-warning badge-sm">{{ total }}</span></span></a>
+	    <a href="#/pemberitahuan"><span class="site-menu-title">Pemberitahuan <span v-if="total != 0" class="badge badge-warning badge-sm">{{ total }}</span></span></a>
 	</li>
 </template>
 <script>

@@ -6,6 +6,7 @@ use App\Notifikasi;
 use App\Santri;
 use App\HistoriIzin;
 use App\Http\Resources\LaporanEntriIzinResource;
+use App\Http\Resources\DetailEntriResource;
 use App\Events\RefreshNotification;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
@@ -47,13 +48,24 @@ class KeamananController extends Controller
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::with(['santri'])->select('keamanan.*');
-        return $datatables->eloquent($entriIzin)
+        $entriIzin = Keamanan::with(['santri'])->whereDate('created_at', Carbon::today()->format('Y-m-d'))->get();
+        return $datatables->of($entriIzin)
         ->addColumn('action', function($var){
-            return '
-                <a class="btn btn-xs btn-warning" href="#/edit/keamanan/'. $var['id'] .'" title="Edit"><i class="icon wb-pencil"></i></a>
-                <a class="btn btn-xs btn-danger" href="" title="Hapus"><i class="icon wb-trash"></i></a>
-            ';
+            if ($var['status'] == 'sudah_kembali') {  
+                return '
+                    <a class="btn btn-xs btn-black" href="#" title="Sudah dinyatakan kembali" disabled><i class="icon wb-check"></i></a>
+                    <a class="btn btn-xs btn-primary" href="#/detail/entri/'. $var['santri_id'] .'/keamanan/'. $var['id'] .'" title="Lihat Detil"><i class="icon wb-eye"></i></a>
+                    <a class="btn btn-xs btn-warning" href="#/edit/keamanan/'. $var['id'] .'" title="Edit"><i class="icon wb-pencil"></i></a>
+                    <a class="btn btn-xs btn-danger" href="#/delete/entri/'. $var['id'] .'" title="Hapus"><i class="icon wb-trash"></i></a>
+                ';
+            }else if($var['status'] == 'belum_kembali'){  
+                return '
+                    <a class="btn btn-xs btn-info" href="#/update/status/'. $var['id'] .'" title="Nyatakan status kembali"><i class="icon wb-check"></i></a>
+                    <a class="btn btn-xs btn-primary" href="#/detail/entri/'. $var['santri_id'] .'/keamanan/'. $var['id'] .'" title="Lihat Detil"><i class="icon wb-eye"></i></a>
+                    <a class="btn btn-xs btn-warning" href="#/edit/keamanan/'. $var['id'] .'" title="Edit"><i class="icon wb-pencil"></i></a>
+                    <a class="btn btn-xs btn-danger" href="#/delete/entri/'. $var['id'] .'" title="Hapus"><i class="icon wb-trash"></i></a>
+                ';
+            }
         })
         ->editColumn('kategori', function($var){
             if ($var->kategori == 'jauh') {
@@ -92,12 +104,17 @@ class KeamananController extends Controller
         if ($request->start_date && $request->end_date) {
             $parseStartDate = Carbon::parse($request->start_date)->format('Y-m-d');
             $parseEndDate = Carbon::parse($request->end_date)->format('Y-m-d');
-            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->select('keamanan.*')->whereStatus($request->status)->whereBetween('created_at', [$parseStartDate, $parseEndDate])->get());
+            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->whereStatus($request->status)->whereBetween('created_at', [$parseStartDate, $parseEndDate])->get());
         }else{
             $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->select('keamanan.*')->get());
         }
 
         return response()->json(['data' => $entriIzin]);
+    }
+
+    public function getSantri($id)
+    {
+        return Santri::with(['kelas', 'asrama.ngaran', 'kobong'])->find($id);
     }
 
     /**
@@ -115,6 +132,9 @@ class KeamananController extends Controller
                             ->get();
 
         $entri = new Keamanan();
+
+        $setterDate = Carbon::now();
+
         if ($request->kategori == 'jauh') {
             $this->validate($request, [
                 'santri_id' => 'required', 
@@ -144,6 +164,7 @@ class KeamananController extends Controller
 
                 $storeHistory = HistoriIzin::create([
                     'kode_izin' => 'SK'.$kode_izin.'',
+                    'keamanan_id' => $entri->id,
                     'santri_id' => $request->santri_id, 
                     'tujuan' => $request->tujuan, 
                     'alasan' => $request->alasan, 
@@ -154,7 +175,7 @@ class KeamananController extends Controller
                 ]);
 
                 $updateHistoryIdAndKodeIzin = Keamanan::find($entri->id)
-                                        ->update(['kode_izin' => 'SK'.$kode_izin.'', 'history_id' => $storeHistory->id]);
+                                        ->update(['kode_izin' => 'SK'.$kode_izin.'']);
             }
         }else{
             $this->validate($request, [
@@ -162,6 +183,7 @@ class KeamananController extends Controller
                 'kategori' => 'required', 
                 'tujuan' => 'required', 
                 'alasan' => 'required', 
+                'jam_berakhir' => 'required'
             ]);
 
 
@@ -174,6 +196,7 @@ class KeamananController extends Controller
                 $entri->alasan = $request->alasan;
                 $entri->tujuan = $request->tujuan;
                 $entri->status = 'belum_kembali';
+                $entri->jam_berakhir = $request->jam_berakhir;
                 $message['message'] = true;
                 $message['messageAlert'] = false;
                 $entri->save();
@@ -182,21 +205,29 @@ class KeamananController extends Controller
 
                 $storeHistory = HistoriIzin::create([
                     'kode_izin' => 'SK'.$kode_izin.'',
+                    'keamanan_id' => $entri->id,
                     'santri_id' => $request->santri_id, 
                     'tujuan' => $request->tujuan, 
                     'alasan' => $request->alasan, 
                     'kategori' => $request->kategori, 
                     'status' => 'belum_kembali', 
+                    'jam_berakhir' => $request->jam_berakhir
                 ]);
 
                 $updateHistoryIdAndKodeIzin = Keamanan::find($entri->id)
-                                        ->update(['kode_izin' => 'SK'.$kode_izin.'', 'history_id' => $storeHistory->id]);
+                                        ->update(['kode_izin' => 'SK'.$kode_izin.'']);
 
             }
         }
 
         return response()->json(['response' => $message]);
 
+    }
+
+    public function historyByKeamananId($id)
+    {
+        $historyBySantriId = DetailEntriResource::collection(HistoriIzin::with(['santri'])->where('keamanan_id', $id)->get());
+        return response()->json($historyBySantriId);
     }
 
     /**
@@ -247,55 +278,51 @@ class KeamananController extends Controller
                 'tgl_berakhir_izin' => 'required'
             ]);
 
-                $entri->santri_id = $request->santri_id;
-                $entri->kategori = $request->kategori;
-                $entri->alasan = $request->alasan;
-                $entri->tujuan = $request->tujuan;
-                $entri->status = 'belum_kembali';
-                $entri->pemberi_izin = $request->pemberi_izin;
-                $entri->tgl_berakhir_izin = date('Y-m-d', strtotime($request->tgl_berakhir_izin));
-                $message['message'] = true;
-                $message['messageAlert'] = false;
-                $entri->save();
+            $entri->santri_id = $request->santri_id;
+            $entri->kategori = $request->kategori;
+            $entri->alasan = $request->alasan;
+            $entri->tujuan = $request->tujuan;
+            $entri->pemberi_izin = $request->pemberi_izin;
+            $entri->tgl_berakhir_izin = date('Y-m-d', strtotime($request->tgl_berakhir_izin));
+            $message['message'] = true;
+            $message['messageAlert'] = false;
+            $entri->save();
 
-                $searchforHistory = HistoriIzin::find($entri->history_id);
-
-                $storeHistory = HistoriIzin::find($searchforHistory['id'])->update([
-                    'kode_izin' => $entri->kode_izin,
-                    'santri_id' => $entri->santri_id, 
-                    'tujuan' => $entri->tujuan, 
-                    'alasan' => $entri->alasan, 
-                    'kategori' => $entri->kategori, 
-                    'pemberi_izin' => $entri->pemberi_izin, 
-                    'status' => 'belum_kembali', 
-                    'tgl_berakhir_izin' => date('Y-m-d', strtotime($entri->tgl_berakhir_izin))
-                ]);
-        }else{
-            $this->validate($request, [
-                'santri_id' => 'required', 
-                'kategori' => 'required', 
-                'tujuan' => 'required', 
-                'alasan' => 'required', 
+            $storeHistory = HistoriIzin::whereKeamananId($entri->id)->update([
+                'keamanan_id' => $entri->id,
+                'kode_izin' => $entri->kode_izin,
+                'santri_id' => $entri->santri_id, 
+                'tujuan' => $entri->tujuan, 
+                'alasan' => $entri->alasan, 
+                'kategori' => $entri->kategori, 
+                'pemberi_izin' => $entri->pemberi_izin, 
+                'tgl_berakhir_izin' => date('Y-m-d', strtotime($entri->tgl_berakhir_izin))
             ]);
+        }else{
+                $this->validate($request, [
+                    'santri_id' => 'required', 
+                    'kategori' => 'required', 
+                    'tujuan' => 'required', 
+                    'alasan' => 'required', 
+                    'jam_berakhir' => 'required'
+                ]);
 
                 $entri->santri_id = $request->santri_id;
                 $entri->kategori = $request->kategori;
                 $entri->alasan = $request->alasan;
                 $entri->tujuan = $request->tujuan;
-                $entri->status = 'belum_kembali';
                 $message['message'] = true;
                 $message['messageAlert'] = false;
                 $entri->save();
 
-                $searchforHistory = HistoriIzin::find($entri->history_id);
-
-                $storeHistory = HistoriIzin::find($searchforHistory['id'])->update([
+                $storeHistory = HistoriIzin::whereKeamananId($entri->id)->update([
+                    'keamanan_id' => $entri->id,
                     'kode_izin' => $entri->kode_izin,
                     'santri_id' => $entri->santri_id, 
                     'tujuan' => $entri->tujuan, 
                     'alasan' => $entri->alasan, 
                     'kategori' => $entri->kategori, 
-                    'status' => 'belum_kembali', 
+                    'jam_berakhir' => $entri->jam_berakhir
                 ]);
         }
 
@@ -311,6 +338,10 @@ class KeamananController extends Controller
     public function destroy($id)
     {
         $entri = Keamanan::find($id)->delete();
+
+        if ($entri) {
+            $historyDeletes = HistoriIzin::whereKeamananId($id)->delete();
+        }
 
         return response()->json(['response' => 'success']);
     }
@@ -354,14 +385,20 @@ class KeamananController extends Controller
 
     public function ceklisSantriKembali(Request $request, $id)
     {
+        $getKeamananInfo = Keamanan::find($id);
         $ceklis = Keamanan::find($id)->update(['status' => 'sudah_kembali']);
         $storeHistory = HistoriIzin::create([
-                    'kode_izin' => $ceklis->kode_izin,
-                    'santri_id' => $ceklis->santri_id, 
-                    'tujuan' => $ceklis->tujuan, 
-                    'alasan' => $ceklis->alasan, 
-                    'kategori' => $ceklis->kategori, 
-                    'status' => 'sudah_kembali', 
+                    'keamanan_id' => $id,
+                    'kode_izin' => $getKeamananInfo->kode_izin,
+                    'santri_id' => $getKeamananInfo->santri_id, 
+                    'tujuan' => $getKeamananInfo->tujuan, 
+                    'alasan' => $getKeamananInfo->alasan, 
+                    'kategori' => $getKeamananInfo->kategori, 
+                    'status' => 'sudah_kembali',
+                    'tgl_berakhir_izin' => Carbon::now(),
+                    'jam_berakhir' => Carbon::now()->format('H:i:s'),
+                    'created_at' => $getKeamananInfo['created_at'],
+                    'pemberi_izin' => $getKeamananInfo['pemberi_izin']
                 ]);
         return response()->json(['response' => 'success']);
     }

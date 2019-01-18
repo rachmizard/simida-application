@@ -1,5 +1,13 @@
 <template>
     <div id="app">
+      <div class="page-header">
+          <h1 class="page-title">Keamanan</h1>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Keamanan</a></li>
+              <li class="breadcrumb-item active">Laporan Izin</li>
+          </ol>
+      </div>
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">
@@ -121,7 +129,8 @@
                         value.status,
                         value.kategori,
                         value.created_at,
-                        value.tgl_berakhir_izin
+                        value.tgl_berakhir_izin,
+                        value.jam_berakhir
                     ]);
                   })
 
@@ -159,8 +168,9 @@
                            {title: 'Alasan' },
                            {title: 'Status' },
                            {title: 'Kategori' },
-                           {title: 'Tanggal Izin' },
-                           {title: 'Tanggal Akhir Izin' },
+                           {title: 'Tanggal Mulai Izin' },
+                           {title: 'Tanggal Kembali' },
+                           {title: 'Jam Kembali' },
                       ]
                   });
 

@@ -1,5 +1,13 @@
 <template>
     <div id="app">
+      <div class="page-header">
+          <h1 class="page-title">Keamanan</h1>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Keamanan</a></li>
+              <li class="breadcrumb-item active">Entri Keamanan</li>
+          </ol>
+      </div>
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">
@@ -49,7 +57,7 @@
                                               </div><!--/Example-->
                                       </div><!--/.form-group
                                       =========================-->
-                                   </div><!--/.form-row-->
+                                  </div><!--/.form-row-->
                               </div><!--/.col-->
                           </div>
                       </div>
@@ -138,6 +146,13 @@
 				                                                          </div>
 					                                                        <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
 				                                                      </div>
+                                                              <div v-if="entri.kategori == 'dekat'" class="col-md-4">
+                                                                  <div class="form-group">
+                                                                    <label class="form-control-label" for="inputBasicFirstName">Jam Berakhir Izin</label>
+                                                                    <input @change="filterSantriForEntriIzin()" type="time" v-model="entri.jam_berakhir" class="form-control" placeholder="Contoh: 17:00:00">
+                                                                  </div>
+                                                                  <span v-if="errors.alasan" class="badge badge-danger">{{ errors.alasan[0] }}</span>
+                                                              </div>
 				                                                      <div v-if="entri.kategori == 'jauh'" class="col-md-6">
 				                                                          <div class="form-group">
 				                                                            <label class="form-control-label" for="inputBasicFirstName">Dewan Kyai yang mengizinkan</label>
@@ -263,7 +278,8 @@
                 	alasan: '',
                 	status: '',
                 	pemberi_izin: '',
-                  tgl_berakhir_izin: ''
+                  tgl_berakhir_izin: '',
+                  jam_berakhir: '17:00:00'
                 },
                 resultsearch: '',
                 message: '',
