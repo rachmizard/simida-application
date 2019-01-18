@@ -91,14 +91,16 @@ body {
     font-family: Roboto, sans-serif;
     color: rgba(163, 175, 183, .9);
     background: #263238;
+    padding: 0;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .08)
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
 }
-
+li.site-menu-item.anak{padding-left:15px !important;}
+li.site-menu-item.has-sub>a{font-weight: 500;}
 .site-menubar-body {
-    height: 100%;
     height: -webkit-calc(100% - 76px);
-    height: calc(100% - 76px)
+    height: calc(100% - 76px);
+    padding: 0;
 }
 
 .site-menubar ul {
@@ -246,7 +248,8 @@ body {
 
 .site-menu-item a {
     display: block;
-    color: rgba(163, 175, 183, .9)
+/*    color: rgba(163, 175, 183, .9);*/
+    color: #fafafa;
 }
 
 .site-menu-item.is-hidden {
@@ -283,7 +286,7 @@ body {
 .site-menu-item.open .site-menu-sub{display: block !important;}
 .site-menu-item.open:hover .site-menu-sub{display: block !important;}
 
-.site-menu-item{padding-left:10px !important;}
+
 
 .site-menu>.site-menu-item.active {
     background: #242f35;
@@ -2288,7 +2291,8 @@ body.site-gridmenu-active {
     margin-top: 20px;
     font-size: 15px;
     line-height: 38px;
-    color: #76838f;
+/*    color: #76838f;*/
+    color: #fff;
     text-transform: uppercase;
     -webkit-transition: all .25s, font .1s .15s, color .1s .15s;
     -o-transition: all .25s, font .1s .15s, color .1s .15s;
@@ -2296,7 +2300,7 @@ body.site-gridmenu-active {
 }
 
 .site-menubar-unfold .site-menu>.site-menu-item>a .site-menu-title {
-    font-size: 14px
+    font-size: 15px
 }
 
 .site-menubar-unfold .site-menu-icon {

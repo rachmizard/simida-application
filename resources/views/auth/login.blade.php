@@ -110,7 +110,7 @@
                 Forgot Your Password?
             </a>
           </div>
-          <button id="validateButton1" type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button id="" type="submit" class="btn btn-primary btn-block">Sign in</button>
         </form>
 
 <!--        <p>No account? <a href="register-v2.html">Sign Up</a></p>-->
