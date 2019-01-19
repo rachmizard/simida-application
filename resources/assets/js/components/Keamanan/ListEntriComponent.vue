@@ -24,10 +24,28 @@
                 </header>
 
                 <div class="panel-body table-responsive">
-                  <div class="form-group">
-                    <router-link :to="{ path: '/keamanan' }" class="btn btn-sm btn-info"><i class="icon wb-plus"></i>  Tambah Entri Izin</router-link>
-                    <router-link :to="{ path: '/pemberitahuan' }" class="btn btn-sm btn-danger"><i class="icon wb-bell"></i>  Pemberitahuan</router-link>
-                    <router-link :to="{ path: '/laporan/entri_izin' }" class="btn btn-sm btn-primary"><i class="icon wb-book"></i> Laporan Entri</router-link>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label for=""><i class="icon wb-calendar"></i> Tanggal Mulai</label>
+                            <input type="text" class="datepicker form-control" name="start_date" placeholder="Contoh: 2019-01-01">
+                          </div>
+                          <div class="col-md-4">
+                            <label for=""><i class="icon wb-calendar"></i> Tanggal Akhir</label>
+                            <input type="text" class="datepicker form-control" name="end_date" placeholder="Contoh: 2019-01-25">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <router-link :to="{ path: '/keamanan' }" class="btn btn-sm btn-info"><i class="icon wb-plus"></i>  Tambah Entri Izin</router-link>
+                        <router-link :to="{ path: '/pemberitahuan' }" class="btn btn-sm btn-danger"><i class="icon wb-bell"></i>  Pemberitahuan</router-link>
+                        <router-link :to="{ path: '/laporan/entri_izin' }" class="btn btn-sm btn-primary"><i class="icon wb-book"></i> Laporan Entri</router-link>
+                      </div>
+                    </div>
                   </div>
                   <table id="listEntriIzinTable" class="table table-striped table-hover">
                     <thead>
@@ -38,9 +56,7 @@
                         <th>Alasan</th>
                         <th>Status</th>
                         <th>Kategori</th>
-                        <th>Tanggal Izin</th>
-                        <th>Tanggal Akhir Izin</th>
-                        <th>Jam Berakhir Izin</th>
+                        <th>Tanggal Mulai Izin</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -126,10 +142,10 @@
 		              serverSide: true,
 		              ajax: {
 		                url: "/keamanan/getListSantriIzinDataTables",
-		                // data:function(e){
-                  //     e.start_date = $('input[name="start_date"]').val();
-		                //   e.end_date = $('input[name="end_date"]').val();
-		                // }
+		                data:function(e){
+                      e.start_date = $('input[name="start_date"]').val();
+		                  e.end_date = $('input[name="end_date"]').val();
+		                }
 		              },
 		              columns: [
 		                  { data: 'santri.nis', name: 'santri.nis' },
@@ -139,14 +155,12 @@
                       { data: 'status', name: 'status'},
 		                  { data: 'kategori', name: 'kategori'},
                       { data: 'created_at', name: 'created_at'},
-		                  { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin'},
-                      { data: 'jam_berakhir', name: 'jam_berakhir'},
 		                  { data: 'action', name: 'action'},
 		              ]
 		          }); 
 
 			         // Auto reload when getting result 
-  			        $('#filter_trigger').on('click', function(e) {
+  			        $('input[name="end_date"]').on('change', function(e) {
   			            table.draw();
   			            e.preventDefault();
   			        });

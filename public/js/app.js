@@ -113056,6 +113056,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -113125,17 +113141,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "/keamanan/getListSantriIzinDataTables"
-                        // data:function(e){
-                        //     e.start_date = $('input[name="start_date"]').val();
-                        //   e.end_date = $('input[name="end_date"]').val();
-                        // }
+                        url: "/keamanan/getListSantriIzinDataTables",
+                        data: function data(e) {
+                            e.start_date = $('input[name="start_date"]').val();
+                            e.end_date = $('input[name="end_date"]').val();
+                        }
                     },
-                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'tgl_berakhir_izin', name: 'tgl_berakhir_izin' }, { data: 'jam_berakhir', name: 'jam_berakhir' }, { data: 'action', name: 'action' }]
+                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'action', name: 'action' }]
                 });
 
                 // Auto reload when getting result 
-                $('#filter_trigger').on('click', function (e) {
+                $('input[name="end_date"]').on('change', function (e) {
                     table.draw();
                     e.preventDefault();
                 });
@@ -113220,50 +113236,56 @@ var render = function() {
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "panel-body table-responsive" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
                     _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-sm btn-info",
-                        attrs: { to: { path: "/keamanan" } }
-                      },
+                      "div",
+                      { staticClass: "form-group" },
                       [
-                        _c("i", { staticClass: "icon wb-plus" }),
-                        _vm._v("  Tambah Entri Izin")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-sm btn-danger",
-                        attrs: { to: { path: "/pemberitahuan" } }
-                      },
-                      [
-                        _c("i", { staticClass: "icon wb-bell" }),
-                        _vm._v("  Pemberitahuan")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-sm btn-primary",
-                        attrs: { to: { path: "/laporan/entri_izin" } }
-                      },
-                      [
-                        _c("i", { staticClass: "icon wb-book" }),
-                        _vm._v(" Laporan Entri")
-                      ]
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-info",
+                            attrs: { to: { path: "/keamanan" } }
+                          },
+                          [
+                            _c("i", { staticClass: "icon wb-plus" }),
+                            _vm._v("  Tambah Entri Izin")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { to: { path: "/pemberitahuan" } }
+                          },
+                          [
+                            _c("i", { staticClass: "icon wb-bell" }),
+                            _vm._v("  Pemberitahuan")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: { to: { path: "/laporan/entri_izin" } }
+                          },
+                          [
+                            _c("i", { staticClass: "icon wb-book" }),
+                            _vm._v(" Laporan Entri")
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(3)
               ])
             ])
           ])
@@ -113312,6 +113334,48 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _c("i", { staticClass: "icon wb-calendar" }),
+              _vm._v(" Tanggal Mulai")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "datepicker form-control",
+              attrs: {
+                type: "text",
+                name: "start_date",
+                placeholder: "Contoh: 2019-01-01"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _c("i", { staticClass: "icon wb-calendar" }),
+              _vm._v(" Tanggal Akhir")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "datepicker form-control",
+              attrs: {
+                type: "text",
+                name: "end_date",
+                placeholder: "Contoh: 2019-01-25"
+              }
+            })
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "table",
       {
@@ -113333,11 +113397,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("th", [_vm._v("Kategori")]),
             _vm._v(" "),
-            _c("th", [_vm._v("Tanggal Izin")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Tanggal Akhir Izin")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Jam Berakhir Izin")]),
+            _c("th", [_vm._v("Tanggal Mulai Izin")]),
             _vm._v(" "),
             _c("th", [_vm._v("Aksi")])
           ])
@@ -113802,19 +113862,19 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("NIS")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("NIS")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nama Santri")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Nama Santri")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Kategori Izin")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Kategori Izin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tanggal Mulai Izin")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Mulai Izin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tanggal Selesai Izin")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Selesai Izin")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Jam Kembali")]),
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Jam Kembali")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Status")])
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Status")])
       ])
     ])
   }

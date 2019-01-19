@@ -67,13 +67,13 @@
                   <table class="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>NIS</th>
-                        <th>Nama Santri</th>
-                        <th>Kategori Izin</th>
-                        <th>Tanggal Mulai Izin</th>
-                        <th>Tanggal Selesai Izin</th>
-                        <th>Jam Kembali</th>
-                        <th>Status</th>
+                        <th width="20%">NIS</th>
+                        <th width="20%">Nama Santri</th>
+                        <th width="20%">Kategori Izin</th>
+                        <th width="20%">Tanggal Mulai Izin</th>
+                        <th width="20%">Tanggal Selesai Izin</th>
+                        <th width="20%">Jam Kembali</th>
+                        <th width="20%">Status</th>
                       </tr>
                     </thead>
                     <tbody>

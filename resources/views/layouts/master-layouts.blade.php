@@ -396,7 +396,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item anak">
-                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Entri</span></a>
+                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Laporan Izin</span></a>
                                             </li>
                                             <list-notifikasi class="anak"></list-notifikasi>
                                         </ul>
