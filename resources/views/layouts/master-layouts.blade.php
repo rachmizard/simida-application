@@ -98,6 +98,29 @@
     }
   </style>
 
+  <!-- Customize Cascading Style Sheet -->
+  <style>
+      table.striped tr {
+        border-bottom: none;
+      }
+
+      table.striped > tbody > tr:nth-child(odd) {
+        background-color: rgba(242, 242, 242, 0.5);
+      }
+
+      table.striped > tbody > tr > td {
+        border-radius: 0;
+        font-weight: 500;
+      }
+      table.striped > tbody > tr > td input{
+        font-weight: 500;font-size: 13px;
+      }
+      table.highlight > tbody > tr {
+        -webkit-transition: background-color .25s ease;
+        transition: background-color .25s ease;
+      }
+  </style>
+
 </head>
 <body class="animsition">
     <div id="app">
@@ -297,9 +320,9 @@
                                             <!-- <li class="site-menu-item">
                                                 <a href="{{ route('pendidikan.jadwalpelajaran') }}#/jadwalpelajaran"><span class="site-menu-title">Jadwal Pelajaran</span></a>
                                             </li> -->
-                                            <li class="site-menu-item anak">
+                                            <!-- <li class="site-menu-item anak">
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </li>
                                     <li class="site-menu-item">
@@ -322,14 +345,17 @@
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                                     </li>
+                                    <li class="site-menu-item">
+                                        <a href="{{ route('pendidikan.nilai.index') }}"><span class="site-menu-title">Input Nilai</span></a>
+                                    </li>
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item anak">
-                                                <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
+                                                <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Laporan Absensi Siswa</span></a>
                                             </li>
                                             <li class="site-menu-item anak">
-                                                <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
+                                                <a href="#!"><span class="site-menu-title">Laporan Nilai Siswa</span></a>
                                             </li>
                                         </ul>
                                     </li>

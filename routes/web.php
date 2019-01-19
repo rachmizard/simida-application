@@ -234,6 +234,11 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/jadwalpelajaran/{id}/update', 'JadwalPelajaranController@update')->name('jadwalpelajaran.update');
 			Route::delete('/jadwalpelajaran/{id}/destroy', 'JadwalPelajaranController@destroy')->name('jadwalpelajaran.destroy');
 			// End Jadwal Pelajaran
+
+			// Nilai & Rekap Nilai
+			Route::resource('nilai', 'NilaiController');
+			// End Nilai & Rekap Nilai
+
 		});
 	});
 });
