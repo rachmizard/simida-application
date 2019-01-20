@@ -346,7 +346,7 @@
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                                     </li>
                                     <li class="site-menu-item">
-                                        <a href="{{ route('pendidikan.nilai.index') }}"><span class="site-menu-title">Input Nilai</span></a>
+                                        <a href="{{ route('pendidikan.nilai.index') }}#/nilai/pilihsantri/"><span class="site-menu-title">Input Nilai</span></a>
                                     </li>
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>

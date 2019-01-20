@@ -393,6 +393,16 @@ const routes = [
 		},
 		// End Jadwal Pelajaran
 
+		// Nilai
+
+		{
+		  path: '/nilai/pilihsantri',
+		  name: 'nilaiPilihSantri',
+		  component: require('./components/Pendidikan/Nilai/NilaiComponent.vue') 
+		},
+
+		// End Nilai
+
 		// Keuangan
 
 			// Pemasukan

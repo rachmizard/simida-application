@@ -1,9 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Santri;
 use App\Nilai;
+use App\Periode;
+use App\Semester;
+use App\Tingkat;
+use App\Kelas;
+use App\Http\Resources\NilaiResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DB;
 
 class NilaiController extends Controller
 {
@@ -12,7 +19,7 @@ class NilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('pendidikan.nilai.index');
     }

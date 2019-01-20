@@ -157,6 +157,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/home', 'HomeController@pendidikanHome')->name('home');
 			// Master Periode
 			Route::get('/periode', 'PeriodeController@index')->name('periode');
+			Route::get('/getPeriodeForSelect2', 'PeriodeController@getPeriodeForSelect2')->name('periode.getPeriodeForSelect2');
 			Route::get('/periode/getPeriodeDataTables', 'PeriodeController@getPeriodeDataTables')->name('periode.getPeriodeDataTables');
 			Route::put('/periode/{id}/aktif', 'PeriodeController@aktif')->name('periode.aktif');
 			Route::get('/periode/{id}/show', 'PeriodeController@show')->name('periode.show');
@@ -170,7 +171,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/matapelajaran', 'MataPelajaranController@index')->name('matapelajaran');
 			Route::get('/matapelajaran/getMataPelajaranDataTables', 'MataPelajaranController@getMataPelajaranDataTables')->name('matapelajaran.getMataPelajaranDataTables');
 			Route::get('/matapelajaran/JSON', 'MataPelajaranController@JSON')->name('matapelajaran.JSON');
-			Route::get('/matapelajaran/MataPelajaranSelect2', 'MataPelajaranController@MataPelajaranSelect2')->name('matapelajaran.MataPelajaranSelect2');
+			Route::get('/matapelajaran/	', 'MataPelajaranController@MataPelajaranSelect2')->name('matapelajaran.MataPelajaranSelect2');
 			Route::post('/matapelajaran/store', 'MataPelajaranController@store')->name('matapelajaran.store');
 			Route::get('/matapelajaran/{id}/show', 'MataPelajaranController@show')->name('matapelajaran.show');
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
@@ -199,6 +200,12 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');
 			Route::post('/penempatankelas/{id}/oneByOne', 'PenempatanKelasController@oneByOne');
 			// End Penempatan Kelas & Tingkat
+
+			// Kelas In Pendidikan
+			Route::get('/KelasSelect2', 'KelasController@KelasSelect2')->name('kelas.KelasSelect2');
+
+			// Tingkat In Pendidikan
+			Route::get('/TingkatanSelect2', 'TingkatController@TingkatanSelect2')->name('tingkat.TingkatanSelect2');
 
 			// Absen
 			Route::get('/absen', 'AbsenController@index')->name('absen');
