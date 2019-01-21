@@ -14,6 +14,10 @@ class SemesterSelect2Resource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'text' => $this->tingkat_semester
+        ];
     }
 }

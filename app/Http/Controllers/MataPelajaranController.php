@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MataPelajaran;
 use App\Kelas;
+use App\Tingkat;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Resources\MataPelajaranSelect2Resource;
@@ -67,6 +68,11 @@ class MataPelajaranController extends Controller
         return MataPelajaranSelect2Resource::collection(MataPelajaran::all());
     }
 
+    public function showMapelByTingkat($id)
+    {
+        return MataPelajaran::with('tingkat')->whereTingkatId($id)->get();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,6 +84,7 @@ class MataPelajaranController extends Controller
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
+            'bobot' => 'required'
             // 'kelas_id' => 'required',
         ]);
 
@@ -134,6 +141,7 @@ class MataPelajaranController extends Controller
          $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
+            'bobot' => 'required'
             // 'kelas_id' => 'required',
         ]);
 
@@ -141,16 +149,17 @@ class MataPelajaranController extends Controller
 
         $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->count();
 
-        if ($validator > 0) {
-            $data['message'] = false;
-            $data['messageError'] = false;
-            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
-        }else{
+        // Turn off condition
+        // if ($validator > 0) {
+            // $data['message'] = false;
+            // $data['messageError'] = false;
+            // $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
+        // }else{
             $data['message'] = 'Mata Pelajaran berhasil di edit!';
             $data['messageError'] = false;
             $data['messageWarning'] = false;
             $post = MataPelajaran::find($id)->update($request->all());
-        }
+        // }
         return response()->json(['response' => $data]);
     }
 

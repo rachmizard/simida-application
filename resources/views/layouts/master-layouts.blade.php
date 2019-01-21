@@ -345,8 +345,16 @@
                                     <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                                     </li>
-                                    <li class="site-menu-item">
-                                        <a href="{{ route('pendidikan.nilai.index') }}#/nilai/pilihsantri/"><span class="site-menu-title">Input Nilai</span></a>
+                                    <li class="site-menu-item has-sub">
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Nilai</span></a>
+                                        <ul class="site-menu-sub">
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('pendidikan.nilai.index') }}#/nilai/pilihsantri/"><span class="site-menu-title">Input Nilai</span></a>
+                                            </li>
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('pendidikan.predikat.index') }}#/list_predikat"><span class="site-menu-title">Predikat</span></a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
@@ -458,11 +466,11 @@
         <!--END: Side Navbar-->
         </header>
         <!-- Page -->
-        <main class="page">
+        <div class="page">
           <div class="page-content">
               @yield('content')
           </div><!--/.page-content-->
-        </main><!--/.page-->
+        </div><!--/.page-->
         <!-- End Page -->
         <!-- Footer -->
         <footer class="site-footer">

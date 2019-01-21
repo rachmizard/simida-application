@@ -15,14 +15,13 @@ class NilaiResource extends Resource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'nis' => $this->nis,
             'nama_santri' => $this->nama_santri,
             'kelas' => $this->kelas['nama_kelas'],
             'asrama' => $this->asrama['ngaran']['nama'],
-            'status_nsilai' => $this->status($this->id)
+            'status_nilai' => $this->status($this->id)
         ];
     }
 

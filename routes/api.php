@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
+
 Route::put('/keamanan/{id}/update/status', 'KeamananController@ceklisSantriKembali');
 
 Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');

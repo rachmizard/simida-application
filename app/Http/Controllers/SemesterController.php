@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Semester;
 use Yajra\Datatables\Datatables;
+use App\Http\Resources\SemesterSelect2Resource;
 use Illuminate\Http\Request;
 
 class SemesterController extends Controller
@@ -39,6 +40,11 @@ class SemesterController extends Controller
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
+    }
+
+    public function semesterSelect2()
+    {
+        return SemesterSelect2Resource::collection(Semester::all());
     }
 
     /**

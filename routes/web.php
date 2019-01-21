@@ -177,6 +177,8 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/matapelajaran/{id}/update', 'MataPelajaranController@update')->name('matapelajaran.update');
 			Route::delete('/matapelajaran/{id}/destroy', 'MataPelajaranController@destroy')->name('matapelajaran.destroy');
 
+			Route::get('/matapelajaran/{id}/tingkat', 'MataPelajaranController@showMapelByTingkat')->name('matapelajaran.showMapelByTingkat');
+
 				// Export Mata Pelajaran
 					Route::get('/matapelajaran/export', 'MataPelajaranController@export')->name('matapelajaran.export');
 				// End Export Mata Pelajaran
@@ -230,6 +232,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/semester/{id}/update', 'SemesterController@update')->name('semester.update');
 			Route::delete('/semester/{id}/destroy', 'SemesterController@destroy')->name('semester.destroy');
 			Route::put('/semester/{id}/statusActive', 'SemesterController@statusActive')->name('semester.statusActive');
+			Route::get('/semester/semesterSelect2', 'SemesterController@semesterSelect2')->name('semester.select2');
 
 			// End Semester
 
@@ -242,9 +245,27 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::delete('/jadwalpelajaran/{id}/destroy', 'JadwalPelajaranController@destroy')->name('jadwalpelajaran.destroy');
 			// End Jadwal Pelajaran
 
+			// Predikat
+			Route::get('/predikat', 'PredikatController@index')->name('predikat.index');
+			Route::get('/predikat/{id}/show', 'PredikatController@show');
+			Route::post('/predikat/store', 'PredikatController@store');
+			Route::put('/predikat/{id}/update', 'PredikatController@update');
+			Route::delete('/predikat/{id}/destroy', 'PredikatController@destroy');
+			Route::get('/getPredikatAll', 'PredikatController@getPredikatAll');
+			// End Predikat
+
 			// Nilai & Rekap Nilai
-			Route::resource('nilai', 'NilaiController');
+
+			Route::get('/nilai', 'NilaiController@index')->name('nilai.index');
+			Route::get('/nilai/getSantri', 'NilaiController@getSantri');
+
 			// End Nilai & Rekap Nilai
+
+			// Kelas by tingkat di dalam pendidikan
+			Route::get('/kelas/{id}/tingkat', 'NilaiController@showClassByTingkat');
+
+			// Santri detail di dalam pendidikan
+			Route::get('/santri/{id}/show', 'SantriController@show');
 
 		});
 	});
@@ -263,7 +284,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 
 			// Get Asrama
 			Route::get('/asrama/AsramaSelect2', 'AsramaController@AsramaSelect2')->name('asrama.AsramaSelect2');
-			// End Get Asrawam
+			// End Get Asrama
 
 			// Pemasukan
 			Route::get('/', 'KeuanganController@index')->name('home');

@@ -123,7 +123,7 @@
                       $("#title-data").html(data.nama_kelas);
                       $("#tingkat").val(data.tingkat);
                       $("#nama_kelas").val(data.nama_kelas);
-                      $("#tingkat_id").attr('value', data.tingkat_id);
+                      $("#tingkat_id").val(data.tingkat_id.id);
                       $("#lokal").val(data.lokal);
                       $("#guru_id").val(data.guru_id.id);
                       $("#badal_id").val(data.badal_id.id);

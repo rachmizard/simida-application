@@ -10,7 +10,7 @@ class MataPelajaran extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
-        'nama_mata_pelajaran', 'tingkat_id'
+        'nama_mata_pelajaran', 'tingkat_id', 'bobot'
         // , 'kelas_id', 
     ];
 

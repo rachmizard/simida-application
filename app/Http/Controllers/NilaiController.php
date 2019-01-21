@@ -24,6 +24,44 @@ class NilaiController extends Controller
         return view('pendidikan.nilai.index');
     }
 
+    public function showClassByTingkat($id)
+    {
+        $kelas = Kelas::whereTingkatId($id)->get();
+        $items = array();
+
+        foreach ($kelas as $value) {
+            $item['id'] = $value->id;
+            $item['text'] = $value->nama_kelas;
+
+            array_push($items, $item);
+        }
+
+        return response()->json($items);
+    }
+
+    public function getSantri(Request $request)
+    {   
+        $santri = array();
+
+        if ($request->all()) {
+
+            $this->validate($request, [
+                'kelas_id' => 'required',
+                'tingkat_id' => 'required',
+                'periode_id' => 'required',
+                'semester_id' => 'required'
+            ]);
+
+            $requestAll = $request->all();
+
+            $santri = NilaiResource::collection(Santri::whereKelasId($requestAll['kelas_id'])
+                ->whereTingkatId($requestAll['tingkat_id'])
+                ->get());
+        }
+
+        return response()->json($santri);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

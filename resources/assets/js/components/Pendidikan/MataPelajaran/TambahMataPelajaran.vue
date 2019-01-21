@@ -1,6 +1,15 @@
 <template>
     <div id="app">
         <div class="panel">
+        <div class="page-header">
+            <h3 class="page-title"><i class="icon wb-book"></i> Mata Pelajaran</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="">Pendidikan</a></li>
+                <li class="breadcrumb-item"><a href="">Mata Pelajaran</a></li>
+                <li class="breadcrumb-item active">Tambah Mata Pelajaran</li>
+            </ol>
+        </div>
             <div class="panel col-md-12">
                 <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
                     <div class="row row-lg">
@@ -27,7 +36,7 @@
                                             		<div class="col-md-6">
 		                                                <div class="form-group">
 		                                                   <label class="form-control-label" for="inputBasicFirstName">Nama Mata Pelajaran</label>
-		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Tahun baru.." autocomplete="off" />
+		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Nama Mata Pelajaran" autocomplete="off" />
 		                                                        <span v-if="errors.nama_mata_pelajaran" class="label label-danger">{{ errors.nama_mata_pelajaran[0] }}</span>
 		                                                </div>
                                             		</div>
@@ -41,6 +50,13 @@
 		                                                    <span v-if="errors.tingkat_id" class="label label-danger">{{ errors.tingkat_id[0] }}</span>
 		                                                </div>
                                             		</div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                           <label class="form-control-label" for="inputBasicFirstName">Bobot Mata Pelajaran</label>
+                                                           <input v-model="matapelajaran.bobot" type="text" class="form-control" placeholder="Contoh: 5" autocomplete="off" />
+                                                                <span v-if="errors.bobot" class="label label-danger">{{ errors.bobot[0] }}</span>
+                                                        </div>
+                                                    </div>
                                             		<!-- <div class="col-md-4">
 		                                                <div class="form-group">
 		                                                    <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
@@ -89,6 +105,7 @@
                 matapelajaran: {
                     nama_mata_pelajaran: '',
                     tingkat_id: '',
+                    bobot: ''
                     // kelas_id: ''
                 },
                 message: '',

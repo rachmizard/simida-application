@@ -172,7 +172,12 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateKelas = Kelas::find($id)->update($request->all());
+        $getId = Kelas::find($id);
+        $update = Kelas::find($id)->update($request->all());
+
+        $updateNama = Kelas::find($id);
+        $updateNama->nama_kelas = $request->tingkat.$request->lokal.' '.$getId['tingkatKelas']['nama_tingkatan']. ' '.$request->jk;
+        $updateNama->update();
         $data['messageWarning'] = false;
         $data['messageError'] = false;
         $data['message'] = 'Berhasil mengedit Kelas!';
