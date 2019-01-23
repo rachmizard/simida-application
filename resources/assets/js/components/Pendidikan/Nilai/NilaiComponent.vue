@@ -1,14 +1,14 @@
 <template>
 	<div id="app">
+  	<div class="page-header">
+		<h1 class="page-title">Input Nilai</h1>
+		<ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="/">Home</a></li>
+		    <li class="breadcrumb-item"><a href="#">Pendidikan</a></li>
+		    <li class="breadcrumb-item active">Input Nilai</li>
+		</ol>
+    </div>
 	<div class="panel">
-      	<div class="page-header">
-			<h1 class="page-title">Input Nilai</h1>
-			<ol class="breadcrumb">
-			    <li class="breadcrumb-item"><a href="/">Home</a></li>
-			    <li class="breadcrumb-item"><a href="#">Pendidikan</a></li>
-			    <li class="breadcrumb-item active">Input Nilai</li>
-			</ol>
-	    </div>
 		<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 		    <div class="row row-lg">
 		        <div class="col-md-12">
@@ -87,12 +87,12 @@
 			                        <td>{{ listSantri.kelas }}</td>
 			                        <td><span class="badge badge-primary">{{ listSantri.status_nilai }}</span></td>
 			                        <td class="w-50">
-			                            <router-link :to="{ path: '/input_nilai/'+ listSantri.id }" class="btn btn-outline btn-info mb-2">
+			                            <a :href="'nilai/'+ listSantri.id +'/input_nilai'" class="btn btn-outline btn-info mb-2">
 			                                <i class="icon wb-plus" aria-hidden="true"></i> Input Nilai
-			                            </router-link>
-			                            <router-link :to="{ path: '/edit_nilai/'+ listSantri.id }" class="btn btn-outline btn-warning m-0">
+			                            </a>
+			                            <a :href="'nilai/edit_nilai?santri_id='+ listSantri.id +'&periode_id='+ nilai.periode_id +'&kelas_id='+ listSantri.kelas_id +'&semester_id='+ nilai.semester_id +''" class="btn btn-outline btn-warning m-0">
 			                                <i class="icon wb-edit" aria-hidden="true"></i> Edit Nilai
-			                            </router-link>
+			                            </a>
 			                        </td>
 			                    </tr>
 			                </tbody>

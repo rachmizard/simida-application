@@ -7,6 +7,7 @@ use App\Periode;
 use App\Semester;
 use App\Tingkat;
 use App\Kelas;
+use App\MataPelajaran;
 use App\Http\Resources\NilaiResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -72,6 +73,39 @@ class NilaiController extends Controller
         //
     }
 
+    public function viewInputNilai($id)
+    {
+        $santri = Santri::findOrFail($id);
+
+        $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
+
+        return view('pendidikan.nilai.input-nilai', compact('santri', 'mata_pelajarans'));
+    }
+
+    public function storeNilai(Request $request, $id)
+    {
+        // dd($request->all());
+        $santri = Santri::findOrFail($id);
+        $data = [];
+        foreach ($request->mata_pelajaran_id as $key => $value) {
+            $data = array(
+                'santri_id' => $id,
+                'kelas_id' => $santri->kelas_id,
+                'semester_id' => 1, // hardcore
+                'periode_id' => 1,
+                'mata_pelajaran_id' => $value,
+                'nilai_mingguan' => $request->nilai_mingguan [$key],
+                'nilai_uts' => $request->nilai_uts [$key],
+                'nilai_uas' => $request->nilai_uas [$key],
+                'rata_rata' => $request->rata_rata [$key]
+            );
+            Nilai::create($data);
+        }
+        // return response($data);
+        // var_dump($data);
+        return redirect()->back();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -100,9 +134,14 @@ class NilaiController extends Controller
      * @param  \App\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nilai $nilai)
+    public function viewEditNilai(Request $request)
     {
-        //
+        $santri = Santri::findOrFail($request->santri_id);
+        $mata_pelajarans = Nilai::where('santri_id', $request->santri_id)
+                            ->where('periode_id', $request->periode_id)
+                            ->orWhere('semester_id', $request->semester_id)
+                            ->get();
+        return view('pendidikan.nilai.edit-nilai', compact('santri', 'mata_pelajarans'));
     }
 
     /**

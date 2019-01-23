@@ -37,52 +37,26 @@
 			</div><!--/.panel -->
 
 			<div class="panel">
-				<div class="panel-body container-fluid" style="background-color: #2222;">
+				<div class="panel-body container-fluid" style="background-color: #fafafa;">
 				    <div class="row row-lg">
 				            <div class="col-md-12">
 				                <h4 class="example-title">Input Nilai Pelajaran</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat {{ santris.tingkat }} </p>
 				                <table class="table table-hover table-stripped">
-				                    <thead>
-				                        <tr>
-				                            <th data-field="pelajaran">Nama Pelajaran</th>
-				                            <th data-field="mingguan">Mingguan</th>
-				                            <th data-field="praktek">Praktek</th>
-				                            <th data-field="uts">UTS</th>
-				                            <th data-field="uas">UAS</th>
-				                            <th data-field="bobot">Nilai bobot</th>
-				                            <th data-field="rata">Rata-Rata</th>
-				                        </tr>
-				                    </thead>
 				                    <tbody>
-				                        <tr v-for="(mata_pelajaran, index) in mata_pelajarans">
-				                            <td><span>{{ mata_pelajaran.nama_mata_pelajaran }}</span></td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
-				                            </td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
-				                            </td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
-				                            </td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
-				                            </td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
-				                            </td>
-				                            <td>
-				                                <input type="number" class="form-control form-control-sm">
+				                        <tr v-for="(i, ii) in coba_pelajarans" :key="ii">
+				                            <td v-for="(j, jj) in i" :key="jj">
+				                            	{{ j.nama_mata_pelajaran }}
+				                                <input type="number" @keyup="calculateAverage()" class="form-control form-control-sm" v-bind:placeholder="j.jenis_nilai" v-model="response[ii][jj]">
 				                            </td>
 				                        </tr>
 				                    </tbody>
 				                </table>
 				                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
 				                    <button class="btn btn-danger">Kembali</button>
-				                    <button class="btn btn-primary">Selesai</button>
 				                </div><!--/.tombolAksi-->
 				            </div><!--/.row-->
+				            {{ mata_pelajarans }}
 				        </div>
 				</div><!--/.panel-body-->
 			</div><!--/.panel -->
@@ -100,7 +74,51 @@
 					nis: '',
 					tingkat: ''
 				},
-				mata_pelajarans: []
+				// mata_pelajarans: [],
+				coba_pelajarans: null,
+				mata_pelajarans: [
+				    [
+				      {
+				        nama_mata_pelajaran: "Tauhid Rancang",
+				        jenis_nilai: "nilai_mingguan"
+				      },
+				      {
+				        nama_mata_pelajaran: "Tauhid Rancang",
+				        jenis_nilai: "nilai_uts"
+				      },
+				      {
+				        nama_mata_pelajaran: "Tauhid Rancang",
+				        jenis_nilai: "nilai_uas"
+				      },
+				      {
+				        nama_mata_pelajaran: "Tauhid Rancang",
+				        jenis_nilai: "rata_rata"
+				      }
+				    ],
+				    [
+				      {
+				        nama_mata_pelajaran: "Fiqih Rancang",
+				        jenis_nilai: "nilai_mingguan"
+				      },
+				      {
+				        nama_mata_pelajaran: "Fiqih Rancang",
+				        jenis_nilai: "nilai_uts"
+				      },
+				      {
+				        nama_mata_pelajaran: "Fiqih Rancang",
+				        jenis_nilai: "nilai_uas"
+				      },
+				      {
+				        nama_mata_pelajaran: "Fiqih Rancang",
+				        jenis_nilai: "rata_rata"
+				      }
+				    ]
+				  ],
+				nilai_nilai: [],
+			    response: [
+			      ['',''],
+			      ['','']
+			    ]
 			}
 		},
 
@@ -123,8 +141,13 @@
 
 			fetchMataPelajaran(id){
 				axios.get('/pendidikan/matapelajaran/'+ id +'/tingkat').then(response => {
-					this.mata_pelajarans = response.data;
+					// this.mata_pelajarans = response.data;
+					console.log(this.mata_pelajarans);
 				});
+			},
+
+			calculateAverage(id){
+				console.log(id);
 			}
 		},
 	}

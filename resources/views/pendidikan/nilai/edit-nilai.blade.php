@@ -6,7 +6,7 @@
 			        <li class="breadcrumb-item"><a href="/">Home</a></li>
 			        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
 			        <li class="breadcrumb-item"><a href="#">Nilai</a></li>
-			        <li class="breadcrumb-item active">Input Nilai</li>
+			        <li class="breadcrumb-item active">Edit Nilai Santri {{ $santri->nama_santri }}</li>
 			    </ol>
 			</div>
 			<div class="panel">
@@ -40,7 +40,7 @@
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
 				    <div class="row row-lg">
 				            <div class="col-md-12">
-				                <h4 class="example-title"><i class="icon wb-pencil"></i> Input Nilai Pelajaran</h4>
+				                <h4 class="example-title"><i class="icon wb-pencil"></i> Edit Nilai Pelajaran</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat {{ $santri->tingkat['nama_tingkatan'] }} </p>
 				                <form action="{{ route('pendidikan.nilai.store', $santri->id) }}" method="POST">
 				                	{{ csrf_field() }}
@@ -55,31 +55,36 @@
 					                        </tr>
 					                    </thead>
 					                    <tbody>
-					                    	@foreach($mata_pelajarans as $key => $mata_pelajaran)
-					                    	<tr>
-					                    		<td>
-					                    			<span>{{ $mata_pelajaran->nama_mata_pelajaran }}</span>
-					                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->id }}">
-					                    		</td>
-					                    		<td>
-					                    			<input type="number" name="nilai_mingguan[]" class="form-control" autocomplete="off" >
-					                    		</td>
-					                    		<td>
-					                    			<input type="number" name="nilai_uts[]" onkeyup="nilaiUts('{{ $key }}')" class="form-control" autocomplete="off" >
-					                    		</td>
-					                    		<td>
-					                    			<input type="number" name="nilai_uas[]" onkeyup="nilaiUas('{{ $key }}')" class="form-control" autocomplete="off" >
-					                    		</td>
-					                    		<td>
-					                    			<!-- <input type="number" name="rata_rata[]" onkeyup="nilaiMingguan('{{ $key }}')" class="form-control" autocomplete="off" > -->
-					                    			<input type="number" readonly value="Nilai Rata-Rata akan keluar jika sudah di-input" class="form-control" autocomplete="off" >
-					                    		</td>
-					                    	</tr>
-					                    	@endforeach
+					                    	@if(count($mata_pelajarans) > 0)
+						                    	@foreach($mata_pelajarans as $key => $mata_pelajaran)
+						                    	<tr>
+						                    		<td>
+						                    			<span>{{ $mata_pelajaran->matapelajaran['nama_mata_pelajaran'] }}</span>
+						                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->mata_pelajaran_id }}">
+						                    		</td>
+						                    		<td>
+						                    			<input type="number" name="nilai_mingguan[]" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_mingguan }}">
+						                    		</td>
+						                    		<td>
+						                    			<input type="number" name="nilai_uts[]" onkeyup="nilaiUts('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_uts }}">
+						                    		</td>
+						                    		<td>
+						                    			<input type="number" name="nilai_uas[]" onkeyup="nilaiUas('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_uas }}">
+						                    		</td>
+						                    		<td>
+						                    			<input type="number" name="rata_rata[]" onkeyup="nilaiMingguan('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->rata_rata }}">
+						                    		</td>
+						                    	</tr>
+						                    	@endforeach
+						                    @else
+						                    	<tr>
+						                    		<td colspan="5"><h5><i class="icon wb-search"></i> Nilai belum di inputkan</h5></td>
+						                    	</tr>
+						                    @endif
 					                    </tbody>
 					                </table>
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
-					                    <button class="btn btn-danger btn-outline">Kembali</button>
+					                    <a class="btn btn-danger btn-outline" href="{{ url()->previous() }}#/nilai/pilihsantri/">Kembali</a>
 					                    <button type="submit" class="btn btn-success btn-outline">Simpan</button>
 					                </div><!--/.tombolAksi-->
 				                </form>
@@ -94,7 +99,7 @@
   crossorigin="anonymous"></script>
 <script>
 	$(function(){
-
+		// will be developed soon
 	});
 </script>
 @endsection

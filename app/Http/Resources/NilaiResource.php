@@ -20,6 +20,7 @@ class NilaiResource extends Resource
             'nis' => $this->nis,
             'nama_santri' => $this->nama_santri,
             'kelas' => $this->kelas['nama_kelas'],
+            'kelas_id' => $this->kelas_id,
             'asrama' => $this->asrama['ngaran']['nama'],
             'status_nilai' => $this->status($this->id)
         ];
