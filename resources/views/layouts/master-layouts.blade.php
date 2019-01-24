@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="/assets/css/bootstrap.min599c.css">
   <link rel="stylesheet" href="/assets/css/bootstrap-extend.min599c.css">
   <link rel="stylesheet" href="/assets/css/site.min599c.css">
+  <link rel="stylesheet" href="/assets/css/tableDesign.css">
 
   <!-- Skin tools (demo site only) -->
   <link rel="stylesheet" href="/assets/css/skintools.min599c.css?v4.0.2">
