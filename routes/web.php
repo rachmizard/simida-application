@@ -255,12 +255,13 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			// End Predikat
 
 			// Nilai & Rekap Nilai
-
+			
 			Route::get('/nilai', 'NilaiController@index')->name('nilai.index');
 			Route::get('/nilai/getSantri', 'NilaiController@getSantri');
-			Route::get('/nilai/{id}/input_nilai', 'NilaiController@viewInputNilai');
+			Route::post('/nilai/{id}/input_nilai', 'NilaiController@viewInputNilai');
+			Route::post('/nilai/edit_nilai', 'NilaiController@viewEditNilai');
 			Route::post('/nilai/{id}/store', 'NilaiController@storeNilai')->name('nilai.store');
-			Route::get('/nilai/edit_nilai', 'NilaiController@viewEditNilai');
+			Route::put('/nilai/{id}/update', 'NilaiController@updateNilai')->name('nilai.update');
 
 			// End Nilai & Rekap Nilai
 

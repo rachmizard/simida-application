@@ -110,13 +110,13 @@
                 Forgot Your Password?
             </a>
           </div>
-          <button id="" type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button id="" type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
 
 <!--        <p>No account? <a href="register-v2.html">Sign Up</a></p>-->
 
         <footer class="page-copyright">
-          <p>------------------------</p>
+          <!-- <p>------------------------</p> -->
           <p>© 2018 Simida | powered by <a href="https://birutekno.com" target="_blank">birutekno.inc</a></p>
 <!--
           <div class="social">

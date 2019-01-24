@@ -44,6 +44,8 @@
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat {{ $santri->tingkat['nama_tingkatan'] }} </p>
 				                <form action="{{ route('pendidikan.nilai.store', $santri->id) }}" method="POST">
 				                	{{ csrf_field() }}
+				                	<input type="hidden" value="{{ $periode_id }}" name="periode_id">
+				                	<input type="hidden" value="{{ $semester_id }}" name="semester_id">
 					                <table class="table table-hover table-stripped">
 					                    <thead>
 					                        <tr>
@@ -62,17 +64,16 @@
 					                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->id }}">
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" name="nilai_mingguan[]" class="form-control" autocomplete="off" >
+					                    			<input type="number" name="nilai_mingguan[]" min="0" max="100" class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" name="nilai_uts[]" onkeyup="nilaiUts('{{ $key }}')" class="form-control" autocomplete="off" >
+					                    			<input type="number" min="0" max="100" name="nilai_uts[]"  class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" name="nilai_uas[]" onkeyup="nilaiUas('{{ $key }}')" class="form-control" autocomplete="off" >
+					                    			<input type="number" min="0" max="100" name="nilai_uas[]"  class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
-					                    			<!-- <input type="number" name="rata_rata[]" onkeyup="nilaiMingguan('{{ $key }}')" class="form-control" autocomplete="off" > -->
-					                    			<input type="number" readonly value="Nilai Rata-Rata akan keluar jika sudah di-input" class="form-control" autocomplete="off" >
+					                    			<input type="number" readonly placeholder ="Nilai Rata-Rata akan keluar jika sudah di-input" class="form-control" autocomplete="off" >
 					                    		</td>
 					                    	</tr>
 					                    	@endforeach

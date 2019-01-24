@@ -87,12 +87,25 @@
 			                        <td>{{ listSantri.kelas }}</td>
 			                        <td><span class="badge badge-primary">{{ listSantri.status_nilai }}</span></td>
 			                        <td class="w-50">
-			                            <a :href="'nilai/'+ listSantri.id +'/input_nilai'" class="btn btn-outline btn-info mb-2">
-			                                <i class="icon wb-plus" aria-hidden="true"></i> Input Nilai
-			                            </a>
-			                            <a :href="'nilai/edit_nilai?santri_id='+ listSantri.id +'&periode_id='+ nilai.periode_id +'&kelas_id='+ listSantri.kelas_id +'&semester_id='+ nilai.semester_id +''" class="btn btn-outline btn-warning m-0">
-			                                <i class="icon wb-edit" aria-hidden="true"></i> Edit Nilai
-			                            </a>
+			                        	<form :action="'nilai/'+ listSantri.id +'/input_nilai'" method="POST">
+			                        		<input type="hidden" :value="csrf_token" name="_token">
+			                        		<input type="hidden" :value="nilai.periode_id" name="periode_id">
+			                        		<input type="hidden" :value="listSantri.kelas_id" name="kelas_id">
+			                        		<input type="hidden" :value="nilai.semester_id" name="semester_id">
+				                            <button type="submit" class="btn btn-outline btn-info mb-2">
+				                                <i class="icon wb-plus" aria-hidden="true"></i> Input Nilai
+				                            </button>
+			                        	</form>
+			                        	<form action="nilai/edit_nilai" method="POST">
+			                        		<input type="hidden" :value="csrf_token" name="_token">
+			                        		<input type="hidden" :value="listSantris.id" name="santri_id">
+			                        		<input type="hidden" :value="nilai.periode_id" name="periode_id">
+			                        		<input type="hidden" :value="listSantri.kelas_id" name="kelas_id">
+			                        		<input type="hidden" :value="nilai.semester_id" name="semester_id">
+				                            <button type="submit" class="btn btn-outline btn-warning mb-2">
+			                                	<i class="icon wb-edit" aria-hidden="true"></i> Edit Nilai
+				                            </button>
+			                        	</form>
 			                        </td>
 			                    </tr>
 			                </tbody>
@@ -112,6 +125,7 @@
 
 		data(){
 			return {
+				csrf_token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 				errors: [],
 				nilai: {
 					periode_id: '',

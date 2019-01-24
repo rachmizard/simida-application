@@ -1,7 +1,7 @@
 @extends('layouts.master-layouts')
 @section('content')
 			<div class="page-header">
-			    <h1 class="page-title">Input Nilai</h1>
+			    <h1 class="page-title">Edit Nilai</h1>
 			    <ol class="breadcrumb">
 			        <li class="breadcrumb-item"><a href="/">Home</a></li>
 			        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
@@ -42,8 +42,14 @@
 				            <div class="col-md-12">
 				                <h4 class="example-title"><i class="icon wb-pencil"></i> Edit Nilai Pelajaran</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat {{ $santri->tingkat['nama_tingkatan'] }} </p>
-				                <form action="{{ route('pendidikan.nilai.store', $santri->id) }}" method="POST">
+				                <form action="{{ route('pendidikan.nilai.update', $santri->id) }}" method="POST">
 				                	{{ csrf_field() }}
+				                	<input type="hidden" name="_method" value="PUT">
+
+				                	<input type="hidden" name="semester_id" value="{{ $semester_id }}">
+
+				                	<input type="hidden" name="periode_id" value="{{ $periode_id }}">
+				                	
 					                <table class="table table-hover table-stripped">
 					                    <thead>
 					                        <tr>

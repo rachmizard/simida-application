@@ -12,6 +12,7 @@ use App\Http\Resources\NilaiResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use Validator;
 
 class NilaiController extends Controller
 {
@@ -73,16 +74,94 @@ class NilaiController extends Controller
         //
     }
 
-    public function viewInputNilai($id)
+    public function viewInputNilai(Request $request, $id)
     {
-        $santri = Santri::findOrFail($id);
+        $method = $request->method();
+        if ($method == 'POST') {
+            $santri = Santri::findOrFail($id);
 
-        $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
+            $semester_id = $request->semester_id;
 
-        return view('pendidikan.nilai.input-nilai', compact('santri', 'mata_pelajarans'));
+            $periode_id = $request->periode_id;
+
+            $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
+
+            return view('pendidikan.nilai.input-nilai', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id'));   
+        }else{
+            return redirect('pendidikan/nilai#/nilai/pilihsantri');
+        }
     }
 
+    /**
+     * Memulai memasukan Nilai ke database dengan source code dibawah ini.
+     *
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function storeNilai(Request $request, $id)
+    {
+        // dd($request->all());
+        $santri = Santri::findOrFail($id);
+
+        $data = [];
+
+        $rata_rata = [];
+
+        foreach ($request->mata_pelajaran_id as $key => $value) {
+            $rata_rata[$key] = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
+            $data = array(
+                'santri_id' => $id,
+                'kelas_id' => $santri->kelas_id,
+                'semester_id' => $request->semester_id, // hardcore
+                'periode_id' => $request->periode_id,
+                'mata_pelajaran_id' => $value,
+                'nilai_mingguan' => $request->nilai_mingguan [$key],
+                'nilai_uts' => $request->nilai_uts [$key],
+                'nilai_uas' => $request->nilai_uas [$key],
+                'rata_rata' => $request->rata_rata [$key] // nanti tinggal kesiniin si variable $rata_rata
+            );
+
+            // Nilai::create($data);
+
+        }
+
+        print_r($rata_rata);
+        // return response($data);
+        // var_dump($data);
+        // return redirect('pendidikan/nilai#/nilai/pilihsantri');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Nilai  $nilai
+     * @return \Illuminate\Http\Response
+     */
+    public function viewEditNilai(Request $request)
+    {
+        $santri = Santri::findOrFail($request->santri_id);
+
+        $semester_id = $request->semester_id;
+
+        $periode_id = $request->periode_id;
+
+        $mata_pelajarans = Nilai::where('santri_id', $request->santri_id)
+                            ->where('periode_id', $request->periode_id)
+                            ->orWhere('semester_id', $request->semester_id)
+                            ->get();
+
+        return view('pendidikan.nilai.edit-nilai', compact('santri', 'mata_pelajarans' ,'semester_id', 'periode_id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Nilai  $nilai
+     * @return \Illuminate\Http\Response
+     */
+    public function updateNilai(Request $request, $id)
     {
         // dd($request->all());
         $santri = Santri::findOrFail($id);
@@ -99,61 +178,14 @@ class NilaiController extends Controller
                 'nilai_uas' => $request->nilai_uas [$key],
                 'rata_rata' => $request->rata_rata [$key]
             );
-            Nilai::create($data);
+            Nilai::where('santri_id', $id)
+                 ->where('periode_id', $request->periode_id)
+                 ->orWhere('semester_id', $request->semester_id)
+                 ->update($data);
         }
         // return response($data);
         // var_dump($data);
-        return redirect()->back();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Nilai  $nilai
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Nilai $nilai)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Nilai  $nilai
-     * @return \Illuminate\Http\Response
-     */
-    public function viewEditNilai(Request $request)
-    {
-        $santri = Santri::findOrFail($request->santri_id);
-        $mata_pelajarans = Nilai::where('santri_id', $request->santri_id)
-                            ->where('periode_id', $request->periode_id)
-                            ->orWhere('semester_id', $request->semester_id)
-                            ->get();
-        return view('pendidikan.nilai.edit-nilai', compact('santri', 'mata_pelajarans'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Nilai  $nilai
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Nilai $nilai)
-    {
-        //
+        // return redirect()->back();
     }
 
     /**
