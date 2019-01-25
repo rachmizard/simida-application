@@ -78,20 +78,26 @@
 						                    			<input type="number" name="nilai_uas[]" onkeyup="nilaiUas('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_uas }}">
 						                    		</td>
 						                    		<td>
-						                    			<input type="number" name="rata_rata[]" onkeyup="nilaiMingguan('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->rata_rata }}">
+						                    			<input type="number" readonly class="form-control" autocomplete="off" value="{{ $mata_pelajaran->rata_rata }}">
 						                    		</td>
 						                    	</tr>
 						                    	@endforeach
 						                    @else
 						                    	<tr>
-						                    		<td colspan="5"><h5><i class="icon wb-search"></i> Nilai belum di inputkan</h5></td>
+						                    		<td colspan="5">
+						                    			<div class="text-center">
+						                    				<h5>Nilai belum di input</h5>
+						                    			</div>
+						                    		</td>
 						                    	</tr>
 						                    @endif
 					                    </tbody>
 					                </table>
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
+					                	@if(count($mata_pelajarans) > 0)
+						                    <button type="submit" class="btn btn-success btn-outline">Simpan</button>
+						                @endif
 					                    <a class="btn btn-danger btn-outline" href="{{ url()->previous() }}#/nilai/pilihsantri/">Kembali</a>
-					                    <button type="submit" class="btn btn-success btn-outline">Simpan</button>
 					                </div><!--/.tombolAksi-->
 				                </form>
 				            </div><!--/.row-->

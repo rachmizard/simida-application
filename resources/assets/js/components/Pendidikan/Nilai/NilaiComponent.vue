@@ -12,6 +12,8 @@
 		<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 		    <div class="row row-lg">
 		        <div class="col-md-12">
+		        	 <h4 class="example-title"><i class="icon wb-search"></i> Filter Santri</h4>
+					<p>Menampilkan Santri berdasarkan hasil pencarian. </p>
 		            <form @submit.prevent="filterSantri" autocomplete="off">
 			            <div class="form-row">
 			                <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
@@ -70,7 +72,7 @@
 			       <div class="col-md-12">
 			           <h4 class="example-title">List Data Santri</h4>
 			           <p v-if="listSantris.length != 0"><i class="icon wb-search"></i> Hasil Filter</p>
-			            <table class="table table-striped">
+			            <table class="table table-striped table-hovered">
 			                <thead>
 			                    <tr>
 			                        <th>NIS</th>
@@ -81,7 +83,7 @@
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                    <tr v-for="(listSantri, index) in listSantris">
+			                    <tr v-if="listSantris.length != 0" v-for="(listSantri, index) in listSantris">
 			                        <td>{{ listSantri.nis }}</td>
 			                        <td>{{ listSantri.nama_santri }}</td>
 			                        <td>{{ listSantri.kelas }}</td>
@@ -92,21 +94,28 @@
 			                        		<input type="hidden" :value="nilai.periode_id" name="periode_id">
 			                        		<input type="hidden" :value="listSantri.kelas_id" name="kelas_id">
 			                        		<input type="hidden" :value="nilai.semester_id" name="semester_id">
-				                            <button type="submit" class="btn btn-outline btn-info mb-2">
-				                                <i class="icon wb-plus" aria-hidden="true"></i> Input Nilai
+				                            <button title="Input Nilai" class="btn btn-round btn-sm btn-outline btn-info mb-2">
+				                                <i class="icon wb-plus" aria-hidden="true"></i>
 				                            </button>
 			                        	</form>
-			                        	<form action="nilai/edit_nilai" method="POST">
+			                        	<form action="nilai/edit_nilai" method="GET">
 			                        		<input type="hidden" :value="csrf_token" name="_token">
-			                        		<input type="hidden" :value="listSantris.id" name="santri_id">
+			                        		<input type="hidden" :value="listSantri.id" name="santri_id">
 			                        		<input type="hidden" :value="nilai.periode_id" name="periode_id">
 			                        		<input type="hidden" :value="listSantri.kelas_id" name="kelas_id">
 			                        		<input type="hidden" :value="nilai.semester_id" name="semester_id">
-				                            <button type="submit" class="btn btn-outline btn-warning mb-2">
-			                                	<i class="icon wb-edit" aria-hidden="true"></i> Edit Nilai
+				                            <button title="Edit Nilai" class="btn btn-round btn-sm btn-outline btn-warning mb-2">
+			                                	<i class="icon wb-edit" aria-hidden="true"></i>
 				                            </button>
 			                        	</form>
 			                        </td>
+			                    </tr>
+			                    <tr v-else-if="listSantris.length == 0">
+			                    	<td colspan="10">
+			                    		<div class="text-center">
+			                    			<h4><i class="icon wb-search"></i> Pencarian santri belum ditentukan.</h4>
+			                    		</div>
+			                    	</td>
 			                    </tr>
 			                </tbody>
 			            </table>   

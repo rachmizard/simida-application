@@ -104820,6 +104820,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -104929,6 +104938,12 @@ var render = function() {
         [
           _c("div", { staticClass: "row row-lg" }, [
             _c("div", { staticClass: "col-md-12" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Menampilkan Santri berdasarkan hasil pencarian. ")
+              ]),
+              _vm._v(" "),
               _c(
                 "form",
                 {
@@ -105149,7 +105164,7 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _vm._m(1)
+                        _vm._m(2)
                       ]
                     )
                   ])
@@ -105182,101 +105197,127 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c("table", { staticClass: "table table-striped" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.listSantris, function(listSantri, index) {
-                    return _c("tr", [
-                      _c("td", [_vm._v(_vm._s(listSantri.nis))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(listSantri.nama_santri))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(listSantri.kelas))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("span", { staticClass: "badge badge-primary" }, [
-                          _vm._v(_vm._s(listSantri.status_nilai))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "w-50" }, [
-                        _c(
-                          "form",
-                          {
-                            attrs: {
-                              action: "nilai/" + listSantri.id + "/input_nilai",
-                              method: "POST"
-                            }
-                          },
-                          [
-                            _c("input", {
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.csrf_token }
-                            }),
+              _c(
+                "table",
+                { staticClass: "table table-striped table-hovered" },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listSantris, function(listSantri, index) {
+                      return _vm.listSantris.length != 0
+                        ? _c("tr", [
+                            _c("td", [_vm._v(_vm._s(listSantri.nis))]),
                             _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "periode_id" },
-                              domProps: { value: _vm.nilai.periode_id }
-                            }),
+                            _c("td", [_vm._v(_vm._s(listSantri.nama_santri))]),
                             _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "kelas_id" },
-                              domProps: { value: listSantri.kelas_id }
-                            }),
+                            _c("td", [_vm._v(_vm._s(listSantri.kelas))]),
                             _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "semester_id" },
-                              domProps: { value: _vm.nilai.semester_id }
-                            }),
+                            _c("td", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-primary" },
+                                [_vm._v(_vm._s(listSantri.status_nilai))]
+                              )
+                            ]),
                             _vm._v(" "),
-                            _vm._m(3, true)
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "form",
-                          {
-                            attrs: {
-                              action: "nilai/edit_nilai",
-                              method: "POST"
-                            }
-                          },
-                          [
-                            _c("input", {
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.csrf_token }
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "santri_id" },
-                              domProps: { value: _vm.listSantris.id }
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "periode_id" },
-                              domProps: { value: _vm.nilai.periode_id }
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "kelas_id" },
-                              domProps: { value: listSantri.kelas_id }
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "hidden", name: "semester_id" },
-                              domProps: { value: _vm.nilai.semester_id }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(4, true)
-                          ]
-                        )
-                      ])
-                    ])
-                  })
-                )
-              ])
+                            _c("td", { staticClass: "w-50" }, [
+                              _c(
+                                "form",
+                                {
+                                  attrs: {
+                                    action:
+                                      "nilai/" + listSantri.id + "/input_nilai",
+                                    method: "POST"
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: { type: "hidden", name: "_token" },
+                                    domProps: { value: _vm.csrf_token }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: {
+                                      type: "hidden",
+                                      name: "periode_id"
+                                    },
+                                    domProps: { value: _vm.nilai.periode_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: { type: "hidden", name: "kelas_id" },
+                                    domProps: { value: listSantri.kelas_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: {
+                                      type: "hidden",
+                                      name: "semester_id"
+                                    },
+                                    domProps: { value: _vm.nilai.semester_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(4, true)
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "form",
+                                {
+                                  attrs: {
+                                    action: "nilai/edit_nilai",
+                                    method: "GET"
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: { type: "hidden", name: "_token" },
+                                    domProps: { value: _vm.csrf_token }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: {
+                                      type: "hidden",
+                                      name: "santri_id"
+                                    },
+                                    domProps: { value: listSantri.id }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: {
+                                      type: "hidden",
+                                      name: "periode_id"
+                                    },
+                                    domProps: { value: _vm.nilai.periode_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: { type: "hidden", name: "kelas_id" },
+                                    domProps: { value: listSantri.kelas_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    attrs: {
+                                      type: "hidden",
+                                      name: "semester_id"
+                                    },
+                                    domProps: { value: _vm.nilai.semester_id }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(5, true)
+                                ]
+                              )
+                            ])
+                          ])
+                        : _vm.listSantris.length == 0
+                        ? _c("tr", [_vm._m(6)])
+                        : _vm._e()
+                    })
+                  )
+                ]
+              )
             ])
           ])
         ]
@@ -105305,6 +105346,15 @@ var staticRenderFns = [
           _vm._v("Input Nilai")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "example-title" }, [
+      _c("i", { staticClass: "icon wb-search" }),
+      _vm._v(" Filter Santri")
     ])
   },
   function() {
@@ -105349,15 +105399,14 @@ var staticRenderFns = [
     return _c(
       "button",
       {
-        staticClass: "btn btn-outline btn-info mb-2",
-        attrs: { type: "submit" }
+        staticClass: "btn btn-round btn-sm btn-outline btn-info mb-2",
+        attrs: { title: "Input Nilai" }
       },
       [
         _c("i", {
           staticClass: "icon wb-plus",
           attrs: { "aria-hidden": "true" }
-        }),
-        _vm._v(" Input Nilai\r\n\t\t\t\t                            ")
+        })
       ]
     )
   },
@@ -105368,17 +105417,29 @@ var staticRenderFns = [
     return _c(
       "button",
       {
-        staticClass: "btn btn-outline btn-warning mb-2",
-        attrs: { type: "submit" }
+        staticClass: "btn btn-round btn-sm btn-outline btn-warning mb-2",
+        attrs: { title: "Edit Nilai" }
       },
       [
         _c("i", {
           staticClass: "icon wb-edit",
           attrs: { "aria-hidden": "true" }
-        }),
-        _vm._v(" Edit Nilai\r\n\t\t\t\t                            ")
+        })
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "10" } }, [
+      _c("div", { staticClass: "text-center" }, [
+        _c("h4", [
+          _c("i", { staticClass: "icon wb-search" }),
+          _vm._v(" Pencarian santri belum ditentukan.")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

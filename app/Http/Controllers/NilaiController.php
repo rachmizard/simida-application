@@ -108,8 +108,17 @@ class NilaiController extends Controller
 
         $rata_rata = [];
 
+        $total_jenis_nilai = 3; // (nilai mingguan, nilai uts, nilai uas)
+
         foreach ($request->mata_pelajaran_id as $key => $value) {
-            $rata_rata[$key] = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
+
+            $getBobot = MataPelajaran::find($value);
+
+            // Menghitung rata-rata / 3 (nilai mingguan, nilai uts, nilai uas)
+            $nilai = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
+
+            $rata_rata = $nilai / $total_jenis_nilai; // total nilai / 3 jenis mata pelajaran
+
             $data = array(
                 'santri_id' => $id,
                 'kelas_id' => $santri->kelas_id,
@@ -119,17 +128,15 @@ class NilaiController extends Controller
                 'nilai_mingguan' => $request->nilai_mingguan [$key],
                 'nilai_uts' => $request->nilai_uts [$key],
                 'nilai_uas' => $request->nilai_uas [$key],
-                'rata_rata' => $request->rata_rata [$key] // nanti tinggal kesiniin si variable $rata_rata
+                'rata_rata' => $rata_rata // nanti tinggal kesiniin si variable 
             );
 
-            // Nilai::create($data);
-
+            Nilai::create($data);
+            // print_r($data);
         }
-
-        print_r($rata_rata);
         // return response($data);
         // var_dump($data);
-        // return redirect('pendidikan/nilai#/nilai/pilihsantri');
+        return redirect('pendidikan/nilai#/nilai/pilihsantri');
     }
 
     /**
@@ -140,17 +147,18 @@ class NilaiController extends Controller
      */
     public function viewEditNilai(Request $request)
     {
-        $santri = Santri::findOrFail($request->santri_id);
+        $santri = Santri::find($request->santri_id);
 
         $semester_id = $request->semester_id;
 
         $periode_id = $request->periode_id;
 
-        $mata_pelajarans = Nilai::where('santri_id', $request->santri_id)
-                            ->where('periode_id', $request->periode_id)
-                            ->orWhere('semester_id', $request->semester_id)
+        $mata_pelajarans = Nilai::where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            ->where('santri_id', $request->santri_id)
                             ->get();
 
+        // dd($mata_pelajarans);
         return view('pendidikan.nilai.edit-nilai', compact('santri', 'mata_pelajarans' ,'semester_id', 'periode_id'));
     }
 
@@ -165,27 +173,44 @@ class NilaiController extends Controller
     {
         // dd($request->all());
         $santri = Santri::findOrFail($id);
+
         $data = [];
+
+        $total_jenis_nilai = 3;
+
+        $rata_rata = [];
+
+        $getter = Nilai::where('periode_id', $request->periode_id)
+                        ->where('semester_id', $request->semester_id)
+                        ->where('santri_id', $id)
+                        ->get();
+
         foreach ($request->mata_pelajaran_id as $key => $value) {
-            $data = array(
+
+            $nilai = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
+
+            $rata_rata = $nilai / $total_jenis_nilai;
+
+            $data[$key] = array(
                 'santri_id' => $id,
                 'kelas_id' => $santri->kelas_id,
-                'semester_id' => 1, // hardcore
-                'periode_id' => 1,
+                'semester_id' => $request->semester_id, // hardcore
+                'periode_id' => $request->periode_id,
                 'mata_pelajaran_id' => $value,
                 'nilai_mingguan' => $request->nilai_mingguan [$key],
                 'nilai_uts' => $request->nilai_uts [$key],
                 'nilai_uas' => $request->nilai_uas [$key],
-                'rata_rata' => $request->rata_rata [$key]
+                'rata_rata' => $rata_rata
             );
-            Nilai::where('santri_id', $id)
-                 ->where('periode_id', $request->periode_id)
-                 ->orWhere('semester_id', $request->semester_id)
-                 ->update($data);
+        }
+
+        foreach ($getter as $index => $nilaiValue) {
+            $updatePerItem = Nilai::find($nilaiValue->id);
+            $updatePerItem->update($data[$index]);
         }
         // return response($data);
         // var_dump($data);
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     /**
