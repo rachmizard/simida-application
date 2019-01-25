@@ -213,6 +213,16 @@ class NilaiController extends Controller
         return redirect()->back();
     }
 
+    public function viewReport()
+    {
+        return view('pendidikan.nilai.report-nilai');
+    }
+
+    public function exportGrade(Request $request, $id)
+    {
+        # code...
+    }
+
     /**
      * Remove the specified resource from storage.
      *

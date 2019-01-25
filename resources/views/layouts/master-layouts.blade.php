@@ -363,7 +363,7 @@
                                                 <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Laporan Absensi Siswa</span></a>
                                             </li>
                                             <li class="site-menu-item anak">
-                                                <a href="#!"><span class="site-menu-title">Laporan Nilai Siswa</span></a>
+                                                <a href="{{ route('pendidikan.nilai.viewReport') }}"><span class="site-menu-title">Laporan Nilai Siswa</span></a>
                                             </li>
                                         </ul>
                                     </li>
