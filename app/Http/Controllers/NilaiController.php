@@ -8,6 +8,8 @@ use App\Semester;
 use App\Tingkat;
 use App\Kelas;
 use App\MataPelajaran;
+use App\Exports\NilaiExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\NilaiResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -291,8 +293,11 @@ class NilaiController extends Controller
         // recent search will be saved
 
         $semester = $semesterId;
+
         $periode = $periodeId;
+
         $tingkat = $tingkatId;
+
         $kelas = $kelasId;
 
         $santri = Santri::orderBy('nama_santri', 'ASC')->whereTingkatId($tingkatId)
@@ -303,9 +308,17 @@ class NilaiController extends Controller
         return view('pendidikan.nilai.report-nilai', compact('santri', 'semesters', 'periodes', 'tingkats', 'kelass', 'mapelByTingkat', 'semester', 'periode', 'tingkat', 'kelas', 'total_bobot'));
     }
 
-    public function exportGrade(Request $request, $id)
+    public function exportNilai(Request $request)
     {
-        # code...
+        $req = $request->all();
+
+        $className = Kelas::find($req['kelas_id']);
+
+        $periodName = Periode::find($req['periode_id']);
+
+        $name_of_file = 'nilai_'. $className->nama_kelas .'_'. $periodName->nama_periode .'.xlsx';
+
+        return Excel::download(new NilaiExport($req['semester_id'], $req['periode_id'], $req['tingkat_id'], $req['kelas_id']), $name_of_file);
     }
 
     /**

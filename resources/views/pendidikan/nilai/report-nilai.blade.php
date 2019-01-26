@@ -2,12 +2,12 @@
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">Report Nilai</h1>
+    <h1 class="page-title">Laporan Nilai Santri</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Report</a></li>
-        <li class="breadcrumb-item active">Laporan Nilai Siswa</li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Laporan</a></li>
+        <li class="breadcrumb-item active">Laporan Nilai Santri</li>
     </ol>
 </div>
 <!--/.page-header-->
@@ -75,11 +75,19 @@
 	<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 	    <div class="row row-lg">
 	       <div class="col-md-12">
-	           <h4 class="example-title">List Data Santri</h4>
-	           <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group">
-	                <button type="button" class="btn btn-outline btn-default">
-	                    <i class="icon wb-file" aria-hidden="true"></i> Export Excel
-	                </button>
+	           <h4 class="example-title">Laporan Santri kelas {!! DB::table('kelas')->whereId($kelas)->first()->nama_kelas !!} </h4>
+	           <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group" style="margin-bottom: 20px;">
+
+	           		<form action="{!! route('pendidikan.nilai.exportNilai') !!}">
+	           			<input type="hidden" name="semester_id" value="{!! isset($semester) ? $semester : '' !!}">
+	           			<input type="hidden" name="periode_id" value="{!! isset($periode) ? $periode : '' !!}">
+	           			<input type="hidden" name="tingkat_id" value="{!! isset($tingkat) ? $tingkat : '' !!}">
+	           			<input type="hidden" name="kelas_id" value="{!! isset($kelas) ? $kelas : '' !!}">
+		                <button type="submit" class="btn btn-outline btn-success">
+		                    <i class="icon wb-file" aria-hidden="true"></i> Export Excel
+		                </button>
+	           		</form>
+	           		
 	            </div>
 	            <div class="table-responsive-lg">
 	                <table class="striped table-design" data-toggle="tabl" data-height="400" data-mobile-responsive="true">
@@ -110,6 +118,7 @@
 
 								@php($rata_rata = 0)
 								@php($nilai = 0)
+								@php($predikat = '')
 
 		                    	@foreach($santri as $key => $value)
 								
@@ -173,7 +182,55 @@
 		                            		number_format((float)$rata_rata, 2, '.', '')
 		                            	!!}
 		                        	</td>
-		                            <td><span class="level1">Bagus Sekali</span></td>
+		                            <td>
+		                            	@php($predikat = 
+		                            			DB::table('predikat')
+		                            			->where('nilai_maksimal', '>=', $nilai)
+		                            			->first()->keterangan)
+
+		                            	@switch($predikat)
+		                            		@case('Tidak Lulus')
+				                            	<span class="level4">
+				                            		Tidak Lulus
+				                            	</span>
+				                            @break
+
+				                            @case('Buruk Sekali')
+				                            	<span class="level4">
+				                            		Buruk Sekali
+				                            	</span>
+				                            @break
+
+				                            @case('Buruk')
+				                            	<span class="level3">
+				                            		Buruk
+				                            	</span>
+				                            @break
+
+				                            @case('Cukup')
+				                            	<span class="level3">
+				                            		Cukup
+				                            	</span>
+				                            @break
+
+				                            @case('Baik')
+				                            	<span class="level2">
+				                            		Baik
+				                            	</span>
+				                            @break
+
+				                            @case('Baik Sekali')
+				                            	<span class="level2">
+				                            		Baik Sekali
+				                            	</span>
+				                            @break
+
+				                            @default
+				                            	<span class="level1">
+				                            		Istimewa
+				                            	</span>
+				                        @endswitch
+		                        	</td>
 		                        </tr>
 		                        @endforeach
 		                    @else

@@ -10,6 +10,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="stylesheet" href="/assets/css/tableDesign.css">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -73,6 +75,7 @@
 
         @yield('content')
     </div>
+    @yield('export-nilai-content')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

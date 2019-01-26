@@ -70,7 +70,7 @@
 			<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 			    <div class="row row-lg">
 			       <div class="col-md-12">
-			           <h4 class="example-title">List Data Santri</h4>
+			           <h4 class="example-title"><i class="icon wb-user"></i> List Santri</h4>
 			           <p v-if="listSantris.length != 0"><i class="icon wb-search"></i> Hasil Filter</p>
 			            <table class="table table-striped table-hovered">
 			                <thead>
@@ -110,7 +110,7 @@
 			                        	</form>
 			                        </td>
 			                    </tr>
-			                    <tr v-else-if="listSantris.length == 0">
+			                    <tr v-if="listSantris.length == 0">
 			                    	<td colspan="10">
 			                    		<div class="text-center">
 			                    			<h4><i class="icon wb-search"></i> Pencarian santri belum ditentukan.</h4>

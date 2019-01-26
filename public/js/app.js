@@ -103880,6 +103880,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -103997,7 +104006,8 @@ var render = function() {
                             type: "number",
                             id: "inputBasicFirstName",
                             placeholder: "Nilai Minimal",
-                            autocomplete: "off"
+                            autocomplete: "off",
+                            step: "any"
                           },
                           domProps: { value: _vm.predikat.nilai_minimal },
                           on: {
@@ -104049,7 +104059,8 @@ var render = function() {
                             type: "number",
                             id: "inputBasicLastName",
                             placeholder: "Nilai Maksimal",
-                            autocomplete: "off"
+                            autocomplete: "off",
+                            step: "any"
                           },
                           domProps: { value: _vm.predikat.nilai_maksimal },
                           on: {
@@ -104088,36 +104099,75 @@ var render = function() {
                         [_vm._v("Keterangan")]
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.predikat.keterangan,
-                            expression: "predikat.keterangan"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputBasicEmail",
-                          placeholder: "Keterangan",
-                          autocomplete: "off"
-                        },
-                        domProps: { value: _vm.predikat.keterangan },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.predikat.keterangan,
+                              expression: "predikat.keterangan"
                             }
-                            _vm.$set(
-                              _vm.predikat,
-                              "keterangan",
-                              $event.target.value
-                            )
+                          ],
+                          staticClass: "form-control",
+                          attrs: { autocomplete: "off", id: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.predikat,
+                                "keterangan",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        }
-                      }),
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { disabled: "", selected: "" } },
+                            [_vm._v("Keterangan Predikat")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Tidak Lulus" } }, [
+                            _vm._v("Tidak Lulus")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Buruk Sekali" } }, [
+                            _vm._v("Buruk Sekali")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Buruk" } }, [
+                            _vm._v("Buruk")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Cukup" } }, [
+                            _vm._v("Cukup")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Baik" } }, [
+                            _vm._v("Baik")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Baik Sekali" } }, [
+                            _vm._v("Baik Sekali")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Istimewa" } }, [
+                            _vm._v("Istimewa")
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _vm.errors.keterangan
                         ? _c("span", { staticClass: "badge badge-danger" }, [
@@ -104244,6 +104294,15 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -104504,36 +104563,75 @@ var render = function() {
                         [_vm._v("Keterangan")]
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.predikat.keterangan,
-                            expression: "predikat.keterangan"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputBasicEmail",
-                          placeholder: "Keterangan",
-                          autocomplete: "off"
-                        },
-                        domProps: { value: _vm.predikat.keterangan },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.predikat.keterangan,
+                              expression: "predikat.keterangan"
                             }
-                            _vm.$set(
-                              _vm.predikat,
-                              "keterangan",
-                              $event.target.value
-                            )
+                          ],
+                          staticClass: "form-control",
+                          attrs: { autocomplete: "off", id: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.predikat,
+                                "keterangan",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        }
-                      }),
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { disabled: "", selected: "" } },
+                            [_vm._v("Keterangan Predikat")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Tidak Lulus" } }, [
+                            _vm._v("Tidak Lulus")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Buruk Sekali" } }, [
+                            _vm._v("Buruk Sekali")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Buruk" } }, [
+                            _vm._v("Buruk")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Cukup" } }, [
+                            _vm._v("Cukup")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Baik" } }, [
+                            _vm._v("Baik")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Baik Sekali" } }, [
+                            _vm._v("Baik Sekali")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Istimewa" } }, [
+                            _vm._v("Istimewa")
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _vm.errors.keterangan
                         ? _c("span", { staticClass: "badge badge-danger" }, [
@@ -105186,9 +105284,7 @@ var render = function() {
         [
           _c("div", { staticClass: "row row-lg" }, [
             _c("div", { staticClass: "col-md-12" }, [
-              _c("h4", { staticClass: "example-title" }, [
-                _vm._v("List Data Santri")
-              ]),
+              _vm._m(3),
               _vm._v(" "),
               _vm.listSantris.length != 0
                 ? _c("p", [
@@ -105201,120 +105297,135 @@ var render = function() {
                 "table",
                 { staticClass: "table table-striped table-hovered" },
                 [
-                  _vm._m(3),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.listSantris, function(listSantri, index) {
-                      return _vm.listSantris.length != 0
-                        ? _c("tr", [
-                            _c("td", [_vm._v(_vm._s(listSantri.nis))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(listSantri.nama_santri))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(listSantri.kelas))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-primary" },
-                                [_vm._v(_vm._s(listSantri.status_nilai))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "w-50" }, [
-                              _c(
-                                "form",
-                                {
-                                  attrs: {
-                                    action:
-                                      "nilai/" + listSantri.id + "/input_nilai",
-                                    method: "POST"
-                                  }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: { type: "hidden", name: "_token" },
-                                    domProps: { value: _vm.csrf_token }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    attrs: {
-                                      type: "hidden",
-                                      name: "periode_id"
-                                    },
-                                    domProps: { value: _vm.nilai.periode_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    attrs: { type: "hidden", name: "kelas_id" },
-                                    domProps: { value: listSantri.kelas_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    attrs: {
-                                      type: "hidden",
-                                      name: "semester_id"
-                                    },
-                                    domProps: { value: _vm.nilai.semester_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _vm._m(4, true)
-                                ]
-                              ),
+                    [
+                      _vm._l(_vm.listSantris, function(listSantri, index) {
+                        return _vm.listSantris.length != 0
+                          ? _c("tr", [
+                              _c("td", [_vm._v(_vm._s(listSantri.nis))]),
                               _vm._v(" "),
-                              _c(
-                                "form",
-                                {
-                                  attrs: {
-                                    action: "nilai/edit_nilai",
-                                    method: "GET"
-                                  }
-                                },
-                                [
-                                  _c("input", {
-                                    attrs: { type: "hidden", name: "_token" },
-                                    domProps: { value: _vm.csrf_token }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
+                              _c("td", [
+                                _vm._v(_vm._s(listSantri.nama_santri))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(listSantri.kelas))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-primary" },
+                                  [_vm._v(_vm._s(listSantri.status_nilai))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "w-50" }, [
+                                _c(
+                                  "form",
+                                  {
                                     attrs: {
-                                      type: "hidden",
-                                      name: "santri_id"
-                                    },
-                                    domProps: { value: listSantri.id }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
+                                      action:
+                                        "nilai/" +
+                                        listSantri.id +
+                                        "/input_nilai",
+                                      method: "POST"
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: { type: "hidden", name: "_token" },
+                                      domProps: { value: _vm.csrf_token }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "periode_id"
+                                      },
+                                      domProps: { value: _vm.nilai.periode_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "kelas_id"
+                                      },
+                                      domProps: { value: listSantri.kelas_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "semester_id"
+                                      },
+                                      domProps: { value: _vm.nilai.semester_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._m(5, true)
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "form",
+                                  {
                                     attrs: {
-                                      type: "hidden",
-                                      name: "periode_id"
-                                    },
-                                    domProps: { value: _vm.nilai.periode_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    attrs: { type: "hidden", name: "kelas_id" },
-                                    domProps: { value: listSantri.kelas_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    attrs: {
-                                      type: "hidden",
-                                      name: "semester_id"
-                                    },
-                                    domProps: { value: _vm.nilai.semester_id }
-                                  }),
-                                  _vm._v(" "),
-                                  _vm._m(5, true)
-                                ]
-                              )
+                                      action: "nilai/edit_nilai",
+                                      method: "GET"
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: { type: "hidden", name: "_token" },
+                                      domProps: { value: _vm.csrf_token }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "santri_id"
+                                      },
+                                      domProps: { value: listSantri.id }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "periode_id"
+                                      },
+                                      domProps: { value: _vm.nilai.periode_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "kelas_id"
+                                      },
+                                      domProps: { value: listSantri.kelas_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "semester_id"
+                                      },
+                                      domProps: { value: _vm.nilai.semester_id }
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._m(6, true)
+                                  ]
+                                )
+                              ])
                             ])
-                          ])
-                        : _vm.listSantris.length == 0
-                        ? _c("tr", [_vm._m(6)])
+                          : _vm._e()
+                      }),
+                      _vm._v(" "),
+                      _vm.listSantris.length == 0
+                        ? _c("tr", [_vm._m(7)])
                         : _vm._e()
-                    })
+                    ],
+                    2
                   )
                 ]
               )
@@ -105372,6 +105483,15 @@ var staticRenderFns = [
         },
         [_c("i", { staticClass: "icon wb-search" }), _vm._v(" Cari")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "example-title" }, [
+      _c("i", { staticClass: "icon wb-user" }),
+      _vm._v(" List Santri")
     ])
   },
   function() {

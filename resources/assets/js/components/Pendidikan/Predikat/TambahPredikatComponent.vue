@@ -21,14 +21,14 @@
 	                <div class="form-row">
 	                  <div class="form-group col-md-6">
 	                    <label class="form-control-label" for="inputBasicFirstName">Nilai Minimal</label>
-	                    <input type="number" v-model="predikat.nilai_minimal" class="form-control" id="inputBasicFirstName"placeholder="Nilai Minimal" autocomplete="off" />
+	                    <input type="number" v-model="predikat.nilai_minimal" class="form-control" id="inputBasicFirstName"placeholder="Nilai Minimal" autocomplete="off" step="any" />
 	                    <span v-if="errors.nilai_minimal" class="badge badge-danger">
 	                    	{{ errors.nilai_minimal[0] }}
 	                    </span>
 	                  </div>
 	                  <div class="form-group col-md-6">
 	                    <label class="form-control-label" for="inputBasicLastName">Nilai Maksimal</label>
-	                    <input type="number" v-model="predikat.nilai_maksimal" class="form-control" id="inputBasicLastName" placeholder="Nilai Maksimal" autocomplete="off" />
+	                    <input type="number" v-model="predikat.nilai_maksimal" class="form-control" id="inputBasicLastName" placeholder="Nilai Maksimal" autocomplete="off" step="any" />
 	                    <span v-if="errors.nilai_maksimal" class="badge badge-danger">
 	                    	{{ errors.nilai_maksimal[0] }}
 	                    </span>
@@ -36,7 +36,16 @@
 	                </div>
 	                <div class="form-group">
 	                  <label class="form-control-label" for="inputBasicEmail">Keterangan</label>
-	                  <input type="text" class="form-control" v-model="predikat.keterangan" id="inputBasicEmail" placeholder="Keterangan" autocomplete="off" />
+	                  <select autocomplete="off" class="form-control" v-model="predikat.keterangan" id="">
+	                  	<option disabled selected>Keterangan Predikat</option>
+	                  	<option value="Tidak Lulus">Tidak Lulus</option>
+	                  	<option value="Buruk Sekali">Buruk Sekali</option>
+	                  	<option value="Buruk">Buruk</option>
+	                  	<option value="Cukup">Cukup</option>
+	                  	<option value="Baik">Baik</option>
+	                  	<option value="Baik Sekali">Baik Sekali</option>
+	                  	<option value="Istimewa">Istimewa</option>
+	                  </select>
 	                    <span v-if="errors.keterangan" class="badge badge-danger">
 	                    	{{ errors.keterangan[0] }}
 	                    </span>

@@ -263,6 +263,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::post('/nilai/{id}/store', 'NilaiController@storeNilai')->name('nilai.store');
 			Route::put('/nilai/{id}/update', 'NilaiController@updateNilai')->name('nilai.update');
 			Route::any('/nilai/laporan', 'NilaiController@viewReport')->name('nilai.viewReport');
+			Route::any('/nilai/laporan/export', 'NilaiController@exportNilai')->name('nilai.exportNilai');
 
 			// End Nilai & Rekap Nilai
 

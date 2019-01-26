@@ -18,8 +18,8 @@
 				                <thead>
 				                    <tr>
 				                        <th data-field="id">Nis</th>
-				                        <th data-field="kelas">Kelas</th>
 				                        <th data-field="nama">Nama</th>
+				                        <th data-field="kelas">Kelas</th>
 				                    </tr>
 				                </thead>
 				                <tbody>

@@ -42,7 +42,16 @@
 	                </div>
 	                <div class="form-group">
 	                  <label class="form-control-label" for="inputBasicEmail">Keterangan</label>
-	                  <input type="text" class="form-control" v-model="predikat.keterangan" id="inputBasicEmail" placeholder="Keterangan" autocomplete="off" />
+	                  <select autocomplete="off" class="form-control" v-model="predikat.keterangan" id="">
+	                  	<option disabled selected>Keterangan Predikat</option>
+	                  	<option value="Tidak Lulus">Tidak Lulus</option>
+	                  	<option value="Buruk Sekali">Buruk Sekali</option>
+	                  	<option value="Buruk">Buruk</option>
+	                  	<option value="Cukup">Cukup</option>
+	                  	<option value="Baik">Baik</option>
+	                  	<option value="Baik Sekali">Baik Sekali</option>
+	                  	<option value="Istimewa">Istimewa</option>
+	                  </select>
 	                    <span v-if="errors.keterangan" class="badge badge-danger">
 	                    	{{ errors.keterangan[0] }}
 	                    </span>
