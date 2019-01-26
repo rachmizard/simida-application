@@ -75,7 +75,7 @@
 	<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 	    <div class="row row-lg">
 	       <div class="col-md-12">
-	           <h4 class="example-title">Laporan Nilai Santri {!! isset($kelas) ?  DB::table('kelas')->whereId($kelas)->first()->nama_kelas : '' !!} </h4>
+	           <h4 class="example-title">Laporan Nilai Santri </h4>
 	           <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group" style="margin-bottom: 20px;">
 
 	           		<form action="{!! route('pendidikan.nilai.exportNilai') !!}">
