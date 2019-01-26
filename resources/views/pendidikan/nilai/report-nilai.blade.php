@@ -108,6 +108,9 @@
 	                    <tbody>
 	                    	@if(isset($santri))
 
+								@php($rata_rata = 0)
+								@php($nilai = 0)
+
 		                    	@foreach($santri as $key => $value)
 								
 		                        <tr>
@@ -152,8 +155,24 @@
 		                    					 ->sum('ip_ujian')
 		                    		!!}
 		                    		</td>
-		                            <td class="Ip-asli">4.71</td>
-		                            <td>5.18</td>
+		                            <td class="Ip-asli">
+		                            	@php($nilai = DB::table('nilai')->whereSantriId($value->id)
+	                    					 ->whereSemesterId($semester)
+	                    					 ->wherePeriodeId($periode)
+	                    					 ->sum('ip_ujian') / $total_bobot)
+		                           	{!! 
+	                            		number_format((float)$nilai, 2, '.', '')
+		                    		!!}
+		                            </td>
+		                            <td>
+		                            	@php($rata_rata = DB::table('nilai')->whereSantriId($value->id)
+		                    					 ->whereSemesterId($semester)
+		                    					 ->wherePeriodeId($periode)
+		                    					 ->sum('rata_rata') / count($mapelByTingkat))
+		                            	{!!	
+		                            		number_format((float)$rata_rata, 2, '.', '')
+		                            	!!}
+		                        	</td>
 		                            <td><span class="level1">Bagus Sekali</span></td>
 		                        </tr>
 		                        @endforeach
