@@ -393,6 +393,51 @@ const routes = [
 		},
 		// End Jadwal Pelajaran
 
+		// Predikat
+
+		{
+		  path: '/list_predikat',
+		  name: 'predikat',
+		  component: require('./components/Pendidikan/Predikat/PredikatComponent.vue') 
+		},
+
+		{
+		  path: '/tambah_predikat/',
+		  name: 'tambahPredikat',
+		  component: require('./components/Pendidikan/Predikat/TambahPredikatComponent.vue') 
+		},
+
+		{
+		  path: '/edit_predikat/:id',
+		  name: 'editPredikat',
+		  component: require('./components/Pendidikan/Predikat/EditPredikatComponent.vue') 
+		},
+
+		{
+		  path: '/hapus_predikat/:id',
+		  name: 'hapusPredikat',
+		  component: require('./components/Pendidikan/Predikat/HapusPredikatComponent.vue') 
+		},
+
+
+		// End Predikat
+
+		// Nilai
+
+		{
+		  path: '/nilai/pilihsantri',
+		  name: 'nilaiPilihSantri',
+		  component: require('./components/Pendidikan/Nilai/NilaiComponent.vue') 
+		},
+
+		{
+		  path: '/input_nilai/:id',
+		  name: 'inputNilai',
+		  component: require('./components/Pendidikan/Nilai/InputNilaiComponent.vue') 
+		},
+
+		// End Nilai
+
 		// Keuangan
 
 			// Pemasukan

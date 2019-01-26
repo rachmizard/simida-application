@@ -1,6 +1,15 @@
 <template>
     <div id="app">
         <div class="panel">
+            <div class="page-header">
+                <h3 class="page-title"><i class="icon wb-book"></i> Mata Pelajaran</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="">Pendidikan</a></li>
+                    <li class="breadcrumb-item"><a href="">Mata Pelajaran</a></li>
+                    <li class="breadcrumb-item active">Edit Mata Pelajaran {{ matapelajaran.nama_mata_pelajaran }}</li>
+                </ol>
+            </div>
             <div class="panel col-md-12">
                 <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
                     <div class="row row-lg">
@@ -27,8 +36,8 @@
                                             		<div class="col-md-4">
 		                                                <div class="form-group">
 		                                                   <label class="form-control-label" for="inputBasicFirstName">Nama Mata Pelajaran</label>
-		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Tahun baru.." autocomplete="off" />
-		                                                        <span v-if="errors.nama_mata_pelajaran" class="label label-danger">{{ errors.nama_mata_pelajaran[0] }}</span>
+		                                                   <input v-model="matapelajaran.nama_mata_pelajaran" type="text" class="form-control" placeholder="Nama Mata Pelajaran " autocomplete="off" />
+		                                                        <span v-if="errors.nama_mata_pelajaran" class="badge badge-danger">{{ errors.nama_mata_pelajaran[0] }}</span>
 		                                                </div>
                                             		</div>
                                             		<div class="col-md-4">
@@ -38,9 +47,16 @@
 		                                                    	<option value="" selected disabled>Pilih tingkat pada mata pelajaran</option>
 		                                                    	<option v-for="tingkat in tingkats.data" :value="tingkat.id">{{ tingkat.nama_tingkatan }}</option>
 		                                                    </select>
-		                                                    <span v-if="errors.tingkat_id" class="label label-danger">{{ errors.tingkat_id[0] }}</span>
+		                                                    <span v-if="errors.tingkat_id" class="badge badge-danger">{{ errors.tingkat_id[0] }}</span>
 		                                                </div>
                                             		</div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                           <label class="form-control-label" for="inputBasicFirstName">Bobot Mata Pelajaran</label>
+                                                           <input v-model="matapelajaran.bobot" type="text" class="form-control" placeholder="Contoh: 5" autocomplete="off" />
+                                                                <span v-if="errors.bobot" class="badge badge-danger">{{ errors.bobot[0] }}</span>
+                                                        </div>
+                                                    </div>
                                             		<!-- <div class="col-md-4">
 		                                                <div class="form-group">
 		                                                    <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
@@ -48,7 +64,7 @@
 		                                                    	<option value="" selected disabled>Pilih tingkat pada mata pelajaran</option>
 		                                                    	<option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
 		                                                    </select>
-		                                                    <span v-if="errors.kelas_id" class="label label-danger">{{ errors.kelas_id[0] }}</span>
+		                                                    <span v-if="errors.kelas_id" class="badge badge-danger">{{ errors.kelas_id[0] }}</span>
 		                                                </div>
 		                                            </div> -->
                                             	</div>
@@ -89,6 +105,7 @@
                 matapelajaran: {
                     nama_mata_pelajaran: '',
                     tingkat_id: '',
+                    bobot: '',
                     // kelas_id: ''
                 },
                 message: '',
@@ -106,7 +123,8 @@
 
         		axios.get('/pendidikan/matapelajaran/'+ id +'/show').then(response => {
         			this.matapelajaran.nama_mata_pelajaran = response.data.nama_mata_pelajaran;
-        			this.matapelajaran.tingkat_id = response.data.tingkat_id;
+                    this.matapelajaran.tingkat_id = response.data.tingkat_id;
+        			this.matapelajaran.bobot = response.data.bobot;
         			// this.matapelajaran.kelas_id = response.data.kelas_id;
         		});
 

@@ -26,7 +26,8 @@ class MataPelajaranExport implements FromCollection, WithHeadings
     	return [
     		'id',
     		'nama_mata_pelajaran', 
-    		'tingkat'
+    		'tingkat',
+            'bobot'
     		// 'kelas', 
     	];
     }

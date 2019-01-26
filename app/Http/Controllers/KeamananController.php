@@ -48,8 +48,8 @@ class KeamananController extends Controller
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::with(['santri'])->whereDate('created_at', Carbon::today()->format('Y-m-d'))->get();
-        return $datatables->of($entriIzin)
+        $entriIzin = Keamanan::select('keamanan.*')->with(['santri']);
+        return $datatables->eloquent($entriIzin)
         ->addColumn('action', function($var){
             if ($var['status'] == 'sudah_kembali') {  
                 return '
@@ -95,6 +95,11 @@ class KeamananController extends Controller
                 return date('d-m-Y H:i:s', strtotime($var->created_at));
             }
         })
+      ->filter(function($query) use ($request){
+        if (request()->get('start_date') && request()->get('end_date')) {
+          return $query->whereBetween('created_at', [request()->get('start_date'), request()->get('end_date')]);
+        }
+      }, true)
         ->rawColumns(['action', 'kategori', 'status'])
         ->make(true);
     }
@@ -104,9 +109,9 @@ class KeamananController extends Controller
         if ($request->start_date && $request->end_date) {
             $parseStartDate = Carbon::parse($request->start_date)->format('Y-m-d');
             $parseEndDate = Carbon::parse($request->end_date)->format('Y-m-d');
-            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->whereStatus($request->status)->whereBetween('created_at', [$parseStartDate, $parseEndDate])->get());
+            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::orderBy('created_at', 'ASC')->with(['santri'])->whereStatus($request->status)->whereBetween('created_at', [$parseStartDate, $parseEndDate])->get());
         }else{
-            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::with(['santri'])->select('keamanan.*')->get());
+            $entriIzin = LaporanEntriIzinResource::collection(Keamanan::orderBy('created_at', 'ASC')->with(['santri'])->select('keamanan.*')->get());
         }
 
         return response()->json(['data' => $entriIzin]);
@@ -211,7 +216,6 @@ class KeamananController extends Controller
                     'alasan' => $request->alasan, 
                     'kategori' => $request->kategori, 
                     'status' => 'belum_kembali', 
-                    'jam_berakhir' => $request->jam_berakhir
                 ]);
 
                 $updateHistoryIdAndKodeIzin = Keamanan::find($entri->id)
@@ -356,9 +360,9 @@ class KeamananController extends Controller
             ]);
             $start_date = Carbon::parse($request->start_date)->format('Y-m-d');
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d');
-            $filters = Notifikasi::whereTipe('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
+            $filters = Notifikasi::orderBy('created_at', 'DESC')->whereTipe('keamanan')->whereBetween('created_at', [$start_date, $end_date])->get();
         }else{
-            $filters = Notifikasi::orderBy('created_at', 'ASC')->whereTipe('keamanan')->paginate(30);
+            $filters = Notifikasi::orderBy('created_at', 'DESC')->whereTipe('keamanan')->paginate(30);
         }
 
         return response()->json(['data' => $filters]);
@@ -366,7 +370,7 @@ class KeamananController extends Controller
 
     public function getPemberitahuanWhereIsUnRead()
     {
-        $filters = Notifikasi::whereTipe('keamanan')->whereStatus('unread')->paginate(30);
+        $filters = Notifikasi::orderBy('created_at', 'DESC')->whereTipe('keamanan')->whereStatus('unread')->paginate(30);
         return response()->json(['data' => $filters]);
     }
 

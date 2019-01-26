@@ -45,6 +45,7 @@
 	                <th width="5%">Kode Mata Pelajaran</th>
 	                <th width="20%">Nama Mata Pelajaran</th>
 	                <th width="20%">Tingkat</th>
+	                <th width="20%">Nilai Bobot</th>
 	                <!-- <th width="10%">Kelas</th> -->
 	                <th width="20%">Aksi</th>
 	              </tr>
@@ -76,6 +77,7 @@
 		                  { data: 'id', name: 'id' },
 		                  { data: 'nama_mata_pelajaran', name: 'nama_mata_pelajaran', orderable: true },
 		                  { data: 'tingkat.nama_tingkatan', name: 'tingkat.nama_tingkatan' },
+		                  { data: 'bobot', name: 'bobot' },
 		                  // { data: 'kelas.nama_kelas', name: 'kelas.nama_kelas'},
 		                  { data: 'action', name: 'action', orderable: false, searchable: false }
 		              ]

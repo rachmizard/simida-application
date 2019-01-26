@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Periode;
 use App\TotalUang;
+use App\Http\Resources\PeriodeSelect2Resource;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -169,5 +170,10 @@ class PeriodeController extends Controller
         $periode = Periode::find($id);
         $periode->delete();
         return response()->json(['response' => 'success']);
+    }
+
+    public function getPeriodeForSelect2()
+    {
+        return PeriodeSelect2Resource::collection(Periode::orderBy('nama_periode', 'DESC')->get());
     }
 }

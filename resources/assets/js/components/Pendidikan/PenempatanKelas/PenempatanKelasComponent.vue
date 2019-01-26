@@ -1,5 +1,15 @@
 <template>
     <div id="app">
+      <div class="page-header">
+          <h1 class="page-title">Penempatan Kelas</h1>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
+              <li class="breadcrumb-item active">Penempatan Kelas</li>
+          </ol>
+      </div>
+
+
     	<!-- Modal -->
       <div class="modal fade modal-3d-slit" id="exampleNifty3dSlit" data-backdrop="static" data-keyboard="false" aria-hidden="true"
         aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
@@ -80,6 +90,8 @@
         </div>
       </div>
       <!-- End Modal -->
+
+
       <div class="row row-lg">
         <div class="col-lg-12">
           <div class="row">

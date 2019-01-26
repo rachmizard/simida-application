@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class MataPelajaranResource extends Resource
+class SemesterSelect2Resource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,7 @@ class MataPelajaranResource extends Resource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'nama_mata_pelajaran' => $this->nama_mata_pelajaran, 
-            'tingkat_id' => $this->tingkat['nama_tingkatan'], 
-            'bobot' => $this->bobot
-            // 'kelas_id' => $this->kelas['nama_kelas'], 
+            'text' => $this->tingkat_semester
         ];
     }
 }

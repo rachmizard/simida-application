@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\MataPelajaran;
 use App\Kelas;
+use App\Tingkat;
+use App\Santri;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Resources\MataPelajaranSelect2Resource;
@@ -67,6 +69,32 @@ class MataPelajaranController extends Controller
         return MataPelajaranSelect2Resource::collection(MataPelajaran::all());
     }
 
+    public function showMapelByTingkat($id)
+    {
+        $matapelajaran = [];
+        $jenis_nilai = [
+            'Nilai Mingguan',
+            'Nilai Uas',
+            'Rata Rata'
+        ];
+        $items = array();
+        $putih = array();
+
+        $datas = MataPelajaran::with('tingkat')->whereTingkatId($id)->get();
+        $i = 0;
+        foreach ($datas as $data) {
+            $matapelajaran['nama_mata_pelajaran'] = $data->nama_mata_pelajaran;
+            for($i=0; $i < count($jenis_nilai); $i++) 
+            {
+                $matapelajaran['jenis_nilai'] = $jenis_nilai[$i]; 
+                array_push($items, $matapelajaran);
+            }
+            array_push($putih, $items);
+            $items = array();
+        }
+        return response()->json(['data' => $putih]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,6 +106,7 @@ class MataPelajaranController extends Controller
         $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
+            'bobot' => 'required'
             // 'kelas_id' => 'required',
         ]);
 
@@ -134,6 +163,7 @@ class MataPelajaranController extends Controller
          $this->validate($request, [
             'nama_mata_pelajaran' => 'required',
             'tingkat_id' => 'required',
+            'bobot' => 'required'
             // 'kelas_id' => 'required',
         ]);
 
@@ -141,16 +171,17 @@ class MataPelajaranController extends Controller
 
         $validator = MataPelajaran::where(['nama_mata_pelajaran' => $request->nama_mata_pelajaran])->where('tingkat_id', $request->tingkat_id)->count();
 
-        if ($validator > 0) {
-            $data['message'] = false;
-            $data['messageError'] = false;
-            $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
-        }else{
+        // Turn off condition
+        // if ($validator > 0) {
+            // $data['message'] = false;
+            // $data['messageError'] = false;
+            // $data['messageWarning'] = 'Mata Pelajaran '. $request->nama_mata_pelajaran .' sudah ada di tingkat '. Tingkat::find($request->tingkat_id)->nama_tingkatan .'';
+        // }else{
             $data['message'] = 'Mata Pelajaran berhasil di edit!';
             $data['messageError'] = false;
             $data['messageWarning'] = false;
             $post = MataPelajaran::find($id)->update($request->all());
-        }
+        // }
         return response()->json(['response' => $data]);
     }
 
@@ -174,3 +205,4 @@ class MataPelajaranController extends Controller
         return Excel::download(new MataPelajaranExport(), 'mata_pelajaran_'. Carbon::now()->format('d-m-Y') .'.xlsx');        
     }
 }
+

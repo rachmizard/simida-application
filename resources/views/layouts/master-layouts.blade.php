@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="/assets/css/bootstrap.min599c.css">
   <link rel="stylesheet" href="/assets/css/bootstrap-extend.min599c.css">
   <link rel="stylesheet" href="/assets/css/site.min599c.css">
+  <link rel="stylesheet" href="/assets/css/tableDesign.css">
 
   <!-- Skin tools (demo site only) -->
   <link rel="stylesheet" href="/assets/css/skintools.min599c.css?v4.0.2">
@@ -96,6 +97,29 @@
       transform: translateX(10px);
       opacity: 0;
     }
+  </style>
+
+  <!-- Customize Cascading Style Sheet -->
+  <style>
+      table.striped tr {
+        border-bottom: none;
+      }
+
+      table.striped > tbody > tr:nth-child(odd) {
+        background-color: rgba(242, 242, 242, 0.5);
+      }
+
+      table.striped > tbody > tr > td {
+        border-radius: 0;
+        font-weight: 500;
+      }
+      table.striped > tbody > tr > td input{
+        font-weight: 500;font-size: 13px;
+      }
+      table.highlight > tbody > tr {
+        -webkit-transition: background-color .25s ease;
+        transition: background-color .25s ease;
+      }
   </style>
 
 </head>
@@ -297,9 +321,9 @@
                                             <!-- <li class="site-menu-item">
                                                 <a href="{{ route('pendidikan.jadwalpelajaran') }}#/jadwalpelajaran"><span class="site-menu-title">Jadwal Pelajaran</span></a>
                                             </li> -->
-                                            <li class="site-menu-item anak">
+                                            <!-- <li class="site-menu-item anak">
                                                 <a href="#!"><span class="site-menu-title">Jadwal Ujian</span></a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </li>
                                     <li class="site-menu-item">
@@ -323,13 +347,24 @@
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
                                     </li>
                                     <li class="site-menu-item has-sub">
-                                        <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Nilai</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item anak">
-                                                <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Report Absensi Siswa</span></a>
+                                                <a href="{{ route('pendidikan.nilai.index') }}#/nilai/pilihsantri/"><span class="site-menu-title">Input Nilai</span></a>
                                             </li>
                                             <li class="site-menu-item anak">
-                                                <a href="#!"><span class="site-menu-title">Report Nilai Siswa</span></a>
+                                                <a href="{{ route('pendidikan.predikat.index') }}#/list_predikat"><span class="site-menu-title">Predikat</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="site-menu-item has-sub">
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
+                                        <ul class="site-menu-sub">
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Laporan Absensi Santri</span></a>
+                                            </li>
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('pendidikan.nilai.viewReport') }}"><span class="site-menu-title">Laporan Nilai Santri</span></a>
                                             </li>
                                         </ul>
                                     </li>
@@ -396,7 +431,7 @@
                                         <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item anak">
-                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Entri</span></a>
+                                                <a href="{{ route('keamanan.home') }}#/laporan/entri_izin"><span class="site-menu-title">Laporan Izin</span></a>
                                             </li>
                                             <list-notifikasi class="anak"></list-notifikasi>
                                         </ul>
@@ -432,11 +467,11 @@
         <!--END: Side Navbar-->
         </header>
         <!-- Page -->
-        <main class="page">
+        <div class="page">
           <div class="page-content">
               @yield('content')
           </div><!--/.page-content-->
-        </main><!--/.page-->
+        </div><!--/.page-->
         <!-- End Page -->
         <!-- Footer -->
         <footer class="site-footer">
