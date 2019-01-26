@@ -64,13 +64,13 @@
 					                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->id }}">
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" name="nilai_mingguan[]" min="0" max="100" class="form-control" autocomplete="off" >
+					                    			<input type="number" name="nilai_mingguan[]" min="0" step="any" class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" min="0" max="100" name="nilai_uts[]"  class="form-control" autocomplete="off" >
+					                    			<input type="number" min="0" step="any" name="nilai_uts[]"  class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" min="0" max="100" name="nilai_uas[]"  class="form-control" autocomplete="off" >
+					                    			<input type="number" min="0" step="any" name="nilai_uas[]"  class="form-control" autocomplete="off" >
 					                    		</td>
 					                    		<td>
 					                    			<input type="number" readonly placeholder ="Nilai Rata-Rata akan keluar jika sudah di-input" class="form-control" autocomplete="off" >

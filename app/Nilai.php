@@ -18,7 +18,8 @@ class Nilai extends Model
     	'nilai_uts',
     	'nilai_uas',
     	'rata_rata',
-    	'mata_pelajaran_id'
+    	'mata_pelajaran_id',
+        'ip_ujian'
     ];
 
     public function santri()

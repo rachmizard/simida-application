@@ -110,6 +110,10 @@ class NilaiController extends Controller
 
         $total_jenis_nilai = 3; // (nilai mingguan, nilai uts, nilai uas)
 
+        $mapelByTingkat = MataPelajaran::whereTingkatId($santri->tingkat_id)->get();
+
+        $total_bobot = $mapelByTingkat->sum('bobot');
+
         foreach ($request->mata_pelajaran_id as $key => $value) {
 
             $getBobot = MataPelajaran::find($value);
@@ -118,6 +122,8 @@ class NilaiController extends Controller
             $nilai = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
 
             $rata_rata = $nilai / $total_jenis_nilai; // total nilai / 3 jenis mata pelajaran
+
+            $ip_ujian = $getBobot['bobot'] * $rata_rata;
 
             $data = array(
                 'santri_id' => $id,
@@ -128,10 +134,22 @@ class NilaiController extends Controller
                 'nilai_mingguan' => $request->nilai_mingguan [$key],
                 'nilai_uts' => $request->nilai_uts [$key],
                 'nilai_uas' => $request->nilai_uas [$key],
-                'rata_rata' => $rata_rata // nanti tinggal kesiniin si variable 
+                'rata_rata' => $rata_rata, // nanti tinggal kesiniin si variable ,
+                'ip_ujian' => $ip_ujian // index prestasi nilai ujian
             );
 
             Nilai::create($data);
+
+            /* ini akan segera digunakan jika dibutuhkan
+             $hitung_ip_asli = '';
+
+             DB::table('index_prestasi')->insert([
+                 'santri_id' => $id,
+                 'mata_pelajaran_id' => $value,
+                 'nilai_ip' => 
+             ]);
+            */
+
             // print_r($data);
         }
         // return response($data);
@@ -187,9 +205,13 @@ class NilaiController extends Controller
 
         foreach ($request->mata_pelajaran_id as $key => $value) {
 
+            $getBobot = MataPelajaran::find($value);
+
             $nilai = $request->nilai_mingguan[$key] + $request->nilai_uts[$key] + $request->nilai_uas[$key];
 
             $rata_rata = $nilai / $total_jenis_nilai;
+
+            $ip_ujian = $getBobot['bobot'] * $rata_rata;
 
             $data[$key] = array(
                 'santri_id' => $id,
@@ -200,7 +222,8 @@ class NilaiController extends Controller
                 'nilai_mingguan' => $request->nilai_mingguan [$key],
                 'nilai_uts' => $request->nilai_uts [$key],
                 'nilai_uas' => $request->nilai_uas [$key],
-                'rata_rata' => $rata_rata
+                'rata_rata' => $rata_rata,
+                'ip_ujian' => $ip_ujian
             );
         }
 
@@ -213,9 +236,71 @@ class NilaiController extends Controller
         return redirect()->back();
     }
 
-    public function viewReport()
+    public function viewReport(Request $request)
     {
-        return view('pendidikan.nilai.report-nilai');
+        $semesters = Semester::orderBy('tingkat_semester', 'DESC')->get();
+
+        $periodes = Periode::orderBy('nama_periode', 'ASC')->get();
+
+        $tingkats = Tingkat::all();
+
+        $kelass = Kelas::all();
+
+        // we need define this variable
+        $semester = '';
+
+        $periode = '';
+
+        $tingkat = '';
+
+        $kelas = '';
+
+        if ($request->method()=='POST') {
+
+            $semester = $request->semester_id;
+
+            $periode = $request->periode_id;
+
+            $tingkat = $request->tingkat_id;
+
+            $kelas = $request->kelas_id;
+
+            return $this->reportResults($semester, $periode, $tingkat, $kelas);
+
+        }else{
+            return view('pendidikan.nilai.report-nilai', compact('semesters', 'periodes', 'tingkats', 'kelass', 'semester', 'periode', 'tingkat', 'kelas'));   
+        }
+    }
+
+
+    public function reportResults($semesterId, $periodeId, $tingkatId, $kelasId)
+    {
+
+        $semesters = Semester::orderBy('tingkat_semester', 'DESC')->get();
+
+        $periodes = Periode::orderBy('nama_periode', 'ASC')->get();
+
+        $tingkats = Tingkat::all();
+
+        $kelass = Kelas::all();
+
+        $mapelByTingkat = MataPelajaran::whereTingkatId($tingkatId)->get();
+
+        $total_bobot = MataPelajaran::whereTingkatId($tingkatId)->sum('bobot');
+
+        // recent search will be saved
+
+        $semester = $semesterId;
+        $periode = $periodeId;
+        $tingkat = $tingkatId;
+        $kelas = $kelasId;
+
+        $santri = Santri::orderBy('nama_santri', 'ASC')->whereTingkatId($tingkatId)
+                        ->whereKelasId($kelasId)
+                        ->get();
+
+
+        return view('pendidikan.nilai.report-nilai', compact('santri', 'semesters', 'periodes', 'tingkats', 'kelass', 'mapelByTingkat', 'semester', 'periode', 'tingkat', 'kelas', 'total_bobot'));
     }
 
     public function exportGrade(Request $request, $id)

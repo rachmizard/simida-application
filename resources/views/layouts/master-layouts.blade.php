@@ -358,7 +358,7 @@
                                         </ul>
                                     </li>
                                     <li class="site-menu-item has-sub">
-                                        <a href="javascript:void(0)"><span class="site-menu-title">Report</span></a>
+                                        <a href="javascript:void(0)"><span class="site-menu-title">Laporan</span></a>
                                         <ul class="site-menu-sub">
                                             <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.absen.reportview') }}"><span class="site-menu-title">Laporan Absensi Siswa</span></a>
