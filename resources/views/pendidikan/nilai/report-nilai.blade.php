@@ -75,7 +75,7 @@
 	<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
 	    <div class="row row-lg">
 	       <div class="col-md-12">
-	           <h4 class="example-title">Laporan Santri kelas {!! DB::table('kelas')->whereId($kelas)->first()->nama_kelas !!} </h4>
+	           <h4 class="example-title">Laporan Nilai Santri {!! isset($kelas) ?  DB::table('kelas')->whereId($kelas)->first()->nama_kelas : '' !!} </h4>
 	           <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group" style="margin-bottom: 20px;">
 
 	           		<form action="{!! route('pendidikan.nilai.exportNilai') !!}">
@@ -87,7 +87,7 @@
 		                    <i class="icon wb-file" aria-hidden="true"></i> Export Excel
 		                </button>
 	           		</form>
-	           		
+
 	            </div>
 	            <div class="table-responsive-lg">
 	                <table class="striped table-design" data-toggle="tabl" data-height="400" data-mobile-responsive="true">
