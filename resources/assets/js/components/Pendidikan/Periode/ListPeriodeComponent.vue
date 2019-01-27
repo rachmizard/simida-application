@@ -1,6 +1,14 @@
 <template>
 	 <!-- Panel Table Tools -->
       <div class="panel" id="app">
+        <div class="page-header">
+            <h1 class="page-title">Periode</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
+                <li class="breadcrumb-item active">Periode</li>
+            </ol>
+        </div>
     <!-- MODAL -->
       <div id="deleteModalAsrama" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
