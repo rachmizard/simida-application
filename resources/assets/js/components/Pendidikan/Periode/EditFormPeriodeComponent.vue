@@ -1,5 +1,14 @@
 <template>
     <div id="app">
+        <div class="page-header">
+            <h1 class="page-title">Edit Periode</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
+                <li class="breadcrumb-item"><a href="#">Periode</a></li>
+                <li class="breadcrumb-item active">Edit Periode</li>
+            </ol>
+        </div>
         <div class="panel">
             <div class="panel col-md-6">
                 <div class="panel-body container-fluid" style="background-color: #fdfdfd;">
