@@ -40616,6 +40616,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('notifikasi-keamanan', __w
 // SYARIAH LAPORAN
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('list-laporan-syariah', __webpack_require__(200));
 
+// ADMIN
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('user-level-component', __webpack_require__(431));
+
 /**
 * Vue Router
 *
@@ -40649,6 +40653,14 @@ var routes = [
 		path: '/santriaktif',
 		name: 'santriAktif',
 		component: __webpack_require__(140)
+},
+// END SANTRI
+
+// SANTRI
+{
+		path: '/list_kartu_santri',
+		name: 'kartuSantri',
+		component: __webpack_require__(428)
 },
 // END SANTRI
 
@@ -87647,10 +87659,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "panel" }, [
       _c("header", { staticClass: "panel-heading" }, [
-        _vm._m(0),
-        _vm._v(" "),
         _c("h3", { staticClass: "panel-title" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -119036,6 +119048,752 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(430)
+/* template */
+var __vue_template__ = __webpack_require__(429)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Sekretariat/KartuSantri/KartuSantriComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a5222dc2", Component.options)
+  } else {
+    hotAPI.reload("data-v-a5222dc2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 429 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "app" } }, [
+    _c("div", { staticClass: "panel" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "div",
+              {
+                staticClass: "form-group",
+                staticStyle: { "margin-left": "15px" }
+              },
+              [
+                _c("label", { attrs: { for: "" } }, [
+                  _vm._v("Cari Berdasarkan Kelas")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.filter_kelas,
+                        expression: "filter.filter_kelas"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    staticStyle: { width: "100%" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "filter_kelas",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          _vm.getSantri()
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { disabled: "", selected: "" } }, [
+                      _vm._v("Pilih Kelas")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.kelass.data, function(kelas, index) {
+                      return _c("option", { domProps: { value: kelas.id } }, [
+                        _vm._v(_vm._s(kelas.text))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "example-wrap" }, [
+        _c("h4", { staticClass: "example-title" }, [
+          _vm._v("Hasil menampilkan kelas ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-columns" }, [
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.santris, function(santri, index) {
+              return _c("div", { staticClass: "col-lg-12" }, [
+                _c("div", { staticClass: "card" }, [
+                  santri.foto == null
+                    ? _c("img", {
+                        staticClass: "card-img-top img-fluid",
+                        attrs: { src: "/img/avatar_default.jpg", alt: "" }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  santri.foto != null
+                    ? _c("img", {
+                        staticClass: "card-img-top img-fluid",
+                        attrs: {
+                          src: "/storage/santri_pic/" + santri.foto,
+                          alt: ""
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-block" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(santri.nama_santri))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    {
+                      staticClass: "list-group list-group-dividered px-20 mb-0"
+                    },
+                    [
+                      _c("li", { staticClass: "list-group-item px-0" }, [
+                        _vm._v(_vm._s(santri.nis))
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item px-0" }, [
+                        _vm._v(_vm._s(santri.kelas.nama_kelas))
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item px-0" }, [
+                        _vm._v(_vm._s())
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1, true)
+                ])
+              ])
+            })
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" }, [
+        _c("i", { staticClass: "icon wb-search" }),
+        _vm._v(" Filter Kartu Santri")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-block" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-outline btn-info",
+          attrs: { href: "#" }
+        },
+        [_c("i", { staticClass: "icon wb-download" }, [_vm._v(" Print")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a5222dc2", module.exports)
+  }
+}
+
+/***/ }),
+/* 430 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_select2_component__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_v_select2_component__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	components: {
+		Select2: __WEBPACK_IMPORTED_MODULE_0_v_select2_component___default.a
+	},
+
+	data: function data() {
+		return {
+			asramas: [],
+			kelass: [],
+			santris: [],
+			filter: {
+				filter_kelas: '',
+				filter_asrama: ''
+			}
+		};
+	},
+	mounted: function mounted() {
+		this.getKelas();
+		this.getAsrama();
+		// this.getSantri();
+	},
+
+
+	methods: {
+		getKelas: function getKelas() {
+			var _this = this;
+
+			axios.get('/sekretariat/kelas/KelasSelect2').then(function (response) {
+				_this.kelass = response.data;
+			});
+		},
+		getAsrama: function getAsrama() {
+			var _this2 = this;
+
+			axios.get('/sekretariat/asrama/get/allKategori').then(function (response) {
+				_this2.asramas = response.data;
+			});
+		},
+		getSantri: function getSantri() {
+			var _this3 = this;
+
+			this.santris = [];
+			// console.log(this.filter.filter_kelas);
+			axios.get('/sekretariat/santri/getSantriForKartu', { params: { filter_kelas: this.filter.filter_kelas } }).then(function (response) {
+				_this3.santris = response.data;
+				// console.log(response.data);
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 431 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(432)
+/* template */
+var __vue_template__ = __webpack_require__(433)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/UserLevel/UserLevelComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e7c35e9e", Component.options)
+  } else {
+    hotAPI.reload("data-v-e7c35e9e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 432 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			periodes: []
+		};
+	},
+	mounted: function mounted() {
+		this.listPeriode();
+		this.function();
+		$(document).ready(function () {
+			$('#exampleTableTools').DataTable();
+		});
+	},
+
+
+	methods: {
+		function: function _function() {
+			$(function () {
+				var table = $('#periodeTable').DataTable({
+					processing: true,
+					serverSide: true,
+					ajax: {
+						url: "/pendidikan/periode/getPeriodeDataTables",
+						data: function data(e) {
+							e.kategori_asrama = $('select[name="kategori_asrama"]').val();
+						}
+					},
+					columns: [{ data: 'id', name: 'id' }, { data: 'nama_periode', name: 'nama_periode', orderable: true }, { data: 'start_date', name: 'start_date' }, { data: 'end_date', name: 'end_date' }, { data: 'status', name: 'status' }, { data: 'action', name: 'action', orderable: false, searchable: false }]
+				});
+			});
+		},
+		listPeriode: function listPeriode() {
+			var app = this;
+			axios.get('/pendidikan/periode/getPeriodeDataTables').then(function (response) {
+				app.periodes = response.data;
+			});
+		}
+	}
+});
+
+/***/ }),
+/* 433 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "panel", attrs: { id: "app" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("header", { staticClass: "panel-heading" }, [
+      _c("h3", { staticClass: "panel-title" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "form-group col-md-6",
+          staticStyle: { "margin-left": "15px" }
+        },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-sm btn-success",
+              attrs: { to: { name: "tambahPeriode" } }
+            },
+            [
+              _c("i", { staticClass: "icon wb-plus" }),
+              _vm._v(" Tambah Periode")
+            ]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h1", { staticClass: "page-title" }, [_vm._v("Hak Akses User")]),
+      _vm._v(" "),
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Home")]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Admin Panel")]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Hak Akses User")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: { id: "deleteModalAsrama", tabindex: "-1", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h4", {
+                  staticClass: "modal-title",
+                  attrs: { id: "title-data" }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "modal-body",
+                  staticStyle: { "margin-bottom": "50px" }
+                },
+                [
+                  _c("h5", [
+                    _vm._v("Anda yakin ingin menghapus data tersebut?")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c("div", { staticClass: "btn-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-md btn-info",
+                      attrs: { "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Tidak")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-md btn-danger",
+                      attrs: { id: "deleteBtnAsrama" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-upload" }),
+                      _c("i", { staticClass: "icon wb-trash" }),
+                      _vm._v(" Ya")
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-body" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-hover dataTable table-striped w-full",
+          attrs: { id: "periodeTable" }
+        },
+        [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { attrs: { width: "5%" } }, [_vm._v("ID Periode")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tahun")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Awal")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Akhir")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Status")]),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", attrs: { width: "20%" } },
+                [_vm._v("Aksi")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tfoot", [
+            _c("tr", [
+              _c("th", { attrs: { width: "5%" } }, [_vm._v("ID Periode")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tahun")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Awal")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Tanggal Akhir")]),
+              _vm._v(" "),
+              _c("th", { attrs: { width: "20%" } }, [_vm._v("Status")]),
+              _vm._v(" "),
+              _c(
+                "th",
+                { staticClass: "text-center", attrs: { width: "20%" } },
+                [_vm._v("Aksi")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody")
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e7c35e9e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

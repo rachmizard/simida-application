@@ -120,7 +120,7 @@ class SantriController extends Controller
                                 'tingkat',
                                 'kelas',
                                 'dewan'
-                                ])->select('santri.*')->where('status', 'aktif');
+                                ])->orderBy('nama_santri', 'ASC')->select('santri.*')->where('status', 'aktif');
         return $datatables->eloquent($santri) 
                               ->addColumn('action', function($var){
                                 return '
@@ -189,6 +189,19 @@ class SantriController extends Controller
                               })
                               ->rawColumns(['action', 'foto'])
                               ->make(true);
+    }
+
+    public function getSantriForKartu(Request $request)
+    {
+         $santri = Santri::orderBy('nama_santri', 'ASC')->with([
+                                'asrama.ngaran',
+                                'kobong',
+                                'tingkat',
+                                'kelas',
+                                'dewan'
+                                ])->where('kelas_id', $request->get('filter_kelas'))->get();
+
+         return response()->json($santri);
     }
 
     public function create()
@@ -420,6 +433,11 @@ class SantriController extends Controller
 
         // return response()->json(['response' => $data]);
        return redirect(route('sekretariat.santri').'#/list_santri');
+    }
+
+    public function kartuSantri()
+    {
+      return view('sekretariat.kartu-santri.index');
     }
 
     /**

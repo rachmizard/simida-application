@@ -18,7 +18,12 @@ class IsMurobby
     {
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->role == 'murobbi') {   
-                return $next($request);
+                if (Auth::user()->status == 'aktif') {
+                    return $next($request);
+                }else{
+                    Auth::logout();
+                    return redirect('/')->with('messageBlock', 'Akun telah diblok, silahkan request akun ke admin untuk membukanya.');
+                }
             }else if(Auth::user()->role == 'keuangan'){
                 return redirect()->route('keuangan.blocked-access');
             }else{

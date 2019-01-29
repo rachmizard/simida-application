@@ -41,6 +41,11 @@ Vue.component('notifikasi-keamanan', require('./components/Keamanan/NotifikasiKe
 // SYARIAH LAPORAN
 Vue.component('list-laporan-syariah', require('./components/Keuangan/Syariah/ListLaporanSyariahComponent.vue'));
 
+// ADMIN
+
+Vue.component('user-level-component', require('./components/UserLevel/UserLevelComponent.vue'));
+
+
 
 
 
@@ -77,6 +82,14 @@ const routes = [
 		  path: '/santriaktif',
 		  name: 'santriAktif',
 		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
+		},
+		// END SANTRI
+
+		// SANTRI
+		{
+		  path: '/list_kartu_santri',
+		  name: 'kartuSantri',
+		  component: require('./components/Sekretariat/KartuSantri/KartuSantriComponent.vue')
 		},
 		// END SANTRI
 

@@ -251,6 +251,9 @@
                                             <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.pendaftaran') }}"><span class="site-menu-title">Pendaftaran</span></a>
                                             </li>
+                                            <li class="site-menu-item anak">
+                                                <a href="{{ route('sekretariat.santri.kartuSantri') }}"><span class="site-menu-title">Kartu Santri</span></a>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="site-menu-item has-sub">
@@ -435,6 +438,20 @@
                                             </li>
                                             <list-notifikasi class="anak"></list-notifikasi>
                                         </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endif
+                            @if(auth()->user()->role == 'murobbi')
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <i class="site-menu-icon wb-user" aria-hidden="true"></i>
+                                    <span class="site-menu-title">Admin Panel</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="{{ route('admin.user-level.index') }}"><span class="site-menu-title">Hak Akses User</span></a>
                                     </li>
                                 </ul>
                             </li>

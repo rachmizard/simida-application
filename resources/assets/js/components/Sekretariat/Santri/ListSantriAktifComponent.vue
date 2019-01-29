@@ -1,15 +1,15 @@
 <template>
 <div id="app">
+	<div class="page-header">
+	    <h1 class="page-title"><i class="icon wb-user-circle"></i> Data Santri Aktif</h1>
+	    <ol class="breadcrumb">
+	        <li class="breadcrumb-item"><a href="/">Home</a></li>
+	        <li class="breadcrumb-item active">Data Santri Aktif</li>
+	    </ol>
+	</div>
 	<!-- Panel Table Tools -->
       <div class="panel">
         <header class="panel-heading">
-			<div class="page-header">
-			    <h1 class="page-title"><i class="icon wb-user-circle"></i> Data Santri Aktif</h1>
-			    <ol class="breadcrumb">
-			        <li class="breadcrumb-item"><a href="/">Home</a></li>
-			        <li class="breadcrumb-item active">Data Santri Aktif</li>
-			    </ol>
-			</div>
           <h3 class="panel-title"></h3>
           <div class="row">
           	<div class="col-md-4">
