@@ -38,8 +38,17 @@ Vue.component('list-guru-component', require('./components/Sekretariat/Guru/List
 Vue.component('list-notifikasi', require('./components/Keamanan/ListNotifikasiKeamananComponent.vue'));
 Vue.component('notifikasi-keamanan', require('./components/Keamanan/NotifikasiKeamananComponent.vue'));
 
+// LIST NOTIFIKASI IN PENDIDIKAN
+
+Vue.component('list-penempatan-kelas', require('./components/Pendidikan/PenempatanKelas/ListNotifikasiPenempatanKelas.vue'));
+
 // SYARIAH LAPORAN
 Vue.component('list-laporan-syariah', require('./components/Keuangan/Syariah/ListLaporanSyariahComponent.vue'));
+
+// ADMIN
+
+Vue.component('user-level-component', require('./components/UserLevel/UserLevelComponent.vue'));
+
 
 
 
@@ -77,6 +86,14 @@ const routes = [
 		  path: '/santriaktif',
 		  name: 'santriAktif',
 		  component: require('./components/Sekretariat/Santri/ListSantriAktifComponent.vue')
+		},
+		// END SANTRI
+
+		// SANTRI
+		{
+		  path: '/list_kartu_santri',
+		  name: 'kartuSantri',
+		  component: require('./components/Sekretariat/KartuSantri/KartuSantriComponent.vue')
 		},
 		// END SANTRI
 

@@ -27,7 +27,8 @@ Route::middleware(['auth', 'is_murobbi'])->group(function(){
 	Route::prefix('admin')->group(function(){
 		Route::name('admin.')->group(function(){
 			Route::get('/home', 'HomeController@index')->name('home');
-			Route::get('/user_management', 'UserLevelController@index')->name('userManagement');
+
+			Route::resource('/user-level', 'UserLevelController');
 		});
 	});
 });
@@ -39,25 +40,46 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			// Pendaftaran
 				// Get Location API
 					Route::get('provinces', 'Location\LocationController@province')->name('province');
+
 					Route::get('province/regencies/{provinceId}', 'Location\LocationController@regency')->name('regency');
+
 					Route::get('province/regency/districts/{regencyId}', 'Location\LocationController@district')->name('district');
+
 					Route::get('province/regency/district/villages/{districtId}', 'Location\LocationController@village')->name('village');
 				// End Get Location API
 			Route::get('/pendaftaran', 'SantriController@pendaftaran')->name('pendaftaran');
+
 			Route::post('/pendaftaran/store', 'SantriController@store')->name('store');
 			// End Pendaftaran
 
 			// Santri
 			Route::get('/santri', 'SantriController@index')->name('santri');
+
 			Route::post('/santri/getSantriDataTables', 'SantriController@getSantriDataTables')->name('santri.getSantriDataTables');
+
 			Route::post('/santri/getSantriAktifDataTables', 'SantriController@getSantriAktifDataTables')->name('santri.getSantriAktifDataTables');
+
 			Route::get('/santri/santri_aktif', 'SantriController@santri_aktif')->name('santri.santri_aktif');
+
 			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
+
+			Route::get('/santri/getSantriForKartu', 'SantriController@getSantriForKartu')->name('santri.getSantriForKartu');
+
 			Route::get('/santri/{id_kelas}/kelas', 'SantriController@showByClass')->name('santri.showByClass');
+
 			Route::get('/santri/{id}/show', 'SantriController@show')->name('santri.show');
+
 			Route::get('/santri/{id}/edit', 'SantriController@edit')->name('santri.edit');
+
 			Route::post('/santri/{id}/update', 'SantriController@update')->name('santri.update');
+
 			Route::delete('/santri/{id}/destroy', 'SantriController@destroy')->name('santri.destroy');
+
+				// Kartu Santri
+
+				Route::get('/santri/kartu-santri/{id}/lihat', 'SantriController@kartuSantri')->name('santri.kartuSantri');
+
+				// End Kartu Santri
 
 				// Export Report Santri
 					Route::post('/santri/export', 'SantriController@export')->name('export');
@@ -66,16 +88,27 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 			// Kelas
 			Route::get('/kelas', 'KelasController@index')->name('kelas');
+
 			Route::get('/kelas/getKelasDatatables', 'KelasController@getKelasDatatables')->name('kelas.getKelasDatatables');
+
 			Route::get('/kelas/JSON', 'KelasController@getKelasJSON')->name('kelas.getKelasJSON');
+
 			Route::get('/kelas/KelasSelect2', 'KelasController@KelasSelect2')->name('kelas.KelasSelect2');
+
 			Route::post('/kelas/store', 'KelasController@store')->name('kelas.store');
+
 			Route::get('/kelas/{id}/show', 'KelasController@show')->name('kelas.show');
+
 			Route::get('/kelas/{id}/tingkat', 'KelasController@showByTingkat')->name('tingkat.showByTingkat');
+
 			Route::put('/kelas/{id}/update', 'KelasController@update')->name('kelas.update');
+
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
+
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
+
 			Route::delete('/kelas/{id}/destroy', 'KelasController@destroy')->name('kelas.destroy');
+			
 			// End Kelas
 
 			// Tingkatan
@@ -198,6 +231,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
 			// Penempatan Kelas & Tingkat
 			Route::get('/penempatankelas', 'PenempatanKelasController@penempatankelas')->name('penempatankelas');
+			Route::get('/penempatankelas/countingPendidikanNotifications', 'PenempatanKelasController@countingPendidikanNotifications');
 			Route::get('/penempatankelas/listSantri', 'PenempatanKelasController@listSantri');
 			Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');
 			Route::post('/penempatankelas/{id}/oneByOne', 'PenempatanKelasController@oneByOne');
@@ -258,7 +292,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			
 			Route::get('/nilai', 'NilaiController@index')->name('nilai.index');
 			Route::get('/nilai/getSantri', 'NilaiController@getSantri');
-			Route::post('/nilai/{id}/input_nilai', 'NilaiController@viewInputNilai');
+			Route::any('/nilai/{id}/input_nilai', 'NilaiController@viewInputNilai');
 			Route::get('/nilai/edit_nilai', 'NilaiController@viewEditNilai');
 			Route::post('/nilai/{id}/store', 'NilaiController@storeNilai')->name('nilai.store');
 			Route::put('/nilai/{id}/update', 'NilaiController@updateNilai')->name('nilai.update');

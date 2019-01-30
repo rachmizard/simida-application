@@ -23,9 +23,9 @@ class UserLevelController extends Controller
 
     public function index()
     {
-        $this->model->all();
+        $users = $this->model->all();
 
-        return view();
+        return view('admin.user-level', compact('users'));
     }
 
     /**
@@ -35,7 +35,7 @@ class UserLevelController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -46,7 +46,18 @@ class UserLevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $user = $this->model->create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'username' => $data['username'],
+                    'password' => bcrypt($data['password']),
+                    'role' => $data['role'],
+                    'status' => $data['status'],
+                ]);
+
+        return redirect()->back()->with('messageSuccess', 'User akun berhasil ditambahkan!');
     }
 
     /**
@@ -68,7 +79,8 @@ class UserLevelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = $this->model->findOrFail($id);
+        return view('admin.edit', compact('user'));
     }
 
     /**
@@ -80,7 +92,20 @@ class UserLevelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $userId = $this->model->find($id);
+
+        $user = $this->model->find($id)->update([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'username' => $data['username'],
+                    'password' => $data['password'] ? bcrypt($data['password']) : $userId->password,
+                    'role' => $data['role'],
+                    'status' => $data['status'],
+                ]);
+
+        return redirect()->back()->with('messageSuccess', 'User akun berhasil diupdate!');
     }
 
     /**
@@ -91,6 +116,8 @@ class UserLevelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = $this->model->findOrFail($id)->delete();
+
+        return redirect()->back()->with('messageSuccess', 'Akun berhasil dihapus!');
     }
 }

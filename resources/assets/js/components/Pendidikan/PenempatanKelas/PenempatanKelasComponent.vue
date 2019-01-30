@@ -9,7 +9,6 @@
           </ol>
       </div>
 
-
     	<!-- Modal -->
       <div class="modal fade modal-3d-slit" id="exampleNifty3dSlit" data-backdrop="static" data-keyboard="false" aria-hidden="true"
         aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
@@ -46,26 +45,32 @@
 	                                          <!-- <h4 class="example-title"><i class="icon wb-plus text-success"></i> Cari Santri</h4> -->
 	                                              <div class="example">
 	                                                  <div class="form-row">
-	                                                    <div class="row">
-	                                                      <div class="col-md-6">
-	                                                          <div class="form-group">
-	                                                            <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
-	                                                            <select v-model="penempatankelas.kelas_id" class="form-control">
-	                                                            	<option value="">Pilih Kelas</option>
-	                                                            </select>
-	                                                          </div>
-                                            					<span v-if="errors.kelas_id" class="badge badge-danger">{{ errors.kelas_id[0] }}</span>
-	                                                      </div>
+                                                      <div class="row">
 	                                                      <div class="col-md-6">
 	                                                          <div class="form-group">
 	                                                            <label class="form-control-label" for="inputBasicFirstName">Tingkat Kelas</label>
-	                                                            <select v-model="penempatankelas.tingkat_id" class="form-control">
+	                                                            <select @change="filterKelas" v-model="penempatankelas.tingkat_id" class="form-control">
 	                                                            	<option value="">Tingkat Kelas</option>
+                                                                  <option v-for="(tingkat, index) in listTingkats" :value="tingkat.id">
+                                                                    {{ tingkat.text }}
+                                                                  </option>
 	                                                            </select>
-                                            					<span v-if="errors.tingkat_id" class="badge badge-danger">{{ errors.tingkat_id[0] }}
-                                            					</span>
+                                                      					<span v-if="errors.tingkat_id" class="badge badge-danger">{{ errors.tingkat_id[0] }}
+                                                      					</span>
 	                                                          </div>
 	                                                      </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                              <label class="form-control-label" for="inputBasicFirstName">Kelas</label>
+                                                              <select v-model="penempatankelas.kelas_id" class="form-control">
+                                                                <option value="">Pilih Kelas</option>
+                                                                  <option v-for="(kelas, index) in listKelass" :value="kelas.id">
+                                                                    {{ kelas.text }}
+                                                                  </option>
+                                                              </select>
+                                                            </div>
+                                                      <span v-if="errors.kelas_id" class="badge badge-danger">{{ errors.kelas_id[0] }}</span>
+                                                        </div>
 	                                                    </div>
 	                                                  </div>
 	                                                  <div class="form-row">
@@ -129,7 +134,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    	<tr v-if="!santris">
+                    	<tr v-if="santris.length == 0">
                     		<td colspan="8">
                     			Tidak ada data santri yang tersedia untuk ditempatkan!
                     		</td>
@@ -175,12 +180,15 @@
 
         mounted() {
         	this.fetchSantri();
+          this.getTingkats();
         },
 
         data(){
             return {
                 errors: [],
                 santris: [],
+                listKelass: [],
+                listTingkats: [],
                 penempatankelas: {
                 	santri_id: [],
                 	kelas_id: '',
@@ -196,6 +204,30 @@
             	axios.get('/pendidikan/penempatankelas/listSantri').then(response => {
             		this.santris = response.data;
             	});
+            },
+
+            filterKelas(){
+              axios.get('/pendidikan/kelas/'+ this.penempatankelas.tingkat_id +'/tingkat').then(response => {
+                this.listKelass = response.data;
+              });
+            },
+
+            getTingkats(){
+              axios.get('/pendidikan/TingkatanSelect2').then(response => {
+                this.listTingkats = response.data.data;
+              });
+            },
+
+            storeentriizin(){
+              var body = this.penempatankelas;
+              axios.post('/pendidikan/penempatankelas/storePenempatanKelas', body).then(response => {
+                  this.messageSuccess = true;
+                  setTimeout(() => {
+                    this.messageSuccess = false;
+                  }, 5000)
+              }).catch((error) => {
+                  this.errors = error.response.data.errors;
+              });
             },
 
             dismissModal(){

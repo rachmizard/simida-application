@@ -41,14 +41,14 @@ class KeamananController extends Controller
 
     public function listSantriIzinWithFilter(Request $request)
     {
-        $santri = Santri::with(['kelas', 'asrama.ngaran'])->where('nama_santri', 'like', '%'.$request->nama_santri.'%' )->orWhere('nis', $request->nis)->get();
+        $santri = Santri::orderBy('nama_santri', 'ASC')->with(['kelas', 'asrama.ngaran'])->where('nama_santri', 'like', '%'.$request->nama_santri.'%' )->orWhere('nis', $request->nis)->get();
         $available = count($santri) > 0 ? true : false;
         return response()->json(['data' => $santri, 'available' => $available]);
     }
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::select('keamanan.*')->with(['santri']);
+        $entriIzin = Keamanan::select('keamanan.*')->with(['santri'])->where('created_at', Carbon::now());
         return $datatables->eloquent($entriIzin)
         ->addColumn('action', function($var){
             if ($var['status'] == 'sudah_kembali') {  

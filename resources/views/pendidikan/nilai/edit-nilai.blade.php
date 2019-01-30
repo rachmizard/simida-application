@@ -66,16 +66,31 @@
 						                    	<tr>
 						                    		<td>
 						                    			<span>{{ $mata_pelajaran->matapelajaran['nama_mata_pelajaran'] }}</span>
-						                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->mata_pelajaran_id }}">
+						                    			<input id="requiredForm" type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->mata_pelajaran_id }}">
 						                    		</td>
 						                    		<td>
-						                    			<input type="number" name="nilai_mingguan[]" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_mingguan }}">
+						                    			<input id="requiredForm" type="number" name="nilai_mingguan[]" step="any" class="form-control" autocomplete="off" min="0" max="10" value="{{ $mata_pelajaran->nilai_mingguan }}">
+						                    			@if($errors->has('nilai_mingguan[$key]'))
+						                    			<span class="help-block">
+						                    				<strong>{{ $errors->first('nilai_mingguan[$key]') }}</strong>
+						                    			</span>
+						                    			@endif
 						                    		</td>
 						                    		<td>
-						                    			<input type="number" name="nilai_uts[]" onkeyup="nilaiUts('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_uts }}">
+						                    			<input id="requiredForm" type="number" name="nilai_uts[]" step="any" class="form-control" autocomplete="off" min="0" max="10" value="{{ $mata_pelajaran->nilai_uts }}">
+						                    			@if($errors->has('nilai_uts[$key]'))
+						                    			<span class="help-block">
+						                    				<strong>{{ $errors->first('nilai_uts[$key]') }}</strong>
+						                    			</span>
+						                    			@endif
 						                    		</td>
 						                    		<td>
-						                    			<input type="number" name="nilai_uas[]" onkeyup="nilaiUas('{{ $key }}')" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->nilai_uas }}">
+						                    			<input id="requiredForm" type="number" name="nilai_uas[]" step="any" class="form-control" autocomplete="off" min="0" max="10" value="{{ $mata_pelajaran->nilai_uas }}">
+						                    			@if($errors->has('nilai_uas[$key]'))
+						                    			<span class="help-block">
+						                    				<strong>{{ $errors->first('nilai_uas[$key]') }}</strong>
+						                    			</span>
+						                    			@endif
 						                    		</td>
 						                    		<td>
 						                    			<input type="number" readonly class="form-control" autocomplete="off" value="{{ $mata_pelajaran->rata_rata }}">
@@ -111,7 +126,7 @@
   crossorigin="anonymous"></script>
 <script>
 	$(function(){
-		// will be developed soon
+
 	});
 </script>
 @endsection

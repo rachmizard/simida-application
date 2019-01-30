@@ -156,7 +156,9 @@ class NilaiController extends Controller
         }
         // return response($data);
         // var_dump($data);
-        return redirect('pendidikan/nilai#/nilai/pilihsantri');
+        $message = 'Nilai santri'. $santri->nama_santri .' berhasil dimasukan ke database!';
+        // return redirect('pendidikan/nilai#/nilai/pilihsantri')->with('message', );
+        return redirect()->back()->with('message', $message);
     }
 
     /**
@@ -191,6 +193,12 @@ class NilaiController extends Controller
      */
     public function updateNilai(Request $request, $id)
     {
+        $this->validate($request, [
+            'nilai_mingguan.*' => 'required|max:10',
+            'nilai_uts.*' => 'required|max:10',
+            'nilai_uas.*' => 'required|max:10',
+        ]);
+
         // dd($request->all());
         $santri = Santri::findOrFail($id);
 
@@ -289,6 +297,8 @@ class NilaiController extends Controller
         $mapelByTingkat = MataPelajaran::whereTingkatId($tingkatId)->get();
 
         $total_bobot = MataPelajaran::whereTingkatId($tingkatId)->sum('bobot');
+
+        // dd($total_bobot);
 
         // recent search will be saved
 

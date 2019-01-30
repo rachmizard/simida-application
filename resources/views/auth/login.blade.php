@@ -111,6 +111,13 @@
             </a>
           </div>
           <button id="" type="submit" class="btn btn-primary btn-block">Login</button>
+          <div class="form-group">
+            @if(session('messageBlock'))
+            <span class="help-block text-danger">
+                <strong>{{ session('messageBlock') }}</strong>
+            </span>
+            @endif
+          </div>
         </form>
 
 <!--        <p>No account? <a href="register-v2.html">Sign Up</a></p>-->

@@ -326,9 +326,7 @@
                                             </li> -->
                                         </ul>
                                     </li>
-                                    <li class="site-menu-item">
-                                        <a href="{{ route('pendidikan.penempatankelas') }}#/penempatankelas"><span class="site-menu-title">Penempatan Kelas</span></a>
-                                    </li>
+                                    <list-penempatan-kelas></list-penempatan-kelas>
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
                                     </li>
@@ -435,6 +433,20 @@
                                             </li>
                                             <list-notifikasi class="anak"></list-notifikasi>
                                         </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endif
+                            @if(auth()->user()->role == 'murobbi')
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <i class="site-menu-icon wb-user" aria-hidden="true"></i>
+                                    <span class="site-menu-title">Admin Panel</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+                                <ul class="site-menu-sub">
+                                    <li class="site-menu-item">
+                                        <a href="{{ route('admin.user-level.index') }}"><span class="site-menu-title">Hak Akses User</span></a>
                                     </li>
                                 </ul>
                             </li>
