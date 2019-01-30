@@ -72,9 +72,6 @@
 					                    		<td>
 					                    			<input type="number" min="0" max="10" step="any" name="nilai_uas[]"  class="form-control" autocomplete="off" >
 					                    		</td>
-					                    		<td>
-					                    			<input type="number" readonly placeholder ="Nilai Rata-Rata akan keluar jika sudah di-input" class="form-control" autocomplete="off" >
-					                    		</td>
 					                    	</tr>
 					                    	@endforeach
 					                    </tbody>
