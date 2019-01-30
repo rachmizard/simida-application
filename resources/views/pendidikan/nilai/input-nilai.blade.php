@@ -53,7 +53,6 @@
 					                            <th data-field="mingguan">Mingguan</th>
 					                            <th data-field="uts">UTS</th>
 					                            <th data-field="uas">UAS</th>
-					                            <th data-field="rata">Rata-Rata</th>
 					                        </tr>
 					                    </thead>
 					                    <tbody>
