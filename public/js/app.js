@@ -105880,6 +105880,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -106267,11 +106270,21 @@ var render = function() {
                               _c("td", [_vm._v(_vm._s(listSantri.kelas))]),
                               _vm._v(" "),
                               _c("td", [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-primary" },
-                                  [_vm._v(_vm._s(listSantri.status_nilai))]
-                                )
+                                listSantri.status_nilai == "Sudah"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-success" },
+                                      [_vm._v(_vm._s(listSantri.status_nilai))]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                listSantri.status_nilai == "Belum"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-danger" },
+                                      [_vm._v(_vm._s(listSantri.status_nilai))]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "w-50" }, [

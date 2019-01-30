@@ -87,7 +87,10 @@
 			                        <td>{{ listSantri.nis }}</td>
 			                        <td>{{ listSantri.nama_santri }}</td>
 			                        <td>{{ listSantri.kelas }}</td>
-			                        <td><span class="badge badge-primary">{{ listSantri.status_nilai }}</span></td>
+			                        <td>
+			                        	<span v-if="listSantri.status_nilai == 'Sudah' " class="badge badge-success">{{ listSantri.status_nilai }}</span>
+			                        	<span v-if="listSantri.status_nilai == 'Belum' " class="badge badge-danger">{{ listSantri.status_nilai }}</span>
+			                        </td>
 			                        <td class="w-50">
 
 			                        	<form v-if="listSantri.status_nilai != 'Sudah'" :action="'nilai/'+ listSantri.id +'/input_nilai'" method="POST">
