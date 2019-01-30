@@ -89,7 +89,8 @@
 			                        <td>{{ listSantri.kelas }}</td>
 			                        <td><span class="badge badge-primary">{{ listSantri.status_nilai }}</span></td>
 			                        <td class="w-50">
-			                        	<form :action="'nilai/'+ listSantri.id +'/input_nilai'" method="POST">
+
+			                        	<form v-if="listSantri.status_nilai != 'Sudah'" :action="'nilai/'+ listSantri.id +'/input_nilai'" method="POST">
 			                        		<input type="hidden" :value="csrf_token" name="_token">
 			                        		<input type="hidden" :value="nilai.periode_id" name="periode_id">
 			                        		<input type="hidden" :value="listSantri.kelas_id" name="kelas_id">
@@ -98,6 +99,7 @@
 				                                <i class="icon wb-plus" aria-hidden="true"></i>
 				                            </button>
 			                        	</form>
+
 			                        	<form action="nilai/edit_nilai" method="GET">
 			                        		<input type="hidden" :value="csrf_token" name="_token">
 			                        		<input type="hidden" :value="listSantri.id" name="santri_id">

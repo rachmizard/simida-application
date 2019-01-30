@@ -577,13 +577,13 @@
     <script src="https://getbootstrapadmin.com/remark/global/vendor/toolbar/jquery.toolbar.js?v4.0.2"></script>
       <!-- Form Wizard -->
 
-      <script src="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/formValidation.min.js?v4.0.2"></script>
+      <!-- <script src="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/formValidation.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/vendor/formvalidation/framework/bootstrap.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/vendor/matchheight/jquery.matchHeight-min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/vendor/jquery-wizard/jquery-wizard.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/jquery-wizard.min.js?v4.0.2"></script>
       <script src="https://getbootstrapadmin.com/remark/global/js/Plugin/matchheight.min.js?v4.0.2"></script>
-      <script src="https://getbootstrapadmin.com/remark/base/assets/examples/js/forms/wizard.min.js?v4.0.2"></script>
+      <script src="https://getbootstrapadmin.com/remark/base/assets/examples/js/forms/wizard.min.js?v4.0.2"></script> -->
 
 
     <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
@@ -593,155 +593,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-
-<script>
-
-! function(global, factory) {
-    if ("function" == typeof define && define.amd) define("/tables/bootstrap", ["jquery", "Site"], factory);
-    else if ("undefined" != typeof exports) factory(require("jquery"), require("Site"));
-    else {
-        var mod = {
-            exports: {}
-        };
-        factory(global.jQuery, global.Site), global.tablesBootstrap = mod.exports
-    }
-}(this, function(_jquery, _Site) {
-    "use strict";
-    var _jquery2 = babelHelpers.interopRequireDefault(_jquery),
-        Site = babelHelpers.interopRequireWildcard(_Site);
-    (0, _jquery2.default)(document).ready(function($) {
-            Site.run()
-        }),
-        function() {
-            var bt_data = [{
-                Tid: "1",
-                First: "Jill",
-                Last: "Smith",
-                Score: "50"
-            }, {
-                Tid: "2",
-                First: "Eve",
-                Last: "Jackson",
-                Score: "94"
-            }, {
-                Tid: "3",
-                First: "John",
-                Last: "Doe",
-                Score: "80"
-            }, {
-                Tid: "4",
-                First: "Adam",
-                Last: "Johnson",
-                Score: "67"
-            }, {
-                Tid: "5",
-                First: "Fish",
-                Last: "Johnson",
-                Score: "100"
-            }, {
-                Tid: "6",
-                First: "CC",
-                Last: "Joson",
-                Score: "77"
-            }, {
-                Tid: "7",
-                First: "UDIN",
-                Last: "Yoson",
-                Score: "87"
-            }];
-            (0, _jquery2.default)("#exampleTableFromData").bootstrapTable({
-                data: bt_data,
-                height: "250"
-            })
-        }(), (0, _jquery2.default)("#exampleTableColumns").bootstrapTable({
-            url: "../assets/data/bootstrap_table_test.json",
-            height: "400",
-            iconSize: "outline",
-            showColumns: !0,
-            icons: {
-                refresh: "wb-refresh",
-                toggle: "wb-order",
-                columns: "wb-list-bulleted"
-            }
-        }),
-        function($el, cells, rows) {
-            var i, j, row, columns = [],
-                data = [];
-            for (i = 0; i < cells; i++) columns.push({
-                field: "field" + i,
-                title: "Cell" + i
-            });
-            for (i = 0; i < rows; i++) {
-                for (row = {}, j = 0; j < cells; j++) row["field" + j] = "Row-" + i + "-" + j;
-                data.push(row)
-            }
-            $el.bootstrapTable("destroy").bootstrapTable({
-                columns: columns,
-                data: data,
-                iconSize: "outline",
-                icons: {
-                    columns: "wb-list-bulleted"
-                }
-            })
-        }((0, _jquery2.default)("#exampleTableLargeColumns"), 50, 50), (0, _jquery2.default)("#exampleTableToolbar").bootstrapTable({
-            url: "../assets/data/bootstrap_table_test2.json",
-            search: !0,
-            pagination: true,
-            showRefresh: !0,
-            showToggle: !0,
-            showColumns: !0,
-            toolbar: "#exampleToolbar",
-            iconSize: "outline",
-            icons: {
-                refresh: "wb-refresh",
-                toggle: "wb-order",
-                columns: "wb-list-bulleted"
-            }
-        }),
-        function() {
-            (0, _jquery2.default)("#exampleTableEvents").bootstrapTable({
-                url: "../assets/data/bootstrap_table_test.json",
-                search: !0,
-                pagination: !0,
-                showRefresh: !0,
-                showToggle: !0,
-                showColumns: !0,
-                iconSize: "outline",
-                toolbar: "#exampleTableEventsToolbar",
-                icons: {
-                    refresh: "wb-refresh",
-                    toggle: "wb-order",
-                    columns: "wb-list-bulleted"
-                }
-            });
-            var $result = (0, _jquery2.default)("#examplebtTableEventsResult");
-            (0, _jquery2.default)("#exampleTableEvents").on("all.bs.table", function(e, name, args) {}).on("click-row.bs.table", function(e, row, $element) {
-                $result.text("Event: click-row.bs.table")
-            }).on("dbl-click-row.bs.table", function(e, row, $element) {
-                $result.text("Event: dbl-click-row.bs.table")
-            }).on("sort.bs.table", function(e, name, order) {
-                $result.text("Event: sort.bs.table")
-            }).on("check.bs.table", function(e, row) {
-                $result.text("Event: check.bs.table")
-            }).on("uncheck.bs.table", function(e, row) {
-                $result.text("Event: uncheck.bs.table")
-            }).on("check-all.bs.table", function(e) {
-                $result.text("Event: check-all.bs.table")
-            }).on("uncheck-all.bs.table", function(e) {
-                $result.text("Event: uncheck-all.bs.table")
-            }).on("load-success.bs.table", function(e, data) {
-                $result.text("Event: load-success.bs.table")
-            }).on("load-error.bs.table", function(e, status) {
-                $result.text("Event: load-error.bs.table")
-            }).on("column-switch.bs.table", function(e, field, checked) {
-                $result.text("Event: column-switch.bs.table")
-            }).on("page-change.bs.table", function(e, size, number) {
-                $result.text("Event: page-change.bs.table")
-            }).on("search.bs.table", function(e, text) {
-                $result.text("Event: search.bs.table")
-            })
-        }()
-});    
-</script>
 @stack('otherJavascript')
 </html>

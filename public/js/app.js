@@ -105885,6 +105885,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -106280,50 +106282,61 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "w-50" }, [
-                                _c(
-                                  "form",
-                                  {
-                                    attrs: {
-                                      action:
-                                        "nilai/" +
-                                        listSantri.id +
-                                        "/input_nilai",
-                                      method: "POST"
-                                    }
-                                  },
-                                  [
-                                    _c("input", {
-                                      attrs: { type: "hidden", name: "_token" },
-                                      domProps: { value: _vm.csrf_token }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      attrs: {
-                                        type: "hidden",
-                                        name: "periode_id"
+                                listSantri.status_nilai != "Sudah"
+                                  ? _c(
+                                      "form",
+                                      {
+                                        attrs: {
+                                          action:
+                                            "nilai/" +
+                                            listSantri.id +
+                                            "/input_nilai",
+                                          method: "POST"
+                                        }
                                       },
-                                      domProps: { value: _vm.nilai.periode_id }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      attrs: {
-                                        type: "hidden",
-                                        name: "kelas_id"
-                                      },
-                                      domProps: { value: listSantri.kelas_id }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      attrs: {
-                                        type: "hidden",
-                                        name: "semester_id"
-                                      },
-                                      domProps: { value: _vm.nilai.semester_id }
-                                    }),
-                                    _vm._v(" "),
-                                    _vm._m(5, true)
-                                  ]
-                                ),
+                                      [
+                                        _c("input", {
+                                          attrs: {
+                                            type: "hidden",
+                                            name: "_token"
+                                          },
+                                          domProps: { value: _vm.csrf_token }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          attrs: {
+                                            type: "hidden",
+                                            name: "periode_id"
+                                          },
+                                          domProps: {
+                                            value: _vm.nilai.periode_id
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          attrs: {
+                                            type: "hidden",
+                                            name: "kelas_id"
+                                          },
+                                          domProps: {
+                                            value: listSantri.kelas_id
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          attrs: {
+                                            type: "hidden",
+                                            name: "semester_id"
+                                          },
+                                          domProps: {
+                                            value: _vm.nilai.semester_id
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _vm._m(5, true)
+                                      ]
+                                    )
+                                  : _vm._e(),
                                 _vm._v(" "),
                                 _c(
                                   "form",
