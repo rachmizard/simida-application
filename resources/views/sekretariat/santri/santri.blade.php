@@ -9,6 +9,16 @@
     </ol>
 </div>
 
+
+@if(session('message'))
+<div class="alert dark alert-icon alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ session('message') }}
+</div>
+@endif
+
 <transition name="slide-fade">
 	<router-view>
 	</router-view>

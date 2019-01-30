@@ -251,9 +251,6 @@
                                             <li class="site-menu-item anak">
                                                 <a href="{{ route('sekretariat.pendaftaran') }}"><span class="site-menu-title">Pendaftaran</span></a>
                                             </li>
-                                            <li class="site-menu-item anak">
-                                                <a href="{{ route('sekretariat.santri.kartuSantri') }}"><span class="site-menu-title">Kartu Santri</span></a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li class="site-menu-item has-sub">
@@ -329,9 +326,7 @@
                                             </li> -->
                                         </ul>
                                     </li>
-                                    <li class="site-menu-item">
-                                        <a href="{{ route('pendidikan.penempatankelas') }}#/penempatankelas"><span class="site-menu-title">Penempatan Kelas</span></a>
-                                    </li>
+                                    <list-penempatan-kelas></list-penempatan-kelas>
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
                                     </li>

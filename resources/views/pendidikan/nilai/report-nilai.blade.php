@@ -185,7 +185,7 @@
 		                            <td>
 		                            	@php($predikat = 
 		                            			DB::table('predikat')
-		                            			->where('nilai_maksimal', '>', $nilai)
+		                            			->where('nilai_maksimal', '>=', $nilai)
 		                            			->first()->keterangan)
 
 		                            	@switch($predikat)

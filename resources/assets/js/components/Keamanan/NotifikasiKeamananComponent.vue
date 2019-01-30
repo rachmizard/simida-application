@@ -7,13 +7,13 @@
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
         <div class="dropdown-menu-header">
             <h5>Notifikasi</h5>
-            <span class="badge badge-round badge-danger">Baru {{ total }}</span>
+            <span v-if="total.length != 0" class="badge badge-round badge-danger">Baru {{ total }}</span>
         </div>
 
         <div class="list-group">
             <div data-role="container">
                 <div data-role="content">
-                    <a v-for="notification in notifications.data" class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                    <a v-if="total.length != 0" v-for="notification in notifications.data" class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
                         <div class="media">
                             <div class="pr-10">
                                 <i class="icon wb-order bg-red-600 white icon-circle" aria-hidden="true"></i>
@@ -21,6 +21,13 @@
                             <div class="media-body">
                                 <h6 class="media-heading">{{ notification.judul }}</h6>
                                 <time class="media-meta" datetime="2018-06-12T20:50:48+08:00">{{ notification.created_at }}</time>
+                            </div>
+                        </div>
+                    </a>
+                    <a v-if="total.length == 0" class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                        <div class="media">
+                            <div class="media-body">
+                                <h6 class="media-heading">Notikasi kosong.</h6>
                             </div>
                         </div>
                     </a>

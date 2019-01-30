@@ -77,7 +77,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 				// Kartu Santri
 
-				Route::get('/santri/kartu-santri', 'SantriController@kartuSantri')->name('santri.kartuSantri');
+				Route::get('/santri/kartu-santri/{id}/lihat', 'SantriController@kartuSantri')->name('santri.kartuSantri');
 
 				// End Kartu Santri
 
@@ -231,6 +231,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
 			// Penempatan Kelas & Tingkat
 			Route::get('/penempatankelas', 'PenempatanKelasController@penempatankelas')->name('penempatankelas');
+			Route::get('/penempatankelas/countingPendidikanNotifications', 'PenempatanKelasController@countingPendidikanNotifications');
 			Route::get('/penempatankelas/listSantri', 'PenempatanKelasController@listSantri');
 			Route::post('/penempatankelas/storePenempatanKelas', 'PenempatanKelasController@storePenempatanKelas');
 			Route::post('/penempatankelas/{id}/oneByOne', 'PenempatanKelasController@oneByOne');

@@ -7,6 +7,7 @@ use App\Kelas;
 use App\Tingkat;
 use App\DewanKyai;
 use App\Kobong;
+use App\Notifikasi;
 use App\Location\Province;
 use App\Location\Regency;
 use App\Location\District;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use App\DataNamaAsrama;
 use App\Asrama;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Events\RefreshNotification;
 use App\Exports\SantriExport;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
@@ -70,6 +72,7 @@ class SantriController extends Controller
                                         <div class="btn-group text-center">
                                         
                                             <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
+                                            <a target="_blank" href="'. route('sekretariat.santri.kartuSantri', $var->id) .'" class="btn btn-xs btn-info text-white" title="Cetak Kartu Santri"><i class="icon wb-payment"></i></a>
                                             <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
 
@@ -126,6 +129,7 @@ class SantriController extends Controller
                                 return '
                                         <div class="btn-group text-center">
                                             <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a target="_blank" href="'. route('sekretariat.santri.kartuSantri', $var->id) .'" class="btn btn-xs btn-info text-white" title="Cetak Kartu Santri"><i class="icon wb-payment"></i></a>
                                             <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
@@ -181,6 +185,7 @@ class SantriController extends Controller
                                 return '
                                         <div class="btn-group text-center">
                                             <a href="#/detail/santri/'. $var->id .'" class="btn btn-xs btn-info text-white"><i class="icon wb-eye"></i></a>
+                                            <a target="_blank" href="'. route('sekretariat.santri.kartuSantri', $var->id) .'" class="btn btn-xs btn-info text-white" title="Cetak Kartu Santri"><i class="icon wb-payment"></i></a>
                                             <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
                                         </div>
@@ -227,9 +232,9 @@ class SantriController extends Controller
             'kecamatan' => 'required', 
             'kelurahan' => 'required', 
             'alamat' => 'required', 
-            'kode_pos' => 'required', 
+            // 'kode_pos' => 'required', 
             'nama_ortu' => 'required', 
-            'nama_wali' => 'required', 
+            // 'nama_wali' => 'required', 
             'no_telp' => 'required', 
             'pendidikan_terakhir' => 'required', 
             'asrama_id' => 'required', 
@@ -239,7 +244,7 @@ class SantriController extends Controller
             'tgl_masuk' => 'required', 
             'himpunan' => 'required', 
             'dewan_id' => 'required', 
-            'pesantren_sebelumnya' => 'required', 
+            // 'pesantren_sebelumnya' => 'required', 
             // 'foto'
         ]);
 
@@ -276,18 +281,22 @@ class SantriController extends Controller
         }
         $newSantri->save();
 
+        // Make a notification to notices the pendidikan.
+        Notifikasi::create([
+           'judul' => 'Pendaftaran Santri baru', 
+           'pesan' => 'Sekretariat menambahkan santri baru dengan NIS ' . $newSantri->nis . ', segera konfirmasi kelas yg akan ditempatkan', 
+           'tipe' => 'sekretariat', 
+           'status' => 'unread', 
+           'santri_id' => $newSantri->id
+        ]);
+
+        event(new RefreshNotification());
+
         // Fungsi ini akan menggenerate NIS setelah didapatkannya parameters
         $this->generateNis($newSantri->id, $newSantri->nis, $request->provinsi, $request->kabupaten_kota, $request->kecamatan, $request->tgl_masuk);
 
-        // $getSantri = Santri::find($newSantri->id);
-        // $getSantri->provinsi = Province::whereId($request->provinsi)->value('name');
-        // $getSantri->kabupaten_kota = Regency::whereId($request->kabupaten_kota)->value('name');
-        // $getSantri->kecamatan = District::whereId($request->kecamatan)->value('name');
-        // $getSantri->update();
-
-
         // return response()->json(['message' => 'success']);
-        return redirect()->back()->with('message', 'Santri telah didaftarkan, tunggu pendidikan mengkonfirmasi data santri tersebut.');
+        return redirect(route('sekretariat.santri').'#/list_santri')->with('message', 'Santri telah didaftarkan, tunggu pendidikan mengkonfirmasi data santri tersebut.');
 
     }
 
@@ -355,14 +364,14 @@ class SantriController extends Controller
             'nama_santri' => 'string|required', 
             'tgl_lahir' => 'required', 
             'jenis_kelamin' => 'required', 
-            // 'provinsi' => 'required', 
-            // 'kabupaten_kota' => 'required', 
-            // 'kecamatan' => 'required', 
-            // 'kelurahan' => 'required', 
+            'provinsi' => 'required', 
+            'kabupaten_kota' => 'required', 
+            'kecamatan' => 'required', 
+            'kelurahan' => 'required', 
             'alamat' => 'required', 
-            'kode_pos' => 'required', 
+            // 'kode_pos' => 'required', 
             'nama_ortu' => 'required', 
-            'nama_wali' => 'required', 
+            // 'nama_wali' => 'required', 
             'no_telp' => 'required', 
             'pendidikan_terakhir' => 'required', 
             'asrama_id' => 'required', 
@@ -372,7 +381,7 @@ class SantriController extends Controller
             'tgl_masuk' => 'required', 
             'himpunan' => 'required', 
             'dewan_id' => 'required', 
-            'pesantren_sebelumnya' => 'required', 
+            // 'pesantren_sebelumnya' => 'required', 
             // 'foto'
         ]);
 
@@ -435,11 +444,6 @@ class SantriController extends Controller
        return redirect(route('sekretariat.santri').'#/list_santri');
     }
 
-    public function kartuSantri()
-    {
-      return view('sekretariat.kartu-santri.index');
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -455,5 +459,12 @@ class SantriController extends Controller
     public function export(Request $request)
     {
       return Excel::download(new SantriExport, 'santri_'.Carbon::now().'.xlsx');
+    }
+
+    public function kartuSantri($id)
+    {
+      $santri = Santri::find($id);
+
+      return view('sekretariat.kartu-santri.kartu-print', compact('santri'));
     }
 }

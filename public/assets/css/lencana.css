@@ -1,0 +1,187 @@
+/*
+.aw {
+background: #e4f5fc;
+background: -moz-linear-gradient(top, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 51%, #2ab0ed 100%);
+background: -webkit-linear-gradient(top, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);
+background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);}
+*/
+/*Theme Lencana Line
+====================*/
+.lencana.line{
+    width: 290px;
+    height: 415px;
+}
+.lencana.line .lencana-avatar {
+    top: -19.7%;
+}
+.lencana.line .lencana-avatar img {
+    width: 80px;
+    height: 80px;
+}
+.lencana.line .lencana-avatar img {
+background: #e4f5fc;
+background: -moz-linear-gradient(top, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 51%, #2ab0ed 100%);
+background: -webkit-linear-gradient(top, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);
+background: linear-gradient(to bottom, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f5fc', endColorstr='#2ab0ed',GradientType=0 );
+}
+.lencana.line .lencana-content{
+    padding-top: 2.5em;
+    color: #212121;
+    text-align: center;
+}
+.lencana.line .lencana-content .nama{
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.lencana.line .lencana-content .status{
+    overflow: hidden;max-height: 90px;
+    font-size: 13px;font-family: "Roboto-Light";
+}
+.lencana.line .lencana-content .status:hover{overflow-x: auto;overflow-y: visible;}
+/*STYLE SCROLLBAR*/
+.lencana.line .lencana-content .status::-webkit-scrollbar{width:7px;background:#eee;border: 1px solid #ddd;}
+.lencana.line .lencana-content .status::-webkit-scrollbar-thumb{background-color:#575757;border-radius:0px;}
+
+.lencana.line .lencana-content .bAction{
+    margin-top: 11px;
+}
+
+/*Theme Tweet
+===============*/
+.lencana.tweet{
+    width: 340px;
+    height: 400px;
+}
+.lencana.tweet .lencana-content {border-radius: 0px 0px 10px 10px;}
+.lencana.tweet .lencana-bg{ height: 40%;}
+.lencana.tweet .lencana-bg img{ border-radius: 10px 10px 0px 0px;}
+.lencana.tweet .lencana-avatar {
+    top: -25%;
+}
+.lencana.tweet  .lencana-avatar img { left: -30%;}
+.lencana.tweet .tweet-title{
+    /*DON'T EDIT*/
+    position: absolute;
+    padding-left: 130px;margin: 0;
+    width: 100%;
+    top: 2%;
+    /*Custom*/
+    text-align: left;
+    font-family: "Roboto-Regular";
+}
+.lencana.tweet .tweet-title .nama{
+    font-size: 18px;color: #1E232B;font-weight: 600;
+}
+.lencana.tweet .tweet-title .county,.lencana.tweet .tweet-title .county i{
+    font-size: 14px;color: #4b4b4c;font-weight: 500;vertical-align: middle;margin-left: -1px;
+}
+.lencana.tweet .bButton{
+    margin-top: 7%;
+}
+.lencana.tweet .bButton a.btn.color{
+    width: 85%;text-transform: capitalize;
+    background-color: #4990E2;
+    height: 2em;line-height: 2em;
+    border-radius: 20px;
+}
+.lencana.tweet .bButton a.btn-flat.nocolor{
+    width: 85%;text-transform: capitalize;
+    border: 1px solid #212121;
+    height: 2em;line-height: 1.8em;
+    border-radius: 20px;
+}
+.lencana.tweet .bButton .kiri{margin-left: 5px !important;}
+.lencana.tweet .bButton .kanan{margin-left: -18px !important;}
+.lencana.tweet .bFollow{
+    margin-top: 7%;
+    border-top: 1px solid #ddd;
+    text-align: left;padding: 5px 15px;
+    font-size: 14px;color: #4b4b4c;
+}
+.lencana.tweet .bFollow .row .follower{
+    margin-left: 5px;
+}
+.lencana.tweet .bFollow i{vertical-align: middle;color: #4b4b4c;}
+.lencana.tweet .bFollow b{color: #1E232B;}
+.lencana.tweet .bFollow img {width: 40px;height: 40px;border-radius: 50%;padding: 4px;position: relative;z-index: 9;}
+.lencana.tweet .bFollow.bor img {border: 4px solid #fff;padding: 0;}
+.lencana.tweet .bFollow [class*="tendang"]{margin-left: -17px;}
+.lencana.tweet .bFollow .tendang1 {z-index: 1;}
+.lencana.tweet .bFollow .tendang2 {z-index: 2;}
+.lencana.tweet .bFollow .tendang3 {z-index: 3;}
+.lencana.tweet .bFollow .tendang4 {z-index: 4;}
+.lencana.tweet .bFollow .tendang5 {z-index: 5;}
+.lencana.tweet .bFollow .tendang6 {z-index: 6;}
+.lencana.tweet .bFollow .tendang7 {z-index: 7;}
+.lencana.tweet .bFollow .tendang8 {z-index: 8;}
+.lencana.tweet .bFollow .plus {
+    border: 1px solid #212121;
+    width: 30px;height: 30px;border-radius: 50%;
+    font-size: 14px;display: flex;align-items: center;padding: 0 5px;
+    position: absolute;top: 5px;right: 11px;
+    
+}
+
+/*Theme idcard
+===============*/
+.lencana.idcard{
+    width: 360px;
+    height: 220px;
+    border: 1.3px solid #424242;
+    border-radius: 5px 5px 5px 5px;
+}
+.lencana.idcard .lencana-content{
+    border-radius: 5px 5px 5px 5px;
+    padding-top: 0;
+    background-color: #e1f5fe;
+    color: #212121;
+    height:100%;
+}
+.lencana.idcard .lencana-avatar {
+    /*DON'T EDIT*/
+    position: absolute;
+    padding: 0;margin: 0;
+    width: 100%;
+    /*Custom*/
+    top: 43%;
+}
+.lencana.idcard .lencana-avatar img {
+    /*DON'T EDIT*/
+    border-radius: 0;
+    /*Custom*/
+    width: 100px;
+    height: 110px;
+    left: -32%;
+}
+.lencana.idcard .lencana-avatar.border img{
+    /*DON'T EDIT*/
+    padding: 0px;
+    border: 3.5px solid #fff;
+}
+
+.lencana.idcard .lencana-budged{
+    border: 2px solid #ff9800;margin: 10px;
+}
+.lencana.idcard .lencana-budged .img{height: 70px;}
+.lencana.idcard .lencana-budged .img{border-right:2px solid #ff9800;padding-right: 0px;}
+.lencana.idcard .lencana-budged .img img{
+    max-width: 100%;max-height: 50px;margin-top: 10px;
+}
+
+.lencana.idcard .lencana-table {
+    /*DON'T EDIT*/
+    position: absolute;
+    padding: 10px 0px;margin: 0;
+    width: 68%;
+    /*Custom*/
+    text-align: left;
+    top: 46%;
+    right: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.lencana.idcard .lencana-table table tr{border: none;}
+.lencana.idcard .lencana-table table td{padding: 1px 10px;}

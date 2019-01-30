@@ -1,6 +1,6 @@
 <template>
 	<li class="site-menu-item">
-	    <a href="/keamanan#/pemberitahuan"><span class="site-menu-title">Pemberitahuan <span v-if="total != 0" class="badge badge-warning badge-sm">{{ total }}</span></span></a>
+	    <a href="/pendidikan/penempatankelas#/penempatankelas"><span class="site-menu-title">Penempatan Kelas <span v-if="total != 0" class="badge badge-warning badge-sm">{{ total }}</span></span></a>
 	</li>
 </template>
 <script>
@@ -14,7 +14,7 @@
 		created(){
 	        Echo.channel('refresh-notification')
 	        .listen('RefreshNotification', (e) => {
-	          	axios.get('/keamanan/countingNotifications').then(resp => {
+	          	axios.get('/pendidikan/penempatankelas/countingPendidikanNotifications').then(resp => {
 					this.total = resp.data.total_unread
 				})
 	        });
@@ -22,7 +22,7 @@
 
 		mounted(){
 			// will be counting the notifications who status is unread
-			axios.get('/keamanan/countingNotifications').then(resp => {
+			axios.get('/pendidikan/penempatankelas/countingPendidikanNotifications').then(resp => {
 				this.total = resp.data.total_unread
 			})
 		}
