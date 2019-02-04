@@ -154,7 +154,7 @@
 		                  { data: 'alasan', name: 'alasan' },
                       { data: 'status', name: 'status'},
 		                  { data: 'kategori', name: 'kategori'},
-                      { data: 'created_at', name: 'created_at'},
+                      { data: 'tgl_izin', name: 'tgl_izin'},
 		                  { data: 'action', name: 'action'},
 		              ]
 		          }); 

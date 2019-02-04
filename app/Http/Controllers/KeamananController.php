@@ -48,8 +48,20 @@ class KeamananController extends Controller
 
     public function getListSantriIzinDataTables(Datatables $datatables, Request $request)
     {
-        $entriIzin = Keamanan::select('keamanan.*')->with(['santri'])->where('created_at', Carbon::now());
+        $entriIzin = Keamanan::orderBy('created_at', 'DESC')->select('keamanan.*')->with(['santri'])->whereDate('created_at', Carbon::now());
+        
         return $datatables->eloquent($entriIzin)
+          ->filter(function($query) use ($request){
+            if (request()->get('start_date') && request()->get('end_date')) {
+
+              $start_date = request()->get('start_date');
+
+              $end_date = request()->get('end_date');
+
+              return $query->whereBetween('updated_at', [$start_date, $end_date])->get();
+
+            }
+          }, true)
         ->addColumn('action', function($var){
             if ($var['status'] == 'sudah_kembali') {  
                 return '
@@ -67,39 +79,34 @@ class KeamananController extends Controller
                 ';
             }
         })
-        ->editColumn('kategori', function($var){
+        ->addColumn('kategori', function($var){
             if ($var->kategori == 'jauh') {
                 return '<span class="badge badge-warning text-white">Jauh</span>';
             }else if($var->kategori == 'dekat'){
                 return '<span class="badge badge-info">Dekat</span>';
             }
         })
-        ->editColumn('status', function($var){
+        ->addColumn('status', function($var){
             if ($var->status == 'belum_kembali') {
                 return '<span class="badge badge-danger">Belum Kembali</span>';
             }else if($var->status == 'sudah_kembali'){
                 return '<span class="badge badge-success">Sudah Kembali</span>';
             }
         })
-        ->editColumn('tgl_berakhir_izin', function($var){
+        ->addColumn('tgl_berakhir_izin', function($var){
             if ($var->tgl_berakhir_izin == null) {
                 return '-';
             }else{
                 return date('d-m-Y', strtotime($var->tgl_berakhir_izin));
             }
         })
-        ->editColumn('created_at', function($var){
+        ->addColumn('tgl_izin', function($var){
             if ($var->created_at == null) {
                 return '-';
             }else{
                 return date('d-m-Y H:i:s', strtotime($var->created_at));
             }
         })
-      ->filter(function($query) use ($request){
-        if (request()->get('start_date') && request()->get('end_date')) {
-          return $query->whereBetween('created_at', [request()->get('start_date'), request()->get('end_date')]);
-        }
-      }, true)
         ->rawColumns(['action', 'kategori', 'status'])
         ->make(true);
     }
