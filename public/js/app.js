@@ -117274,7 +117274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             e.end_date = $('input[name="end_date"]').val();
                         }
                     },
-                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'created_at', name: 'created_at' }, { data: 'action', name: 'action' }]
+                    columns: [{ data: 'santri.nis', name: 'santri.nis' }, { data: 'santri.nama_santri', name: 'santri.nama_santri' }, { data: 'tujuan', name: 'tujuan' }, { data: 'alasan', name: 'alasan' }, { data: 'status', name: 'status' }, { data: 'kategori', name: 'kategori' }, { data: 'tgl_izin', name: 'tgl_izin' }, { data: 'action', name: 'action' }]
                 });
 
                 // Auto reload when getting result 
