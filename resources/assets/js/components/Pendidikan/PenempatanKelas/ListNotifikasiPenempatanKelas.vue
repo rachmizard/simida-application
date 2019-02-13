@@ -1,6 +1,6 @@
 <template>
 	<li class="site-menu-item">
-	    <a href="/pendidikan/penempatankelas#/penempatankelas"><span class="site-menu-title">Penempatan Kelas <span v-if="total != 0" class="badge badge-warning badge-sm">{{ total }}</span></span></a>
+	    <a href="/pendidikan/penempatankelas#/penempatankelas"><span class="site-menu-title">Penempatan Kelas <span v-if="total != 0" class="badge badge-danger badge-sm">{{ total }}</span></span></a>
 	</li>
 </template>
 <script>
