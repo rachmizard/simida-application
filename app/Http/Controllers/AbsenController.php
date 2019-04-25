@@ -33,7 +33,7 @@ class AbsenController extends Controller
                                 'tingkat',
                                 'kelas',
                                 'dewan'
-                                ])->whereKelasId($request->kelas_id)->select('santri.*')->get());
+                                ])->whereAsramaId($request->asrama_id)->whereStatus('aktif')->select('santri.*')->get());
     }
 
     /**

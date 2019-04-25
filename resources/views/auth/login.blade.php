@@ -80,7 +80,8 @@
 
         
 
-        <form method="post" action="{{ route('login') }}"  id="formLogin">
+        <!-- <form method="post" id="formLogin"> -->
+        <form method="post" action="{{ route('login') }}">
             {{ csrf_field() }}
           <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
             <label class="sr-only" for="username">Username</label>
@@ -106,9 +107,9 @@
               <input type="checkbox" id="rememberMe" name="remember" {{ old('remember') ? 'checked' : '' }}>
               <label for="rememberMe">Remember me</label>
             </div>
-            <a class="float-right" href="{{ route('password.request') }}">
+            <!-- <a class="float-right" href="{{ route('password.request') }}">
                 Forgot Your Password?
-            </a>
+            </a> -->
           </div>
           <button id="" type="submit" class="btn btn-primary btn-block">Login</button>
           <div class="form-group">

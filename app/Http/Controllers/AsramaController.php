@@ -85,6 +85,13 @@ class AsramaController extends Controller
         return response()->json(['data' => $asrama]);
     }
 
+    public function getAsramaByKategori(Request $request, $kategori)
+    {
+        $asrama = Asrama::with('ngaran')->whereKategoriAsrama($kategori)->get();
+
+        return response()->json(['data' => $asrama]);
+    }
+
     public function getAsramaAllKategori()
     {
         $asrama = AsramaResourceV2::collection(Asrama::orderBy('kategori_asrama', 'ASC')->get());

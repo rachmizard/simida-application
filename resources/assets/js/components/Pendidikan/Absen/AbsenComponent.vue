@@ -8,15 +8,21 @@
 		        </header>
 		        <div class="panel-body">
 		          <div class="form-group col-md-12">
-		            <label for=""></label>
-                    <datepicker :bootstrap-styling="true" required="" placeholder="Tgl Absensi" v-model="filter.created_at" :format="customFormatter"></datepicker>
+		            <label for="">Tanggal</label>
+                    <!-- <datepicker :bootstrap-styling="true" required="" placeholder="Tgl Absensi" v-model="filter.created_at" :format="customFormatter"></datepicker> -->
+                    <input class="form-control" type="date" v-model="filter.created_at" placeholder="Tanggal Absensi" autocomplete="off">
 		          </div>
 		          <div class="form-group col-md-12">
-		            <label for=""></label>
-		            <select name="filter_kelas" id="filter_kelas" class="form-control" v-model="filter.kelas_id">
-		            	<option value="" selected disabled>Kelas yg akan di absen</option>
-		            	<option value="">Semua</option>
-		            	<option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
+		            <label for="">Kategori Asrama (Putra/Putri) </label>
+		            <select class="form-control" v-model="filter.kategori_asrama" @change="showNamaAsrama()">
+		            	<option value="putra">Putra</option>
+		            	<option value="putri">Putri</option>
+		            </select>
+		          </div>
+		          <div class="form-group col-md-12">
+		            <label for="">Nama Asrama </label>
+		            <select class="form-control" v-model="filter.asrama_id">
+		            	<option v-for="asrama in asramas.data" :value="asrama.id">{{ asrama.ngaran.nama }}</option>
 		            </select>
 		          </div>
 		          <div class="form-group col-md-12">
@@ -35,7 +41,7 @@
 			<div class="col-md-8">
 		      <div class="panel">
 		        <header class="panel-heading">
-		          <h3 class="panel-title"><i class="icon wb-book"></i> Data Absen {{  }}</h3>
+		          <h3 class="panel-title"><i class="icon wb-book"></i> Data Absen</h3>
 
                 <div v-if="message" class="alert dark alert-icon alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -50,7 +56,7 @@
 		              <tr>
 		                <th width="5%">NIS</th>
 		                <th width="20%">Nama Santri</th>
-		                <th width="20%">Kelas</th>
+		                <!-- <th width="20%">Kelas</th> -->
 		                <th width="20%">Kegiatan</th>
 		                <th width="20%">Keterangan</th>
 		                <th width="20%">Aksi Absen</th>
@@ -60,7 +66,7 @@
 		            	<tr v-if="santris.data.length > 0" v-for="santri in santris.data">
 		            		<td>{{ santri.nis }}</td>
 		            		<td>{{ santri.nama_santri }}</td>
-		            		<td>{{ santri.kelas.nama_kelas }}</td>
+		            		<!-- <td>{{ santri.kelas.nama_kelas }}</td> -->
 		            		<td>{{ santri.kegiatan.nama_kegiatan }}</td>
 		            		<td v-if="santri.keterangan">
 		            			<span v-if="santri.keterangan.keterangan == 'hadir'" class="badge badge-sm badge-success">Hadir</span>
@@ -112,19 +118,31 @@
 				kelass: [],
 				kegiatans: [],
 				santris: [],
+				asramas: [],
 				filter: {
 					created_at: '',
 					kegiatan_id: '',
-					kelas_id: ''
+					kategori_asrama: '',
+					asrama_id: ''
 				},
 				message: ''
 			}
 		},
 
 		methods: {
-			customFormatter(date) {
-			      return moment(date).format('Do MMMM YYYY');
+
+			showNamaAsrama(){
+				axios.get('/sekretariat/asrama/getAsrama/'+ this.filter.kategori_asrama +'/kategori').then(response => {
+					this.asramas = response.data;
+					console.log(this.asramas);
+				})
 			},
+
+			customFormatter(date) {
+			      // return moment(date).format('Do MMMM YYYY');
+			      return moment(date).format('d-m-Y');
+			},
+
 			function(){
 				axios.get('/sekretariat/kelas/JSON').then(response => {
 					this.kelass = response.data;
@@ -134,18 +152,16 @@
 					this.kegiatans = response.data;
 				})
 
-				axios.get('/pendidikan/absen/getSantriDataTables', {params: { filter: this.filter } }).then(response => {
-					this.santris = response.data;
-				})
+				// axios.get('/pendidikan/absen/getSantriDataTables', {params: { filter: this.filter } }).then(response => {
+				// 	this.santris = response.data;
+				// })
 			},
 
 			filterSantri(){
-				let app = this;
-				var body = app.filter;
-				axios.get('/pendidikan/absen/getSantriDataTables', { params: { kelas_id: app.filter.kelas_id, kegiatan_id: app.filter.kegiatan_id, created_at: app.filter.created_at } }).then(response => {
-					app.santris = response.data;
+				axios.get('/pendidikan/absen/getSantriDataTables?asrama_id='+ this.filter.asrama_id +'&kegiatan_id='+ this.filter.kegiatan_id +'&created_at='+ this.filter.created_at).then(response => {
+					this.santris = response.data;
 				});
-				// console.log(app.filter)
+				console.log(this.santris)
 			},
 
 			absenHadir(var1){

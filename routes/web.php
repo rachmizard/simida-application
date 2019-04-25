@@ -122,6 +122,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/asrama/tambah', 'AsramaController@create')->name('asrama.create');
 			Route::get('/asrama/getAsramaDataTables', 'AsramaController@getAsramaDataTables')->name('asrama.getAsramaDataTables');
 			Route::get('/asrama/getAsrama/{kategori}', 'AsramaController@getAsramaKategori')->name('asrama.getAsramaKategori');
+			Route::get('/asrama/getAsrama/{kategori}/kategori', 'AsramaController@getAsramaByKategori')->name('asrama.getAsramaByKategori');
 			Route::get('/asrama/get/allKategori', 'AsramaController@getAsramaAllKategori')->name('asrama.getAsramaAllKategori');
 			Route::get('/asrama/AsramaSelect2', 'AsramaController@AsramaSelect2')->name('asrama.AsramaSelect2');
 			Route::get('/asrama/get/putra', 'AsramaController@getAsramaPutra')->name('asrama.getAsramaPutra');

@@ -33,6 +33,12 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+    public function username()
+    {
+        return 'username';
+    }
+
     public function authenticated()
     {
         if(auth()->user()->role == 'murobbi'){
