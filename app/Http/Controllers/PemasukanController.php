@@ -78,7 +78,7 @@ class PemasukanController extends Controller
         $this->validate($request, [
             'bulan' => 'required'
         ]);
-        return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('asrama_id', $request->asrama)->whereStatus('aktif')->get()); // orWhere('kelas_id', $request->kelas)-> bising butuh nanti!
+        return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('asrama_id', $request->asrama)->whereStatus('aktif')->get());
     }
 
     public function checkingofpaid(Request $request)

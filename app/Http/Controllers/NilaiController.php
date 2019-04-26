@@ -28,6 +28,71 @@ class NilaiController extends Controller
         return view('pendidikan.nilai.index');
     }
 
+    public function indexNilaiMingguan(Request $request)
+    {
+        // master data untuk dropdown
+        $periods = Periode::orderBy('nama_periode', 'ASC')->get();
+        $grades = Tingkat::orderBy('nama_tingkatan', 'ASC')->get();
+        $semesters = Semester::orderBy('tingkat_semester', 'ASC')->get();
+        $classes = Kelas::orderBy('nama_kelas', 'ASC')->get();
+
+        // deklarasi variable dengan data null
+
+        // $periode = null;
+        // $semester_id = null;
+        // $
+
+        // Untuk mengecheck status santri udah ada nilai apa belum
+        function checkStatus($id, $tingkat_id, $periode_id, $semester_id){
+
+            $status = 'Belum'; // as default variable value
+            $countMapelByTingkatId = MataPelajaran::whereTingkatId($id)->count();
+            $checkIfExist = Nilai::where('periode_id', $periode_id)
+                                ->where('semester_id', $semester_id)
+                                ->where('santri_id', $id)
+                                // ->where('kelas_id', $kelas_id)
+                                ->count();
+
+            if ($checkIfExist > $countMapelByTingkatId) {
+                $status = 'Sudah';
+            }
+
+            return $status;
+        }
+
+        $tingkats = Tingkat::all();
+
+        if ($request->periode) {
+
+            $periode = $request->periode;
+            $semester_id = $request->semester_id;
+            $tingkat_id = $request->tingkat_id;
+            $kelas_id = $request->kelas_id;
+
+            $listsantri = Santri::whereStatus('aktif')->whereKelasId($request->kelas_id)->get();
+            $realresults = array();
+
+            foreach ($listsantri as $key => $value) {
+
+                $results = [
+                    'no' => $key+1,
+                    'nis' => $value->nis,
+                    'nama_santri' => $value->nama_santri,
+                    'kelas' => $value->kelas['nama_kelas'],
+                    'status_nilai' => checkStatus($value->id, $value->tingkat_id, $request->periode, $request->semester_id)
+                ];
+
+                array_push($realresults, $results);
+            }
+
+        }
+
+        // dd($realresults);
+
+        return view('pendidikan.nilai.index-nilai-mingguan',
+                    compact('tingkats', 'realresults', 'periode', 'semester_id', 'tingkat_id', 'kelas_id', 'periods', 'grades', 'semesters', 'classes'));
+    }
+
     public function showClassByTingkat($id)
     {
         $kelas = Kelas::whereTingkatId($id)->get();
@@ -44,7 +109,7 @@ class NilaiController extends Controller
     }
 
     public function getSantri(Request $request)
-    {   
+    {
         $santri = array();
 
         if ($request->all()) {
@@ -88,9 +153,28 @@ class NilaiController extends Controller
 
             $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
 
-            return view('pendidikan.nilai.input-nilai', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id'));   
+            return view('pendidikan.nilai.input-nilai', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id'));
         }else{
             return redirect('pendidikan/nilai#/nilai/pilihsantri');
+        }
+    }
+
+    public function viewInputNilaiMingguan(Request $request, $id)
+    {
+        $method = $request->method();
+        if ($method == 'POST') {
+
+            $santri = Santri::findOrFail($id);
+
+            $semester_id = $request->semester_id;
+
+            $periode_id = $request->periode_id;
+
+            $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
+
+            return view('pendidikan.nilai.input-nilai-mingguan', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id'));
+
+
         }
     }
 
@@ -148,7 +232,7 @@ class NilaiController extends Controller
              DB::table('index_prestasi')->insert([
                  'santri_id' => $id,
                  'mata_pelajaran_id' => $value,
-                 'nilai_ip' => 
+                 'nilai_ip' =>
              ]);
             */
 
@@ -278,7 +362,7 @@ class NilaiController extends Controller
             return $this->reportResults($semester, $periode, $tingkat, $kelas);
 
         }else{
-            return view('pendidikan.nilai.report-nilai', compact('semesters', 'periodes', 'tingkats', 'kelass', 'semester', 'periode', 'tingkat', 'kelas'));   
+            return view('pendidikan.nilai.report-nilai', compact('semesters', 'periodes', 'tingkats', 'kelass', 'semester', 'periode', 'tingkat', 'kelas'));
         }
     }
 

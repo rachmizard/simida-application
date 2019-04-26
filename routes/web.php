@@ -108,7 +108,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/kelas/tambah', 'KelasController@create')->name('kelas.tambah_kelas');
 
 			Route::delete('/kelas/{id}/destroy', 'KelasController@destroy')->name('kelas.destroy');
-			
+
 			// End Kelas
 
 			// Tingkatan
@@ -290,7 +290,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			// End Predikat
 
 			// Nilai & Rekap Nilai
-			
+
 			Route::get('/nilai', 'NilaiController@index')->name('nilai.index');
 			Route::get('/nilai/getSantri', 'NilaiController@getSantri');
 			Route::any('/nilai/{id}/input_nilai', 'NilaiController@viewInputNilai');
@@ -299,6 +299,9 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::put('/nilai/{id}/update', 'NilaiController@updateNilai')->name('nilai.update');
 			Route::any('/nilai/laporan', 'NilaiController@viewReport')->name('nilai.viewReport');
 			Route::any('/nilai/laporan/export', 'NilaiController@exportNilai')->name('nilai.exportNilai');
+
+            Route::any('/nilai-mingguan', 'NilaiController@indexNilaiMingguan')->name('nilai.indexNilaiMingguan');
+            Route::any('/nilai-mingguan/{id}/input_nilai_mingguan', 'NilaiController@viewInputNilaiMingguan')->name('nilai.viewInputNilaiMingguan');
 
 			// End Nilai & Rekap Nilai
 
@@ -364,7 +367,7 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			Route::get('/syariah/checkingofpaid', 'PemasukanController@checkingofpaid'); // API
 			Route::get('/syariah/{id}/riwayatPembayaranPerSantri', 'PemasukanController@riwayatPembayaranPerSantri'); // API
 			Route::get('/syariah/parseBulan', 'PemasukanController@parseBulan'); // API
-			Route::get('/syariah/laporan', 'PemasukanController@laporanSyariah')->name('pemasukan.laporan-syariah'); 
+			Route::get('/syariah/laporan', 'PemasukanController@laporanSyariah')->name('pemasukan.laporan-syariah');
 			// End Syariah
 		});
 	});

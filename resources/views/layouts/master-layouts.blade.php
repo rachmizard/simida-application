@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.5/css/fixedColumns.bootstrap4.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.4/css/fixedHeader.bootstrap4.min.css">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/webui-popover/webui-popover.min.css?v4.0.2">
-  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/toolbar/toolbar.min.css?v4.0.2">  
+  <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/toolbar/toolbar.min.css?v4.0.2">
   <link rel="stylesheet" href="https://getbootstrapadmin.com/remark/global/vendor/tablesaw/tablesaw.min.css?v4.0.2">
 
     <!-- FORM WIZARD -->
@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="/assets/fonts/web-icons/web-icons.min599c.css?v4.0.2">
   <link rel="stylesheet" href="/assets/fonts/brand-icons/brand-icons.min599c.css?v4.0.2">
   <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
-  
+
   <!-- Scripts -->
   <script src="/assets/vendor/breakpoints/breakpoints.min599c.js?v4.0.2"></script>
   <script>
@@ -76,7 +76,7 @@
       right:0%;
     }
   </style>
-  
+
   <!-- Plugins For This Page -->
   <link rel="stylesheet" href="/assets/vendor/bootstrap-table/bootstrap-table.min599c.css?v4.0.2">
 
@@ -128,7 +128,7 @@
         <header>
         <!--Start: Navbar-->
         <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-expand-md" role="navigation">
-            
+
             <!--Navbar SM Layer-->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
@@ -148,7 +148,7 @@
                 </button> -->
             </div>
             <!--/Navbar SM Layer-->
-            
+
             <div class="navbar-container container-fluid">
                 <!-- Navbar Collapse -->
                 <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
@@ -217,7 +217,7 @@
         <!--Start: Side Navbar-->
         <div class="site-menubar">
             <div class="site-menubar-body">
-               
+
                         <ul class="site-menu" data-plugin="menu">
                             <li class="site-menu-category"></li>
 
@@ -351,6 +351,9 @@
                                                 <a href="{{ route('pendidikan.nilai.index') }}#/nilai/pilihsantri/"><span class="site-menu-title">Input Nilai</span></a>
                                             </li>
                                             <li class="site-menu-item anak">
+                                                <a href="{{ route('pendidikan.nilai.indexNilaiMingguan') }}"><span class="site-menu-title">Input Nilai Mingguan</span></a>
+                                            </li>
+                                            <li class="site-menu-item anak">
                                                 <a href="{{ route('pendidikan.predikat.index') }}#/list_predikat"><span class="site-menu-title">Predikat</span></a>
                                             </li>
                                         </ul>
@@ -463,7 +466,7 @@
                                 <div class="progress-bar progress-bar-warning" style="width: 43%;" role="progressbar"></div>
                             </div>
                         </div> -->
-                
+
             </div>
 
             <div class="site-menubar-footer">
@@ -505,7 +508,7 @@
 <script src="/assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2"></script>
 <script src="/assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
 <script src="/assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2"></script>
-<script src="/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script> 
+<script src="/assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script>
   <!-- Scripts -->
   <script src="/assets/js/component.min599c.js?v4.0.2"></script>
   <script src="/assets/js/plugin.min599c.js?v4.0.2"></script>
@@ -530,7 +533,7 @@
         clearBtn: true,
         language: "id"
         // defaultViewDate: { year: 2000, month: 01, day: 01 }
-        
+
     });
 
     $('.datepicker').datepicker({
@@ -538,14 +541,14 @@
         clearBtn: true,
         language: "id"
         // defaultViewDate: { year: 2000, month: 01, day: 01 }
-        
+
     });
 
     $('.datepickerMonth').datepicker({
         format: "yyyy-mm",
         clearBtn: true,
         language: "id"
-        // defaultViewDate: { year: 2000, month: 01, day: 01 }        
+        // defaultViewDate: { year: 2000, month: 01, day: 01 }
     });
 
     </script>
