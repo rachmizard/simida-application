@@ -33,7 +33,7 @@
                                                             <input type="text" v-model="filter.nis" class="form-control" placeholder="NIS Santri, Contoh : 293000022332">
                                                           </div>
                                                       </div>
-                                                      <div class="col-md-12">
+                                                      <!-- <div class="col-md-12">
                                                           <div class="form-group">
                                                           		<label class="form-control-label" for="inputBasicFirstName">Kelas</label>
                                                                 <select v-model="filter.kelas" class="form-control">
@@ -41,7 +41,7 @@
                                                                   <option v-for="kelas in kelass.data" :value="kelas.id">{{ kelas.nama_kelas }}</option>
                                                                 </select>
                                                           </div>
-                                                      </div>
+                                                      </div> -->
                                                       <div class="col-md-12">
                                                           <div class="form-group">
                                                        		<label class="form-control-label" for="inputBasicFirstName">Pilih Asrama</label>
@@ -76,7 +76,7 @@
               <div class="panel">
                 <header class="panel-heading">
                   <h3 class="panel-title">
-                    <i class="icon wb-payment"></i> Syariah 
+                    <i class="icon wb-payment"></i> Syariah
                     <!-- <span class="panel-desc">
                       Swipe Mode, ModeSwitch, Minimap, Sortable, SortableSwitch
                     </span> -->
@@ -169,7 +169,7 @@
                 message: '',
                 messageAlert: '',
                 messageSuccess: '',
-                messageJenis: ''	
+                messageJenis: ''
             }
         },
 
@@ -212,7 +212,7 @@
                   app.syariah.tgl_pemasukan = '';
                   app.syariah.jumlah_pemasukan = '';
                   app.syariah.jenis_pengeluaran = '';
-                  if (app.messageSuccess == 'success') {   
+                  if (app.messageSuccess == 'success') {
                     app.messageSuccess = 'Syariah berhasil ditambahkan ke database!';
                     app.cool_decreased_cash = true;
                   }

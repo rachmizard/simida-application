@@ -78,7 +78,7 @@ class PemasukanController extends Controller
         $this->validate($request, [
             'bulan' => 'required'
         ]);
-        return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());
+        return SyariahSantriResource::collection(Santri::whereNis($request->nis)->orWhere('asrama_id', $request->asrama)->whereStatus('aktif')->get()); // orWhere('kelas_id', $request->kelas)-> bising butuh nanti!
     }
 
     public function checkingofpaid(Request $request)
@@ -87,12 +87,12 @@ class PemasukanController extends Controller
                                 ->where('jenis_pemasukan', 'syariah')
                                 ->whereYear('tgl_pemasukan', Carbon::parse($request->tgl_pemasukan)->format('Y'))
                                 ->whereMonth('tgl_pemasukan', Carbon::parse($request->tgl_pemasukan)->format('m'))
-                                ->count(); 
+                                ->count();
                                 // ngecek apabila dia sudah bayar / belum // ngecek apabila dia sudah bayar / belum
             $results = '';
             if ($validator > 0) {
                 $results = true;
-            }else{   
+            }else{
                 $results = false;
             }
         return response()->json(['hasil' => $results]);
@@ -106,7 +106,7 @@ class PemasukanController extends Controller
     public function riwayatPembayaranPerSantri(Request $request, $id)
     {
         if ($request->start_date && $request->end_date) {
-            $riwayatPembayaranPerSantri =  RiwayatSyariahPerSantriResource::collection(Pemasukan::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());   
+            $riwayatPembayaranPerSantri =  RiwayatSyariahPerSantriResource::collection(Pemasukan::whereNis($request->nis)->orWhere('kelas_id', $request->kelas)->orWhere('asrama_id', $request->asrama)->get());
         }else{
             $riwayatPembayaranPerSantri =  RiwayatSyariahPerSantriResource::collection(Pemasukan::whereSantriId($id)->get());
         }
@@ -146,10 +146,10 @@ class PemasukanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tgl_pemasukan' => 'required', 
-            'jenis_pemasukan' => 'required', 
-            // 'santri_id' => 'required', 
-            'jumlah_pemasukan' => 'required|numeric', 
+            'tgl_pemasukan' => 'required',
+            'jenis_pemasukan' => 'required',
+            // 'santri_id' => 'required',
+            'jumlah_pemasukan' => 'required|numeric',
             // 'nama_donatur' => 'required',
             'metode_pembayaran' => 'required',
             'status_tunggakan' => 'required'
@@ -200,7 +200,7 @@ class PemasukanController extends Controller
                 $updateTotalUang->update();
 
                 $storepemasukan->save();
-                return response()->json(['response' => 'success']);   
+                return response()->json(['response' => 'success']);
             }
     }
 
@@ -245,7 +245,7 @@ class PemasukanController extends Controller
 
             $storepemasukan->save();
             $message['message'] = 'success';
-            return response()->json(['response' => $message]);   
+            return response()->json(['response' => $message]);
         }
     }
 
@@ -281,10 +281,10 @@ class PemasukanController extends Controller
     public function update(Request $request, $id)
     {
        $this->validate($request, [
-            'tgl_pemasukan' => 'required', 
-            'jenis_pemasukan' => 'required', 
-            // 'santri_id' => 'required', 
-            'jumlah_pemasukan' => 'required', 
+            'tgl_pemasukan' => 'required',
+            'jenis_pemasukan' => 'required',
+            // 'santri_id' => 'required',
+            'jumlah_pemasukan' => 'required',
             'nama_donatur' => 'required',
         ]);
 

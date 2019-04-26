@@ -37,11 +37,11 @@
   <script>
     Breakpoints();
   </script>
-  
+
   <link rel="stylesheet" href="assets/css/pages/login-v2.min599c.css">
   <!-- Plugins For This Page -->
   <link rel="stylesheet" href="assets/vendor/formvalidation/formValidation.min599c.css?v4.0.2">
-  
+
 </head>
 <body class="animsition page-login-v2 layout-full page-dark">
   <!--[if lt IE 8]>
@@ -62,7 +62,8 @@
         </div>
         <!--/.brand-->
         <div class="brand-contex">
-            <p class="font-size-20">Sistem Informasi dan Manajemen pendidikan di pesantren atau madrasah dari mulai Ibtidaiyah, Tsanawiyah sampai Ma'had Aly</p>
+            <p class="font-size-20">VISI: Membangun sejuta pesantren</p>
+            <p class="font-size-20">MISI: Dengan mencetak muttaqin, imammal muttaqin, ulama ul'amilin</p>
         </div>
         <!--/.brand-contex-->
         <div class="brand-logo">
@@ -75,10 +76,10 @@
         <div class="brand hidden-md-up"> <!--  -->
           <h3 class="brand-text font-size-40">Simida</h3>
         </div>
-        <h3 class="font-size-24">Sign In</h3>
+        <h3 class="font-size-24">Login</h3>
         <p>Silahkan masukan Account Anda untuk melanjutkan.</p>
 
-        
+
 
         <!-- <form method="post" id="formLogin"> -->
         <form method="post" action="{{ route('login') }}">
@@ -156,7 +157,7 @@
 <script src="assets/vendor/mousewheel/jquery.mousewheel599c.js?v4.0.2"></script>
 <script src="assets/vendor/asscrollbar/jquery-asScrollbar.min599c.js?v4.0.2"></script>
 <script src="assets/vendor/asscrollable/jquery-asScrollable.min599c.js?v4.0.2"></script>
-<script src="assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script> 
+<script src="assets/vendor/ashoverscroll/jquery-asHoverScroll.min599c.js?v4.0.2"></script>
   <!-- Scripts -->
   <script src="assets/js/component.min599c.js?v4.0.2"></script>
   <script src="assets/js/plugin.min599c.js?v4.0.2"></script>
@@ -177,4 +178,3 @@
   <script src="assets/vendor/formvalidation/framework/bootstrap4.min599c.js?v4.0.2"></script>
   <script src="assets/js/validation.min599c.js?v4.0.2"></script>
 </html>
-

@@ -113226,91 +113226,6 @@ var render = function() {
                                     ]),
                                     _vm._v(" "),
                                     _c("div", { staticClass: "col-md-12" }, [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "form-control-label",
-                                            attrs: {
-                                              for: "inputBasicFirstName"
-                                            }
-                                          },
-                                          [_vm._v("Kelas")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "select",
-                                          {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: _vm.filter.kelas,
-                                                expression: "filter.kelas"
-                                              }
-                                            ],
-                                            staticClass: "form-control",
-                                            on: {
-                                              change: function($event) {
-                                                var $$selectedVal = Array.prototype.filter
-                                                  .call(
-                                                    $event.target.options,
-                                                    function(o) {
-                                                      return o.selected
-                                                    }
-                                                  )
-                                                  .map(function(o) {
-                                                    var val =
-                                                      "_value" in o
-                                                        ? o._value
-                                                        : o.value
-                                                    return val
-                                                  })
-                                                _vm.$set(
-                                                  _vm.filter,
-                                                  "kelas",
-                                                  $event.target.multiple
-                                                    ? $$selectedVal
-                                                    : $$selectedVal[0]
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "option",
-                                              {
-                                                attrs: {
-                                                  value: "",
-                                                  selected: "",
-                                                  disabled: ""
-                                                }
-                                              },
-                                              [_vm._v("Pilih Kelas")]
-                                            ),
-                                            _vm._v(" "),
-                                            _vm._l(_vm.kelass.data, function(
-                                              kelas
-                                            ) {
-                                              return _c(
-                                                "option",
-                                                {
-                                                  domProps: { value: kelas.id }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(kelas.nama_kelas)
-                                                  )
-                                                ]
-                                              )
-                                            })
-                                          ],
-                                          2
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-12" }, [
                                       _c(
                                         "div",
                                         { staticClass: "form-group" },
@@ -113627,7 +113542,7 @@ var staticRenderFns = [
     return _c("header", { staticClass: "panel-heading" }, [
       _c("h3", { staticClass: "panel-title" }, [
         _c("i", { staticClass: "icon wb-payment" }),
-        _vm._v(" Syariah \r\n                    ")
+        _vm._v(" Syariah\r\n                    ")
       ])
     ])
   },
