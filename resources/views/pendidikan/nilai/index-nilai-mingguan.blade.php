@@ -92,6 +92,7 @@
                                                 <td>{!! $realresult['kelas'] !!}</td>
                                                 @if($realresult['status_nilai'] == 'Belum')
                                                 <td>
+                                                    <!-- TAMBAH BUTTON NILAI MINGGUAN -->
                                                     <form class="" action="" method="post">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="periode" value="{{ isset($periode) ? $periode : null }}">
@@ -100,6 +101,20 @@
                                                         <input type="hidden" name="kelas_id" value="{{ isset($kelas_id) ? $kelas_id : null }}">
                                                         <button type="submit" class="btn btn-round btn-sm btn-outline btn-success mb-2" name="button">
                                                             <i class="icon wb-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                @else
+                                                <td>
+                                                    <!-- EDIT BUTTON NILAI MINGGUAN -->
+                                                    <form class="" action="" method="post">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="periode" value="{{ isset($periode) ? $periode : null }}">
+                                                        <input type="hidden" name="semester_id" value="{{ isset($semester_id) ? $semester_id : null }}">
+                                                        <input type="hidden" name="tingkat_id" value="{{ isset($tingkat_id) ? $tingkat_id : null }}">
+                                                        <input type="hidden" name="kelas_id" value="{{ isset($kelas_id) ? $kelas_id : null }}">
+                                                        <button type="submit" class="btn btn-round btn-sm btn-outline btn-warning mb-2" name="button">
+                                                            <i class="icon wb-pencil" aria-hidden="true"></i>
                                                         </button>
                                                     </form>
                                                 </td>
