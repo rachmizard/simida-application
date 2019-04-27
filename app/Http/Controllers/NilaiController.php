@@ -38,9 +38,10 @@ class NilaiController extends Controller
 
         // deklarasi variable dengan data null
 
-        // $periode = null;
-        // $semester_id = null;
-        // $
+        $periode = null;
+        $semester_id = null;
+        $tingkat_id = null;
+        $kelas_id = null;
 
         // Untuk mengecheck status santri udah ada nilai apa belum
         function checkStatus($id, $tingkat_id, $periode_id, $semester_id){
@@ -64,10 +65,10 @@ class NilaiController extends Controller
 
         if ($request->periode) {
 
-            $periode = $request->periode;
-            $semester_id = $request->semester_id;
-            $tingkat_id = $request->tingkat_id;
-            $kelas_id = $request->kelas_id;
+            $periode = Periode::findOrFail($request->periode);
+            $semester_id = Semester::findOrFail($request->semester_id);
+            $tingkat_id = Tingkat::findOrFail($request->tingkat_id);
+            $kelas_id = Kelas::findOrFail($request->kelas_id);
 
             $listsantri = Santri::whereStatus('aktif')->whereKelasId($request->kelas_id)->get();
             $realresults = array();
@@ -75,6 +76,7 @@ class NilaiController extends Controller
             foreach ($listsantri as $key => $value) {
 
                 $results = [
+                    'id' => $value->id,
                     'no' => $key+1,
                     'nis' => $value->nis,
                     'nama_santri' => $value->nama_santri,
@@ -172,9 +174,8 @@ class NilaiController extends Controller
 
             $mata_pelajarans = MataPelajaran::with('tingkat')->whereTingkatId($santri->tingkat_id)->get();
 
+            // dd($mata_pelajarans);
             return view('pendidikan.nilai.input-nilai-mingguan', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id'));
-
-
         }
     }
 
