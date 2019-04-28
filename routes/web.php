@@ -301,7 +301,10 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::any('/nilai/laporan/export', 'NilaiController@exportNilai')->name('nilai.exportNilai');
 
             Route::any('/nilai-mingguan', 'NilaiController@indexNilaiMingguan')->name('nilai.indexNilaiMingguan');
-            Route::any('/nilai-mingguan/{id}/input_nilai_mingguan', 'NilaiController@viewInputNilaiMingguan')->name('nilai.viewInputNilaiMingguan');
+            Route::any('/nilai-mingguan/{id}/input-bulan-dan-minggu', 'NilaiController@inputBulanDanMinggu')->name('nilai.inputBulanDanMinggu');
+            Route::any('/nilai-mingguan/{id}/input-nilai-mingguan', 'NilaiController@viewInputNilaiMingguan')->name('nilai.viewInputNilaiMingguan');
+            Route::post('/nilai-mingguan/{id}/store-nilai-mingguan', 'NilaiController@storeNilaiMingguan')->name('nilai.storeNilaiMingguan');
+            Route::get('/nilai-mingguan/{id}/detail-nilai-mingguan/periode/{periode_id}/semester/{semester_id}/bulan-ke/{bulan_ke}/minggu-ke/{minggu_ke}', 'NilaiController@detailNilaiMingguan')->name('nilai.detailNilaiMingguan');
 
 			// End Nilai & Rekap Nilai
 

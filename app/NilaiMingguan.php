@@ -6,16 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class NilaiMingguan extends Model
 {
-    protected $table = 'nilai';
+    protected $table = 'nilai_mingguan';
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = [
+        'periode_id',
     	'santri_id',
     	'kelas_id',
     	'semester_id',
-    	'periode_id',
     	'rata_rata',
     	'mata_pelajaran_id',
+        'bulan_ke',
+        'minggu_ke',
+        'jumlah_nilai'
+
     ];
 
     public function santri()

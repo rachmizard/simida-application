@@ -1,13 +1,13 @@
 @extends('layouts.master-layouts')
 @section('content')
 			<div class="page-header">
-			    <h1 class="page-title">Input Nilai</h1>
+			    <h1 class="page-title">Detail Nilai Mingguan</h1>
 			    <ol class="breadcrumb">
 			        <li class="breadcrumb-item"><a href="/">Home</a></li>
 			        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
-			        <li class="breadcrumb-item"><a href="#">Nilai</a></li>
-                    <li class="breadcrumb-item"><a href="#">Menentukan Bulan & Minggu</a></li>
-			        <li class="breadcrumb-item active">Input Nilai Mingguan</li>
+			        <li class="breadcrumb-item"><a href="{{ route('pendidikan.nilai.indexNilaiMingguan') }}">Nilai</a></li>
+                    <li class="breadcrumb-item"><a href="#">Detail Nilai Mingguan</a></li>
+			        <li class="breadcrumb-item active">{{ $santri->nama_santri }}</li>
 			    </ol>
 			</div>
 			<div class="panel">
@@ -18,16 +18,18 @@
 				            <table class="table table-hover table-stripped" data-mobile-responsive="true">
 				                <thead>
 				                    <tr>
-				                        <th data-field="id">Nis</th>
-				                        <th data-field="kelas">Kelas</th>
-				                        <th data-field="nama">Nama</th>
+                                        <th data-field="id">Nis</th>
+                                        <th data-field="nama">Nama</th>
+                                        <th data-field="kelas">Kelas</th>
+				                        <th data-field="tingkat">tingkat</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
 				                    <tr>
 				                        <td>{{ $santri->nis }}</td>
-				                        <td>{{ $santri->kelas['nama_kelas'] }}</td>
                                         <td>{{ $santri->nama_santri }}</td>
+                                        <td>{{ $santri->kelas['nama_kelas'] }}</td>
+				                        <td> <span class="badge badge-md badge-success">{{ $santri->tingkat['nama_tingkatan'] }}</span> </td>
 				                    </tr>
 				                </tbody>
 				            </table>
@@ -41,14 +43,8 @@
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
 				    <div class="row row-lg">
 				            <div class="col-md-12">
-				                <h4 class="example-title"><i class="icon wb-pencil"></i> Input Nilai Pelajaran</h4>
+				                <h4 class="example-title"><i class="icon wb-eye"></i> Detail Nilai Mingguan Bulan Ke-{{ $bulan_ke }} Minggu Ke-{{ $minggu_ke }}</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat <span class="badge badge-sm badge-success">{{ $santri->tingkat['nama_tingkatan'] }}</span> </p>
-				                <form action="{{ route('pendidikan.nilai.storeNilaiMingguan', $santri->id) }}" method="POST">
-				                	{{ csrf_field() }}
-				                	<input type="hidden" value="{{ $periode_id }}" name="periode_id">
-				                	<input type="hidden" value="{{ $semester_id }}" name="semester_id">
-									<input type="hidden" name="bulan_ke" value="{{ $bulan_ke }}">
-									<input type="hidden" name="minggu_ke" value="{{ $minggu_ke }}">
 					                <table class="table table-hover table-stripped">
 					                    <thead>
 					                        <tr>
@@ -60,19 +56,17 @@
 					                    	@foreach($mata_pelajarans as $key => $mata_pelajaran)
 					                    	<tr>
 					                    		<td>
-					                    			<span>{{ $mata_pelajaran->nama_mata_pelajaran }}</span>
-					                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->id }}">
+					                    			<span>{{ $mata_pelajaran->matapelajaran['nama_mata_pelajaran'] }}</span>
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" name="jumlah_nilai[]" min="0" max="10" step="any" class="form-control" autocomplete="off" >
+					                    			<input type="number" value="{{ $mata_pelajaran->jumlah_nilai }}" min="0" max="10" step="any" class="form-control" autocomplete="off" disabled>
 					                    		</td>
 					                    	</tr>
 					                    	@endforeach
 					                    </tbody>
 					                </table>
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
-					                    <button type="reset" class="btn btn-danger btn-outline">Reset Semua</button>
-					                    <button type="submit" class="btn btn-success btn-outline">Simpan <i class="icon wb-check"></i> </button>
+					                    <button type="submit" class="btn btn-warning btn-outline"><i class="icon wb-check"></i> Edit</button>
 					                </div><!--/.tombolAksi-->
 				                </form>
 				            </div><!--/.row-->

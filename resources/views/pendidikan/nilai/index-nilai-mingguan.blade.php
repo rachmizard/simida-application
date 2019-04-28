@@ -12,6 +12,21 @@
     </div>
     <div class="panel">
     	<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
+			@if(session('messageSuccess'))
+			<div class="alert dark alert-alt alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ session('messageSuccess') }}
+            </div>
+			@elseif(session('messageError'))
+			<div class="alert dark alert-alt alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ session('messageError') }}
+            </div>
+			@endif
     	    <div class="row row-lg">
     	        <div class="col-md-12">
     	        	 <h4 class="example-title"><i class="icon wb-search"></i> Filter Santri</h4>
@@ -89,8 +104,9 @@
     		                    <tr>
     		                        <th>NIS</th>
     		                        <th>Nama Santri</th>
-    		                        <th>Kelas</th>
+									<th>Kelas</th>
     		                        <th>Status</th>
+    		                        <th>Aksi</th>
     		                    </tr>
     		                </thead>
     		                <tbody>
@@ -100,11 +116,12 @@
                                             <tr>
                                                 <td>{!! $realresult['nis'] !!}</td>
                                                 <td>{!! $realresult['nama_santri'] !!}</td>
-                                                <td>{!! $realresult['kelas'] !!}</td>
+												<td>{!! $realresult['kelas'] !!}</td>
+                                                <td>{!! $realresult['status_nilai'] !!}</td>
                                                 @if($realresult['status_nilai'] == 'Belum')
                                                 <td>
                                                     <!-- TAMBAH BUTTON NILAI MINGGUAN -->
-                                                    <form action="{{ route('pendidikan.nilai.viewInputNilaiMingguan', $realresult['id']) }}" method="POST">
+                                                    <form action="{{ route('pendidikan.nilai.inputBulanDanMinggu', $realresult['id']) }}" method="POST">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="periode" value="{{ $periode->id }}">
                                                         <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
@@ -117,6 +134,17 @@
                                                 </td>
                                                 @else
                                                 <td>
+                                                    <!-- TAMBAH BUTTON NILAI MINGGUAN -->
+                                                    <form action="{{ route('pendidikan.nilai.inputBulanDanMinggu', $realresult['id']) }}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="periode" value="{{ $periode->id }}">
+                                                        <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
+                                                        <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
+                                                        <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
+                                                        <button type="submit" class="btn btn-round btn-sm btn-outline btn-success mb-2" name="button">
+                                                            <i class="icon wb-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </form>
                                                     <!-- EDIT BUTTON NILAI MINGGUAN -->
                                                     <form class="" action="" method="post">
                                                         {{ csrf_field() }}
