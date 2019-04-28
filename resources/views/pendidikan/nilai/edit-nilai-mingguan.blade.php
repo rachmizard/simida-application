@@ -1,13 +1,13 @@
 @extends('layouts.master-layouts')
 @section('content')
 			<div class="page-header">
-			    <h1 class="page-title">Detail Nilai Mingguan</h1>
+			    <h1 class="page-title">Edit Nilai Mingguan</h1>
 			    <ol class="breadcrumb">
 			        <li class="breadcrumb-item"><a href="/">Home</a></li>
 			        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
 			        <li class="breadcrumb-item"><a href="{{ route('pendidikan.nilai.indexNilaiMingguan') }}">Nilai</a></li>
-                    <li class="breadcrumb-item"><a href="#">Detail Nilai Mingguan</a></li>
-			        <li class="breadcrumb-item active">{{ $santri->nama_santri }}</li>
+                    <li class="breadcrumb-item"><a href="#">Menentukan Bulan & Minggu</a></li>
+			        <li class="breadcrumb-item active">Edit Nilai Mingguan</li>
 			    </ol>
 			</div>
 			<div class="panel">
@@ -18,18 +18,16 @@
 				            <table class="table table-hover table-stripped" data-mobile-responsive="true">
 				                <thead>
 				                    <tr>
-                                        <th data-field="id">Nis</th>
+				                        <th data-field="id">Nis</th>
                                         <th data-field="nama">Nama</th>
-                                        <th data-field="kelas">Kelas</th>
-				                        <th data-field="tingkat">tingkat</th>
+				                        <th data-field="kelas">Kelas</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
 				                    <tr>
 				                        <td>{{ $santri->nis }}</td>
                                         <td>{{ $santri->nama_santri }}</td>
-                                        <td>{{ $santri->kelas['nama_kelas'] }}</td>
-				                        <td> <span class="badge badge-md badge-success">{{ $santri->tingkat['nama_tingkatan'] }}</span> </td>
+				                        <td>{{ $santri->kelas['nama_kelas'] }}</td>
 				                    </tr>
 				                </tbody>
 				            </table>
@@ -41,18 +39,17 @@
 
 			<div class="panel">
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
-                    @if(session('messageError'))
-                    <div class="alert dark alert-alt alert-danger alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      {{ session('messageError') }}
-                    </div>
-                    @endif
 				    <div class="row row-lg">
-				            <div class="col-md-7">
-				                <h4 class="example-title"><i class="icon wb-eye"></i> Detail Nilai Mingguan Bulan Ke-{{ $bulan_ke }} Minggu Ke-{{ $minggu_ke }}</h4>
+				            <div class="col-md-12">
+				                <h4 class="example-title"><i class="icon wb-pencil"></i> Edit Nilai Mingguan Bulan Ke-{{ $bulan_ke }} Minggu Ke-{{ $minggu_ke }}</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat <span class="badge badge-sm badge-success">{{ $santri->tingkat['nama_tingkatan'] }}</span> </p>
+				                <form action="{{ route('pendidikan.nilai.updateNilaiMingguan', $santri->id) }}" method="POST">
+                                    {{ method_field('PUT') }}
+				                	{{ csrf_field() }}
+				                	<input type="hidden" value="{{ $periode_id }}" name="periode_id">
+				                	<input type="hidden" value="{{ $semester_id }}" name="semester_id">
+									<input type="hidden" name="bulan_ke" value="{{ $bulan_ke }}">
+									<input type="hidden" name="minggu_ke" value="{{ $minggu_ke }}">
 					                <table class="table table-hover table-stripped">
 					                    <thead>
 					                        <tr>
@@ -65,37 +62,18 @@
 					                    	<tr>
 					                    		<td>
 					                    			<span>{{ $mata_pelajaran->matapelajaran['nama_mata_pelajaran'] }}</span>
+					                    			<input type="hidden" name="mata_pelajaran_id[]" value="{{ $mata_pelajaran->mata_pelajaran_id }}">
 					                    		</td>
 					                    		<td>
-					                    			<input type="number" value="{{ $mata_pelajaran->jumlah_nilai }}" min="0" max="10" step="any" class="form-control" autocomplete="off" disabled>
+					                    			<input type="number" name="jumlah_nilai[]" min="0" max="10" step="any" class="form-control" autocomplete="off" value="{{ $mata_pelajaran->jumlah_nilai }}">
 					                    		</td>
 					                    	</tr>
 					                    	@endforeach
 					                    </tbody>
 					                </table>
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
-                                        <input type="hidden" name="periode" value="{{ $periode_id }}">
+					                    <button type="submit" class="btn btn-success btn-outline">Simpan <i class="icon wb-check"></i> </button>
 					                </div><!--/.tombolAksi-->
-				                </form>
-				            </div><!--/.row-->
-				            <div class="col-md-4">
-				                <h4 class="example-title">Resume Nilai Mingguan Bulan <span class="badge badge-md badge-success">Ke-{{ $bulan_ke }}</span> Minggu <span class="badge badge-md badge-success">Ke-{{ $minggu_ke }}</span></h4>
-					                <table class="table table-hover table-stripped">
-					                    <tbody>
-					                        <tr>
-                                                <th>Nilai Rata-Rata</th>
-					                            <td>90</td>
-					                        </tr>
-                                            <tr>
-                                                <th> <span class="badge badge-primary badge-bg">Nilai Tertinggi</span> </th>
-					                            <td>90 (Tauhid Rancang)</td>
-                                            </tr>
-                                            <tr>
-                                                <th><span class="badge badge-danger badge-bg">Nilai Terendah</span></th>
-					                            <td>20 (Tarikh Rancang)</td>
-                                            </tr>
-					                    </tbody>
-					                </table>
 				                </form>
 				            </div><!--/.row-->
 				        </div>

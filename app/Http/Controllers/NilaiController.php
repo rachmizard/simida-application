@@ -184,7 +184,7 @@ class NilaiController extends Controller
             return view('pendidikan.nilai.input-nilai-mingguan', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id', 'bulan_ke',
 'minggu_ke'));
         }else{
-            return redirect()->back()->withInput();
+            return redirect()->route('pendidikan.nilai.indexNilaiMingguan')->withInput();
         }
     }
 
@@ -196,13 +196,59 @@ class NilaiController extends Controller
             $santri = Santri::findOrFail($id); // bisa mengambil dari Eloquent;
             $semester_id = $request->semester_id;
             $periode_id = $request->periode;
+
+            // dd($request->all());
+            return view('pendidikan.nilai.edit-bulan-dan-minggu', compact('santri', 'semester_id', 'periode_id'));
+        }else{
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function editInputBulanDanMinggu(Request $request, $id)
+    {
+        if ($request->method() == 'POST') {
+
+            // $santri = $id; // bisa mengambil dari parameter;
+            $santri = Santri::findOrFail($id); // bisa mengambil dari Eloquent;
+            $semester_id = $request->semester_id;
+            $periode_id = $request->periode;
             $bulan_ke = $request->bulan_ke;
             $minggu_ke = $request->minggu_ke;
 
             // dd($request->all());
-            return view('pendidikan.nilai.input-bulan-dan-minggu', compact('santri', 'semester_id', 'periode_id', 'bulan_ke', 'minggu_ke'));
+            return view('pendidikan.nilai.edit-bulan-dan-minggu', compact('santri', 'semester_id', 'periode_id', 'bulan_ke', 'minggu_ke'));
         }else{
             return redirect()->back()->withInput();
+        }
+    }
+
+    public function editInputNilaiMingguan(Request $request, $id)
+    {
+        $method = $request->method();
+        if ($method == 'POST') {
+
+            $santri = Santri::findOrFail($id);
+
+            $semester_id = $request->semester_id;
+
+            $periode_id = $request->periode;
+
+            $bulan_ke = $request->bulan_ke;
+
+            $minggu_ke = $request->minggu_ke;
+
+            $mata_pelajarans = NilaiMingguan::where('santri_id', $id)
+                                ->where('periode_id', $periode_id)
+                                ->where('semester_id', $semester_id)
+                                ->where('bulan_ke', $bulan_ke)
+                                ->where('minggu_ke', $minggu_ke)
+                                ->get();
+
+            // dd($mata_pelajarans);
+            return view('pendidikan.nilai.edit-nilai-mingguan', compact('santri', 'mata_pelajarans', 'semester_id', 'periode_id', 'bulan_ke',
+'minggu_ke'));
+        }else{
+            return redirect()->route('pendidikan.nilai.indexNilaiMingguan')->withInput();
         }
     }
 
@@ -311,7 +357,9 @@ class NilaiController extends Controller
                                 ->update($data);
 
                 return redirect()->route('pendidikan.nilai.detailNilaiMingguan', ['id' => $id, 'periode_id' => $request->periode_id, 'semester_id' => $request->semester_id, 'bulan_ke' => $request->bulan_ke, 'minggu_ke' => $request->minggu_ke])
-                ->with('messageError', 'Nilai mingguan pada periode '. Periode::find($request->periode_id)->nama_periode .', semester '. Semester::find($request->semester_id)->tingkat_semester .', bulan ke '. $request->bulan_ke .', minggu ke '. $request->minggu_ke .' sudah tersedia.');
+                ->with('messageError',
+                'Nilai mingguan pada Periode '. Periode::find($request->periode_id)->nama_periode .' di Semester '. Semester::find($request->semester_id)->tingkat_semester .' Bulan-Ke '. $request->bulan_ke .' Minggu-Ke '. $request->minggu_ke .' sudah tersedia, silahkan melakukan edit jika ada nilai yg masih kosong atau belum di masukan.
+                ');
 
             }else{
                 // buat baru
@@ -433,9 +481,44 @@ class NilaiController extends Controller
             $updatePerItem = Nilai::find($nilaiValue->id);
             $updatePerItem->update($data[$index]);
         }
-        // return response($data);
-        // var_dump($data);
         return redirect()->back();
+    }
+
+    public function updateNilaiMingguan(Request $request, $id)
+    {
+
+        $santri = Santri::findOrFail($id);
+
+        $data = [];
+
+        $getter = NilaiMingguan::where('santri_id', $id)
+                        ->where('periode_id', $request->periode_id)
+                        ->where('semester_id', $request->semester_id)
+                        ->where('bulan_ke', $request->bulan_ke)
+                        ->where('minggu_ke', $request->minggu_ke)
+                        ->get();
+
+        foreach ($request->mata_pelajaran_id as $key => $value) {
+
+            $data[$key] = array(
+                'santri_id' => $id,
+                'periode_id' => $request->periode_id,
+                'kelas_id' => $santri->kelas_id,
+                'semester_id' => $request->semester_id, // hardcore;
+                'bulan_ke' => $request->bulan_ke, // getting from request body;
+                'minggu_ke' => $request->minggu_ke, // getting from request body;
+                'mata_pelajaran_id' => $value,
+                'jumlah_nilai' => $request->jumlah_nilai[$key],
+            );
+        }
+
+        foreach ($getter as $index => $nilaiValue) {
+            $updatePerItem = NilaiMingguan::find($nilaiValue->id);
+            $updatePerItem->update($data[$index]);
+        }
+
+        return redirect()->route('pendidikan.nilai.detailNilaiMingguan', ['id' => $id, 'periode_id' => $request->periode_id, 'semester_id' => $request->semester_id, 'bulan_ke' => $request->bulan_ke, 'minggu_ke' => $request->minggu_ke]);
+
     }
 
     public function viewReport(Request $request)

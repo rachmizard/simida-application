@@ -37,7 +37,7 @@
 
   <!-- Plugins This page-->
   <link rel="stylesheet" href="/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min599c.css">
-  <link rel="stylesheet" href="/assets/vendor/select2/select2.min599c.css?v4.0.2">
+  <!-- <link rel="stylesheet" href="/assets/vendor/select2/select2.min599c.css?v4.0.2"> -->
     <!-- Datatable -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.2/css/autoFill.bootstrap4.min.css">

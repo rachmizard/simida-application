@@ -1,7 +1,7 @@
 @extends('layouts.master-layouts')
 @section('content')
 			<div class="page-header">
-			    <h1 class="page-title">Input Nilai</h1>
+			    <h1 class="page-title">Input Nilai Mingguan</h1>
 			    <ol class="breadcrumb">
 			        <li class="breadcrumb-item"><a href="/">Home</a></li>
 			        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
@@ -41,7 +41,7 @@
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
 				    <div class="row row-lg">
 				            <div class="col-md-12">
-				                <h4 class="example-title"><i class="icon wb-pencil"></i> Input Nilai Pelajaran</h4>
+				                <h4 class="example-title"><i class="icon wb-pencil"></i> Input Nilai Mingguan Bulan Ke-{{ $bulan_ke }} Minggu Ke-{{ $minggu_ke }}</h4>
 				                <p>Mata Pelajaran di tampilkan berdasarkan tingkat <span class="badge badge-sm badge-success">{{ $santri->tingkat['nama_tingkatan'] }}</span> </p>
 				                <form action="{{ route('pendidikan.nilai.storeNilaiMingguan', $santri->id) }}" method="POST">
 				                	{{ csrf_field() }}

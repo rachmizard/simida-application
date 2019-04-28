@@ -305,8 +305,12 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
             Route::any('/nilai-mingguan/{id}/input-nilai-mingguan', 'NilaiController@viewInputNilaiMingguan')->name('nilai.viewInputNilaiMingguan');
             Route::post('/nilai-mingguan/{id}/store-nilai-mingguan', 'NilaiController@storeNilaiMingguan')->name('nilai.storeNilaiMingguan');
             Route::get('/nilai-mingguan/{id}/detail-nilai-mingguan/periode/{periode_id}/semester/{semester_id}/bulan-ke/{bulan_ke}/minggu-ke/{minggu_ke}', 'NilaiController@detailNilaiMingguan')->name('nilai.detailNilaiMingguan');
+            Route::any('/nilai-mingguan/{id}/edit-input-bulan-dan-minggu', 'NilaiController@editInputBulanDanMinggu')->name('nilai.editInputBulanDanMinggu');
+            Route::any('/nilai-mingguan/{id}/edit-nilai-mingguan', 'NilaiController@editInputNilaiMingguan')->name('nilai.editInputNilaiMingguan');
+            Route::get('/nilai-mingguan/{id}/edit-nilai-mingguan/periode/{periode_id}/semester/{semester_id}/bulan-ke/{bulan_ke}/minggu-ke/{minggu_ke}', 'NilaiController@editNilaiMingguan')->name('nilai.editNilaiMingguan');
+            Route::put('/nilai-mingguan/{id}/update-nilai-mingguan', 'NilaiController@updateNilaiMingguan')->name('nilai.updateNilaiMingguan');
 
-			// End Nilai & Rekap Nilai
+			// End Nilai & Rekap Nilaid
 
 			// Kelas by tingkat di dalam pendidikan
 			Route::get('/kelas/{id}/tingkat', 'NilaiController@showClassByTingkat');

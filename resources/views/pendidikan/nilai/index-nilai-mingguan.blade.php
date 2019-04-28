@@ -69,7 +69,7 @@
     		                    </div><!--/.form-inline-->
     		                    <div class="form-group">
     		                        <div class="form-control-label col-2">Kelas</div>
-                                        <select class="form-control" name="kelas_id">
+                                        <select class="selectTo" name="kelas_id">
                                             @foreach($classes as $class)
                                                 <option value="{{ $class->id }}" {{ $kelas_id['id'] == $class->
 													id ? 'selected' : ''
@@ -146,12 +146,12 @@
                                                         </button>
                                                     </form>
                                                     <!-- EDIT BUTTON NILAI MINGGUAN -->
-                                                    <form class="" action="" method="post">
+													<form action="{{ route('pendidikan.nilai.editInputBulanDanMinggu', $realresult['id']) }}" method="POST">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="periode" value="{{ isset($periode) ? $periode : null }}">
-                                                        <input type="hidden" name="semester_id" value="{{ isset($semester_id) ? $semester_id : null }}">
-                                                        <input type="hidden" name="tingkat_id" value="{{ isset($tingkat_id) ? $tingkat_id : null }}">
-                                                        <input type="hidden" name="kelas_id" value="{{ isset($kelas_id) ? $kelas_id : null }}">
+                                                        <input type="hidden" name="periode" value="{{ $periode->id }}">
+                                                        <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
+                                                        <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
+                                                        <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
                                                         <button type="submit" class="btn btn-round btn-sm btn-outline btn-warning mb-2" name="button">
                                                             <i class="icon wb-pencil" aria-hidden="true"></i>
                                                         </button>
