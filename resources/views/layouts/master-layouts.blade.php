@@ -328,7 +328,7 @@
                                     </li>
                                     <list-penempatan-kelas></list-penempatan-kelas>
                                     <li class="site-menu-item">
-                                        <a href="{{ route('pendidikan.absen') }}#/absen"><span class="site-menu-title">Absensi</span></a>
+                                        <a href="{{ route('pendidikan.absen') }}"><span class="site-menu-title">Absensi</span></a>
                                     </li>
                                     <li class="site-menu-item has-sub">
                                         <a href="#!"><span class="site-menu-title">Semester</span></a>

@@ -7,6 +7,9 @@ use App\Santri;
 use App\Asrama;
 use App\Kelas;
 use App\Kegiatan;
+use App\Periode;
+use App\Tingkat;
+use App\Semester;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Resources\AbsenSantriResource;
@@ -20,9 +23,60 @@ class AbsenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pendidikan.absen.absen');
+        // deklarasi variable dengan data null
+        $periode = null;
+        $semester_id = null;
+        $tingkat_id = null;
+        $kelas_id = null;
+
+        // master data untuk dropdown
+        $periods = Periode::orderBy('nama_periode', 'ASC')->get();
+        $grades = Tingkat::orderBy('nama_tingkatan', 'ASC')->get();
+        $semesters = Semester::orderBy('tingkat_semester', 'ASC')->get();
+        $classes = Kelas::orderBy('nama_kelas', 'ASC')->get();
+
+        // hasil array di kosongkan dahulu untuk mendeklarasi wadah
+        $result = array();
+        $realresults = array();
+
+        if ($request->periode) {
+
+            $periode_a = $request->periode;
+            $semester_b = $request->semester_id;
+            $kelas_c = $request->kelas_id;
+            $tingkat_d = $request->tingkat_id;
+
+            $students = Santri::orderBy('nama_santri', 'ASC')
+                            ->whereKelasId($request->kelas_id)
+                            ->whereStatus('aktif')
+                            ->get();
+            $semester = Semester::findOrFail($request->semester_id);
+
+            foreach ($students as $key => $student) {
+                $result = [
+                    'id' => $student->id,
+                    'nama_santri' => $student->nama_santri,
+                    'nis' => $student->nis,
+                    'kelas' => $student->kelas['nama_kelas'],
+                    'semester' => $semester->tingkat_semester,
+                    'tgl_masuk' => Carbon::parse($student->tgl_masuk)->format('Y')
+                ];
+
+                array_push($realresults, $result);
+            }
+
+            // dd($realresults);
+        }
+
+        return view('pendidikan.absen.absen', compact('periods', 'grades', 'semesters', 'classes', 'periode_a', 'semester_b', 'kelas_c', 'tingkat_d', 'periode', 'semester_id', 'tingkat_id', 'kelas_id', 'realresults'));
+    }
+
+    public function tambahAbsenLaluPilihTanggalAbsen(Request $request, $id, $periode_id, $semester_id, $kelas_id, $tingkat_id)
+    {
+        $santri = Santri::findOrFail($id);
+        return view('pendidikan.absen.pilih-tanggal-tambah-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id'));
     }
 
     public function getSantriDataTables(Request $request)
@@ -59,13 +113,13 @@ class AbsenController extends Controller
             $data['message'] = 'Santri '. \App\Santri::find($request->santri_id)->nama_santri. ' sudah melakukan absen di kegiatan ini!';
         }else{
             $absen = new Absen();
-            $absen->santri_id = $request->santri_id; 
-            $absen->kegiatan_id = $request->kegiatan_id; 
-            $absen->keterangan = $request->keterangan; 
-            $absen->created_at = Carbon::parse($request->created_at)->format('Y-m-d'); 
-            $absen->updated_at = Carbon::parse($request->created_at)->format('Y-m-d'); 
+            $absen->santri_id = $request->santri_id;
+            $absen->kegiatan_id = $request->kegiatan_id;
+            $absen->keterangan = $request->keterangan;
+            $absen->created_at = Carbon::parse($request->created_at)->format('Y-m-d');
+            $absen->updated_at = Carbon::parse($request->created_at)->format('Y-m-d');
             $absen->save();
-            $data['message'] = 'Berhasil di absen!';   
+            $data['message'] = 'Berhasil di absen!';
         }
         return response()->json(['response' => $data]);
     }
@@ -138,7 +192,7 @@ class AbsenController extends Controller
 
     public function report()
     {
-        
+
     }
 
     public function reportView(Request $request)
@@ -154,7 +208,7 @@ class AbsenController extends Controller
         // }else if($request->asrama_id){
         //     $listSantris = Santri::whereAsramaId($request->asrama_id)->get();
         // }
-            $listSantris = Santri::whereAsramaId($request->asrama_id)->orWhere('kelas_id', $request->kelas_id)->get();
+            $listSantris = Santri::whereAsramaId($request->asrama_id)->orWhere('kelas_id', $request->kelas_id)->whereStatus('aktif')->get();
 
 
         return view('pendidikan.absen.report', compact('asramas', 'kelass', 'listSantris', 'listKegiatans', 'start_date', 'end_date'));

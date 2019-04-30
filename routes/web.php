@@ -245,11 +245,13 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			Route::get('/TingkatanSelect2', 'TingkatController@TingkatanSelect2')->name('tingkat.TingkatanSelect2');
 
 			// Absen
-			Route::get('/absen', 'AbsenController@index')->name('absen');
+			Route::any('/absen', 'AbsenController@index')->name('absen');
 			Route::get('/absen/reportview', 'AbsenController@reportView')->name('absen.reportview');
 			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
+
+            Route::any('/absen/{id}/tambah-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@tambahAbsenLaluPilihTanggalAbsen')->name('absen.tambahAbsenLaluPilihTanggalAbsen');
 
 				// Report Absensi
 				Route::get('/absen/report', 'AbsenController@report')->name('absen.report'); // API

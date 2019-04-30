@@ -420,6 +420,7 @@ class NilaiController extends Controller
                             ->where('minggu_ke', $minggu_ke)
                             ->get();
 
+
         // dd($mata_pelajarans);
         return view('pendidikan.nilai.detail-nilai-mingguan', compact('santri', 'periode_id', 'semester_id', 'bulan_ke', 'minggu_ke', 'mata_pelajarans'));
     }
