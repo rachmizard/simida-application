@@ -198,7 +198,7 @@ class NilaiController extends Controller
             $periode_id = $request->periode;
 
             // dd($request->all());
-            return view('pendidikan.nilai.edit-bulan-dan-minggu', compact('santri', 'semester_id', 'periode_id'));
+            return view('pendidikan.nilai.input-bulan-dan-minggu', compact('santri', 'semester_id', 'periode_id'));
         }else{
             return redirect()->back()->withInput();
         }
@@ -517,7 +517,7 @@ class NilaiController extends Controller
             $updatePerItem->update($data[$index]);
         }
 
-        return redirect()->route('pendidikan.nilai.detailNilaiMingguan', ['id' => $id, 'periode_id' => $request->periode_id, 'semester_id' => $request->semester_id, 'bulan_ke' => $request->bulan_ke, 'minggu_ke' => $request->minggu_ke]);
+        return redirect()->route('pendidikan.nilai.detailNilaiMingguan', ['id' => $id, 'periode_id' => $request->periode_id, 'semester_id' => $request->semester_id, 'bulan_ke' => $request->bulan_ke, 'minggu_ke' => $request->minggu_ke])->with('messageSuccess', 'Nilai berhasil di update!');
 
     }
 

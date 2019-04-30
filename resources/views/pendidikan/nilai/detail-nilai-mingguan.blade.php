@@ -21,7 +21,7 @@
                                         <th data-field="id">Nis</th>
                                         <th data-field="nama">Nama</th>
                                         <th data-field="kelas">Kelas</th>
-				                        <th data-field="tingkat">tingkat</th>
+				                        <th data-field="tingkat">Tingkat</th>
 				                    </tr>
 				                </thead>
 				                <tbody>
@@ -48,6 +48,13 @@
                       </button>
                       {{ session('messageError') }}
                     </div>
+					@elseif(session('messageSuccess'))
+                    <div class="alert dark alert-alt alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{ session('messageSuccess') }}
+                    </div>
                     @endif
 				    <div class="row row-lg">
 				            <div class="col-md-7">
@@ -61,6 +68,7 @@
 					                        </tr>
 					                    </thead>
 					                    <tbody>
+											@if(count($mata_pelajarans) > 0)
 					                    	@foreach($mata_pelajarans as $key => $mata_pelajaran)
 					                    	<tr>
 					                    		<td>
@@ -71,11 +79,40 @@
 					                    		</td>
 					                    	</tr>
 					                    	@endforeach
+											@else
+	                                        <tr>
+	                                            <td colspan="10">
+	                                                <div class="text-center">
+	                                                    <h4> Nilai belum dimasukan.</h4>
+	                                                </div>
+	                                            </td>
+	                                        </tr>
+											@endif
 					                    </tbody>
 					                </table>
+									@if(count($mata_pelajarans) > 0)
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
-                                        <input type="hidden" name="periode" value="{{ $periode_id }}">
+                                        <form action="{{ route('pendidikan.nilai.editInputNilaiMingguan', $santri->id) }}" method="POST">
+											{{ csrf_field() }}
+											<input type="hidden" name="periode" value="{{ $periode_id }}">
+											<input type="hidden" name="semester_id" value="{{ $semester_id }}">
+											<input type="hidden" name="bulan_ke" value="{{ $bulan_ke }}">
+											<input type="hidden" name="minggu_ke" value="{{ $minggu_ke }}">
+											<button type="submit" class="btn btn-warning btn-outline"><i class="icon wb-check"></i> Edit </button>
+                                        </form>
 					                </div><!--/.tombolAksi-->
+									@else
+					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
+                                        <form action="{{ route('pendidikan.nilai.viewInputNilaiMingguan', $santri->id) }}" method="POST">
+											{{ csrf_field() }}
+											<input type="hidden" name="periode" value="{{ $periode_id }}">
+											<input type="hidden" name="semester_id" value="{{ $semester_id }}">
+											<input type="hidden" name="bulan_ke" value="{{ $bulan_ke }}">
+											<input type="hidden" name="minggu_ke" value="{{ $minggu_ke }}">
+											<button type="submit" class="btn btn-primary btn-outline"><i class="icon wb-plus"></i> Masukan Nilai </button>
+                                        </form>
+					                </div><!--/.tombolAksi-->
+									@endif
 				                </form>
 				            </div><!--/.row-->
 				            <div class="col-md-4">

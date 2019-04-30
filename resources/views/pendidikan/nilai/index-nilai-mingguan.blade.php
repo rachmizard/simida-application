@@ -59,7 +59,7 @@
     		                 <div class="form-group col-md-6 col-sm-12" style="padding-right: 15px;">
     		                    <div class="form-group">
     		                        <div class="form-control-label col-2">Tingkat</div>
-                                        <select class="form-control" name="tingkat_id">
+                                        <select class="form-control" name="tingkat_id" id="tingkatTrigger">
                                             @foreach($grades as $grade)
                                                 <option value="{{ $grade->id }}" {{ $tingkat_id['id'] == $grade->
 													id ? 'selected' : ''
@@ -69,12 +69,7 @@
     		                    </div><!--/.form-inline-->
     		                    <div class="form-group">
     		                        <div class="form-control-label col-2">Kelas</div>
-                                        <select class="selectTo" name="kelas_id">
-                                            @foreach($classes as $class)
-                                                <option value="{{ $class->id }}" {{ $kelas_id['id'] == $class->
-													id ? 'selected' : ''
-												}}>{{ $class->nama_kelas }}</option>
-                                            @endforeach
+                                        <select class="form-control" name="kelas_id" style="width: 100%;">
                                         </select>
     		                    </div><!--/.form-inline-->
     		                    <div class="form-group">
@@ -94,7 +89,7 @@
     		<div class="panel-body container-fluid" style="background-color: #fdfdfd;">
     		    <div class="row row-lg">
     		       <div class="col-md-12">
-					   @if(isset($realresult))
+					   @if($periode != null)
     		           <h4 class="example-title"><i class="icon wb-user"></i> List Nilai Santri Periode <span class="badge badge-bg badge-success">{{ $periode->nama_periode }}</span> Semester <span class="badge badge-bg badge-success">{{ $semester_id->tingkat_semester }}</span> Kelas <span class="badge badge-bg badge-success">{{ $kelas_id->nama_kelas }}</span> </h4>
 					   @else
 					   <h4 class="example-title"><i class="icon wb-user"></i> List Santri</h4>
@@ -185,5 +180,28 @@
     		</div><!--/.panel-body-->
     	</div><!--/.panel -->
 </div>
-
+@push('otherJavascript')
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#tingkatTrigger').on('change', function(){
+            var tingkat_id = $(this).val();
+              if (tingkat_id) {
+                $.ajax({
+                  url: 'kelas/'+ tingkat_id +'/tingkat',
+                  type: "GET",
+                  dataType: "json",
+                  success:function(dataKelas){
+                    $('select[name="kelas_id"]').empty();
+                    $.each(dataKelas, function(key, value) {
+                        $('select[name="kelas_id"]').append('<option value="'+ value.id +'">'+ value.text +'</option>');
+                    });
+                  }
+                });
+              }else{
+                  $('select[name="kelas_id"]').empty();
+              }
+        })
+	});
+</script>
+@endpush
 @endsection
