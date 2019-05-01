@@ -7,6 +7,7 @@ use App\Santri;
 use App\Asrama;
 use App\Kelas;
 use App\Kegiatan;
+use App\MataPelajaran;
 use App\Periode;
 use App\Tingkat;
 use App\Semester;
@@ -86,7 +87,11 @@ class AbsenController extends Controller
         $semester = Semester::findOrFail($request->semester_id);
         $tgl_absen = $request->tgl_absen;
 
-        return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen'));
+        $mata_pelajarans = MataPelajaran::whereTingkatId($santri->tingkat_id)->get();
+
+        $kegiatans = Kegiatan::all();
+
+        return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans'));
     }
 
     public function getSantriDataTables(Request $request)

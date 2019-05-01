@@ -47,10 +47,10 @@
 
 			<div class="panel">
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
+                    <h4 class="example-title"><i class="icon wb-pencil"></i> {{ Carbon\Carbon::parse($tgl_absen)->format('d, M Y') }}</h4>
 				    <div class="row row-lg">
-				            <div class="col-md-12">
-				                <h4 class="example-title"><i class="icon wb-pencil"></i> {{ Carbon\Carbon::parse($tgl_absen)->format('D m Y') }}</h4>
-				                <form action="{{ route('pendidikan.nilai.storeNilaiMingguan', $santri->id) }}" method="POST">
+				            <div class="col-md-6">
+				                <form action="" method="POST">
 				                	{{ csrf_field() }}
                                     <input type="hidden" value="{{ $santri->id }}" name="santri_id">
 				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
@@ -59,11 +59,16 @@
 					                <table class="table table-hover table-stripped">
 					                    <thead>
 					                        <tr>
-					                            <th data-field="pelajaran">Nama Pelajaran</th>
-					                            <th data-field="nilai">Nilai</th>
+					                            <th data-field="pelajaran">Mata Pelajaran</th>
+					                            <th data-field="nilai">Aksi</th>
 					                        </tr>
 					                    </thead>
 					                    <tbody>
+                                            @foreach($mata_pelajarans as $mata_pelajaran)
+                                            <tr>
+                                                <td>{{ $mata_pelajaran->nama_mata_pelajaran }}</td>
+                                            </tr>
+                                            @endforeach
 					                    </tbody>
 					                </table>
 					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
@@ -72,6 +77,42 @@
 					                </div><!--/.tombolAksi-->
 				                </form>
 				            </div><!--/.row-->
+                            <div class="col-md-6">
+                                <form action="" method="POST">
+				                	{{ csrf_field() }}
+                                    <input type="hidden" value="{{ $santri->id }}" name="santri_id">
+				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
+				                	<input type="hidden" value="{{ $semester->id }}" name="semester_id">
+									<input type="hidden" name="kelas" value="{{ $santri->kelas_id }}">
+					                <table class="table table-hover table-stripped">
+					                    <thead>
+					                        <tr>
+					                            <th data-field="pelajaran">Kegiatan</th>
+					                            <th data-field="nilai">Aksi</th>
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+                                            @foreach($kegiatans as $kegiatan)
+                                            <tr>
+                                                <td>{{ $kegiatan->nama_kegiatan }}</td>
+                                                <th data-field="nilai">
+                                                    <select class="form-control" name="keterangan[]">
+                                                        <option value="hadir">Hadir</option>
+                                                        <option value="sakit">Sakit</option>
+                                                        <option value="izin">Izin</option>
+                                                        <option value="alfa">Alfa</option>
+                                                    </select>
+                                                </th>
+                                            </tr>
+                                            @endforeach
+					                    </tbody>
+					                </table>
+					                <div class="tombolAksi" style="margin-top: 30px;text-align: center;">
+					                    <button type="reset" class="btn btn-danger btn-outline">Reset Semua</button>
+					                    <button type="submit" class="btn btn-success btn-outline">Simpan <i class="icon wb-check"></i> </button>
+					                </div><!--/.tombolAksi-->
+				                </form>
+                            </div>
 				        </div>
 				</div><!--/.panel-body-->
 			</div><!--/.panel -->
