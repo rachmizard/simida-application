@@ -79,6 +79,16 @@ class AbsenController extends Controller
         return view('pendidikan.absen.pilih-tanggal-tambah-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id'));
     }
 
+    public function viewInputAbsen(Request $request, $id)
+    {
+        $santri = Santri::findOrFail($id);
+        $periode = Periode::findOrFail($request->periode);
+        $semester = Semester::findOrFail($request->semester_id);
+        $tgl_absen = $request->tgl_absen;
+
+        return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen'));
+    }
+
     public function getSantriDataTables(Request $request)
     {
         return AbsenSantriResource::collection(Santri::orderBy('nama_santri', 'ASC')->with([

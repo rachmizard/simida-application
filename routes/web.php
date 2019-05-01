@@ -244,14 +244,16 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 			// Tingkat In Pendidikan
 			Route::get('/TingkatanSelect2', 'TingkatController@TingkatanSelect2')->name('tingkat.TingkatanSelect2');
 
-			// Absen
+			// Absen VUE & Blade
 			Route::any('/absen', 'AbsenController@index')->name('absen');
 			Route::get('/absen/reportview', 'AbsenController@reportView')->name('absen.reportview');
 			Route::get('/absen/getSantriDataTables', 'AbsenController@getSantriDataTables')->name('absen.getSantriDataTables');
 			Route::post('/absen/store', 'AbsenController@store')->name('absen.store');
 			Route::delete('/absen/{id}/destroy', 'AbsenController@destroy')->name('absen.destroy');
 
+            // Absen pure laravel
             Route::any('/absen/{id}/tambah-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@tambahAbsenLaluPilihTanggalAbsen')->name('absen.tambahAbsenLaluPilihTanggalAbsen');
+            Route::any('/absen/{id}/view-input-absen', 'AbsenController@viewInputAbsen')->name('absen.viewInputAbsen');
 
 				// Report Absensi
 				Route::get('/absen/report', 'AbsenController@report')->name('absen.report'); // API

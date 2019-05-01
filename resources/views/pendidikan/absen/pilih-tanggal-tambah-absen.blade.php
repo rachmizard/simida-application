@@ -18,10 +18,11 @@
                         <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
                         <h4 class="example-title"><i class="icon wb-book"></i> Tanggal Absen</h4>
                         <div class="example">
-                            <form action="" method="POST">
+                            <form action="{{ route('pendidikan.absen.viewInputAbsen', $santri->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="periode" value="{{ $periode_id }}">
-                                <input type="hidden" name="semester_id" value="{{ $semester_id }}">
+								<input type="hidden" name="semester_id" value="{{ $semester_id }}">
+                                <input type="hidden" name="kelas_id" value="{{ $santri->kelas_id }}">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label" for="">Tanggal Absen</label>
