@@ -89,10 +89,162 @@ class AbsenController extends Controller
 
         $mata_pelajarans = MataPelajaran::whereTingkatId($santri->tingkat_id)->get();
 
-        $kegiatans = Kegiatan::all();
+        $checkifMapelExistOrNot = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('mapel')
+                                    ->whereDate('tgl_absen', $request->tgl_absen);
 
-        return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans'));
+        $checkifKegiatanExistOrNot = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('kegiatan')
+                                    ->whereDate('tgl_absen', $request->tgl_absen);
+
+        $kegiatans = Kegiatan::all();
+        // dd($checkifKegiatanExistOrNot->get());
+        return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans', 'checkifMapelExistOrNot', 'checkifKegiatanExistOrNot'));
     }
+
+    public function storeInputAbsenMapel(Request $request, $id)
+    {
+        $data = array();
+
+        $realdata = array();
+
+        $santri = Santri::findOrFail($id);
+
+        foreach ($request->mata_pelajaran_id as $key => $value) {
+
+            $data = array(
+                    'santri_id' => $santri->id,
+                    'periode_id' => $request->periode_id,
+                    'semester_id' => $request->semester_id,
+                    'kelas_id' => $request->kelas_id,
+                    'mata_pelajaran_id' => $value,
+                    'keterangan' => $request->keterangan[$key],
+                    'type' => $request->type,
+                    'tgl_absen' => $request->tgl_absen
+            );
+            Absen::create($data);
+            // array_push($realdata, $data);
+        }
+
+
+
+        return redirect()->back();
+    }
+
+    public function storeInputAbsenKegiatan(Request $request, $id)
+    {
+        $data = array();
+
+        $realdata = array();
+
+        $santri = Santri::findOrFail($id);
+
+        foreach ($request->kegiatan_id as $key => $value) {
+
+            $data = array(
+                    'santri_id' => $santri->id,
+                    'periode_id' => $request->periode_id,
+                    'semester_id' => $request->semester_id,
+                    'kelas_id' => $request->kelas_id,
+                    'kegiatan_id' => $value,
+                    'keterangan' => $request->keterangan[$key],
+                    'type' => $request->type,
+                    'tgl_absen' => $request->tgl_absen
+            );
+            Absen::create($data);
+            // array_push($realdata, $data);
+        }
+
+
+
+        return redirect()->back();
+    }
+
+
+    public function updateInputAbsenMapel(Request $request, $id)
+    {
+        $data = array();
+
+        $realdata = array();
+
+        $santri = Santri::findOrFail($id);
+
+        $getOldMapel = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode_id)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('mapel')
+                                    ->whereDate('tgl_absen', $request->tgl_absen)
+                                    ->get();
+
+        foreach ($request->mata_pelajaran_id as $key => $value) {
+
+            $data[$key] = array(
+                    'santri_id' => $santri->id,
+                    'periode_id' => $request->periode_id,
+                    'semester_id' => $request->semester_id,
+                    'kelas_id' => $request->kelas_id,
+                    'mata_pelajaran_id' => $value,
+                    'keterangan' => $request->keterangan[$key],
+                    'type' => $request->type,
+                    'tgl_absen' => $request->tgl_absen
+            );
+
+        }
+
+        foreach ($getOldMapel as $index => $toValue) {
+            $update = Absen::find($toValue->id);
+            $update->update($data[$index]);
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function updateInputAbsenKegiatan(Request $request, $id)
+    {
+        $data = [];
+
+        $realdata = array();
+
+        $santri = Santri::findOrFail($id);
+
+        $getOldKegiatan = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode_id)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('kegiatan')
+                                    ->whereDate('tgl_absen', $request->tgl_absen)
+                                    ->get();
+
+        foreach ($request->kegiatan_id as $key => $value) {
+
+            $data[$key] = array(
+                    'santri_id' => $santri->id,
+                    'periode_id' => $request->periode_id,
+                    'semester_id' => $request->semester_id,
+                    'kelas_id' => $request->kelas_id,
+                    'kegiatan_id' => $value,
+                    'keterangan' => $request->keterangan[$key],
+                    'type' => $request->type,
+                    'tgl_absen' => $request->tgl_absen
+            );
+
+        }
+
+        foreach ($getOldKegiatan as $uyq => $toValue) {
+            $update = Absen::find($toValue->id);
+            $update->update($data[$uyq]);
+        }
+
+        return redirect()->back();
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     public function getSantriDataTables(Request $request)
     {

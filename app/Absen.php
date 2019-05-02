@@ -13,9 +13,17 @@ class Absen extends Model
      */
     protected $table = 'absen';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
-        'santri_id', 'periode_id', 'semester_id', 'kelas_id', 'kegiatan_id', 'keterangan', 'type',
+        'santri_id',
+        'periode_id',
+        'semester_id',
+        'kelas_id',
+        'kegiatan_id',
+        'mata_pelajaran_id',
+        'keterangan',
+        'type',
+        'tgl_absen'
     ];
 
     public function santri()
@@ -41,5 +49,10 @@ class Absen extends Model
     public function kegiatan()
     {
     	return $this->belongsTo(Kegiatan::class, 'kegiatan_id', 'id');
+    }
+
+    public function matapelajaran()
+    {
+    	return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id', 'id');
     }
 }
