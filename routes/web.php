@@ -253,6 +253,8 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
 
             // Absen pure laravel
             Route::any('/absen/{id}/tambah-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@tambahAbsenLaluPilihTanggalAbsen')->name('absen.tambahAbsenLaluPilihTanggalAbsen');
+            Route::any('/absen/{id}/edit-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@editAbsenLaluPilihTanggalAbsen')->name('absen.editAbsenLaluPilihTanggalAbsen');
+            Route::any('/absen/{id}/list-hari-by-filter', 'AbsenController@listHariByFilter')->name('absen.listHariByFilter');
             Route::get('/absen/{id}/view-input-absen', 'AbsenController@viewInputAbsen')->name('absen.viewInputAbsen');
             Route::post('/absen/{id}/store-input-absen-mapel', 'AbsenController@storeInputAbsenMapel')->name('absen.storeInputAbsenMapel');
             Route::post('/absen/{id}/store-input-absen-kegiatan', 'AbsenController@storeInputAbsenKegiatan')->name('absen.storeInputAbsenKegiatan');

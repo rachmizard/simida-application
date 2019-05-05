@@ -15,6 +15,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Resources\AbsenSantriResource;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DB;
 
 class AbsenController extends Controller
@@ -80,6 +81,39 @@ class AbsenController extends Controller
         return view('pendidikan.absen.pilih-tanggal-tambah-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id'));
     }
 
+    public function editAbsenLaluPilihTanggalAbsen(Request $request, $id, $periode_id, $semester_id, $kelas_id, $tingkat_id)
+    {
+        $santri = Santri::findOrFail($id);
+        $periods = Periode::orderBy('nama_periode', 'ASC')->get();
+        return view('pendidikan.absen.pilih-tanggal-edit-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id', 'periods'));
+    }
+
+    public function listHariByFilter(Request $request, $id)
+    {
+        $periode = Periode::findOrFail($request->periode_id);
+        $santri = Santri::findOrFail($id);
+        $dateRangePeriod = CarbonPeriod::create($request->bulan_awal, $request->bulan_akhir);
+
+        $months = [];
+
+        $realmonths = [];
+
+        foreach ($dateRangePeriod as $key => $value) {
+            
+            $months = [
+                    'tgl' => $value->format('d'),
+                    'hari' => $value->format('D'),
+                    'bulan' => $value->format('M'),
+                    'tahun' => $value->format('Y'),
+            ];
+
+            array_push($realmonths, $months);
+        }
+
+        dd($realmonths);
+        return view('pendidikan.absen.list-hari-by-filter', compact('periode', 'santri'));
+    }
+
     public function viewInputAbsen(Request $request, $id)
     {
         $santri = Santri::findOrFail($id);
@@ -102,6 +136,7 @@ class AbsenController extends Controller
                                     ->whereDate('tgl_absen', $request->tgl_absen);
 
         $kegiatans = Kegiatan::all();
+
         // dd($checkifKegiatanExistOrNot->get());
         return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans', 'checkifMapelExistOrNot', 'checkifKegiatanExistOrNot'));
     }
