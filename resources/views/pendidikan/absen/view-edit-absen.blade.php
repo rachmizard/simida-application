@@ -1,13 +1,14 @@
 @extends('layouts.master-layouts')
 @section('content')
         	<div class="page-header">
-        	    <h1 class="page-title">Input Absensi</h1>
+        	    <h1 class="page-title">Edit Absensi</h1>
         	    <ol class="breadcrumb">
         	        <li class="breadcrumb-item"><a href="/">Home</a></li>
         	        <li class="breadcrumb-item"><a href="javascript:void(0)">Pendidikan</a></li>
                     <li class="breadcrumb-item"><a href="#">Absensi</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pilih Tanggal Absensi</a></li>
-        	        <li class="breadcrumb-item active">Input Absensi</li>
+                    <li class="breadcrumb-item"><a href="#">Pilih Tanggal Absensi (Edit)</a></li>
+        	        <li class="breadcrumb-item"><a href="#">Pilih Tanggal (Edit)</a></li>
+        	        <li class="breadcrumb-item active">Edit Absensi</li>
         	    </ol>
         	</div>
 			<div class="panel">
@@ -119,8 +120,8 @@
                                                     </td>
                                                     <td>
                                                         <select class="form-control" name="keterangan[]">
-                                                            <option value="" {{ $edit_absen_mapel->keterangan
-                                                            == null ? 'selected' : '' }}></option>
+                                                            <option value="" {{ $edit_absen_mapel->
+                                                            keterangan == null ? 'selected' : '' }}></option>
                                                             <option value="hadir" {{ $edit_absen_mapel->keterangan
                                                             == 'hadir' ? 'selected' : '' }}>Hadir</option>
                                                             <option value="sakit" {{ $edit_absen_mapel->keterangan

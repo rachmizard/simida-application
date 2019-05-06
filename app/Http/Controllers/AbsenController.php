@@ -90,7 +90,8 @@ class AbsenController extends Controller
 
     public function listHariByFilter(Request $request, $id)
     {
-        $periode = Periode::findOrFail($request->periode_id);
+        $periode = Periode::findOrFail($request->periode);
+        $semester = Semester::findOrFail($request->semester_id);
         $santri = Santri::findOrFail($id);
         $dateRangePeriod = CarbonPeriod::create($request->bulan_awal, $request->bulan_akhir);
 
@@ -98,20 +99,54 @@ class AbsenController extends Controller
 
         $realmonths = [];
 
+        function checkIfPresenceDoneOrNot($santri, $tingkat, $periode, $semester, $tgl_absen){
+            $checkMapel = Absen::where('santri_id', $santri)
+                                ->where('periode_id', $periode)
+                                ->where('semester_id', $semester)
+                                ->where('type', 'mapel')
+                                ->where('keterangan', '!=', null)
+                                ->whereDate('tgl_absen', $tgl_absen)
+                                ->count();
+
+            $checkKegiatan = Absen::where('santri_id', $santri)
+                                ->where('periode_id', $periode)
+                                ->where('semester_id', $semester)
+                                ->where('type', 'kegiatan')
+                                ->where('keterangan', '!=', null)
+                                ->whereDate('tgl_absen', $tgl_absen)
+                                ->count();
+
+            $totalMapel = MataPelajaran::whereTingkatId($tingkat)
+                                        ->count();
+
+
+            $totalKegiatan = Kegiatan::count();
+
+            $percentageMapel = $checkMapel / $totalMapel * 100 . '%';
+
+            $percentageKegiatan = $checkKegiatan / $totalKegiatan * 100 . '%';
+
+            return array(
+                'mata_pelajaran_percentage' => $percentageMapel,
+                'kegiatan_percentage' => $percentageKegiatan
+            );
+
+        }
+
         foreach ($dateRangePeriod as $key => $value) {
-            
+
             $months = [
-                    'tgl' => $value->format('d'),
-                    'hari' => $value->format('D'),
-                    'bulan' => $value->format('M'),
-                    'tahun' => $value->format('Y'),
+                    'tgl' => $value->format('d M Y'),
+                    'tgl_original' => $value->format('Y-m-d'),
+                    'status_absen' => checkIfPresenceDoneOrNot($santri->id, $santri->tingkat_id, $periode->id, $semester->id, $value->format('Y-m-d'))
             ];
 
             array_push($realmonths, $months);
         }
 
-        dd($realmonths);
-        return view('pendidikan.absen.list-hari-by-filter', compact('periode', 'santri'));
+        // dd($realmonths);
+        // return response($realmonths);
+        return view('pendidikan.absen.list-hari-by-filter', compact('periode', 'semester', 'santri', 'realmonths'));
     }
 
     public function viewInputAbsen(Request $request, $id)
@@ -139,6 +174,33 @@ class AbsenController extends Controller
 
         // dd($checkifKegiatanExistOrNot->get());
         return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans', 'checkifMapelExistOrNot', 'checkifKegiatanExistOrNot'));
+    }
+
+    public function viewEditAbsen(Request $request, $id)
+    {
+        $santri = Santri::findOrFail($id);
+        $periode = Periode::findOrFail($request->periode);
+        $semester = Semester::findOrFail($request->semester_id);
+        $tgl_absen = $request->tgl_absen;
+
+        $mata_pelajarans = MataPelajaran::whereTingkatId($santri->tingkat_id)->get();
+
+        $checkifMapelExistOrNot = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('mapel')
+                                    ->whereDate('tgl_absen', $request->tgl_absen);
+
+        $checkifKegiatanExistOrNot = Absen::where('santri_id', $santri->id)
+                                    ->where('periode_id', $request->periode)
+                                    ->where('semester_id', $request->semester_id)
+                                    ->whereType('kegiatan')
+                                    ->whereDate('tgl_absen', $request->tgl_absen);
+
+        $kegiatans = Kegiatan::all();
+
+        // dd($checkifKegiatanExistOrNot->get());
+        return view('pendidikan.absen.view-edit-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans', 'checkifMapelExistOrNot', 'checkifKegiatanExistOrNot'));
     }
 
     public function storeInputAbsenMapel(Request $request, $id)
@@ -275,6 +337,17 @@ class AbsenController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function deleteBulkAbsen(Request $request, $id)
+    {
+        $bulk_delete = Absen::where('santri_id', $id)
+                ->where('periode_id', $request->periode)
+                ->where('semester_id', $request->semester_id)
+                ->whereIn('type', ['mapel', 'kegiatan'])
+                ->whereDate('tgl_absen', $request->tgl_absen)
+                ->get();
+        dd($bulk_delete);
     }
 
 
