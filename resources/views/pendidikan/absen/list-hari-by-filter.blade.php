@@ -13,6 +13,14 @@
     	</div>
 		<div class="row">
 			<div class="col-md-8">
+			@if(session('messageSuccess'))
+				<div class="alert dark alert-icon alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					  <i class="icon wb-check" aria-hidden="true"></i> {{ session('messageSuccess') }}</a>
+				</div>
+			@endif
 		      <div class="panel">
 		        <header class="panel-heading">
 		          <h3 class="panel-title"><i class="icon wb-book"></i> Daftar Absensi MP dan Kegiatan {{ $santri->nama_santri }} Periode {{ $periode->nama_periode }}</h3>

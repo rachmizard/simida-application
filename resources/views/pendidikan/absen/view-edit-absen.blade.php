@@ -16,6 +16,14 @@
 					<!--/.page-header-->
 				    <div class="row row-lg">
 				        <div class="col-md-12 col-sm-12" style="padding-right: 15px;">
+                			@if(session('messageSuccess'))
+                				<div class="alert dark alert-icon alert-success alert-dismissible" role="alert">
+                					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                						<span aria-hidden="true">&times;</span>
+                					  </button>
+                					  <i class="icon wb-check" aria-hidden="true"></i> {{ session('messageSuccess') }}</a>
+                				</div>
+                			@endif
 				            <table class="table table-hover table-stripped" data-mobile-responsive="true">
 				                <tbody>
                                     <tr>

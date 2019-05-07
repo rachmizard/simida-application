@@ -20,7 +20,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getTotalSantri }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getSantriPutra }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getSantriPutri }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getSantriIbtida }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getSantriTsanawi }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                                     <div class="counter-number font-size-40 mt-10">{{ $getSantriMahadAly }}</div>
                                 </div>
                             </div><!--/.col-->
-                            
+
                         </div><!--/.row-->
                     </div>
                 </div>

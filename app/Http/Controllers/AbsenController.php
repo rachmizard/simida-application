@@ -227,9 +227,13 @@ class AbsenController extends Controller
             // array_push($realdata, $data);
         }
 
+        if (count($data) > 0) {
+            $messageSuccess = 'Absen mata-pelajaran berhasil di tambahkan!';
+        }else{
+            $messageSuccess = 'Tidak dapat meng-update data!';
+        }
 
-
-        return redirect()->back();
+        return redirect()->back()->with('messageSuccess', $messageSuccess);
     }
 
     public function storeInputAbsenKegiatan(Request $request, $id)
@@ -256,9 +260,13 @@ class AbsenController extends Controller
             // array_push($realdata, $data);
         }
 
+        if (count($data) > 0) {
+            $messageSuccess = 'Absen kegiatan berhasil di tambahkan!';
+        }else{
+            $messageSuccess = 'Tidak dapat meng-update data!';
+        }
 
-
-        return redirect()->back();
+        return redirect()->back()->with('messageSuccess', $messageSuccess);
     }
 
 
@@ -297,7 +305,13 @@ class AbsenController extends Controller
             $update->update($data[$index]);
         }
 
-        return redirect()->back();
+        if (count($getOldMapel) > 0) {
+            $messageSuccess = 'Absen mata-pelajaran berhasil di update!';
+        }else{
+            $messageSuccess = 'Tidak dapat meng-update data!';
+        }
+
+        return redirect()->back()->with('messageSuccess', $messageSuccess);
     }
 
 
@@ -336,7 +350,13 @@ class AbsenController extends Controller
             $update->update($data[$uyq]);
         }
 
-        return redirect()->back();
+        if (count($getOldKegiatan) > 0) {
+            $messageSuccess = 'Absensi kegiatan berhasil di update!';
+        }else{
+            $messageSuccess = 'Tidak dapat meng-update data!';
+        }
+
+        return redirect()->back()->with('messageSuccess', $messageSuccess);
     }
 
     public function deleteBulkAbsen(Request $request, $id)
@@ -346,8 +366,15 @@ class AbsenController extends Controller
                 ->where('semester_id', $request->semester_id)
                 ->whereIn('type', ['mapel', 'kegiatan'])
                 ->whereDate('tgl_absen', $request->tgl_absen)
-                ->get();
-        dd($bulk_delete);
+                ->delete();
+
+        if (count($bulk_delete) > 0) {
+            $messageSuccess = 'Berhasil di hapus!';
+        }else{
+            $messageSuccess = 'Data tidak ditemukan';
+        }
+
+        return redirect()->back()->with('messageSuccess', $messageSuccess);
     }
 
 
