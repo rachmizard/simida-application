@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="form-row">
                         <div class="form-group col-md-12 col-sm-12" style="padding-right: 15px;">
-                        <h4 class="example-title"><i class="icon wb-book"></i> Tahun & Bulan</h4>
+                        <h4 class="example-title"><i class="icon wb-book"></i> Tanggal Absensi</h4>
                         <div class="example">
                             <form action="{{ route('pendidikan.absen.listHariByFilter', $santri->id) }}" method="GET">
                                 {{ csrf_field() }}
@@ -24,23 +24,13 @@
 								<input type="hidden" name="semester_id" value="{{ $semester_id }}">
                                 <input type="hidden" name="kelas_id" value="{{ $santri->kelas_id }}">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label" for="">Tahun (Periode Hijriah)</label>
-                                        <select name="periode_id" class="form-control">
-                                            @foreach($periods as $period)
-                                                <option value="{{ $period->id }}">{{ $period->nama_periode }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label class="form-control-label" for="">Bulan Awal</label>
-                                        <input type="date" name="bulan_awal" class="form-control">
+                                        <label class="form-control-label" for="">Tanggal Awal</label>
+                                        <input type="date" name="bulan_awal" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label class="form-control-label" for="">Bulan Akhir</label>
-                                        <input type="date" name="bulan_akhir" class="form-control">
+                                        <label class="form-control-label" for="">Tanggal Akhir</label>
+                                        <input type="date" name="bulan_akhir" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-row col-md-6 text-center">

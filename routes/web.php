@@ -254,8 +254,10 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
             // Absen pure laravel
             Route::any('/absen/{id}/tambah-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@tambahAbsenLaluPilihTanggalAbsen')->name('absen.tambahAbsenLaluPilihTanggalAbsen');
             Route::any('/absen/{id}/edit-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@editAbsenLaluPilihTanggalAbsen')->name('absen.editAbsenLaluPilihTanggalAbsen');
+            Route::any('/absen/{id}/detail-absen/{periode_a}/periode/{semester_b}/semester/{kelas_c}/kelas/{tingkat_d}/tingkat/pilih-tanggal', 'AbsenController@detailAbsenLaluPilihTanggalAbsen')->name('absen.detailAbsenLaluPilihTanggalAbsen');
             Route::any('/absen/{id}/list-hari-by-filter', 'AbsenController@listHariByFilter')->name('absen.listHariByFilter');
             Route::get('/absen/{id}/view-input-absen', 'AbsenController@viewInputAbsen')->name('absen.viewInputAbsen');
+            Route::get('/absen/{id}/view-detail-absen', 'AbsenController@viewDetailAbsen')->name('absen.viewDetailAbsen');
             Route::get('/absen/{id}/view-edit-absen', 'AbsenController@viewEditAbsen')->name('absen.viewEditAbsen');
             Route::post('/absen/{id}/store-input-absen-mapel', 'AbsenController@storeInputAbsenMapel')->name('absen.storeInputAbsenMapel');
             Route::post('/absen/{id}/store-input-absen-kegiatan', 'AbsenController@storeInputAbsenKegiatan')->name('absen.storeInputAbsenKegiatan');

@@ -17,6 +17,8 @@ use App\Http\Resources\AbsenSantriResource;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DB;
+use PDF;
+
 
 class AbsenController extends Controller
 {
@@ -79,6 +81,13 @@ class AbsenController extends Controller
     {
         $santri = Santri::findOrFail($id);
         return view('pendidikan.absen.pilih-tanggal-tambah-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id'));
+    }
+
+    public function detailAbsenLaluPilihTanggalAbsen(Request $request, $id, $periode_id, $semester_id, $kelas_id, $tingkat_id)
+    {
+        $santri = Santri::findOrFail($id);
+        $periods = Periode::orderBy('nama_periode', 'ASC')->get();
+        return view('pendidikan.absen.pilih-tanggal-detail-absen', compact('santri', 'id', 'periode_id', 'semester_id', 'kelas_id', 'tingkat_id', 'periods'));
     }
 
     public function editAbsenLaluPilihTanggalAbsen(Request $request, $id, $periode_id, $semester_id, $kelas_id, $tingkat_id)
@@ -174,6 +183,244 @@ class AbsenController extends Controller
 
         // dd($checkifKegiatanExistOrNot->get());
         return view('pendidikan.absen.view-input-absen', compact('santri', 'periode', 'semester', 'tgl_absen', 'mata_pelajarans', 'kegiatans', 'checkifMapelExistOrNot', 'checkifKegiatanExistOrNot'));
+    }
+
+    public function viewDetailAbsen(Request $request, $id)
+    {
+        $santri = Santri::findOrFail($id);
+        $periode = Periode::findOrFail($request->periode);
+        $semester = Semester::findOrFail($request->semester_id);
+        $mata_pelajaran = MataPelajaran::whereTingkatId($santri->tingkat_id)->get();
+        $kegiatan = Kegiatan::get();
+
+        $tahun = $request->tahun;
+        $bulan = $request->bulan;
+
+        $value_mapel = [];
+        $real_value_mapel = [];
+        $value_kegiatan = [];
+        $real_value_kegiatan = [];
+
+
+        function hitung_per_mapel($santri_id, $periode, $semester_id, $mata_pelajaran, $tahun, $bulan)
+        {
+            $countHadir = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'hadir')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countSakit = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'sakit')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countIzin = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'izin')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countAlfa = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'alfa')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            return array(
+                'hadir' => $countHadir,
+                'sakit' => $countSakit,
+                'izin' => $countIzin,
+                'alfa' => $countAlfa
+            );
+        }
+
+        function persentase_mapel($santri_id, $periode, $semester_id, $mata_pelajaran, $tahun, $bulan)
+        {
+            $total_hadir = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'hadir')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_sakit = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'sakit')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_izin = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'izin')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_alfa = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('mata_pelajaran_id', $mata_pelajaran)
+                    ->where('type', 'mapel')
+                    ->where('keterangan', 'alfa')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $year_and_month = $tahun.' '.$bulan;
+
+            $total_bulan = Carbon::createFromFormat('Y m', $year_and_month)->daysInMonth;
+
+            return array(
+                'hadir' => $total_hadir / $total_bulan * 100,
+                'sakit' => $total_sakit / $total_bulan * 100,
+                'izin' => $total_izin / $total_bulan * 100,
+                'alfa' => $total_alfa / $total_bulan * 100,
+            );
+        }
+
+        foreach ($mata_pelajaran as $key => $data) {
+            $value_mapel = [
+                'mata_pelajaran' => $data->nama_mata_pelajaran,
+                'total' => hitung_per_mapel($santri->id, $request->periode, $request->semester_id, $data->id, $tahun, $bulan),
+                'persentase' => persentase_mapel($santri->id, $request->periode, $request->semester_id, $data->id, $tahun, $bulan)
+            ];
+
+            array_push($real_value_mapel, $value_mapel);
+        }
+
+        ///////////////////////////////////////// KEGIATAN BACK-END Controller ////////////////////////////////////////////////
+
+        function hitung_per_kegiatan($santri_id, $periode, $semester_id, $kegiatan, $tahun, $bulan)
+        {
+            $countHadirKegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'hadir')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countSakitKegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'sakit')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countIzinKegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'izin')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $countAlfaKegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'alfa')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            return array(
+                'hadir' => $countHadirKegiatan,
+                'sakit' => $countSakitKegiatan,
+                'izin' => $countIzinKegiatan,
+                'alfa' => $countAlfaKegiatan
+            );
+        }
+
+        function persentase_kegiatan($santri_id, $periode, $semester_id, $kegiatan, $tahun, $bulan)
+        {
+            $total_hadir_kegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'hadir')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_sakit_kegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'sakit')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_izin_kegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'izin')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $total_alfa_kegiatan = Absen::where('santri_id', $santri_id)
+                    ->where('periode_id', $periode)
+                    ->where('semester_id', $semester_id)
+                    ->where('kegiatan_id', $kegiatan)
+                    ->where('type', 'kegiatan')
+                    ->where('keterangan', 'alfa')
+                    ->whereYear('tgl_absen', $tahun)
+                    ->whereMonth('tgl_absen', $bulan)->count();
+
+            $year_and_month = $tahun.' '.$bulan;
+
+            $total_bulan = Carbon::createFromFormat('Y m', $year_and_month)->daysInMonth;
+
+            return array(
+                'hadir' => $total_hadir_kegiatan / $total_bulan * 100,
+                'sakit' => $total_sakit_kegiatan / $total_bulan * 100,
+                'izin' => $total_izin_kegiatan / $total_bulan * 100,
+                'alfa' => $total_alfa_kegiatan / $total_bulan * 100,
+            );
+        }
+
+        foreach ($kegiatan as $key => $data_kegiatan) {
+            $value_kegiatan = [
+                'kegiatan' => $data_kegiatan->nama_kegiatan,
+                'total' => hitung_per_kegiatan($santri->id, $request->periode, $request->semester_id, $data_kegiatan->id, $tahun, $bulan),
+                'persentase' => persentase_kegiatan($santri->id, $request->periode, $request->semester_id, $data_kegiatan->id, $tahun, $bulan)
+            ];
+
+            array_push($real_value_kegiatan, $value_kegiatan);
+        }
+
+        // dd($real_value_kegiatan);
+
+        return view('pendidikan.absen.view-detail-absen', compact('santri', 'periode', 'semester', 'real_value_mapel', 'real_value_kegiatan', 'tahun', 'bulan'));
+
+
     }
 
     public function viewEditAbsen(Request $request, $id)
@@ -514,5 +761,10 @@ class AbsenController extends Controller
 
 
         return view('pendidikan.absen.report', compact('asramas', 'kelass', 'listSantris', 'listKegiatans', 'start_date', 'end_date'));
+    }
+
+    public function exportDetailAbsensi(Request $request, $id)
+    {
+
     }
 }

@@ -101,7 +101,7 @@
                                     <a href="{{ route('pendidikan.absen.tambahAbsenLaluPilihTanggalAbsen', [$realresult['id'], $periode_a, $semester_b, $kelas_c, $tingkat_d]) }}" class="btn btn-round btn-sm btn-outline btn-success mb-2" title="Tambah Absen">
                                         <i class="icon wb-plus" aria-hidden="true"></i>
                                     </a>
-                                    <a href="" class="btn btn-round btn-sm btn-outline btn-primary mb-2" title="Detil Absen">
+                                    <a href="{{ route('pendidikan.absen.detailAbsenLaluPilihTanggalAbsen', [$realresult['id'], $periode_a, $semester_b, $kelas_c, $tingkat_d]) }}" class="btn btn-round btn-sm btn-outline btn-primary mb-2" title="Detil Absen">
                                         <i class="icon wb-eye" aria-hidden="true"></i>
                                     </a>
                                     <a href="{{ route('pendidikan.absen.editAbsenLaluPilihTanggalAbsen', [$realresult['id'], $periode_a, $semester_b, $kelas_c, $tingkat_d]) }}" class="btn btn-round btn-sm btn-outline btn-warning mb-2" title="Edit Absen">
