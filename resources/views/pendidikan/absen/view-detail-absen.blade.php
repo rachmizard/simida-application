@@ -56,7 +56,7 @@
 			<div class="panel">
 				<div class="panel-body container-fluid" style="background-color: #fafafa;">
                     <h4 class="example-title"><i class="icon wb-calendar"></i> Periode {{ $periode->nama_periode }},  {{ Carbon\Carbon::createFromFormat('Y-m', $tahun.'-'.$bulan)->format('M Y') }} </h4>
-                    <a href="" class="btn btn-md btn-default"> <i class="icon wb-download"></i> Export PDF</a>
+                    <a href="{{ route('pendidikan.absen.viewExportDetailAbsensi', [$santri->id, $periode->id, $semester->id, $kelas->id, $tahun, $bulan ]) }}" class="btn btn-md btn-default"> <i class="icon wb-download"></i> Export PDF</a>
 				    <div class="row row-lg">
 				            <div class="col-md-6">
                                 <div class="panel">

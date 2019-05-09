@@ -264,6 +264,7 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
             Route::put('/absen/{id}/update-input-absen-mapel', 'AbsenController@updateInputAbsenMapel')->name('absen.updateInputAbsenMapel');
             Route::put('/absen/{id}/update-input-absen-kegiatan', 'AbsenController@updateInputAbsenKegiatan')->name('absen.updateInputAbsenKegiatan');
             Route::delete('/absen/{id}/delete-bulk-absen', 'AbsenController@deleteBulkAbsen')->name('absen.deleteBulkAbsen');
+            Route::any('/absen/{id}/export-detail-absen/{periode_a}/periode/{semester_b}/semester/{kelas}/kelas/{tahun}/tahun/{bulan}/bulan/export-absen-to-pdf', 'AbsenController@viewExportDetailAbsensi')->name('absen.viewExportDetailAbsensi');
 
 
 				// Report Absensi

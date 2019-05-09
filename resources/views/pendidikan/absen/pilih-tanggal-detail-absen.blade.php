@@ -22,7 +22,7 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" name="periode" value="{{ $periode_id }}">
 								<input type="hidden" name="semester_id" value="{{ $semester_id }}">
-                                <input type="hidden" name="kelas_id" value="{{ $santri->kelas_id }}">
+                                <input type="hidden" name="kelas_id" value="{{ $kelas_id }}">
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label class="form-control-label" for="">Tahun</label>

@@ -64,7 +64,7 @@
                                     <input type="hidden" value="{{ $santri->id }}" name="santri_id">
 				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
 				                	<input type="hidden" value="{{ $semester->id }}" name="semester_id">
-                                    <input type="hidden" name="kelas" value="{{ $santri->kelas_id }}">
+                                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                                     <input type="hidden" name="tgl_absen" value="{{ $tgl_absen }}">
 									<input type="hidden" name="type" value="mapel">
 					                <table class="table table-hover table-stripped">
@@ -108,7 +108,7 @@
                                         <input type="hidden" value="{{ $santri->id }}" name="santri_id">
     				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
     				                	<input type="hidden" value="{{ $semester->id }}" name="semester_id">
-                                        <input type="hidden" name="kelas" value="{{ $santri->kelas_id }}">
+                                        <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                                         <input type="hidden" name="tgl_absen" value="{{ $tgl_absen }}">
     									<input type="hidden" name="type" value="mapel">
     					                <table class="table table-hover table-stripped">
@@ -159,7 +159,7 @@
                                     <input type="hidden" value="{{ $santri->id }}" name="santri_id">
 				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
 				                	<input type="hidden" value="{{ $semester->id }}" name="semester_id">
-									<input type="hidden" name="kelas" value="{{ $santri->kelas_id }}">
+                                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                                     <input type="hidden" name="tgl_absen" value="{{ $tgl_absen }}">
                                     <input type="hidden" name="type" value="kegiatan">
 					                <table class="table table-hover table-stripped">
@@ -203,7 +203,7 @@
                                     <input type="hidden" value="{{ $santri->id }}" name="santri_id">
 				                	<input type="hidden" value="{{ $periode->id }}" name="periode_id">
 				                	<input type="hidden" value="{{ $semester->id }}" name="semester_id">
-									<input type="hidden" name="kelas" value="{{ $santri->kelas_id }}">
+                                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                                     <input type="hidden" name="tgl_absen" value="{{ $tgl_absen }}">
                                     <input type="hidden" name="type" value="kegiatan">
 					                <table class="table table-hover table-stripped">
