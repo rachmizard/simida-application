@@ -28,6 +28,10 @@ Route::middleware(['auth', 'is_murobbi'])->group(function(){
 		Route::name('admin.')->group(function(){
 			Route::get('/home', 'HomeController@index')->name('home');
 
+            // DataTables Route API
+            Route::get('/dashboard-pembayaran-syahriah', 'HomeController@pendapatanSantriDataTables')->name('home.pendapatanSantriDataTables');
+            Route::get('/dashboard-akdemik-nilai', 'HomeController@akademikTerendah')->name('home.akademikTerendah');
+
 			Route::resource('/user-level', 'UserLevelController');
 		});
 	});

@@ -138,13 +138,12 @@
                     <h4 class="example-title">Akademik Terendah</h4>
                     <p>Akademik Santri Terendah</p>
                     <div class="example">
-                        <table data-toggle="table" data-height="300" data-mobile-responsive="true">
+                        <table id="dashboardAkademik" class="table table-striped table-hovered">
                             <thead>
                                 <tr>
-                                    <th data-field="no">No</th>
-                                    <th data-field="name">Nama Santri</th>
-                                    <th data-field="akreditasi">Akreditasi</th>
-                                    <th data-field="nilai">Nilai</th>
+                                    <th>No</th>
+                                    <th>Nama Santri</th>
+                                    <th>Akreditasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -161,13 +160,12 @@
                     <h4 class="example-title">Akhlaq Terendah</h4>
                     <p>-</p>
                     <div class="example">
-                        <table data-toggle="table" data-height="300" data-mobile-responsive="true">
+                        <table id="dashboardAkhlaq" class="table table-striped table-hovered">
                             <thead>
                                 <tr>
-                                    <th data-field="no">No</th>
-                                    <th data-field="name">Name</th>
-                                    <th data-field="akreditasi">Akreditasi</th>
-                                    <th data-field="nilai">Nilai</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Akreditasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,97 +181,32 @@
 <!--End: Table Nilai-->
 
 <!--Start: Table Data-->
-<div class="panel">
+<div class="panel col-md-8">
     <div class="panel-body">
         <div class="row row-lg">
-            <div class="col-md-5">
-                <!-- Example Table For Url -->
-                <div class="example-wrap m-sm-0">
-                    <h4 class="example-title">Santri izin</h4>
-                    <p>-Description-</p>
-                    <div class="example">
-                        <table data-toggle="table" data-height="290" data-mobile-responsive="true">
-                            <thead>
-                                <tr>
-                                    <th data-field="nis">NIS</th>
-                                    <th data-field="nama_santri">Nama Santri</th>
-                                    <th data-field="tujuan">Tujuan</th>
-                                    <th data-field="tgl_izin">Tgl & Jam Izin</th>
-                                    <th data-field="tgl_berakhir_izin">Tgl & Jam Selesai</th>
-                                    <th data-field="status">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($keamanans as $keamanan)
-                                <tr>
-                                    <td>{{ $keamanan['santri']['nis'] }}</td>
-                                    <td>{{ $keamanan['santri']['nama_santri'] }}</td>
-                                    <td>{{ $keamanan['tujuan'] }}</td>
-                                    <td>{{ date('d/m/Y H:i:s A', strtotime($keamanan['created_at'])) }}</td>
-                                    <td>{{ $keamanan['tgl_berakhir_izin'] == null ? '-' : date('d/m/Y H:i:s A', strtotime($keamanan['tgl_berakhir_izin'])) }}</td>
-                                    <td>
-                                        @if($keamanan['status'] == 'belum_kembali')
-                                            <span class="badge badge-danger">Belum Kembali</span>
-                                        @elseif($keamanan['status'] == 'sudah_kembali')
-                                            <span class="badge badge-success">Sudah Kembali</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- End Example Table For Url -->
-            </div>
-
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <!-- Example Table From Data -->
                 <div class="example-wrap">
-                    <h4 class="example-title">Pendapatan Bulan {{ \Carbon\Carbon::now()->format('F Y') }}</h4>
+                    <h4 class="example-title">Pembayaran Syahriah  {{ \Carbon\Carbon::now()->format('F Y') }}</h4>
                     <!-- <p>-Description-</p> -->
                     <div class="example">
-                        <!-- <div class="btn-group hidden-sm-down" id="exampleToolbar" role="group">
-                            <button type="button" class="btn btn-outline btn-default">
-                                <i class="icon wb-plus" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline btn-default">
-                                <i class="icon wb-heart" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline btn-default">
-                                <i class="icon wb-trash" aria-hidden="true"></i>
-                            </button>
-                        </div> -->
-                        <table id="exampleTableToolbar" data-mobile-responsive="true">
-                            <thead>
-                                <tr>
-                                    <th>Total Pendapatan</th>
-                                    <th>Nominal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($pendapatan->get() as $in)
-                                <tr>
-                                    <td>
-                                        @if($in->jenis_pemasukan == 'syariah')
-                                            <span class="badge badge-success">{{ $in->jenis_pemasukan }}</span>
-                                        @elseif($in->jenis_pemasukan == 'donatur')
-                                            <span class="badge badge-warning">{{ $in->jenis_pemasukan }}</span>
-                                        @else
-                                            <span class="badge badge-info">{{ $in->jenis_pemasukan }}</span>
-                                        @endif
-                                    </td>
-                                    <td class="content-Rp">{{ "Rp. " .number_format($in->jumlah_pemasukan,2,',','.') }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Grand Total</th>
-                                    <th class="content-Rp">{{ "Rp. " .number_format($sum,2,',','.') }}</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="dashboardPembayaran" class="table table-striped table-hovered" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nis</th>
+                                        <th>Nama Santri</th>
+                                        <th>Kelas</th>
+                                        <th>Asrama</th>
+                                        <th>Status Pembayaran</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div><!--/.example-->
                 </div>
                 <!-- End Example Table From Data -->
@@ -282,4 +215,41 @@
     </div>
 </div><!-- End Panel -->
 <!--End: Table Data-->
+
+@push('otherJavascript')
+<script type="text/javascript">
+$(function(){
+     var table = $('#dashboardPembayaran').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{!! route('admin.home.pendapatanSantriDataTables') !!}",
+          columns: [
+              { data: 'no' },
+              { data: 'nis' },
+              { data: 'nama_santri'  },
+              { data: 'kelas' },
+              { data: 'asrama'  },
+              { data: 'status_pembayaran'  },
+          ]
+      });
+});
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var table2 = $('#dashboardAkademik').DataTable({
+             processing: true,
+             serverSide: true,
+             order: [[ 2, "desc" ]],
+             ajax: "{!! route('admin.home.akademikTerendah') !!}",
+             columns: [
+                 { data: 'no' },
+                 { data: 'nama_santri'  },
+                 { data: 'akreditasi.predikat' },
+             ]
+        });
+
+         var table3 = $('#dashboardAkhlaq').DataTable();
+    })
+</script>
+@endpush
 @endsection
