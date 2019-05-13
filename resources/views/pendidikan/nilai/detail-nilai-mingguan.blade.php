@@ -121,7 +121,7 @@
 					                    <tbody>
 					                        <tr>
                                                 <th>Nilai Rata-Rata</th>
-					                            <td>90</td>
+					                            <td>{{ number_format($hasil_rata_rata,2,",",".") }}</td>
 					                        </tr>
                                             <tr>
                                                 <th> <span class="badge badge-primary badge-bg">Nilai Tertinggi</span> </th>

@@ -420,9 +420,92 @@ class NilaiController extends Controller
                             ->where('minggu_ke', $minggu_ke)
                             ->get();
 
+        $total_mata_pelajaran_by_query = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $periode_id)
+                            ->where('semester_id', $semester_id)
+                            // ->where('kelas_id', $kelas_id)
+                            ->where('bulan_ke', $bulan_ke)
+                            ->where('minggu_ke', $minggu_ke)
+                            ->count();
 
-        // dd($mata_pelajarans);
-        return view('pendidikan.nilai.detail-nilai-mingguan', compact('santri', 'periode_id', 'semester_id', 'bulan_ke', 'minggu_ke', 'mata_pelajarans'));
+        $sum_nilai_per_mapel = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $periode_id)
+                            ->where('semester_id', $semester_id)
+                            // ->where('kelas_id', $kelas_id)
+                            ->where('bulan_ke', $bulan_ke)
+                            ->where('minggu_ke', $minggu_ke)
+                            ->sum('jumlah_nilai');
+
+        $hasil_rata_rata = $sum_nilai_per_mapel / $total_mata_pelajaran_by_query;
+
+        return view('pendidikan.nilai.detail-nilai-mingguan', compact('santri', 'periode_id', 'semester_id', 'bulan_ke', 'minggu_ke', 'mata_pelajarans', 'hasil_rata_rata'));
+    }
+
+    public function detailNilaiMingguanOtherMethod(Request $request, $id)
+    {
+        $santri = Santri::find($id);
+        // Variable
+        $periode_id = $request->periode_id;
+        $semester_id = $request->semester_id;
+        $kelas_id = $request->kelas_id; // jika digunakan bisa di masukan kedalam query
+        $bulan_ke = $request->bulan_ke;
+        $minggu_ke = $request->minggu_ke;
+
+
+        $mata_pelajarans = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            // ->where('kelas_id', $request->kelas_id)
+                            ->where('bulan_ke', $request->bulan_ke)
+                            ->where('minggu_ke', $request->minggu_ke)
+                            ->get();
+
+        $total_mata_pelajaran_by_query = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            // ->where('kelas_id', $request->kelas_id)
+                            ->where('bulan_ke', $request->bulan_ke)
+                            ->where('minggu_ke', $request->minggu_ke)
+                            ->count();
+
+        $sum_nilai_per_mapel = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            // ->where('kelas_id', $request->kelas_id)
+                            ->where('bulan_ke', $request->bulan_ke)
+                            ->where('minggu_ke', $request->minggu_ke)
+                            ->sum('jumlah_nilai');
+
+        $cari_nilai_tertinggi = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            // ->where('kelas_id', $request->kelas_id)
+                            ->where('bulan_ke', $request->bulan_ke)
+                            ->where('minggu_ke', $request->minggu_ke)
+                            ->whereBetween('jumlah_nilai', [9, 6])
+                            ->first();
+
+        $cari_nilai_terendah = NilaiMingguan::where('santri_id', $id)
+                            ->where('periode_id', $request->periode_id)
+                            ->where('semester_id', $request->semester_id)
+                            // ->where('kelas_id', $request->kelas_id)
+                            ->where('bulan_ke', $request->bulan_ke)
+                            ->where('minggu_ke', $request->minggu_ke)
+                            ->whereBetween('jumlah_nilai', [1, 6])
+                            ->get();
+
+                            // dd($cari_nilai_terendah);
+
+        $hasil_rata_rata = $sum_nilai_per_mapel / $total_mata_pelajaran_by_query;
+
+        // dd($sum_nilai_per_mapel);
+
+            return view('pendidikan.nilai.detail-nilai-mingguan', compact('santri', 'periode_id', 'semester_id', 'kelas_id', 'bulan_ke', 'minggu_ke', 'mata_pelajarans', 'hasil_rata_rata'));
+    }
+
+    public function detailInputBulanDanMinggu($id, $periode_id, $semester_id, $kelas_id)
+    {
+        return view('pendidikan.nilai.detail-bulan-dan-minggu', compact('id', 'periode_id', 'semester_id', 'kelas_id'));
     }
 
     /**

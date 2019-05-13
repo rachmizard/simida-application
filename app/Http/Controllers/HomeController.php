@@ -9,6 +9,8 @@ use App\Keamanan;
 use App\Pemasukan;
 use App\Periode;
 use App\Predikat;
+use App\Kelas;
+use App\MataPelajaran;
 use App\Semester;
 use App\Notifikasi;
 use Carbon\Carbon;
@@ -127,10 +129,10 @@ class HomeController extends Controller
         function akreditasi($santri_id, $period, $semester){
 
             $queryGrade = Nilai::where('santri_id', $santri_id)
-                                ->where('periode_id', 1)
-                                ->where('semester_id', 9);
+                                ->where('periode_id', $period)
+                                ->where('semester_id', $semester);
 
-            $nilai_akhir = $queryGrade->sum('rata_rata') / 9;
+            $nilai_akhir = $queryGrade->sum('rata_rata') / 10;
 
             $searchPredikat = Predikat::where('nilai_maksimal', '>=', $nilai_akhir)
                         ->first()->keterangan;
@@ -162,11 +164,11 @@ class HomeController extends Controller
                     break;
 
                 case 'Istimewa':
-                    $predikat = 'A+';
+                    $predikat = 'A';
                     break;
 
                 default:
-                    $predikat = 'E';
+                    $predikat = 'Belum Memiliki Nilai';
                     break;
             }
 
@@ -191,6 +193,14 @@ class HomeController extends Controller
         }
 
         return Datatables::of($data)
+                        ->editColumn('akreditasi.predikat', function($data){
+                            if ($data['akreditasi']['predikat'] == 'Belum Memiliki Nilai') {
+                                return '-';
+                            }else{
+                                return $data['akreditasi']['predikat'];
+                            }
+                        })
+                        ->rawColumns(['akreditasi.predikat'])
                         ->make(true);
     }
 

@@ -242,8 +242,8 @@ $(function(){
              order: [[ 2, "desc" ]],
              ajax: "{!! route('admin.home.akademikTerendah') !!}",
              columns: [
-                 { data: 'no' },
-                 { data: 'nama_santri'  },
+                 { data: 'no', orderable: false },
+                 { data: 'nama_santri', orderable: false  },
                  { data: 'akreditasi.predikat' },
              ]
         });

@@ -326,6 +326,8 @@ Route::middleware(['auth', 'is_pendidikan'])->group(function(){
             Route::post('/nilai-mingguan/{id}/store-nilai-mingguan', 'NilaiController@storeNilaiMingguan')->name('nilai.storeNilaiMingguan');
             Route::get('/nilai-mingguan/{id}/detail-nilai-mingguan/periode/{periode_id}/semester/{semester_id}/bulan-ke/{bulan_ke}/minggu-ke/{minggu_ke}', 'NilaiController@detailNilaiMingguan')->name('nilai.detailNilaiMingguan');
             Route::any('/nilai-mingguan/{id}/edit-input-bulan-dan-minggu', 'NilaiController@editInputBulanDanMinggu')->name('nilai.editInputBulanDanMinggu');
+            Route::get('/nilai-mingguan/{id}/detail-input-bulan-dan-minggu/periode/{periode_id}/semester/{semester_id}/kelas/{kelas_id}', 'NilaiController@detailInputBulanDanMinggu')->name('nilai.detailInputBulanDanMinggu');
+            Route::any('/nilai-mingguan/{id}/detail-nilai-mingguan-post', 'NilaiController@detailNilaiMingguanOtherMethod')->name('nilai.detailNilaiMingguanOtherMethod');
             Route::any('/nilai-mingguan/{id}/edit-nilai-mingguan', 'NilaiController@editInputNilaiMingguan')->name('nilai.editInputNilaiMingguan');
             Route::get('/nilai-mingguan/{id}/edit-nilai-mingguan/periode/{periode_id}/semester/{semester_id}/bulan-ke/{bulan_ke}/minggu-ke/{minggu_ke}', 'NilaiController@editNilaiMingguan')->name('nilai.editNilaiMingguan');
             Route::put('/nilai-mingguan/{id}/update-nilai-mingguan', 'NilaiController@updateNilaiMingguan')->name('nilai.updateNilaiMingguan');

@@ -100,7 +100,6 @@
     		                        <th>NIS</th>
     		                        <th>Nama Santri</th>
 									<th>Kelas</th>
-    		                        <th>Status</th>
     		                        <th>Aksi</th>
     		                    </tr>
     		                </thead>
@@ -112,8 +111,6 @@
                                                 <td>{!! $realresult['nis'] !!}</td>
                                                 <td>{!! $realresult['nama_santri'] !!}</td>
 												<td>{!! $realresult['kelas'] !!}</td>
-                                                <td>{!! $realresult['status_nilai'] !!}</td>
-                                                @if($realresult['status_nilai'] == 'Belum')
                                                 <td>
                                                     <!-- TAMBAH BUTTON NILAI MINGGUAN -->
                                                     <form action="{{ route('pendidikan.nilai.inputBulanDanMinggu', $realresult['id']) }}" method="POST">
@@ -122,37 +119,23 @@
                                                         <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
                                                         <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
                                                         <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
-                                                        <button type="submit" class="btn btn-round btn-sm btn-outline btn-success mb-2" name="button">
+                                                        <button type="submit" class="btn btn-sm btn-success mb-2" name="button">
                                                             <i class="icon wb-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </form>
+													<a href="{{ route('pendidikan.nilai.detailInputBulanDanMinggu', [$realresult['id'], $periode->id, $semester_id->id, $kelas_id->id]) }}" class="btn btn-sm btn-primary mb-2"><i class="icon wb-eye"></i> </a>
+	                                                    <!-- EDIT BUTTON NILAI MINGGUAN -->
+														<form action="{{ route('pendidikan.nilai.editInputBulanDanMinggu', $realresult['id']) }}" method="POST">
+	                                                        {{ csrf_field() }}
+	                                                        <input type="hidden" name="periode" value="{{ $periode->id }}">
+	                                                        <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
+	                                                        <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
+	                                                        <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
+	                                                        <button type="submit" class="btn btn-sm btn-warning mb-2" name="button">
+	                                                            <i class="icon wb-pencil" aria-hidden="true"></i>
+	                                                        </button>
+	                                                    </form>
                                                 </td>
-                                                @else
-                                                <td>
-                                                    <!-- TAMBAH BUTTON NILAI MINGGUAN -->
-                                                    <form action="{{ route('pendidikan.nilai.inputBulanDanMinggu', $realresult['id']) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <input type="hidden" name="periode" value="{{ $periode->id }}">
-                                                        <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
-                                                        <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
-                                                        <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
-                                                        <button type="submit" class="btn btn-round btn-sm btn-outline btn-success mb-2" name="button">
-                                                            <i class="icon wb-plus" aria-hidden="true"></i>
-                                                        </button>
-                                                    </form>
-                                                    <!-- EDIT BUTTON NILAI MINGGUAN -->
-													<form action="{{ route('pendidikan.nilai.editInputBulanDanMinggu', $realresult['id']) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <input type="hidden" name="periode" value="{{ $periode->id }}">
-                                                        <input type="hidden" name="semester_id" value="{{ $semester_id->id }}">
-                                                        <input type="hidden" name="tingkat_id" value="{{ $tingkat_id->id }}">
-                                                        <input type="hidden" name="kelas_id" value="{{ $kelas_id->id }}">
-                                                        <button type="submit" class="btn btn-round btn-sm btn-outline btn-warning mb-2" name="button">
-                                                            <i class="icon wb-pencil" aria-hidden="true"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                                @endif
                                             </tr>
                                         @endforeach
                                     @else
