@@ -31,6 +31,7 @@ Route::middleware(['auth', 'is_murobbi'])->group(function(){
             // DataTables Route API
             Route::get('/dashboard-pembayaran-syahriah', 'HomeController@pendapatanSantriDataTables')->name('home.pendapatanSantriDataTables');
             Route::get('/dashboard-akdemik-nilai', 'HomeController@akademikTerendah')->name('home.akademikTerendah');
+            Route::get('/dashboard-akhlaq-nilai', 'HomeController@akhlaqTerendah')->name('home.akhlaqTerendah');
 
 			Route::resource('/user-level', 'UserLevelController');
 		});

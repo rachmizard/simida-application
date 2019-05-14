@@ -158,14 +158,15 @@
                 <!-- Example Table From Data -->
                 <div class="example-wrap">
                     <h4 class="example-title">Akhlaq Terendah</h4>
-                    <p>-</p>
+                    <p>Akhlaq Santri Terendah</p>
                     <div class="example">
                         <table id="dashboardAkhlaq" class="table table-striped table-hovered">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
+                                    <th>Nama Santri</th>
                                     <th>Akreditasi</th>
+                                    <th>Nilai Akhlaq</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -248,7 +249,18 @@ $(function(){
              ]
         });
 
-         var table3 = $('#dashboardAkhlaq').DataTable();
+         var table3 = $('#dashboardAkhlaq').DataTable({
+             processing: true,
+             serverSide: true,
+             order: [[3, "asc"]],
+             ajax: "{!! route('admin.home.akhlaqTerendah') !!}",
+             columns: [
+                 { data: 'no', orderable: false },
+                 { data: 'nama_santri', orderable: false  },
+                 { data: 'rincian.predikat', orderable: false },
+                 { data: 'rincian.hasil_rata_rata' },
+             ]
+         });
     })
 </script>
 @endpush

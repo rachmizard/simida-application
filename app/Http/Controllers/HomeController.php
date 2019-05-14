@@ -12,6 +12,7 @@ use App\Predikat;
 use App\Kelas;
 use App\MataPelajaran;
 use App\Semester;
+use App\Absen;
 use App\Notifikasi;
 use Carbon\Carbon;
 use Yajra\Datatables\Datatables;
@@ -202,6 +203,103 @@ class HomeController extends Controller
                         })
                         ->rawColumns(['akreditasi.predikat'])
                         ->make(true);
+    }
+
+    public function akhlaqTerendah()
+    {
+        $as_default_date_year = Carbon::now()->format('Y'); // Sewaktu waktu bisa berubah dengan filter
+        $as_default_date_month = Carbon::now()->format('m'); // Sewaktu waktu bisa berubah dengan filter
+
+        $queryStudents = Santri::where('status', 'aktif')
+                                ->get();
+
+        function akreditasi($santri_id, $tahun, $bulan)
+        {
+            $queryPresence = Absen::where('santri_id', $santri_id)
+                                    ->where('keterangan', 'hadir')
+                                    ->whereYear('tgl_absen', $tahun)
+                                    ->whereMonth('tgl_absen', $bulan)
+                                    ->count();
+
+            $countPresenceMataPelajaran = Absen::where('santri_id', $santri_id)
+                                    ->where('type', 'mapel')
+                                    ->where('keterangan', 'hadir')
+                                    ->whereYear('tgl_absen', $tahun)
+                                    ->whereMonth('tgl_absen', $bulan)
+                                    ->count();
+
+            $countPresenceKegiatan = Absen::where('santri_id', $santri_id)
+                                    ->where('type', 'kegiatan')
+                                    ->where('keterangan', 'hadir')
+                                    ->whereYear('tgl_absen', $tahun)
+                                    ->whereMonth('tgl_absen', $bulan)
+                                    ->count();
+
+            $hitung_hasil = $queryPresence / Carbon::now()->daysInMonth;
+
+            $hasil_predikat_yg_di_raih = Predikat::where('nilai_maksimal', '>', $hitung_hasil)
+                        ->first()['keterangan'];
+
+            switch ($hasil_predikat_yg_di_raih) {
+                case 'Buruk Sekali':
+                    $predikat = 'E';
+                    break;
+
+                case 'Buruk':
+                    $predikat = 'D';
+                    break;
+
+                case 'Cukup':
+                    $predikat = 'C';
+                    break;
+
+                case 'Baik':
+                    $predikat = 'B';
+                    break;
+
+                case 'Baik':
+                    $predikat = 'B';
+                    break;
+
+                case 'Baik Sekali':
+                    $predikat = 'A';
+                    break;
+
+                case 'Istimewa':
+                    $predikat = 'A';
+                    break;
+
+                default:
+                    $predikat = '-';
+                    break;
+            }
+
+            return array(
+                'bulan' => Carbon::now()->format('M'),
+                'total_absen_mata_pelajaran' => $countPresenceMataPelajaran,
+                'total_absen_kegiatan' => $countPresenceKegiatan,
+                'total_keseluruhan_absen' => $queryPresence,
+                'total_hari_bulan_ini' => Carbon::now()->daysInMonth, // bisa sesuai filter nantinya namun yg sekarang di set default dalam codingan
+                'hasil_rata_rata' => (float)number_format($hitung_hasil,2,'.', ','),
+                'predikat' => $predikat
+            );
+        }
+
+        $data = array();
+        foreach ($queryStudents as $key => $queryStudent) {
+            $nestedData['no'] = $key+1;
+            $nestedData['id'] = $queryStudent->id;
+            $nestedData['nis'] = $queryStudent->nis;
+            $nestedData['nama_santri'] = $queryStudent->nama_santri;
+            $nestedData['rincian'] = akreditasi($queryStudent->id, $as_default_date_year, $as_default_date_month);
+
+            $data[] = $nestedData;
+        }
+
+        return Datatables::of($data)
+                        ->make(true);
+
+
     }
 
     public function sekretariatHome(Request $request)
