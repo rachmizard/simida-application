@@ -330,7 +330,7 @@
                                     <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.absen') }}"><span class="site-menu-title">Absensi</span></a>
                                     </li>
-                                    <li class="site-menu-item has-sub">
+                                    <li class="site-menu-item">
                                         <a href="{{ route('pendidikan.semester.index') }}#/list_semester"><span class="site-menu-title">Semester</span></a>
                                     </li>
                                     <!-- <li class="site-menu-item">
