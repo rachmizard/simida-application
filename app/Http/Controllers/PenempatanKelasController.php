@@ -20,7 +20,7 @@ class PenempatanKelasController extends Controller
     public function listSantri()
     {
         Carbon::setLocale('id');
-		return SantriYangBelumPunyaKelasResource::collection(Santri::whereStatus('tidak_aktif')->get());
+		return SantriYangBelumPunyaKelasResource::collection(Santri::orderBy('tgl_masuk', 'ASC')->whereStatus('tidak_aktif')->get());
     }
 
     public function storePenempatanKelas(Request $request)
@@ -53,7 +53,7 @@ class PenempatanKelasController extends Controller
     	$oneByOne->update();
 
         Notifikasi::whereSantriId($id)->update(['status' => 'read']);
-        
+
         event(new RefreshNotification());
 
     	return response()->json(['response' => 'success']);

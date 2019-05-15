@@ -32,7 +32,7 @@ class SantriController extends Controller
      */
     public function index()
     {
-        return view('sekretariat.santri.santri');   
+        return view('sekretariat.santri.santri');
     }
 
     /**
@@ -43,7 +43,7 @@ class SantriController extends Controller
 
     public function santri_aktif()
     {
-        return view('sekretariat.data-santri-aktif.data-santri-aktif');   
+        return view('sekretariat.data-santri-aktif.data-santri-aktif');
     }
 
     public function pendaftaran()
@@ -66,11 +66,11 @@ class SantriController extends Controller
                                 'kelas',
                                 'dewan'
                                 ])->select('santri.*')->where('status', 'aktif');
-        return $datatables->eloquent($santri) 
+        return $datatables->eloquent($santri)
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
-                                        
+
                                             <a href="'. route('sekretariat.santri.edit', $var->id) .'" class="btn btn-xs btn-warning text-white"><i class="icon wb-edit"></i></a>
                                             <a target="_blank" href="'. route('sekretariat.santri.kartuSantri', $var->id) .'" class="btn btn-xs btn-info text-white" title="Cetak Kartu Santri"><i class="icon wb-payment"></i></a>
                                             <a href="#/hapus/santri/'. $var->id .'" class="btn btn-xs btn-danger text-white"><i class="icon wb-trash"></i></a>
@@ -124,7 +124,7 @@ class SantriController extends Controller
                                 'kelas',
                                 'dewan'
                                 ])->orderBy('nama_santri', 'ASC')->select('santri.*')->where('status', 'aktif');
-        return $datatables->eloquent($santri) 
+        return $datatables->eloquent($santri)
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
@@ -171,6 +171,21 @@ class SantriController extends Controller
         return SantriResource::collection(Santri::whereStatus('aktif')->get());
     }
 
+    public function SantriSelect2()
+    {
+        $data = array();
+        $students = Santri::where('status', 'aktif')
+                            ->get();
+        foreach ($students as $key => $student) {
+            $nested['id'] = $student->nama_santri;
+            $nested['text'] = $student->nama_santri;
+
+            $data[] = $nested;
+        }
+
+        return response()->json($data);
+    }
+
     public function showByClass(Datatables $datatables, $id_kelas)
     {
         $santri = Santri::whereKelasId($id_kelas)->with([
@@ -180,7 +195,7 @@ class SantriController extends Controller
                                 'kelas',
                                 'dewan'
                                 ])->select('santri.*')->whereStatus('aktif');
-        return $datatables->eloquent($santri) 
+        return $datatables->eloquent($santri)
                               ->addColumn('action', function($var){
                                 return '
                                         <div class="btn-group text-center">
@@ -223,28 +238,28 @@ class SantriController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nik' => 'required', 
-            'nama_santri' => 'string|required', 
-            'tgl_lahir' => 'required', 
-            'jenis_kelamin' => 'required', 
-            'provinsi' => 'required', 
-            'kabupaten_kota' => 'required', 
-            'kecamatan' => 'required', 
-            'kelurahan' => 'required', 
-            'alamat' => 'required', 
-            // 'kode_pos' => 'required', 
-            'nama_ortu' => 'required', 
-            // 'nama_wali' => 'required', 
-            'no_telp' => 'required', 
-            'pendidikan_terakhir' => 'required', 
-            'asrama_id' => 'required', 
-            'kobong_id' => 'required', 
-            // 'tingkat_id' => 'required', 
-            // 'kelas_id' => 'required', 
-            'tgl_masuk' => 'required', 
-            'himpunan' => 'required', 
-            'dewan_id' => 'required', 
-            // 'pesantren_sebelumnya' => 'required', 
+            'nik' => 'required',
+            'nama_santri' => 'string|required',
+            'tgl_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'provinsi' => 'required',
+            'kabupaten_kota' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+            'alamat' => 'required',
+            // 'kode_pos' => 'required',
+            'nama_ortu' => 'required',
+            // 'nama_wali' => 'required',
+            'no_telp' => 'required',
+            'pendidikan_terakhir' => 'required',
+            'asrama_id' => 'required',
+            'kobong_id' => 'required',
+            // 'tingkat_id' => 'required',
+            // 'kelas_id' => 'required',
+            'tgl_masuk' => 'required',
+            'himpunan' => 'required',
+            'dewan_id' => 'required',
+            // 'pesantren_sebelumnya' => 'required',
             // 'foto'
         ]);
 
@@ -283,10 +298,10 @@ class SantriController extends Controller
 
         // Make a notification to notices the pendidikan.
         Notifikasi::create([
-           'judul' => 'Pendaftaran Santri baru', 
-           'pesan' => 'Sekretariat menambahkan santri baru dengan NIS ' . $newSantri->nis . ', segera konfirmasi kelas yg akan ditempatkan', 
-           'tipe' => 'sekretariat', 
-           'status' => 'unread', 
+           'judul' => 'Pendaftaran Santri baru',
+           'pesan' => 'Sekretariat menambahkan santri baru dengan NIS ' . $newSantri->nis . ', segera konfirmasi kelas yg akan ditempatkan',
+           'tipe' => 'sekretariat',
+           'status' => 'unread',
            'santri_id' => $newSantri->id
         ]);
 
@@ -304,10 +319,10 @@ class SantriController extends Controller
     {
         $hitung = Santri::whereDate('created_at', Carbon::now()->format('Y-m-d'))
                   ->count();
-                  
+
         $increment = $hitung;
         $generate = $provinsi.substr($kabupaten_kota, -2).substr($kecamatan, -2).date('dmy', strtotime($tgl_masuk)).$increment;
-        
+
         return Santri::find($id)->update(['nis' => $generate]);
     }
 
@@ -360,32 +375,32 @@ class SantriController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nik' => 'required', 
-            'nama_santri' => 'string|required', 
-            'tgl_lahir' => 'required', 
-            'jenis_kelamin' => 'required', 
-            'provinsi' => 'required', 
-            'kabupaten_kota' => 'required', 
-            'kecamatan' => 'required', 
-            'kelurahan' => 'required', 
-            'alamat' => 'required', 
-            // 'kode_pos' => 'required', 
-            'nama_ortu' => 'required', 
-            // 'nama_wali' => 'required', 
-            'no_telp' => 'required', 
-            'pendidikan_terakhir' => 'required', 
-            'asrama_id' => 'required', 
-            'kobong_id' => 'required', 
-            // 'tingkat_id' => 'required', 
-            // 'kelas_id' => 'required', 
-            'tgl_masuk' => 'required', 
-            'himpunan' => 'required', 
-            'dewan_id' => 'required', 
-            // 'pesantren_sebelumnya' => 'required', 
+            'nik' => 'required',
+            'nama_santri' => 'string|required',
+            'tgl_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'provinsi' => 'required',
+            'kabupaten_kota' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+            'alamat' => 'required',
+            // 'kode_pos' => 'required',
+            'nama_ortu' => 'required',
+            // 'nama_wali' => 'required',
+            'no_telp' => 'required',
+            'pendidikan_terakhir' => 'required',
+            'asrama_id' => 'required',
+            'kobong_id' => 'required',
+            // 'tingkat_id' => 'required',
+            // 'kelas_id' => 'required',
+            'tgl_masuk' => 'required',
+            'himpunan' => 'required',
+            'dewan_id' => 'required',
+            // 'pesantren_sebelumnya' => 'required',
             // 'foto'
         ]);
 
-       try { 
+       try {
             $newSantri = Santri::find($id);
             $newSantri->nis = $request->provinsi.substr($request->kabupaten_kota, -2).substr($request->kecamatan, -2).date('dmy', strtotime($request->tgl_masuk));
             $newSantri->nik = $request->nik;

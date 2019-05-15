@@ -66,7 +66,9 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 
 			Route::get('/santri/santri_aktif', 'SantriController@santri_aktif')->name('santri.santri_aktif');
 
-			Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
+            Route::get('/santri/getSantriJSON', 'SantriController@getSantriJSON')->name('santri.getSantriJSON');
+
+			Route::get('/santri/SantriSelect2', 'SantriController@SantriSelect2')->name('santri.SantriSelect2');
 
 			Route::get('/santri/getSantriForKartu', 'SantriController@getSantriForKartu')->name('santri.getSantriForKartu');
 
@@ -173,6 +175,7 @@ Route::middleware(['auth', 'is_sekretariat'])->group(function(){
 			Route::get('/dewankyai', 'DewanKyaiController@index')->name('dewankyai');
 			Route::get('/dewankyai/getDewanKyaiDataTables', 'DewanKyaiController@getDewanKyaiDataTables')->name('dewankyai.getDewanKyaiDataTables');
 			Route::get('/dewankyai/getDewanKyaiJSON', 'DewanKyaiController@getDewanKyaiJSON')->name('dewankyai.getDewanKyaiJSON');
+            Route::get('/dewankyai/getDewanKyaiSelect2', 'DewanKyaiController@getDewanKyaiSelect2')->name('dewankyai.getDewanKyaiSelect2');
 			Route::post('/dewankyai/{id}/aktif', 'DewanKyaiController@active')->name('dewankyai.active');
 			Route::get('/dewankyai/tambah', 'DewanKyaiController@create')->name('dewankyai.create');
 			Route::get('/dewankyai/{id}/show', 'DewanKyaiController@show')->name('dewankyai.show');
@@ -359,6 +362,10 @@ Route::middleware(['auth', 'is_keuangan'])->group(function(){
 			// Get Asrama
 			Route::get('/asrama/AsramaSelect2', 'AsramaController@AsramaSelect2')->name('asrama.AsramaSelect2');
 			// End Get Asrama
+
+            // Uang pendaftaran
+            Route::resource('/uang-pendaftaran', 'UangPendaftaranController');
+            Route::get('/studentsDataTables', 'UangPendaftaranController@studentsDataTables')->name('uang-pendaftaran.studentsDataTables');
 
 			// Pemasukan
 			Route::get('/', 'KeuanganController@index')->name('home');

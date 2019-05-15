@@ -67,6 +67,20 @@ class DewanKyaiController extends Controller
         return response()->json(['data' => $dewankyai]);
     }
 
+    public function getDewanKyaiSelect2()
+    {
+        $data = array();
+        $dewankyai = DewanKyai::orderBy('nama_dewan_kyai', 'DESC')->get();
+        foreach ($dewankyai as $key => $value) {
+            $nested['id'] = $value->nama_dewan_kyai;
+            $nested['text'] = $value->nama_dewan_kyai;
+
+            $data[] = $nested;
+        }
+
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -200,7 +214,7 @@ class DewanKyaiController extends Controller
     public function destroy($id)
     {
         try {
-        $dewankyai = DewanKyai::find($id)->delete();            
+        $dewankyai = DewanKyai::find($id)->delete();
         $data['message'] = 'Berhasil menghapus '. $dewankyai->nama_dewan_kyai .' dari data Dewan Kyai!';
         $data['messageError'] = false;
         $data['messageWarning'] = false;

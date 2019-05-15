@@ -95,7 +95,7 @@
                             <div class="example">
                                 <div class="form-group">
                                    <label class="form-control-label" for="inputBasicFirstName">Rois Asrama</label>
-                                   <input v-model="asrama.roisam_asrama" type="text" class="form-control" placeholder="First Name" autocomplete="off" />
+                                   <input type="text" class="form-control" v-model="asrama.roisam_asrama" autocomplete="off" placeholder="Nama">
                                         <span v-if="errors.roisam_asrama" class="badge badge-danger">{{ errors.roisam_asrama[0] }}</span>
                                 </div>
                             </div>
@@ -107,7 +107,8 @@
                                 <div class="example">
                                     <div class="form-group">
                                        <label class="form-control-label" for="inputBasicFirstName">Murobbi Asrama</label>
-                                       <input v-model="asrama.murobbi_asrama" type="text" class="form-control" placeholder="Nama Murobbi Asrama" autocomplete="off" />
+                                           <Select2 v-model="asrama.murobbi_asrama" :options="listDewanKyai">
+                                           </Select2>
                                             <span v-if="errors.murobbi_asrama" class="badge badge-danger">{{ errors.murobbi_asrama[0] }}</span>
                                     </div>
                                     <div class="form-row">
@@ -125,15 +126,24 @@
         </div>
 </template>
 <script>
+    import Select2 from 'v-select2-component';
     export default {
+		components: {
+			Select2
+		},
+
         mounted() {
             this.getNamaAsrama();
+            this.getSantriSelect2();
+            this.getDewanKyaiSelect2();
         },
 
         data(){
             return {
                 errors: [],
                 namaAsrama: [],
+                listSantris: [],
+                listDewanKyai: [],
                 dataNamaAsrama: {
                     nama_asrama_baru: '',
                     kategori: '',
@@ -160,6 +170,18 @@
                 // axios.get('/sekretariat/asrama/getAsrama').then(response => {
                 //     this.namaAsrama = response.data;
                 // });
+            },
+
+            getSantriSelect2(){
+                axios.get('/sekretariat/santri/SantriSelect2').then(response => {
+                    this.listSantris = response.data;
+                });
+            },
+
+            getDewanKyaiSelect2(){
+                axios.get('/sekretariat/dewankyai/getDewanKyaiSelect2').then(response => {
+                    this.listDewanKyai = response.data;
+                });
             },
 
             storeDataNamaAsrama:function(e){
