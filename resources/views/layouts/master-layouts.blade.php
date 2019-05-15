@@ -333,9 +333,9 @@
                                     <li class="site-menu-item has-sub">
                                         <a href="{{ route('pendidikan.semester.index') }}#/list_semester"><span class="site-menu-title">Semester</span></a>
                                     </li>
-                                    <li class="site-menu-item">
+                                    <!-- <li class="site-menu-item">
                                         <a href="#!"><span class="site-menu-title">Kenaikan Kelas</span></a>
-                                    </li>
+                                    </li> -->
                                     <li class="site-menu-item has-sub">
                                         <a href="javascript:void(0)"><span class="site-menu-title">Nilai</span></a>
                                         <ul class="site-menu-sub">
