@@ -1,6 +1,6 @@
 @extends('layouts.master-layouts')
 @section('content')
 
-<h2>You're in keuangan's dashboard</h2>
+<h2>Selamat datang, anda login sebagai keuangan.</h2>
 
 @endsection

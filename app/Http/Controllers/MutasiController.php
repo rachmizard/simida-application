@@ -34,7 +34,7 @@ class MutasiController extends Controller
                                 'tingkat',
                                 'kelas',
                                 'dewan'
-                                ])->select('santri.*');
+                                ])->select('santri.*')->where('status', 'aktif');
         return $datatables->eloquent($santri) 
                               ->addColumn('action', function($var){
                                 return '

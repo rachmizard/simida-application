@@ -46,7 +46,7 @@
 					    		{{ method_field('DELETE') }}
 					    		{{ csrf_field() }}
 					    		<!-- <input type="hidden" value="DELETE" name="_method"> -->
-						    	<button type="submit" class="btn btn-sm btn-icon btn-danger btn-outline btn-round"
+						    	<button type="submit" onclick="return confirm('Anda yakin ingin menghapusnya?')" class="btn btn-sm btn-icon btn-danger btn-outline btn-round"
 						          data-toggle="tooltip" data-original-title="Hapus Akun User">
 						          <i class="icon wb-trash"></i>
 						    	</button>

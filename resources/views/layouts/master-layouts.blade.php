@@ -233,7 +233,7 @@
                             </li>
                             @endif
                             @if(auth()->user()->role == 'sekretariat' || auth()->user()->role == 'murobbi')
-                            <li class="site-menu-item has-sub">
+                            <li class="site-menu-item has-sub {{ auth()->user()->role == 'sekretariat' ? 'active open' : '' }} ">
                                 <a href="javascript:void(0)">
                                     <i class="site-menu-icon wb-share" aria-hidden="true"></i>
                                     <span class="site-menu-title">Sekretariat</span>
