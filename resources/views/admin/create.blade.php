@@ -49,7 +49,7 @@
 			            <label for="">Hak Akses</label>
 			            <select name="role" class="form-control" required="">
 			            	<option selected disabled>--Hak Akses--</option>
-							<option value="admin">Admin/Murobbi</option>
+							<option value="murobbi">Admin/Murobbi</option>
 							<option value="sekretariat">Sekretariat</option>
 							<option value="pendidikan">Pendidikan</option>
 							<option value="keuangan">Keuangan</option>

@@ -50,7 +50,7 @@
 			            <label for="">Hak Akses</label>
 			            <select name="role" class="form-control" required="">
 			            	<option selected disabled>--Hak Akses--</option>
-							<option value="admin" {!! $user->role == 'admin' ? 'selected' : '' !!}>Admin/Murobbi</option>
+							<option value="murobbi" {!! $user->role == 'murobbi' ? 'selected' : '' !!}>Admin/Murobbi</option>
 							<option value="sekretariat" {!! $user->role == 'sekretariat' ? 'selected' : '' !!}>Sekretariat</option>
 							<option value="pendidikan" {!! $user->role == 'pendidikan' ? 'selected' : '' !!}>Pendidikan</option>
 							<option value="keuangan" {!! $user->role == 'keuangan' ? 'selected' : '' !!}>Keuangan</option>
